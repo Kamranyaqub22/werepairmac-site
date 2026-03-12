@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-gray-800 antialiased;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-brand text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-dark transition-colors duration-150 shadow-sm text-sm;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-brand/30 text-brand font-semibold px-6 py-3 rounded-md hover:bg-brand hover:text-white transition-colors duration-150 text-sm;
+  }
+  .btn-accent {
+    @apply inline-flex items-center gap-2 bg-accent text-white font-semibold px-6 py-3 rounded-md hover:bg-accent-light transition-colors duration-150 shadow-sm text-sm;
+  }
+  .btn-white {
+    @apply inline-flex items-center gap-2 bg-white text-brand font-semibold px-6 py-3 rounded-md hover:bg-gray-50 transition-colors duration-150 shadow-sm text-sm;
+  }
+  .btn-ghost-white {
+    @apply inline-flex items-center gap-2 border border-white/40 text-white font-medium px-6 py-3 rounded-md hover:bg-white/10 transition-colors duration-150 text-sm;
+  }
+  .section-heading {
+    @apply text-2xl md:text-3xl font-bold text-gray-900 leading-snug;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200;
+  }
+  .tag {
+    @apply inline-block bg-blue-50 text-brand text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide;
+  }
+}
