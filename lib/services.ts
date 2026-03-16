@@ -17,7 +17,7 @@ export const services: Service[] = [
     title: 'MacBook Repair London',
     shortTitle: 'MacBook Repair',
     icon: '💻',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&auto=format&fit=crop&q=80',
     description: 'Expert MacBook Pro, MacBook Air & iMac repair. Same-day callout across London.',
     longDescription: 'We specialise in all MacBook models including M1, M2, M3 MacBook Pro and MacBook Air, plus iMac and Mac Mini. Our Apple-experienced technicians come to your home or office — no need to visit a shop.',
     commonIssues: [
@@ -38,7 +38,7 @@ export const services: Service[] = [
     title: 'Laptop Repair London',
     shortTitle: 'Laptop Repair',
     icon: '🖥️',
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=600&auto=format&fit=crop&q=80',
     description: 'HP, Dell, Lenovo, Asus, Acer laptop repairs. Home visits across Greater London.',
     longDescription: 'From screen replacements to motherboard repairs, we fix all major laptop brands at your home or office. Our engineers handle Dell XPS, HP Spectre, Lenovo ThinkPad, Asus ROG, Acer Aspire and more.',
     commonIssues: [
@@ -59,7 +59,7 @@ export const services: Service[] = [
     title: 'Data Recovery London',
     shortTitle: 'Data Recovery',
     icon: '💾',
-    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=600&auto=format&fit=crop&q=80',
     description: 'Recover lost files from crashed drives, deleted partitions, and formatted disks.',
     longDescription: 'Lost important files? We recover data from failed hard drives, SSDs, USB drives, SD cards and RAID arrays. We handle Mac APFS, Windows NTFS, formatted drives and accidental deletions.',
     commonIssues: [
@@ -80,7 +80,7 @@ export const services: Service[] = [
     title: 'Gaming PC Repair London',
     shortTitle: 'Gaming PC Repair',
     icon: '🎮',
-    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1542393545-10f5cde2c810?w=600&auto=format&fit=crop&q=80',
     description: 'Gaming desktop and laptop repair. BIOS tuning, GPU issues, performance optimisation.',
     longDescription: 'We fix gaming PCs, desktops and gaming laptops. Whether it\'s an Alienware, ASUS ROG, Razer Blade, MSI or custom-built PC — we diagnose and repair GPU faults, PSU failures, overheating, and Windows gaming issues.',
     commonIssues: [
@@ -122,7 +122,7 @@ export const services: Service[] = [
     title: 'MacBook Screen Repair London',
     shortTitle: 'Screen Repair',
     icon: '🖱️',
-    image: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1591799265444-d66432b91588?w=600&auto=format&fit=crop&q=80',
     description: 'MacBook Pro and MacBook Air screen replacement. Cracked, flickering or dead displays fixed same day.',
     longDescription: 'We replace cracked, flickering, dead, or dim MacBook screens using quality replacement panels. We cover MacBook Pro 13", 14", 15", 16" and MacBook Air 13", 15" — including Retina and Liquid Retina XDR displays.',
     commonIssues: [
@@ -164,7 +164,7 @@ export const services: Service[] = [
     title: 'Water Damage Repair London',
     shortTitle: 'Water Damage Repair',
     icon: '💧',
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=600&auto=format&fit=crop&q=80',
     description: 'MacBook or laptop liquid damage? Act fast — we provide same-day emergency callout.',
     longDescription: 'Spilt water, coffee or juice on your MacBook or laptop? Act immediately — every minute counts with liquid damage. Do not turn it on. Call us now for a same-day emergency visit.',
     commonIssues: [
