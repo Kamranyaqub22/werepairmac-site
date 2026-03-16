@@ -4,8 +4,9 @@ import Image from 'next/image';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceGrid from '@/components/ServiceGrid';
 import FAQAccordion from '@/components/FAQAccordion';
+import GoogleReviews from '@/components/GoogleReviews';
 import { locations } from '@/lib/locations';
-import { PhoneIcon, CheckIcon, ArrowRightIcon, StarIcon, ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon } from '@/components/Icons';
+import { PhoneIcon, CheckIcon, ArrowRightIcon, ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
   title: 'Mobile Mac & Laptop Repair London | We Come To You | No Fix No Fee',
@@ -13,33 +14,6 @@ export const metadata: Metadata = {
     'London\'s mobile Mac and laptop repair service. We come to your home or office — no shop visit needed. Same-day callout across Greater London. No fix, no fee. Call 0737 834 9222.',
   alternates: { canonical: 'https://werepairmac.co.uk' },
 };
-
-const reviews = [
-  {
-    name: 'Sarah T.',
-    location: 'Wimbledon',
-    stars: 5,
-    text: 'My MacBook had water damage and I thought it was gone for good. The engineer came out within 2 hours and recovered everything. Absolutely brilliant service.',
-  },
-  {
-    name: 'James K.',
-    location: 'Kingston',
-    stars: 5,
-    text: 'Cracked MacBook Air screen fixed same day at home. Much cheaper than the Apple Store and done properly. Really happy with the result.',
-  },
-  {
-    name: 'Priya M.',
-    location: 'New Malden',
-    stars: 5,
-    text: 'Recovered all my photos from a dead hard drive I thought were lost forever. Genuinely over the moon. Would recommend to everyone.',
-  },
-  {
-    name: 'Daniel F.',
-    location: 'Surbiton',
-    stars: 5,
-    text: 'Gaming PC was crashing repeatedly. Fixed in under an hour — turned out to be a faulty RAM stick. Fast, honest and genuinely great value.',
-  },
-];
 
 const homeFaqs = [
   {
@@ -253,43 +227,7 @@ export default function HomePage() {
       </section>
 
       {/* ── REVIEWS ── */}
-      <section className="py-14 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <h2 className="section-heading">What our customers say</h2>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <div className="flex text-amber-400">
-                {[1,2,3,4,5].map((n) => <StarIcon key={n} className="w-4 h-4" />)}
-              </div>
-              <span>5.0 · Google Reviews</span>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {reviews.map((r) => (
-              <div key={r.name} className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm flex flex-col">
-                <div className="flex text-amber-400 mb-4">
-                  {Array.from({ length: r.stars }).map((_, i) => (
-                    <StarIcon key={i} className="w-4 h-4" />
-                  ))}
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed flex-1 mb-5">&ldquo;{r.text}&rdquo;</p>
-                <div className="border-t border-gray-100 pt-4 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-brand font-bold text-sm flex-shrink-0">
-                    {r.name[0]}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 text-sm">{r.name}</div>
-                    <div className="text-xs text-gray-400">{r.location}, London</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <GoogleReviews />
 
       {/* ── AREAS WE COVER ── */}
       <section className="py-14 bg-white border-t border-gray-100">
