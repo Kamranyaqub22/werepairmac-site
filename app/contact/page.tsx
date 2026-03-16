@@ -6,7 +6,7 @@ import ContactForm from '@/components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact We Repair Mac | Book a Repair in London',
   description:
-    'Contact We Repair Mac — call 0737 834 9222 or email info@werepairmac.co.uk to book a same-day Mac or laptop repair across Greater London. No fix, no fee.',
+    'Contact We Repair Mac - call 0737 834 9222 or email info@werepairmac.co.uk to book a same-day Mac or laptop repair across Greater London. No fix, no fee.',
   alternates: { canonical: 'https://werepairmac.co.uk/contact' },
 };
 
@@ -73,7 +73,7 @@ export default function ContactPage() {
                     Burlington Road<br />
                     New Malden, KT3 4NX
                   </p>
-                  <p className="text-sm text-gray-500 mt-1">We come to you — no need to visit us</p>
+                  <p className="text-sm text-gray-500 mt-1">We come to you - no need to visit us</p>
                 </div>
               </div>
               <div className="card">
@@ -81,7 +81,7 @@ export default function ContactPage() {
                   <ShieldCheckIcon className="w-5 h-5 text-brand" /> Our Guarantees
                 </div>
                 <ul className="text-sm text-gray-600 space-y-2">
-                  {['No Fix, No Fee', 'No Callout Charge', 'Same-Day Visits Available', '90-Day Warranty on All Repairs', 'Fixed Quotes — No Hidden Charges'].map((g) => (
+                  {['No Fix, No Fee', 'No Callout Charge', 'Same-Day Visits Available', '90-Day Warranty on All Repairs', 'Fixed Quotes - No Hidden Charges'].map((g) => (
                     <li key={g} className="flex items-center gap-2">
                       <CheckIcon className="w-4 h-4 text-brand flex-shrink-0" /> {g}
                     </li>

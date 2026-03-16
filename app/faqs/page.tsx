@@ -14,7 +14,7 @@ const faqCategories = [
     faqs: [
       {
         q: 'Do you come to my home or office?',
-        a: 'Yes — we are fully mobile. Our engineers visit you at your home, office, or any other convenient location across Greater London. There is no callout charge for this service.',
+        a: 'Yes - we are fully mobile. Our engineers visit you at your home, office, or any other convenient location across Greater London. There is no callout charge for this service.',
       },
       {
         q: 'What areas do you cover?',
@@ -35,7 +35,7 @@ const faqCategories = [
     faqs: [
       {
         q: 'What does "No Fix, No Fee" mean?',
-        a: 'If we cannot repair your device, you pay absolutely nothing — no diagnostic fee, no callout charge, nothing at all. You only pay once the repair is complete and you are satisfied.',
+        a: 'If we cannot repair your device, you pay absolutely nothing - no diagnostic fee, no callout charge, nothing at all. You only pay once the repair is complete and you are satisfied.',
       },
       {
         q: 'Is there a callout charge?',
@@ -43,7 +43,7 @@ const faqCategories = [
       },
       {
         q: 'How much does a repair cost?',
-        a: 'Costs vary by device and fault. We always provide a fixed quote before starting any work — no surprises. MacBook screen replacements, battery changes and virus removals typically start from £60–£120.',
+        a: 'Costs vary by device and fault. We always provide a fixed quote before starting any work - no surprises. MacBook screen replacements, battery changes and virus removals typically start from £60–£120.',
       },
       {
         q: 'What payment methods do you accept?',
@@ -60,7 +60,7 @@ const faqCategories = [
       },
       {
         q: 'Can you repair a MacBook with water damage?',
-        a: 'Yes — but act fast. Do not turn it on after a liquid spill. Call us immediately. The sooner we assess it, the better the chance of a full recovery. We handle water and liquid damage repair as an emergency same-day service.',
+        a: 'Yes - but act fast. Do not turn it on after a liquid spill. Call us immediately. The sooner we assess it, the better the chance of a full recovery. We handle water and liquid damage repair as an emergency same-day service.',
       },
       {
         q: 'Can you recover data from a dead hard drive?',
@@ -142,7 +142,7 @@ export default function FAQPage() {
       <section className="bg-brand text-white py-12 text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-3">Still have a question?</h2>
-          <p className="text-blue-100 mb-6">Call or email — we usually respond within 30 minutes.</p>
+          <p className="text-blue-100 mb-6">Call or email - we usually respond within 30 minutes.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="tel:07378349222" className="btn-accent py-3 px-8">📞 0737 834 9222</a>
             <a href="mailto:info@werepairmac.co.uk" className="btn-outline border-white text-white hover:bg-white hover:text-brand py-3 px-6">

@@ -1,8 +1,8 @@
 import { ShieldCheckIcon, ClockIcon, TruckIcon, CurrencyPoundIcon, WrenchIcon, ComputerDesktopIcon } from '@/components/Icons';
 
 const badges = [
-  { Icon: TruckIcon, title: 'We Come To You', desc: 'No shop visit — we travel to your door' },
-  { Icon: ClockIcon, title: 'Same-Day Callout', desc: 'Book before 2pm — we come today' },
+  { Icon: TruckIcon, title: 'We Come To You', desc: 'No shop visit - we travel to your door' },
+  { Icon: ClockIcon, title: 'Same-Day Callout', desc: 'Book before 2pm - we come today' },
   { Icon: ShieldCheckIcon, title: 'No Fix, No Fee', desc: 'Pay nothing if we can\'t fix it' },
   { Icon: CurrencyPoundIcon, title: 'Free Callout', desc: 'No travel or visit charges' },
   { Icon: WrenchIcon, title: 'Fixed On-Site', desc: 'Repaired in front of you, under an hour' },

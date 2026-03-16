@@ -110,7 +110,7 @@ export default function ContactForm() {
           type="text"
           name="device"
           required
-          placeholder="e.g. MacBook Pro 2021 — cracked screen"
+          placeholder="e.g. MacBook Pro 2021 - cracked screen"
           className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
         />
       </div>

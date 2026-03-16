@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | We Repair Mac London',
   },
   description:
-    'London\'s mobile Mac and laptop repair service. We come to your home or office — no shop visit needed. Same-day callout across Greater London. MacBook, data recovery, screen repair, virus removal. No fix, no fee. Call 0737 834 9222.',
+    'London\'s mobile Mac and laptop repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. MacBook, data recovery, screen repair, virus removal. No fix, no fee. Call 0737 834 9222.',
   keywords: [
     'mobile mac repair london',
     'mac repair home visit london',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'We Repair Mac — London Mac & Laptop Repair',
+        alt: 'We Repair Mac - London Mac & Laptop Repair',
       },
     ],
   },

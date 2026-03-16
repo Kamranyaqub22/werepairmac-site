@@ -1,4 +1,4 @@
-// Inline SVG icon components — no emoji, no icon fonts needed
+// Inline SVG icon components - no emoji, no icon fonts needed
 
 export function PhoneIcon({ className = 'w-5 h-5' }: { className?: string }) {
   return (

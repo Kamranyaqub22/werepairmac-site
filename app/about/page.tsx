@@ -9,16 +9,16 @@ import {
 export const metadata: Metadata = {
   title: 'About We Repair Mac | London Mac & Laptop Repair Specialists',
   description:
-    'Learn about We Repair Mac — London\'s mobile Mac and laptop repair specialists. Apple-experienced engineers, serving Greater London from New Malden since 2015.',
+    'Learn about We Repair Mac - London\'s mobile Mac and laptop repair specialists. Apple-experienced engineers, serving Greater London from New Malden since 2015.',
   alternates: { canonical: 'https://werepairmac.co.uk/about' },
 };
 
 export default function AboutPage() {
   const VALUES = [
-    { Icon: CurrencyPoundIcon, title: 'Honest Pricing', desc: 'We quote before we start. The price we give you is the price you pay — never any hidden extras.' },
+    { Icon: CurrencyPoundIcon, title: 'Honest Pricing', desc: 'We quote before we start. The price we give you is the price you pay - never any hidden extras.' },
     { Icon: ClockIcon, title: 'Respect for Your Time', desc: 'We arrive on time, work efficiently, and aim to complete most repairs on-site within an hour.' },
-    { Icon: WrenchIcon, title: 'Quality of Work', desc: 'We use quality parts and take pride in doing the job right first time — which is why we offer a 90-day warranty.' },
-    { Icon: CheckIcon, title: 'Clear Communication', desc: 'We explain what is wrong, what we will do, and why — in plain English, not technical jargon.' },
+    { Icon: WrenchIcon, title: 'Quality of Work', desc: 'We use quality parts and take pride in doing the job right first time - which is why we offer a 90-day warranty.' },
+    { Icon: CheckIcon, title: 'Clear Communication', desc: 'We explain what is wrong, what we will do, and why - in plain English, not technical jargon.' },
     { Icon: ShieldCheckIcon, title: 'No Fix, No Fee', desc: 'If we cannot fix your device, you pay absolutely nothing. No diagnostic fee, no callout charge.' },
     { Icon: PhoneIcon, title: 'After-Care Support', desc: 'We are available to answer any question after your repair. Our job is not done until you are fully satisfied.' },
   ];
@@ -42,7 +42,7 @@ export default function AboutPage() {
           </span>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">About We Repair Mac</h1>
           <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed">
-            London&apos;s mobile Mac and laptop repair specialists. We come to you — no shop visits, no waiting weeks.
+            London&apos;s mobile Mac and laptop repair specialists. We come to you - no shop visits, no waiting weeks.
           </p>
         </div>
       </section>
@@ -67,7 +67,7 @@ export default function AboutPage() {
                 We Repair Mac was founded with a simple idea: people in London should not need to carry their broken MacBook or laptop to a shop, wait days or weeks, and pay Apple Store prices. They deserved a professional, reliable repair service that comes to them.
               </p>
               <p>
-                Based in <strong className="text-gray-800">New Malden, KT3</strong>, we have been carrying out Mac, laptop and PC repairs across Greater London for years. Our engineers are Apple-experienced technicians who have seen and fixed every conceivable fault — from liquid-damaged logic boards to corrupted SSDs, broken screens to ransomware infections.
+                Based in <strong className="text-gray-800">New Malden, KT3</strong>, we have been carrying out Mac, laptop and PC repairs across Greater London for years. Our engineers are Apple-experienced technicians who have seen and fixed every conceivable fault - from liquid-damaged logic boards to corrupted SSDs, broken screens to ransomware infections.
               </p>
               <p>
                 Most repairs are completed on-site in front of you within an hour. You only pay once you are happy with the result. If we cannot fix it, you pay nothing at all.

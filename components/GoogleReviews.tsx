@@ -37,7 +37,7 @@ const FALLBACK_REVIEWS = [
   {
     author_name: 'Daniel F.',
     rating: 5,
-    text: 'Gaming PC was crashing repeatedly. Fixed in under an hour — turned out to be a faulty RAM stick. Fast, honest and genuinely great value.',
+    text: 'Gaming PC was crashing repeatedly. Fixed in under an hour - turned out to be a faulty RAM stick. Fast, honest and genuinely great value.',
     relative_time_description: '4 months ago',
   },
 ];

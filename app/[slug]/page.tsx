@@ -62,10 +62,10 @@ function ServicePage({ slug }: { slug: string }) {
 
   const faqs = [
     { q: `How quickly can you come for ${service.shortTitle} in London?`, a: 'We offer same-day callouts across Greater London. Book before 2pm and we can usually visit on the same day. Evening and weekend slots are also available.' },
-    { q: 'Do I need to bring my device to a shop?', a: 'No — we come to you. Our engineers visit your home or office anywhere in Greater London. Most repairs are completed on-site in front of you.' },
+    { q: 'Do I need to bring my device to a shop?', a: 'No - we come to you. Our engineers visit your home or office anywhere in Greater London. Most repairs are completed on-site in front of you.' },
     { q: `What does ${service.shortTitle} cost?`, a: 'Prices depend on the model and fault. We always provide a fixed quote before starting any work. No surprise charges, no hidden fees.' },
     { q: 'Is there a warranty on the repair?', a: 'Yes. All repairs carry a 90-day parts and labour warranty. If the same fault recurs, we fix it free of charge.' },
-    { q: 'What if you cannot fix it?', a: 'If we cannot fix your device, you pay nothing. No diagnostic fee, no callout charge — that is our No Fix, No Fee guarantee.' },
+    { q: 'What if you cannot fix it?', a: 'If we cannot fix your device, you pay nothing. No diagnostic fee, no callout charge - that is our No Fix, No Fee guarantee.' },
   ];
 
   const otherServices = services.filter((s) => s.slug !== slug).slice(0, 4);
@@ -74,7 +74,7 @@ function ServicePage({ slug }: { slug: string }) {
     { Icon: TruckIcon, title: 'We Come to You', desc: 'No need to visit a shop. We travel across all Greater London to your home or office. No extra charge for travel.' },
     { Icon: BoltIcon, title: 'Same-Day Repairs', desc: 'Most repairs are completed on-site within an hour. Book before 2pm and we will do our best to visit the same day.' },
     { Icon: ShieldCheckIcon, title: 'Genuine Parts & Warranty', desc: 'We use quality replacement parts and back every repair with a 90-day parts and labour warranty.' },
-    { Icon: CurrencyPoundIcon, title: 'Fixed Price Quotes', desc: 'We quote before we start. No surprise bills, no hidden charges — only pay when you are satisfied.' },
+    { Icon: CurrencyPoundIcon, title: 'Fixed Price Quotes', desc: 'We quote before we start. No surprise bills, no hidden charges - only pay when you are satisfied.' },
     { Icon: WrenchIcon, title: 'Experienced Engineers', desc: 'Our engineers are Apple-experienced technicians with years of Mac and laptop repair expertise.' },
     { Icon: ClockIcon, title: 'No Fix, No Fee', desc: 'If we cannot fix your device, you pay absolutely nothing. That is our guarantee to every customer.' },
   ];
@@ -242,7 +242,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
   if (!location) return null;
 
   const faqs = [
-    { q: `Do you offer same-day Mac repair in ${location.name}?`, a: `Yes — we offer same-day callouts in ${location.name} and surrounding areas. Book before 2pm and we can typically visit the same day.` },
+    { q: `Do you offer same-day Mac repair in ${location.name}?`, a: `Yes - we offer same-day callouts in ${location.name} and surrounding areas. Book before 2pm and we can typically visit the same day.` },
     { q: 'Is there a callout charge?', a: `There is no callout charge for visits to ${location.name}. You only pay for the repair itself, and only if we fix it.` },
     { q: `What areas near ${location.name} do you also cover?`, a: `We cover all of ${location.borough || location.name} and surrounding areas. We travel across all of Greater London, so if you are nearby, we can almost certainly come to you.` },
     { q: 'What devices do you repair?', a: 'We repair MacBook Pro, MacBook Air, iMac, Mac Mini, all Windows laptops (HP, Dell, Lenovo, Asus, Acer), gaming PCs and more.' },
@@ -274,7 +274,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
               <span className="text-orange-400">{location.name}</span>
             </h1>
             <p className="text-blue-100 text-lg mb-6 leading-relaxed">
-              Professional Mac, MacBook and laptop repair in {location.name} ({location.postcode}). Our engineers come directly to your home or office — same-day service with no callout charge.
+              Professional Mac, MacBook and laptop repair in {location.name} ({location.postcode}). Our engineers come directly to your home or office - same-day service with no callout charge.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="tel:07378349222" className="btn-accent py-4 px-8 text-base inline-flex items-center gap-2">
@@ -331,16 +331,16 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       {/* About the area */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-4">Mac Repair in {location.name} — What to Expect</h2>
+          <h2 className="text-2xl font-bold mb-4">Mac Repair in {location.name} - What to Expect</h2>
           <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
             <p>
-              We Repair Mac provides a fully mobile repair service in {location.name} and the wider {location.borough || 'London'} area. Rather than asking you to travel to a workshop, our engineer comes directly to your address — whether that is your home, your office, or another convenient location.
+              We Repair Mac provides a fully mobile repair service in {location.name} and the wider {location.borough || 'London'} area. Rather than asking you to travel to a workshop, our engineer comes directly to your address - whether that is your home, your office, or another convenient location.
             </p>
             <p>
               Our {location.name} customers benefit from the same high standard of repair as our London-wide service: Apple-experienced technicians, quality replacement parts, and a genuine No Fix, No Fee guarantee. Most MacBook screen replacements, battery swaps, and software repairs are completed within an hour on-site.
             </p>
             <p>
-              For more complex repairs such as liquid damage, logic board issues, or advanced data recovery, we may need to bring the device to our workshop — but we will always discuss this with you and keep you updated throughout.
+              For more complex repairs such as liquid damage, logic board issues, or advanced data recovery, we may need to bring the device to our workshop - but we will always discuss this with you and keep you updated throughout.
             </p>
           </div>
         </div>
@@ -349,7 +349,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       {/* FAQ */}
       <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="section-heading text-center">Mac Repair {location.name} — FAQs</h2>
+          <h2 className="section-heading text-center">Mac Repair {location.name} - FAQs</h2>
           <div className="mt-8">
             <FAQAccordion items={faqs} />
           </div>
