@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PhoneIcon, MailIcon, MapPinIcon, CheckIcon, ShieldCheckIcon } from '@/components/Icons';
+import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact We Repair Mac | Book a Repair in London',
@@ -94,76 +95,7 @@ export default function ContactPage() {
           <div>
             <h2 className="text-2xl font-bold mb-6">Request a Callback</h2>
             <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6">
-              <form
-                action="mailto:info@werepairmac.co.uk"
-                method="get"
-                className="space-y-4"
-              >
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="John Smith"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    placeholder="07700 900000"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="you@example.com"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Device &amp; Fault *</label>
-                  <input
-                    type="text"
-                    name="device"
-                    required
-                    placeholder="e.g. MacBook Pro 2021 — cracked screen"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Your Area / Postcode *</label>
-                  <input
-                    type="text"
-                    name="area"
-                    required
-                    placeholder="e.g. Kingston, KT1"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Additional Details</label>
-                  <textarea
-                    name="body"
-                    rows={4}
-                    placeholder="Any other information about the fault..."
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand resize-none"
-                  />
-                </div>
-                <button type="submit" className="btn-primary w-full justify-center py-3">
-                  Send Request →
-                </button>
-                <p className="text-xs text-gray-400 text-center">
-                  Or call directly: <a href="tel:07378349222" className="text-brand font-semibold">0737 834 9222</a>
-                </p>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </div>

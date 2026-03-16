@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { services } from '@/lib/services';
 import { PhoneIcon, ChevronDownIcon, MenuIcon, XIcon } from '@/components/Icons';
@@ -32,9 +33,14 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-brand rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-black text-sm tracking-tight">WR</span>
-            </div>
+            <Image
+              src="/logo.jpg"
+              alt="We Repair Mac"
+              width={44}
+              height={44}
+              className="rounded-lg object-cover flex-shrink-0"
+              priority
+            />
             <div className="leading-none">
               <div className="font-bold text-gray-900 text-[15px]">We Repair Mac</div>
               <div className="text-[11px] text-gray-400 font-normal">Mac · Laptop · PC · Data Recovery</div>

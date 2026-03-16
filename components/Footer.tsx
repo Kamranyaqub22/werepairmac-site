@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { services } from '@/lib/services';
 import { locations } from '@/lib/locations';
 import { PhoneIcon, MailIcon, MapPinIcon } from '@/components/Icons';
@@ -32,9 +33,13 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <Link href="/" className="flex items-center gap-2.5 mb-5">
-            <div className="w-9 h-9 bg-brand rounded-lg flex items-center justify-center">
-              <span className="text-white font-black text-sm">WR</span>
-            </div>
+            <Image
+              src="/logo.jpg"
+              alt="We Repair Mac"
+              width={40}
+              height={40}
+              className="rounded-lg object-cover flex-shrink-0"
+            />
             <span className="font-bold text-white text-[15px]">We Repair Mac</span>
           </Link>
           <p className="text-sm leading-relaxed mb-5 text-gray-500">
