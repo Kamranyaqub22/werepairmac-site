@@ -1,3 +1,5 @@
+import { XBOX_CONSOLE_IMAGE } from '@/lib/consoleImages';
+
 export interface Service {
   slug: string;
   title: string;
@@ -179,6 +181,50 @@ export const services: Service[] = [
     ],
     metaTitle: 'Water Damage Repair London | MacBook & Laptop | We Repair Mac',
     metaDescription: 'Emergency liquid damage repair across London. MacBook and laptop spill recovery. Same-day callout. Do not turn it on - call 0737 834 9222.',
+  },
+  {
+    slug: 'playstation-repair-london',
+    title: 'PlayStation Repair London',
+    shortTitle: 'PlayStation Repair',
+    icon: '🎮',
+    image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&auto=format&fit=crop&q=80',
+    description: 'PS5 & PS4 repair at your home. HDMI port, overheating, disc drive & controller faults fixed.',
+    longDescription: 'PlayStation not working? We repair PS5 and PS4 consoles at your home or office across Greater London. From the common PS5 HDMI port failure to disc drive faults, overheating shutdowns and controller issues — our engineers diagnose and fix your console on-site, so you are back gaming the same day.',
+    commonIssues: [
+      'PS5 HDMI port broken — no picture',
+      'PS4 / PS5 overheating and shutting down',
+      'Disc drive not reading or ejecting discs',
+      'PlayStation not turning on',
+      'Blue light of death (BLOD)',
+      'DualSense / DualShock controller drift',
+      'PS5 loud fan noise',
+      'PlayStation connected but no display on TV',
+      'PSN account issues / system software',
+      'USB port broken on controller or console',
+    ],
+    metaTitle: 'PlayStation Repair London | PS5 & PS4 | Same Day | We Repair Mac',
+    metaDescription: 'PS5 and PS4 repair across Greater London. HDMI port, overheating, disc drive, controller faults fixed at your door. No fix, no fee. Call 0737 834 9222.',
+  },
+  {
+    slug: 'gaming-console-repair-london',
+    title: 'Gaming Console Repair London',
+    shortTitle: 'Console Repair',
+    icon: '🕹️',
+    image: XBOX_CONSOLE_IMAGE,
+    description: 'Xbox, Nintendo Switch and general console repairs at home across Greater London.',
+    longDescription: 'We repair gaming consoles including Xbox Series X, Xbox Series S, Xbox One, Nintendo Switch, and other popular systems across Greater London. From HDMI faults and charging issues to overheating and storage problems, we diagnose your console at home or office and explain the fix clearly before any work starts.',
+    commonIssues: [
+      'Xbox HDMI port damaged or no display',
+      'Nintendo Switch not charging',
+      'Console overheating and shutting down',
+      'Broken USB-C or power ports',
+      'Fan noise and dust-related heat issues',
+      'Controller pairing or connection faults',
+      'Storage errors and corrupt updates',
+      'Disc drive or cartridge reader faults',
+    ],
+    metaTitle: 'Gaming Console Repair London | Xbox & Nintendo Switch | We Repair Mac',
+    metaDescription: 'Gaming console repair across London for Xbox, Nintendo Switch and more. HDMI, charging, overheating, storage and port faults fixed at your door.',
   },
 ];
 

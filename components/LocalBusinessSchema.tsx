@@ -4,10 +4,16 @@ interface LocalBusinessSchemaProps {
   location?: string;
 }
 
-export default function LocalBusinessSchema({ service, location }: LocalBusinessSchemaProps) {
+import { FALLBACK_RATING, FALLBACK_TOTAL, fetchGoogleReviews } from '@/lib/googleReviews';
+
+export default async function LocalBusinessSchema({ service, location }: LocalBusinessSchemaProps) {
+  const reviews = await fetchGoogleReviews();
+  const ratingValue = reviews?.rating ?? FALLBACK_RATING;
+  const reviewCount = reviews?.total ?? FALLBACK_TOTAL;
+
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': ['LocalBusiness', 'ComputerRepairService'],
     '@id': 'https://werepairmac.co.uk/#business',
     name: 'We Repair Mac',
     url: 'https://werepairmac.co.uk',
@@ -15,7 +21,26 @@ export default function LocalBusinessSchema({ service, location }: LocalBusiness
     email: 'info@werepairmac.co.uk',
     description: service
       ? `Professional ${service} service across ${location || 'Greater London'}. Same-day home and office visits. No fix, no fee.`
-      : 'Professional Mac, laptop and PC repair across Greater London. Same-day home and office visits. No fix, no fee guaranteed.',
+      : 'Professional Mac, laptop, PC and PlayStation repair across Greater London. Same-day home and office visits. No fix, no fee guaranteed.',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: ratingValue.toFixed(1),
+      reviewCount: String(reviewCount),
+      bestRating: '5',
+      worstRating: '1',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Repair Services',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'MacBook Repair' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Laptop Repair' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Data Recovery' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PlayStation Repair' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Virus Removal' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Water Damage Repair' } },
+      ],
+    },
     address: {
       '@type': 'PostalAddress',
       streetAddress: '18, Vincent House, Burlington Road',

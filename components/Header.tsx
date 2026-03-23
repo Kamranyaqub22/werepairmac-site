@@ -43,7 +43,7 @@ export default function Header() {
             />
             <div className="leading-none">
               <div className="font-bold text-gray-900 text-[15px]">We Repair Mac</div>
-              <div className="text-[11px] text-gray-400 font-normal">Mac · Laptop · PC · Data Recovery</div>
+              <div className="text-[11px] text-gray-400 font-normal">Mac · Laptop · PC · Console · Data Recovery</div>
             </div>
           </Link>
 
@@ -86,6 +86,7 @@ export default function Header() {
             </div>
 
             <Link href="/about" className="hover:text-brand transition-colors">About</Link>
+            <Link href="/blog" className="hover:text-brand transition-colors">Blog</Link>
             <Link href="/faqs" className="hover:text-brand transition-colors">FAQs</Link>
             <Link href="/contact" className="hover:text-brand transition-colors">Contact</Link>
           </div>
@@ -131,6 +132,7 @@ export default function Header() {
 
             <div className="border-t border-gray-100 pt-2 mt-1 flex flex-col gap-1">
               <Link href="/about" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">About</Link>
+              <Link href="/blog" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Blog</Link>
               <Link href="/faqs" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">FAQs</Link>
               <Link href="/contact" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Contact</Link>
             </div>

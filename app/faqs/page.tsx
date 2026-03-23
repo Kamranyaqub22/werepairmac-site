@@ -43,7 +43,7 @@ const faqCategories = [
       },
       {
         q: 'How much does a repair cost?',
-        a: 'Costs vary by device and fault. We always provide a fixed quote before starting any work - no surprises. MacBook screen replacements, battery changes and virus removals typically start from £60–£120.',
+        a: 'Our labour rate is £100 per hour (minimum 1 hour), plus the cost of any parts required. We always give you a clear quote covering both labour and parts before we start — no surprises and no hidden fees. For simple software jobs with no parts needed, you just pay the hourly labour charge.',
       },
       {
         q: 'What payment methods do you accept?',

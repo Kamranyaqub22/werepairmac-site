@@ -43,6 +43,10 @@ export async function POST(req: NextRequest) {
             <div style="margin-top: 20px; padding: 12px; background: #dbeafe; border-radius: 6px; font-size: 13px; color: #1e3a8a;">
               💡 Reply directly to this email to respond to the customer.
             </div>
+            <div style="margin-top: 16px; padding: 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px;">
+              <p style="margin: 0 0 8px; font-weight: bold; font-size: 13px; color: #166534;">⭐ After the job — send ${name} a review request:</p>
+              <p style="margin: 0; font-size: 13px; color: #374151; line-height: 1.6; background: white; padding: 10px 12px; border-radius: 4px; border: 1px solid #d1fae5; white-space: pre-wrap;">Hi ${name}, thanks for using We Repair Mac! If you're happy with the repair, it would mean a lot if you could leave us a quick Google review — it takes under a minute: https://werepairmac.co.uk/review  Thanks again 👍</p>
+            </div>
           </div>
         </div>
       `,

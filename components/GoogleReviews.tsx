@@ -1,76 +1,12 @@
 import { StarIcon } from '@/components/Icons';
-
-interface GoogleReview {
-  author_name: string;
-  rating: number;
-  text: string;
-  relative_time_description: string;
-  profile_photo_url?: string;
-}
-
-interface PlacesResult {
-  rating: number;
-  user_ratings_total: number;
-  reviews: GoogleReview[];
-}
-
-// Fallback reviews shown when API key / Place ID is not yet configured
-const FALLBACK_REVIEWS = [
-  {
-    author_name: 'Sarah T.',
-    rating: 5,
-    text: 'My MacBook had water damage and I thought it was gone for good. The engineer came out within 2 hours and recovered everything. Absolutely brilliant service.',
-    relative_time_description: '2 months ago',
-  },
-  {
-    author_name: 'James K.',
-    rating: 5,
-    text: 'Cracked MacBook Air screen fixed same day at home. Much cheaper than the Apple Store and done properly. Really happy with the result.',
-    relative_time_description: '3 months ago',
-  },
-  {
-    author_name: 'Priya M.',
-    rating: 5,
-    text: 'Recovered all my photos from a dead hard drive I thought were lost forever. Genuinely over the moon. Would recommend to everyone.',
-    relative_time_description: '1 month ago',
-  },
-  {
-    author_name: 'Daniel F.',
-    rating: 5,
-    text: 'Gaming PC was crashing repeatedly. Fixed in under an hour - turned out to be a faulty RAM stick. Fast, honest and genuinely great value.',
-    relative_time_description: '4 months ago',
-  },
-];
-
-async function fetchGoogleReviews(): Promise<{ reviews: GoogleReview[]; rating: number; total: number } | null> {
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  const placeId = process.env.GOOGLE_PLACE_ID;
-
-  if (!apiKey || !placeId) return null;
-
-  try {
-    const res = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating,user_ratings_total,reviews&reviews_sort=newest&key=${apiKey}`,
-      { next: { revalidate: 3600 } } // re-fetch at most once per hour
-    );
-
-    if (!res.ok) return null;
-    const json = await res.json();
-    if (json.status !== 'OK') return null;
-
-    const result: PlacesResult = json.result;
-    // Only show 5-star reviews
-    const fiveStars = (result.reviews ?? []).filter((r) => r.rating === 5);
-
-    return {
-      reviews: fiveStars,
-      rating: result.rating,
-      total: result.user_ratings_total,
-    };
-  } catch {
-    return null;
-  }
-}
+import {
+  FALLBACK_RATING,
+  FALLBACK_REVIEWS,
+  FALLBACK_TOTAL,
+  GoogleReview,
+  fetchGoogleReviews,
+} from '@/lib/googleReviews';
+import { GOOGLE_BUSINESS_LISTING_URL, GOOGLE_REVIEW_URL } from '@/lib/googleBusiness';
 
 function StarRow({ count, size = 'w-4 h-4' }: { count: number; size?: string }) {
   return (
@@ -86,8 +22,8 @@ export default async function GoogleReviews() {
   const data = await fetchGoogleReviews();
 
   const reviews: GoogleReview[] = data?.reviews?.length ? data.reviews : FALLBACK_REVIEWS;
-  const rating = data?.rating ?? 5.0;
-  const total = data?.total ?? null;
+  const rating = data?.rating ?? FALLBACK_RATING;
+  const total = data?.total ?? FALLBACK_TOTAL;
   const isLive = !!data;
 
   return (
@@ -97,7 +33,7 @@ export default async function GoogleReviews() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
           <div>
             <h2 className="section-heading">What our customers say</h2>
-            {isLive && total && (
+            {total && (
               <p className="text-sm text-gray-400 mt-1">Based on {total} Google reviews</p>
             )}
           </div>
@@ -108,7 +44,7 @@ export default async function GoogleReviews() {
               <span className="text-gray-400"> · Google Reviews</span>
             </div>
             <a
-              href="https://g.page/r/werepairmac/review"
+              href={GOOGLE_REVIEW_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-brand font-semibold underline decoration-dotted hover:text-brand/70 transition-colors"
@@ -163,10 +99,16 @@ export default async function GoogleReviews() {
           ))}
         </div>
 
+        {!isLive && (
+          <p className="mt-4 text-center text-xs text-gray-400">
+            Live Google reviews will appear automatically once the Places API credentials are configured.
+          </p>
+        )}
+
         {/* Footer CTA */}
         <div className="mt-8 text-center">
           <a
-            href="https://www.google.com/search?q=We+Repair+Mac+London+reviews"
+            href={GOOGLE_BUSINESS_LISTING_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-brand font-semibold hover:underline"

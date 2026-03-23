@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | We Repair Mac London',
   },
   description:
-    'London\'s mobile Mac and laptop repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. MacBook, data recovery, screen repair, virus removal. No fix, no fee. Call 0737 834 9222.',
+    'London\'s mobile Mac, laptop and console repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. MacBook, data recovery, screen repair, PlayStation, Xbox, Nintendo Switch and virus removal. No fix, no fee. Call 0737 834 9222.',
   keywords: [
     'mobile mac repair london',
     'mac repair home visit london',
@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     'macbook screen repair london',
     'data recovery london',
     'virus removal london',
+    'playstation repair london',
+    'ps5 repair london',
+    'ps4 repair london',
+    'console repair london',
     'mac repair new malden',
     'mac repair kingston',
   ],
@@ -41,22 +45,22 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     url: 'https://werepairmac.co.uk',
     siteName: 'We Repair Mac',
-    title: 'We Repair Mac | Mac, Laptop & PC Repair London',
+    title: 'We Repair Mac | Mac, Laptop, PC & Console Repair London',
     description:
-      'Same-day Mac, laptop and PC repairs across Greater London. No fix, no fee. Call 0737 834 9222.',
+      'Same-day Mac, laptop, PC and console repairs across Greater London. No fix, no fee. Call 0737 834 9222.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'We Repair Mac - London Mac & Laptop Repair',
+        alt: 'We Repair Mac - London Mac, Laptop & Console Repair',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'We Repair Mac | Mac, Laptop & PC Repair London',
-    description: 'Same-day Mac, laptop and PC repairs across Greater London. No fix, no fee.',
+    title: 'We Repair Mac | Mac, Laptop, PC & Console Repair London',
+    description: 'Same-day Mac, laptop, PC and console repairs across Greater London. No fix, no fee.',
   },
   robots: {
     index: true,
@@ -80,6 +84,10 @@ export default function RootLayout({
     <html lang="en-GB">
       <head>
         <LocalBusinessSchema />
+        <meta name="geo.region" content="GB-LND" />
+        <meta name="geo.placename" content="London" />
+        <meta name="geo.position" content="51.404;-0.257" />
+        <meta name="ICBM" content="51.404, -0.257" />
       </head>
       <body>
         <Header />

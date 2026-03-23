@@ -53,7 +53,7 @@ export default function Footer() {
             <span className="font-bold text-white text-[15px]">We Repair Mac</span>
           </Link>
           <p className="text-sm leading-relaxed mb-5 text-gray-500">
-            Professional Mac, laptop &amp; PC repair across Greater London. Home and office visits, 7 days a week.
+            Professional Mac, laptop, PC, PlayStation, Xbox and Nintendo Switch repair across Greater London. Home and office visits, 7 days a week.
           </p>
           <div className="space-y-2 text-sm">
             <div className="flex items-start gap-2">
@@ -105,6 +105,7 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm mb-8">
             <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
             <li><Link href="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
             <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
           </ul>

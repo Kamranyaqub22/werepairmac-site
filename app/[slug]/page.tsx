@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { getService, services } from '@/lib/services';
 import { getLocation, locations } from '@/lib/locations';
 import FAQAccordion from '@/components/FAQAccordion';
+import FAQSchema from '@/components/FAQSchema';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
 import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import {
@@ -63,7 +65,7 @@ function ServicePage({ slug }: { slug: string }) {
   const faqs = [
     { q: `How quickly can you come for ${service.shortTitle} in London?`, a: 'We offer same-day callouts across Greater London. Book before 2pm and we can usually visit on the same day. Evening and weekend slots are also available.' },
     { q: 'Do I need to bring my device to a shop?', a: 'No - we come to you. Our engineers visit your home or office anywhere in Greater London. Most repairs are completed on-site in front of you.' },
-    { q: `What does ${service.shortTitle} cost?`, a: 'Prices depend on the model and fault. We always provide a fixed quote before starting any work. No surprise charges, no hidden fees.' },
+    { q: `What does ${service.shortTitle} cost?`, a: 'Our labour rate is £100 per hour (minimum 1 hour), plus the cost of any parts required. We provide a clear upfront quote covering both labour and parts before we start any work — no surprises, no hidden fees.' },
     { q: 'Is there a warranty on the repair?', a: 'Yes. All repairs carry a 90-day parts and labour warranty. If the same fault recurs, we fix it free of charge.' },
     { q: 'What if you cannot fix it?', a: 'If we cannot fix your device, you pay nothing. No diagnostic fee, no callout charge - that is our No Fix, No Fee guarantee.' },
   ];
@@ -82,13 +84,17 @@ function ServicePage({ slug }: { slug: string }) {
   return (
     <>
       <LocalBusinessSchema service={service.shortTitle} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://werepairmac.co.uk' },
+        { name: service.shortTitle, url: `https://werepairmac.co.uk/${slug}` },
+      ]} />
 
       {/* Hero */}
       <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
         {/* Background photo */}
         <div className="absolute inset-0 z-0">
           <Image
-            src={`${service.image}?w=1400&auto=format&fit=crop&q=60`}
+            src={service.image}
             alt={service.shortTitle}
             fill
             className="object-cover opacity-20"
@@ -179,6 +185,7 @@ function ServicePage({ slug }: { slug: string }) {
           </div>
         </div>
       </section>
+      <FAQSchema items={faqs} />
 
       {/* Other services */}
       <section className="py-12 bg-gray-50">
@@ -189,7 +196,7 @@ function ServicePage({ slug }: { slug: string }) {
               <Link href={`/${s.slug}`} key={s.slug} className="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative h-36">
                   <Image
-                    src={`${s.image}?w=400&auto=format&fit=crop&q=60`}
+                    src={s.image}
                     alt={s.shortTitle}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -212,8 +219,8 @@ function ServicePage({ slug }: { slug: string }) {
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1400&auto=format&fit=crop&q=60"
-            alt="MacBook"
+            src={service.image}
+            alt={service.shortTitle}
             fill
             className="object-cover opacity-15"
           />
@@ -252,6 +259,10 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
   return (
     <>
       <LocalBusinessSchema location={location.name} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://werepairmac.co.uk' },
+        { name: `Mac Repair ${location.name}`, url: `https://werepairmac.co.uk/mac-repair-${locationSlug}` },
+      ]} />
 
       {/* Hero */}
       <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
@@ -309,7 +320,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
               <Link href={`/${s.slug}`} key={s.slug} className="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative h-40">
                   <Image
-                    src={`${s.image}?w=400&auto=format&fit=crop&q=60`}
+                    src={s.image}
                     alt={s.shortTitle}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -355,6 +366,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
           </div>
         </div>
       </section>
+      <FAQSchema items={faqs} />
 
       {/* CTA */}
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">

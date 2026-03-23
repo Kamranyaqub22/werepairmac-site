@@ -5,42 +5,19 @@ import HeroSlider from '@/components/HeroSlider';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceGrid from '@/components/ServiceGrid';
 import FAQAccordion from '@/components/FAQAccordion';
+import FAQSchema from '@/components/FAQSchema';
+import GoogleReviews from '@/components/GoogleReviews';
+import { NINTENDO_SWITCH_IMAGE, XBOX_CONSOLE_IMAGE } from '@/lib/consoleImages';
 import { locations } from '@/lib/locations';
-import { PhoneIcon, StarIcon, ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon } from '@/components/Icons';
+import { getLatestBlogPosts, formatBlogDate } from '@/lib/blog';
+import { PhoneIcon, ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon, ArrowRightIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Mobile Mac & Laptop Repair London | We Come To You | No Fix No Fee',
+  title: 'Mobile Mac, Laptop & PlayStation Repair London | We Come To You | No Fix No Fee',
   description:
-    'London\'s mobile Mac and laptop repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. No fix, no fee. Call 0737 834 9222.',
+    'London\'s mobile Mac, laptop and PlayStation repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. No fix, no fee. Call 0737 834 9222.',
   alternates: { canonical: 'https://werepairmac.co.uk' },
 };
-
-const reviews = [
-  {
-    name: 'Dillon Mason',
-    location: 'London',
-    stars: 5,
-    text: 'Their work is fast and efficient. I desperately needed to finish off some business documents but unfortunately my laptop wasn\'t charging. They offered to pick up my laptop from my house, which I found very convenient. My laptop was returned in pristine condition within 24 hours. Fast and efficient! 👍👍👍',
-  },
-  {
-    name: 'Dave Armstrong',
-    location: 'London',
-    stars: 5,
-    text: 'My 6-year old Mac Mini was crashing and overheating and my attempt to reinstall the OS only made it worse. Kamran very efficiently fixed my computer. From my experience, I wholeheartedly recommend We Repair Mac for prompt, considerate and courteous service. A thoroughly professional service!',
-  },
-  {
-    name: 'Rachel Fowler',
-    location: 'London',
-    stars: 5,
-    text: 'Highly recommend. Door to door service - Muhammed came, picked up my computer and returned it the next day in perfect condition. Excellent service!!!',
-  },
-  {
-    name: 'David Thatcher',
-    location: 'London',
-    stars: 5,
-    text: 'Upgraded my M4 Mini Mac to a 2TB HD. Messed up and tore fan cable out. Repair was quite quick and very reasonably priced, plus it was picked up and dropped back to me. Would use the services again.',
-  },
-];
 
 const homeFaqs = [
   {
@@ -61,7 +38,7 @@ const homeFaqs = [
   },
   {
     q: 'How much does a MacBook repair cost?',
-    a: 'Cost depends on the fault and model. We always quote before starting any work - no surprises. Typical jobs such as screen replacement, battery change or virus removal start from £60.',
+    a: 'Our labour rate is £100 per hour (minimum 1 hour), plus parts where needed. We always provide a clear, upfront quote before touching your device — covering both labour and any parts — so you know exactly what you will pay. Simple software repairs with no parts are just the hourly labour charge.',
   },
   {
     q: 'Do you offer a warranty on repairs?',
@@ -71,6 +48,7 @@ const homeFaqs = [
 
 export default function HomePage() {
   const featuredLocations = locations.slice(0, 24);
+  const latestPosts = getLatestBlogPosts(3);
 
   return (
     <>
@@ -179,44 +157,86 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── REVIEWS ── */}
+      {/* ── GAMING CONSOLES ── */}
       <section className="py-14 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
+          <div className="grid lg:grid-cols-[1.05fr,0.95fr] gap-10 items-center">
             <div>
-              <h2 className="section-heading">What our customers say</h2>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <div className="flex text-amber-400">
-                {[1,2,3,4,5].map((n) => <StarIcon key={n} className="w-4 h-4" />)}
-              </div>
-              <span>5.0 · Google Reviews</span>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {reviews.map((r) => (
-              <div key={r.name} className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm flex flex-col">
-                <div className="flex text-amber-400 mb-4">
-                  {Array.from({ length: r.stars }).map((_, i) => (
-                    <StarIcon key={i} className="w-4 h-4" />
-                  ))}
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed flex-1 mb-5">&ldquo;{r.text}&rdquo;</p>
-                <div className="border-t border-gray-100 pt-4 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-brand font-bold text-sm flex-shrink-0">
-                    {r.name[0]}
+              <span className="tag mb-4">Gaming Console Repairs</span>
+              <h2 className="section-heading mb-4">Xbox, PlayStation and Nintendo Switch repairs at your door</h2>
+              <p className="text-gray-500 text-base leading-relaxed mb-6">
+                We already cover PS5 and PS4 repairs, and now the site has a dedicated gaming console repair section for Xbox and Nintendo Switch faults too. If your console is overheating, showing no display, not charging, or refusing to read games, we can diagnose it at your home or office anywhere in Greater London.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                {[
+                  'HDMI port and no-signal faults',
+                  'Overheating and loud fan noise',
+                  'Charging, USB-C and power issues',
+                  'Storage, update and boot problems',
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4">
+                    <div className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-brand flex-shrink-0">
+                      <WrenchIcon className="w-4 h-4" />
+                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed">{item}</p>
                   </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 text-sm">{r.name}</div>
-                    <div className="text-xs text-gray-400">{r.location}, London</div>
-                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/gaming-console-repair-london" className="btn-primary">
+                  Console repair service
+                  <ArrowRightIcon className="w-4 h-4" />
+                </Link>
+                <Link href="/playstation-repair-london" className="btn-outline">
+                  PS5 & PS4 repairs
+                </Link>
+              </div>
+            </div>
+            <div className="bg-brand-dark rounded-2xl p-7 sm:p-8 text-white shadow-lg">
+              <div className="grid grid-cols-2 gap-3 mb-5">
+                <div className="relative h-36 rounded-xl overflow-hidden border border-white/10">
+                  <Image
+                    src={XBOX_CONSOLE_IMAGE}
+                    alt="Xbox controller for console repair"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 20vw"
+                  />
+                </div>
+                <div className="relative h-36 rounded-xl overflow-hidden border border-white/10">
+                  <Image
+                    src={NINTENDO_SWITCH_IMAGE}
+                    alt="Nintendo Switch for console repair"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 20vw"
+                  />
                 </div>
               </div>
-            ))}
+              <h3 className="text-xl font-bold mb-5">Popular console faults we handle</h3>
+              <div className="space-y-4">
+                {[
+                  ['PlayStation', 'PS5 HDMI ports, overheating, disc drive faults, controller issues'],
+                  ['Xbox', 'Series X/S no display, overheating, storage and power faults'],
+                  ['Nintendo Switch', 'USB-C charging issues, dock faults, game-reader problems'],
+                ].map(([label, desc]) => (
+                  <div key={label} className="border border-white/10 rounded-xl p-4 bg-white/5">
+                    <div className="font-semibold mb-1">{label}</div>
+                    <div className="text-sm text-blue-100 leading-relaxed">{desc}</div>
+                  </div>
+                ))}
+              </div>
+              <a href="tel:07378349222" className="btn-accent mt-6">
+                <PhoneIcon className="w-4 h-4" />
+                Call for a console repair
+              </a>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ── REVIEWS ── */}
+      <GoogleReviews />
 
       {/* ── AREAS WE COVER ── */}
       <section className="py-14 bg-white border-t border-gray-100">
@@ -264,6 +284,55 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── BLOG ── */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
+            <div className="max-w-2xl">
+              <h2 className="section-heading mb-3">Fresh repair advice, published automatically</h2>
+              <p className="text-gray-500 text-base leading-relaxed">
+                The blog now publishes a new article every 2 days, covering common Mac, laptop, PC, and console faults with practical advice before you book a visit.
+              </p>
+            </div>
+            <Link href="/blog" className="btn-outline">
+              Visit the blog
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {latestPosts.map((post) => (
+              <article key={post.slug} className="card p-0 overflow-hidden">
+                <Link href={`/blog/${post.slug}`} className="block relative h-52">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </Link>
+                <div className="p-6">
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400 mb-3">
+                    <span className="font-semibold text-brand">{post.category}</span>
+                    <span>{formatBlogDate(post.publishedAt)}</span>
+                  </div>
+                  <h3 className="font-bold text-xl text-gray-900 leading-snug mb-3">
+                    <Link href={`/blog/${post.slug}`} className="hover:text-brand transition-colors">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-4">{post.excerpt}</p>
+                  <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:gap-3 transition-all">
+                    Read article
+                    <ArrowRightIcon className="w-4 h-4" />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FINAL CTA ── */}
       <section className="relative bg-brand py-14 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -292,6 +361,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ structured data for rich results */}
+      <FAQSchema items={homeFaqs} />
     </>
   );
 }
