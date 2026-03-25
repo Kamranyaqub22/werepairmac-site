@@ -52,6 +52,59 @@ export async function POST(req: NextRequest) {
       `,
     });
 
+    // Send confirmation email to the customer if they provided an email address
+    if (email) {
+      await transporter.sendMail({
+        from: `"We Repair Mac" <${process.env.SMTP_USER}>`,
+        to: email,
+        replyTo: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
+        subject: `We've received your repair request — We Repair Mac`,
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: #0f2b5b; color: white; padding: 24px; border-radius: 8px 8px 0 0;">
+              <h2 style="margin: 0; font-size: 20px;">Thanks for getting in touch, ${name}!</h2>
+              <p style="margin: 6px 0 0; opacity: 0.8; font-size: 14px;">We&apos;ve received your repair request and will get back to you shortly.</p>
+            </div>
+            <div style="background: #f9fafb; padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
+              <p style="margin: 0 0 16px; color: #374151; font-size: 15px;">Here&apos;s a summary of what you submitted:</p>
+              <table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+                <tr style="background: #f3f4f6;">
+                  <td style="padding: 10px 14px; font-weight: bold; width: 140px; color: #374151; font-size: 13px;">Name</td>
+                  <td style="padding: 10px 14px; color: #111827; font-size: 13px;">${name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; font-weight: bold; color: #374151; font-size: 13px; border-top: 1px solid #e5e7eb;">Phone</td>
+                  <td style="padding: 10px 14px; color: #111827; font-size: 13px; border-top: 1px solid #e5e7eb;">${phone}</td>
+                </tr>
+                <tr style="background: #f3f4f6;">
+                  <td style="padding: 10px 14px; font-weight: bold; color: #374151; font-size: 13px; border-top: 1px solid #e5e7eb;">Device / Fault</td>
+                  <td style="padding: 10px 14px; color: #111827; font-size: 13px; border-top: 1px solid #e5e7eb;">${device}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; font-weight: bold; color: #374151; font-size: 13px; border-top: 1px solid #e5e7eb;">Area / Postcode</td>
+                  <td style="padding: 10px 14px; color: #111827; font-size: 13px; border-top: 1px solid #e5e7eb;">${area}</td>
+                </tr>
+                ${message ? `
+                <tr style="background: #f3f4f6;">
+                  <td style="padding: 10px 14px; font-weight: bold; color: #374151; font-size: 13px; border-top: 1px solid #e5e7eb; vertical-align: top;">Additional Details</td>
+                  <td style="padding: 10px 14px; color: #111827; font-size: 13px; border-top: 1px solid #e5e7eb;">${message}</td>
+                </tr>` : ''}
+              </table>
+              <div style="margin-top: 20px; padding: 14px 16px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <p style="margin: 0; font-size: 14px; color: #1e3a8a; font-weight: 600;">⏱ We aim to respond within 30 minutes.</p>
+                <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">If it&apos;s urgent, call us directly on <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">0737 834 9222</a>.</p>
+              </div>
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
+              <p style="margin: 0; font-size: 12px; color: #9ca3af; text-align: center;">
+                We Repair Mac &bull; <a href="https://werepairmac.co.uk" style="color: #9ca3af;">werepairmac.co.uk</a><br/>
+                This is an automated confirmation — please don&apos;t reply to this email. To contact us, visit our website or call 0737 834 9222.
+              </p>
+            </div>
+          </div>
+        `,
+      });
+    }
+
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('Contact form error:', err);
