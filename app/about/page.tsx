@@ -49,6 +49,47 @@ export default function AboutPage() {
 
       <TrustBadges />
 
+      {/* Meet Your Engineer */}
+      <section className="py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            {/* Engineer photo */}
+            <div className="flex-shrink-0">
+              <div className="w-48 h-48 rounded-full overflow-hidden shadow-lg border-4 border-brand/20">
+                <Image
+                  src="/profile.jpg"
+                  alt="Muhammed - We Repair Mac engineer"
+                  width={192}
+                  height={192}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
+            {/* Bio */}
+            <div>
+              <span className="inline-block bg-brand/10 text-brand text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+                Your Engineer
+              </span>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Hi, I&apos;m Muhammed</h2>
+              <p className="text-gray-500 leading-relaxed mb-4 text-[15px]">
+                I&apos;ve been repairing Macs, laptops and PCs across London for years. I started We Repair Mac because I was tired of seeing customers wait weeks and pay Apple Store prices for repairs that take an hour on the bench.
+              </p>
+              <p className="text-gray-500 leading-relaxed mb-6 text-[15px]">
+                When you book with me, I come to your door, explain exactly what&apos;s wrong, and get it fixed in front of you. You&apos;re handing over a £1,000+ device to a stranger — I take that seriously, and I won&apos;t leave until you&apos;re happy.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {['Apple-experienced technician', '90-day warranty on every repair', 'No Fix, No Fee'].map((badge) => (
+                  <span key={badge} className="inline-flex items-center gap-1.5 bg-gray-50 border border-gray-200 text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+                    <CheckIcon className="w-3.5 h-3.5 text-brand flex-shrink-0" />
+                    {badge}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Story */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
