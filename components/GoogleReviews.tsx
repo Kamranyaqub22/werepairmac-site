@@ -92,7 +92,11 @@ export default async function GoogleReviews() {
 
               <StarRow count={r.rating} />
 
-              <p className="text-sm text-gray-600 leading-relaxed mt-3 flex-1">
+              {r.headline && (
+                <p className="text-sm font-bold text-gray-900 mt-3 leading-tight">{r.headline}</p>
+              )}
+
+              <p className="text-sm text-gray-600 leading-relaxed mt-2 flex-1">
                 &ldquo;{r.text.length > 200 ? r.text.slice(0, 200).trimEnd() + '…' : r.text}&rdquo;
               </p>
             </div>

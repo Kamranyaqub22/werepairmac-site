@@ -4,6 +4,7 @@ export interface GoogleReview {
   text: string;
   relative_time_description: string;
   profile_photo_url?: string;
+  headline?: string;
 }
 
 interface PlacesResult {
@@ -22,24 +23,28 @@ export const FALLBACK_REVIEWS: GoogleReview[] = [
   {
     author_name: 'Sarah T.',
     rating: 5,
+    headline: 'Saved My MacBook After Water Damage',
     text: 'My MacBook had water damage and I thought it was gone for good. The engineer came out within 2 hours and recovered everything. Absolutely brilliant service.',
     relative_time_description: '2 months ago',
   },
   {
     author_name: 'James K.',
     rating: 5,
+    headline: 'Screen Fixed Same Day at Home',
     text: 'Cracked MacBook Air screen fixed same day at home. Much cheaper than the Apple Store and done properly. Really happy with the result.',
     relative_time_description: '3 months ago',
   },
   {
     author_name: 'Priya M.',
     rating: 5,
+    headline: 'All My Photos Recovered',
     text: 'Recovered all my photos from a dead hard drive I thought were lost forever. Genuinely over the moon. Would recommend to everyone.',
     relative_time_description: '1 month ago',
   },
   {
     author_name: 'Daniel F.',
     rating: 5,
+    headline: 'Gaming PC Fixed in Under an Hour',
     text: 'Gaming PC was crashing repeatedly. Fixed in under an hour - turned out to be a faulty RAM stick. Fast, honest and genuinely great value.',
     relative_time_description: '4 months ago',
   },

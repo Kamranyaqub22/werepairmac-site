@@ -157,6 +157,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── MEET YOUR ENGINEER ── */}
+      <section className="py-10 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6 bg-brand/5 rounded-2xl p-6 sm:p-8 border border-brand/10">
+            <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white font-extrabold text-2xl flex-shrink-0 shadow-md">
+              M
+            </div>
+            <div className="text-center sm:text-left">
+              <div className="text-xs text-brand font-semibold uppercase tracking-wider mb-1">Your Engineer</div>
+              <p className="text-gray-900 font-bold text-base mb-1">Hi, I&apos;m Muhammed</p>
+              <p className="text-gray-500 text-sm leading-relaxed max-w-2xl">
+                I&apos;ve been repairing Macs, laptops and PCs across London for years. I come to your door, diagnose the problem in front of you, and won&apos;t leave until you&apos;re happy. You&apos;re trusting me with a £1,000+ device — I take that seriously.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── GAMING CONSOLES ── */}
       <section className="py-14 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
