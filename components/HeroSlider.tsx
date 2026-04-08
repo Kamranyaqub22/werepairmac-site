@@ -109,7 +109,7 @@ export default function HeroSlider() {
             </div>
 
             <p className="text-white/50 text-xs mt-4 max-w-sm">
-              Labour from <strong className="text-white/70">£100/hr</strong> &middot; Parts quoted upfront &middot; Most repairs under 1 hr
+              Labour <strong className="text-white/70">£100/hr</strong> &middot; Parts quoted upfront &middot; Most repairs under 1 hr
             </p>
           </div>
 
