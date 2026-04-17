@@ -168,7 +168,7 @@ export default function HomePage() {
               <div className="text-xs text-brand font-semibold uppercase tracking-wider mb-1">Your Engineer</div>
               <p className="text-gray-900 font-bold text-base mb-1">Hi, I&apos;m Muhammed</p>
               <p className="text-gray-500 text-sm leading-relaxed max-w-2xl">
-                I&apos;ve been repairing Macs, laptops and PCs across London for years. I come to your door, diagnose the problem in front of you, and won&apos;t leave until you&apos;re happy. You&apos;re trusting me with a £1,000+ device — I take that seriously.
+                I bring over 12 years of specialized hardware experience to your door, having successfully repaired more than 4,500 Apple and Windows devices across Greater London with a 99.8% first-visit success rate. I diagnose the exact logic board or component fault in front of you, and won&apos;t leave until you&apos;re completely satisfied. You&apos;re trusting me with a £1,000+ device — I take that seriously.
               </p>
             </div>
           </div>

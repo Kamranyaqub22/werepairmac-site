@@ -1,4 +1,5 @@
 import { NINTENDO_SWITCH_IMAGE, XBOX_CONSOLE_IMAGE } from '@/lib/consoleImages';
+import generatedBlogsData from './generated_blogs.json';
 
 export interface BlogSection {
   heading: string;
@@ -486,6 +487,174 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Address odd drive noises early rather than waiting for complete failure.',
     ],
   },
+  {
+    slug: 'macbook-keyboard-keys-sticking-cleaning-guide',
+    title: 'MacBook Keys Sticking? Why Air Dusters Usually Are Not Enough',
+    excerpt: 'A sticky MacBook keyboard often points to trapped crumbs or dried liquid underneath the butterfly or scissor mechanisms.',
+    category: 'MacBook Repair',
+    serviceSlug: 'macbook-repair-london',
+    image: '/images/albert-vinas-F3t-AzyTbyU-unsplash.jpg',
+    readingTime: 4,
+    firstResponse: 'If your MacBook keys feel crunchy, repeat characters randomly, or refuse to press down cleanly, compressed air might just push the debris further back. It is important to know if you have a butterfly keyboard (2015-2019) or a newer scissor switch, as they require very different care.',
+    whySpeedMatters: 'If the stickiness is from a liquid spill like coffee or juice, the longer it sits, the more likely the internal traces under the keycap will corrode, turning a quick clean into a full topcase swap.',
+    quickChecks: [
+      'Confirm whether multiple keys are failing or just an isolated key.',
+      'Try holding the MacBook at an angle and using gentle compressed air.',
+      'Avoid prying keys off unless you know the specific mechanism style.',
+      'Test the keys in different applications to ensure it is not a software lag.'
+    ],
+    engineerChecks: [
+      'Identify switch mechanism type and test keycap integrity.',
+      'Look for signs of dried liquid ingress underneath the membrane.',
+      'Clean contacts or replace broken hinge mechanisms safely without topcase replacement if possible.',
+      'Check trackpad and battery swelling, which can mimic keyboard issues.'
+    ],
+    preventionTips: [
+      'Use a keyboard cover only when the lid is open; remove it before closing.',
+      'Avoid eating directly over the laptop.',
+      'Wash hands before typing to prevent natural oil buildup.'
+    ],
+  },
+  {
+    slug: 'pc-making-loud-grinding-noise',
+    title: 'PC Making a Loud Grinding Noise? Here Are The Prime Suspects',
+    excerpt: 'Is your computer suddenly sounding like a lawnmower? It is usually a mechanical failure involving a fan or a dying hard drive.',
+    category: 'Gaming PC Repair',
+    serviceSlug: 'gaming-pc-repair-london',
+    image: '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
+    readingTime: 4,
+    firstResponse: 'Loud rattling or grinding noises from a PC tower indicate a moving part is hitting something or a bearing has failed. While it is alarming, shutting down the computer quickly can prevent further damage to cables or data.',
+    whySpeedMatters: 'If the noise is a mechanical hard drive failing, continuing to run the PC can permanently gouge the platters and destroy your data. If it is a cooler fan failing, the CPU could quickly overheat.',
+    quickChecks: [
+      'Power off the system immediately and look inside for loose cables touching fans.',
+      'Listen closely to determine if the sound comes from the power supply, graphics card, or front panel.',
+      'Do a quick visual check for heavy dust buildup on cooling arrays.',
+      'Backup data immediately if you still use a mechanical HDD and suspect it.'
+    ],
+    engineerChecks: [
+      'Isolate each fan (case, processor, GPU, PSU) to identify the culprit.',
+      'Check SMART status of all mechanical and solid-state drives.',
+      'Secure loose wire routings away from rotating fans.',
+      'Ensure the AIO water cooling pump has not run dry or failed.'
+    ],
+    preventionTips: [
+      'Use zip-ties or velcro straps to cleanly route internal cables.',
+      'Clean dust filters on your PC case every 3 to 6 months.',
+      'Keep the PC elevated off carpet floors to reduce dust intake.'
+    ],
+  },
+  {
+    slug: 'macbook-pro-overheating-fan-noise-fix',
+    title: 'MacBook Pro Getting Too Hot? Why The Fans Are Spinning So Loud',
+    excerpt: 'Loud fans and a hot aluminum chassis can indicate thermal throttling. Here is how to keep your MacBook Pro cool.',
+    category: 'MacBook Repair',
+    serviceSlug: 'macbook-repair-london',
+    image: '/images/zoshua-colah-HEIeRujWthM-unsplash-2.jpg',
+    readingTime: 5,
+    firstResponse: 'It is normal for a MacBook Pro to get warm during heavy tasks like video rendering or gaming, but if the fans are jet-engine loud while you are just browsing, there is an underlying thermal issue. The aluminum body acts as a heatsink, so heat is by design, but restriction is not.',
+    whySpeedMatters: 'Chronic overheating will degrade your battery at an accelerated rate, and thermal throttling means you are getting worse performance than what you paid for.',
+    quickChecks: [
+      'Check Activity Monitor for background apps consuming 100% CPU.',
+      'Make sure you are not using the MacBook on a bed or soft pillow that blocks vents.',
+      'Reset the SMC (System Management Controller) on Intel Macs.',
+      'Listen for a clicking sound from the fan, meaning a bearing might be damaged.'
+    ],
+    engineerChecks: [
+      'Inspect the internal vents and fan blades for severe dust accumulation.',
+      'Evaluate whether thermal paste on the CPU/GPU has dried and cracked.',
+      'Check for malware or crypto-miners running invisibly in the background.',
+      'Monitor temperature sensors for false readings.'
+    ],
+    preventionTips: [
+      'Use the laptop on a hard, flat surface.',
+      'Close dozens of unused browser tabs to reduce memory and CPU load.',
+      'Schedule a professional internal cleaning once every two years.'
+    ],
+  },
+  {
+    slug: 'macbook-trackpad-not-clicking',
+    title: 'MacBook Trackpad Not Clicking Anymore? It Might Be Your Battery',
+    excerpt: 'When a MacBook trackpad stops physically clicking or gets stuck, the issue is incredibly rarely the trackpad itself. It is usually the battery swelling underneath.',
+    category: 'MacBook Repair',
+    serviceSlug: 'macbook-repair-london',
+    image: '/images/albert-vinas-F3t-AzyTbyU-unsplash.jpg',
+    readingTime: 4,
+    firstResponse: 'The trackpad in older MacBooks actually clicks mechanically, while modern MacBooks (2015 and newer) use haptic feedback. Regardless of the model, the battery sits directly underneath the trackpad. When lithium-ion batteries fail, they often expand and push up against the trackpad, stopping it from clicking.',
+    whySpeedMatters: 'A swollen battery is a severe safety risk and a fire hazard. If it continues to expand, it can crack the trackpad glass and warp the aluminum chassis of your MacBook permanently.',
+    quickChecks: [
+      'Turn off "Tap to Click" in System Preferences to see if the physical click is truly gone.',
+      'Look at the laptop from the side resting on a flat table—is the trackpad raised above the casing?',
+      'Check the battery health status by holding the Option key and clicking the battery icon in the top right.',
+      'Does the trackpad work normally if the bottom case is taken off?'
+    ],
+    engineerChecks: [
+      'Safely execute a bottom chassis inspection for swollen battery cells.',
+      'Check if the ribbon connecting the trackpad to the logic board has been damaged by the pressure.',
+      'Assess haptic motor failure (Taptic Engine) versus physical battery pressure.',
+      'Ensure accurate trackpad recalibration after battery replacement.'
+    ],
+    preventionTips: [
+      'Do not keep your MacBook plugged in at 100% permanently.',
+      'Do not expose the device to extreme temperatures.',
+      'If you notice even a slight lift in the casing, get it checked immediately.'
+    ],
+  },
+  {
+    slug: 'why-are-my-games-lagging-suddenly-pc',
+    title: 'PC Games Suddenly Lagging? Quick Solutions for Frame Drops',
+    excerpt: 'Game stuttering that came out of nowhere is incredibly frustrating, but usually reversible by diagnosing background interference, drivers, or thermals.',
+    category: 'Gaming PC Repair',
+    serviceSlug: 'gaming-pc-repair-london',
+    image: '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
+    readingTime: 4,
+    firstResponse: 'If your games ran perfectly last week but are a stuttering mess today, hardware failure is unlikely the prime suspect. A sudden drop in frame rate normally points to a Windows update gone wrong, a driver conflict, or sudden thermal throttling.',
+    whySpeedMatters: 'Frame drops can render competitive games unplayable, and if thermals are the underlying cause, playing through the lag is straining your graphics card and processor.',
+    quickChecks: [
+      'Make sure your monitor is plugged into the GPU, NOT the motherboard.',
+      'Use Task Manager to check if an antivirus or background app is eating up your CPU.',
+      'Make sure the game is not suddenly utilizing the integrated graphics rather than your dedicated GPU.',
+      'Check if your system drive (C:) is 99% full, which causes extreme system hesitation.'
+    ],
+    engineerChecks: [
+      'Monitor CPU & GPU utilization and thermals using specialized diagnostics.',
+      'Clean install the latest Nvidia/AMD display drivers using Display Driver Uninstaller (DDU).',
+      'Look for voltage irregularities or XMP profile disconnections in the BIOS.',
+      'Reapply thermal paste or liquid metal if hardware throttling is detected.'
+    ],
+    preventionTips: [
+      'Delay non-critical Windows updates to avoid buggy patches right before gaming.',
+      'Do not install random "PC Optimizer" or "Game Booster" software.',
+      'Keep your RAM running efficiently by maintaining your XMP profile.'
+    ],
+  },
+  {
+    slug: 'spilled-water-on-keyboard-what-not-to-do',
+    title: 'Spilled Water on Your Keyboard? Stop Doing These 3 Things',
+    excerpt: 'When liquid touches electronics, the first few minutes dictate whether the device survives. Stop reaching for the rice bag.',
+    category: 'Water Damage',
+    serviceSlug: 'water-damage-repair-london',
+    image: '/images/revendo-7x0dGJqbfgk-unsplash.jpg',
+    readingTime: 5,
+    firstResponse: 'We see hundreds of water-damaged laptops, and the damage done by the user’s reaction is often worse than the water itself. A spill is an emergency, but rushing to turn the laptop on to see if it "still works" acts as the killing blow by shorting the motherboard.',
+    whySpeedMatters: 'Corrosion begins the second water touches the copper and solder on your motherboard. Fast, correct actions will save the data and the laptop.',
+    quickChecks: [
+      'Instantly force shut down the laptop by holding the power button for 10 seconds or disconnecting the power supply.',
+      'DO NOT put the laptop in rice! Rice does not absorb internal moisture fast enough and leaves starch dust inside.',
+      'DO NOT use a hairdryer! The heat will melt the delicate plastics of the keyboard.',
+      'Immediately place it face down (tent formation if the lid opens completely) on a towel so gravity pulls the liquid out.'
+    ],
+    engineerChecks: [
+      'Disassemble immediately to disconnect the battery and prevent further shorting.',
+      'Use an ultrasonic cleaner and specialist board-cleaning solvents to clear corrosion.',
+      'Check for blown capacitors, trace decay, or dead backlight fuses.',
+      'Diagnose keyboard and trackpad connections which often fail first.'
+    ],
+    preventionTips: [
+      'Use covered cups or bottles near your workstation.',
+      'If an accident happens, prioritize data recovery before assuming the laptop is okay.',
+      'React calmly and systematically. Force stopping power is your top priority.'
+    ],
+  },
 ];
 
 function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
@@ -506,6 +675,7 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
         paragraphs: [
           blueprint.firstResponse,
           blueprint.whySpeedMatters,
+          `Need help right now? Our <a href="/${blueprint.serviceSlug}" class="text-brand font-semibold hover:underline">${blueprint.category}</a> engineers can come directly to your home or office anywhere in Greater London to diagnose and fix this for you.`
         ],
         bullets: blueprint.quickChecks,
       },
@@ -528,7 +698,8 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
 }
 
 function getAllScheduledPosts(): BlogPost[] {
-  return BLOG_BLUEPRINTS.map(buildBlogPost);
+  const combinedBlueprints = [...BLOG_BLUEPRINTS, ...(generatedBlogsData as BlogBlueprint[])];
+  return combinedBlueprints.map(buildBlogPost);
 }
 
 export function getAllBlogPosts({ includeFuture = false }: { includeFuture?: boolean } = {}): BlogPost[] {

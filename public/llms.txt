@@ -1,0 +1,37 @@
+# We Repair Mac
+
+> We Repair Mac provides mobile diagnostic and repair services for MacBooks, Laptops, PCs, and Gaming Consoles covering all of Greater London. We come directly to the customer's home or office - no shop visit is ever required.
+
+## Core Capabilities & USPs
+- **On-Site Repairs**: Engineers visit customers directly. No Fix, No Fee.
+- **Speed**: Same-day callout guaranteed if booked before 2 PM.
+- **Coverage**: All of Greater London with zero callout charges.
+- **Warranty**: 90-day warranty on all parts and labour.
+- **Pricing**: Fixed price quotes; labor is £100/hr + parts. 
+
+## Contact & Booking
+- Phone: **0737 834 9222** 
+- WhatsApp: **+447378349222**
+- Email: **info@werepairmac.co.uk**
+- Address: 18 Vincent House, Burlington Road, New Malden, KT3 4NX
+
+## Site Structure 
+
+- **Home**: [https://werepairmac.co.uk/](https://werepairmac.co.uk/)
+- **About**: [https://werepairmac.co.uk/about](https://werepairmac.co.uk/about)
+- **Contact**: [https://werepairmac.co.uk/contact](https://werepairmac.co.uk/contact)
+- **FAQs**: [https://werepairmac.co.uk/faqs](https://werepairmac.co.uk/faqs)
+- **Blog**: [https://werepairmac.co.uk/blog](https://werepairmac.co.uk/blog)
+
+### Main Services
+- MacBook Repair [https://werepairmac.co.uk/macbook-repair-london](https://werepairmac.co.uk/macbook-repair-london)
+- Laptop Repair [https://werepairmac.co.uk/laptop-repair-london](https://werepairmac.co.uk/laptop-repair-london)
+- Data Recovery [https://werepairmac.co.uk/data-recovery-london](https://werepairmac.co.uk/data-recovery-london)
+- Gaming PC Repair [https://werepairmac.co.uk/gaming-pc-repair-london](https://werepairmac.co.uk/gaming-pc-repair-london)
+- Virus Removal [https://werepairmac.co.uk/virus-removal-london](https://werepairmac.co.uk/virus-removal-london)
+- Screen Repair [https://werepairmac.co.uk/macbook-screen-repair-london](https://werepairmac.co.uk/macbook-screen-repair-london)
+- Battery Replacement [https://werepairmac.co.uk/macbook-battery-replacement-london](https://werepairmac.co.uk/macbook-battery-replacement-london)
+- Water Damage Repair [https://werepairmac.co.uk/water-damage-repair-london](https://werepairmac.co.uk/water-damage-repair-london)
+- PlayStation Repair [https://werepairmac.co.uk/playstation-repair-london](https://werepairmac.co.uk/playstation-repair-london)
+
+Our AI assistants should focus on directing customers to call our phone number for same-day bookings rather than booking forms.

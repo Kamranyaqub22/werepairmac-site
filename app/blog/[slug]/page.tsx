@@ -44,8 +44,35 @@ export default async function BlogPostPage({ params }: PageProps) {
     .filter((candidate) => candidate.slug !== post.slug)
     .slice(0, 3);
 
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    image: [post.image.startsWith('http') ? post.image : `https://werepairmac.co.uk${post.image}`],
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: [{
+      '@type': 'Organization',
+      name: 'We Repair Mac',
+      url: 'https://werepairmac.co.uk'
+    }],
+    publisher: {
+      '@type': 'Organization',
+      name: 'We Repair Mac',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://werepairmac.co.uk/logo.png'
+      }
+    },
+    description: post.excerpt
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -79,18 +106,16 @@ export default async function BlogPostPage({ params }: PageProps) {
               <section key={section.heading}>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.heading}</h2>
                 <div className="space-y-4">
-                  {section.paragraphs.map((paragraph) => (
-                    <p key={paragraph} className="text-base text-gray-600 leading-relaxed">
-                      {paragraph}
-                    </p>
+                  {section.paragraphs.map((paragraph, i) => (
+                    <p key={i} className="text-base text-gray-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: paragraph }} />
                   ))}
                 </div>
                 {section.bullets && (
                   <ul className="mt-5 space-y-3">
-                    {section.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-3 text-gray-600">
+                    {section.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-start gap-3 text-gray-600">
                         <span className="mt-2 h-2 w-2 rounded-full bg-accent flex-shrink-0" />
-                        <span>{bullet}</span>
+                        <span dangerouslySetInnerHTML={{ __html: bullet }} />
                       </li>
                     ))}
                   </ul>
