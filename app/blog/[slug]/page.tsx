@@ -12,6 +12,10 @@ interface PageProps {
 
 export const revalidate = 86400;
 
+export async function generateStaticParams() {
+  return getAllBlogPosts().map((post) => ({ slug: post.slug }));
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
