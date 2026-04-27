@@ -26,7 +26,7 @@ const faqCategories = [
       },
       {
         q: 'What are your working hours?',
-        a: 'We work Monday to Friday 8am–8pm and Saturday to Sunday 9am–6pm. We treat weekends as part of our normal working week at no extra charge.',
+        a: 'We are available 24 hours a day, 7 days a week. You can call or book at any time — we work around your schedule, whenever you need us.',
       },
     ],
   },

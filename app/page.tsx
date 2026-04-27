@@ -103,7 +103,7 @@ export default function HomePage() {
               <div className="space-y-5">
                 {[
                   { Icon: TruckIcon, title: 'No shop visit - ever', desc: 'Other repair services make you drop off your device. We come to your home or office. No courier, no waiting, no risk of damage in transit.' },
-                  { Icon: ClockIcon, title: 'Same-day callout available', desc: 'Book before 2pm and we can usually visit the same day. Evenings and weekend slots also available at no extra charge.' },
+                  { Icon: ClockIcon, title: 'Available 24/7', desc: 'We are available 24 hours a day, 7 days a week. Call or book any time — we work around your schedule.' },
                   { Icon: WrenchIcon, title: 'Fixed in front of you', desc: 'We diagnose and repair on-site while you watch. You can see exactly what we are doing and ask questions throughout.' },
                   { Icon: ShieldCheckIcon, title: '90-day warranty included', desc: 'Every repair is backed by a 90-day parts and labour warranty. If the same fault returns, we fix it free.' },
                 ].map(({ Icon, title, desc }) => (
@@ -141,7 +141,7 @@ export default function HomePage() {
             <div className="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] h-px bg-gray-200 z-0" />
             {[
               { num: '01', title: 'Call or email us', desc: 'Tell us your device, fault and postcode. We give you a fixed quote on the spot - no hidden fees.' },
-              { num: '02', title: 'Choose your time', desc: 'Pick same day, next day, evening or weekend. We fit around your schedule, not the other way round.' },
+              { num: '02', title: 'Choose your time', desc: 'We are available 24/7 — day, night, weekday or weekend. We fit around your schedule, not the other way round.' },
               { num: '03', title: 'We come to you', desc: 'An engineer arrives at your door - home, office or anywhere convenient. No need to go anywhere.' },
               { num: '04', title: 'Fixed while you watch', desc: 'Most repairs completed on-site in under an hour. 90-day warranty on every job.' },
             ].map((step) => (
