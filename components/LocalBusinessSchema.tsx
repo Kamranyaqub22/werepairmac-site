@@ -14,9 +14,9 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
   const schema = {
     '@context': 'https://schema.org',
     '@type': ['LocalBusiness', 'ComputerRepairService'],
-    '@id': 'https://werepairmac.co.uk/#business',
+    '@id': 'https://www.werepairmac.co.uk/#business',
     name: 'We Repair Mac',
-    url: 'https://werepairmac.co.uk',
+    url: 'https://www.werepairmac.co.uk',
     telephone: '+447378349222',
     email: 'info@werepairmac.co.uk',
     description: service
@@ -78,7 +78,7 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
       },
     ],
     priceRange: '££',
-    image: 'https://werepairmac.co.uk/logo.png',
+    image: 'https://www.werepairmac.co.uk/logo.png',
     sameAs: [
       'https://www.facebook.com/werepairmac',
       'https://www.instagram.com/werepairmac',

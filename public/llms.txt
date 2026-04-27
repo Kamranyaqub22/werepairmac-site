@@ -17,21 +17,21 @@
 
 ## Site Structure 
 
-- **Home**: [https://werepairmac.co.uk/](https://werepairmac.co.uk/)
-- **About**: [https://werepairmac.co.uk/about](https://werepairmac.co.uk/about)
-- **Contact**: [https://werepairmac.co.uk/contact](https://werepairmac.co.uk/contact)
-- **FAQs**: [https://werepairmac.co.uk/faqs](https://werepairmac.co.uk/faqs)
-- **Blog**: [https://werepairmac.co.uk/blog](https://werepairmac.co.uk/blog)
+- **Home**: [https://www.werepairmac.co.uk/](https://www.werepairmac.co.uk/)
+- **About**: [https://www.werepairmac.co.uk/about](https://www.werepairmac.co.uk/about)
+- **Contact**: [https://www.werepairmac.co.uk/contact](https://www.werepairmac.co.uk/contact)
+- **FAQs**: [https://www.werepairmac.co.uk/faqs](https://www.werepairmac.co.uk/faqs)
+- **Blog**: [https://www.werepairmac.co.uk/blog](https://www.werepairmac.co.uk/blog)
 
 ### Main Services
-- MacBook Repair [https://werepairmac.co.uk/macbook-repair-london](https://werepairmac.co.uk/macbook-repair-london)
-- Laptop Repair [https://werepairmac.co.uk/laptop-repair-london](https://werepairmac.co.uk/laptop-repair-london)
-- Data Recovery [https://werepairmac.co.uk/data-recovery-london](https://werepairmac.co.uk/data-recovery-london)
-- Gaming PC Repair [https://werepairmac.co.uk/gaming-pc-repair-london](https://werepairmac.co.uk/gaming-pc-repair-london)
-- Virus Removal [https://werepairmac.co.uk/virus-removal-london](https://werepairmac.co.uk/virus-removal-london)
-- Screen Repair [https://werepairmac.co.uk/macbook-screen-repair-london](https://werepairmac.co.uk/macbook-screen-repair-london)
-- Battery Replacement [https://werepairmac.co.uk/macbook-battery-replacement-london](https://werepairmac.co.uk/macbook-battery-replacement-london)
-- Water Damage Repair [https://werepairmac.co.uk/water-damage-repair-london](https://werepairmac.co.uk/water-damage-repair-london)
-- PlayStation Repair [https://werepairmac.co.uk/playstation-repair-london](https://werepairmac.co.uk/playstation-repair-london)
+- MacBook Repair [https://www.werepairmac.co.uk/macbook-repair-london](https://www.werepairmac.co.uk/macbook-repair-london)
+- Laptop Repair [https://www.werepairmac.co.uk/laptop-repair-london](https://www.werepairmac.co.uk/laptop-repair-london)
+- Data Recovery [https://www.werepairmac.co.uk/data-recovery-london](https://www.werepairmac.co.uk/data-recovery-london)
+- Gaming PC Repair [https://www.werepairmac.co.uk/gaming-pc-repair-london](https://www.werepairmac.co.uk/gaming-pc-repair-london)
+- Virus Removal [https://www.werepairmac.co.uk/virus-removal-london](https://www.werepairmac.co.uk/virus-removal-london)
+- Screen Repair [https://www.werepairmac.co.uk/macbook-screen-repair-london](https://www.werepairmac.co.uk/macbook-screen-repair-london)
+- Battery Replacement [https://www.werepairmac.co.uk/macbook-battery-replacement-london](https://www.werepairmac.co.uk/macbook-battery-replacement-london)
+- Water Damage Repair [https://www.werepairmac.co.uk/water-damage-repair-london](https://www.werepairmac.co.uk/water-damage-repair-london)
+- PlayStation Repair [https://www.werepairmac.co.uk/playstation-repair-london](https://www.werepairmac.co.uk/playstation-repair-london)
 
 Our AI assistants should focus on directing customers to call our phone number for same-day bookings rather than booking forms.

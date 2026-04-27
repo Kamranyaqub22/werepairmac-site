@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'About We Repair Mac | London Mac & Laptop Repair Specialists',
   description:
     'Learn about We Repair Mac - London\'s mobile Mac and laptop repair specialists. Apple-experienced engineers, serving Greater London from New Malden since 2015.',
-  alternates: { canonical: 'https://werepairmac.co.uk/about' },
+  alternates: { canonical: 'https://www.werepairmac.co.uk/about' },
 };
 
 export default function AboutPage() {

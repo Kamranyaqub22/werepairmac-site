@@ -6,7 +6,7 @@ import { GOOGLE_REVIEW_URL } from '@/lib/googleBusiness';
 export const metadata: Metadata = {
   title: 'Leave a Review | We Repair Mac London',
   description: 'Happy with your repair? Leave us a Google review — it takes less than a minute and helps us enormously.',
-  alternates: { canonical: 'https://werepairmac.co.uk/review' },
+  alternates: { canonical: 'https://www.werepairmac.co.uk/review' },
   robots: { index: false, follow: false },
 };
 

@@ -11,6 +11,13 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // www canonical redirect — non-www → www
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'werepairmac.co.uk' }],
+        destination: 'https://www.werepairmac.co.uk/:path*',
+        permanent: true,
+      },
       { source: '/blank-5', destination: '/contact', permanent: true },
       { source: '/blank', destination: '/', permanent: true },
       { source: '/hardware-repair', destination: '/macbook-repair-london', permanent: true },

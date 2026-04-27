@@ -7,7 +7,7 @@ import { ArrowRightIcon } from '@/components/Icons';
 export const metadata: Metadata = {
   title: 'Repair Advice Blog',
   description: 'Helpful repair advice from We Repair Mac covering MacBooks, laptops, data recovery, gaming PCs, PlayStation, Xbox, Nintendo Switch, and more.',
-  alternates: { canonical: 'https://werepairmac.co.uk/blog' },
+  alternates: { canonical: 'https://www.werepairmac.co.uk/blog' },
 };
 
 export const revalidate = 86400;

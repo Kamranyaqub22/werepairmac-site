@@ -27,11 +27,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `https://werepairmac.co.uk/blog/${post.slug}` },
+    alternates: { canonical: `https://www.werepairmac.co.uk/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://werepairmac.co.uk/blog/${post.slug}`,
+      url: `https://www.werepairmac.co.uk/blog/${post.slug}`,
       images: [{ url: post.image }],
     },
   };
@@ -52,20 +52,20 @@ export default async function BlogPostPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
-    image: [post.image.startsWith('http') ? post.image : `https://werepairmac.co.uk${post.image}`],
+    image: [post.image.startsWith('http') ? post.image : `https://www.werepairmac.co.uk${post.image}`],
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     author: [{
       '@type': 'Organization',
       name: 'We Repair Mac',
-      url: 'https://werepairmac.co.uk'
+      url: 'https://www.werepairmac.co.uk'
     }],
     publisher: {
       '@type': 'Organization',
       name: 'We Repair Mac',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://werepairmac.co.uk/logo.png'
+        url: 'https://www.werepairmac.co.uk/logo.png'
       }
     },
     description: post.excerpt

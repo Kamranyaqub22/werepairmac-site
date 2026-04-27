@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'FAQs | Mac & Laptop Repair London | We Repair Mac',
   description:
     'Frequently asked questions about our Mac and laptop repair service in London. Learn about costs, same-day service, warranties and our No Fix, No Fee policy.',
-  alternates: { canonical: 'https://werepairmac.co.uk/faqs' },
+  alternates: { canonical: 'https://www.werepairmac.co.uk/faqs' },
 };
 
 const faqCategories = [

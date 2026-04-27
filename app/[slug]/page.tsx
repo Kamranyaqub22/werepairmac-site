@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: service.metaTitle,
       description: service.metaDescription,
-      alternates: { canonical: `https://werepairmac.co.uk/${slug}` },
+      alternates: { canonical: `https://www.werepairmac.co.uk/${slug}` },
       openGraph: {
         title: service.metaTitle,
         description: service.metaDescription,
-        url: `https://werepairmac.co.uk/${slug}`,
+        url: `https://www.werepairmac.co.uk/${slug}`,
       },
     };
   }
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: `Mac & Laptop Repair ${location.name} | Same Day | We Repair Mac`,
       description: `Professional Mac, MacBook and laptop repair in ${location.name} (${location.postcode}). Same-day home visits, no fix no fee. Call 0737 834 9222.`,
-      alternates: { canonical: `https://werepairmac.co.uk/mac-repair-${location.slug}` },
+      alternates: { canonical: `https://www.werepairmac.co.uk/mac-repair-${location.slug}` },
     };
   }
 
@@ -85,8 +85,8 @@ function ServicePage({ slug }: { slug: string }) {
     <>
       <LocalBusinessSchema service={service.shortTitle} />
       <BreadcrumbSchema items={[
-        { name: 'Home', url: 'https://werepairmac.co.uk' },
-        { name: service.shortTitle, url: `https://werepairmac.co.uk/${slug}` },
+        { name: 'Home', url: 'https://www.werepairmac.co.uk' },
+        { name: service.shortTitle, url: `https://www.werepairmac.co.uk/${slug}` },
       ]} />
 
       {/* Hero */}
@@ -260,8 +260,8 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
     <>
       <LocalBusinessSchema location={location.name} />
       <BreadcrumbSchema items={[
-        { name: 'Home', url: 'https://werepairmac.co.uk' },
-        { name: `Mac Repair ${location.name}`, url: `https://werepairmac.co.uk/mac-repair-${locationSlug}` },
+        { name: 'Home', url: 'https://www.werepairmac.co.uk' },
+        { name: `Mac Repair ${location.name}`, url: `https://www.werepairmac.co.uk/mac-repair-${locationSlug}` },
       ]} />
 
       {/* Hero */}

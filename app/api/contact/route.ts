@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
             </div>
             <div style="margin-top: 16px; padding: 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px;">
               <p style="margin: 0 0 8px; font-weight: bold; font-size: 13px; color: #166534;">⭐ After the job — send ${name} a review request:</p>
-              <p style="margin: 0; font-size: 13px; color: #374151; line-height: 1.6; background: white; padding: 10px 12px; border-radius: 4px; border: 1px solid #d1fae5; white-space: pre-wrap;">Hi ${name}, thanks for using We Repair Mac! If you're happy with the repair, it would mean a lot if you could leave us a quick Google review — it takes under a minute: https://werepairmac.co.uk/review  Thanks again 👍</p>
+              <p style="margin: 0; font-size: 13px; color: #374151; line-height: 1.6; background: white; padding: 10px 12px; border-radius: 4px; border: 1px solid #d1fae5; white-space: pre-wrap;">Hi ${name}, thanks for using We Repair Mac! If you're happy with the repair, it would mean a lot if you could leave us a quick Google review — it takes under a minute: https://www.werepairmac.co.uk/review  Thanks again 👍</p>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #0f2b5b; padding: 20px 24px; border-radius: 8px 8px 0 0; text-align: center;">
-              <img src="https://werepairmac.co.uk/logo.png" alt="We Repair Mac" style="height: 48px; width: auto; display: inline-block;" />
+              <img src="https://www.werepairmac.co.uk/logo.png" alt="We Repair Mac" style="height: 48px; width: auto; display: inline-block;" />
             </div>
             <div style="background: #0f2b5b; color: white; padding: 0 24px 24px; border-radius: 0;">
               <h2 style="margin: 0; font-size: 20px;">Thanks for getting in touch, ${name}!</h2>
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
               </div>
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
               <p style="margin: 0; font-size: 12px; color: #9ca3af; text-align: center;">
-                We Repair Mac &bull; <a href="https://werepairmac.co.uk" style="color: #9ca3af;">werepairmac.co.uk</a>
+                We Repair Mac &bull; <a href="https://www.werepairmac.co.uk" style="color: #9ca3af;">werepairmac.co.uk</a>
               </p>
             </div>
           </div>

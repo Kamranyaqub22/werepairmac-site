@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Contact We Repair Mac | Book a Repair in London',
   description:
     'Contact We Repair Mac - call 0737 834 9222 or email info@werepairmac.co.uk to book a same-day Mac or laptop repair across Greater London. No fix, no fee.',
-  alternates: { canonical: 'https://werepairmac.co.uk/contact' },
+  alternates: { canonical: 'https://www.werepairmac.co.uk/contact' },
 };
 
 export default function ContactPage() {

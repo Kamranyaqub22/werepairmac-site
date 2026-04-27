@@ -39,14 +39,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'We Repair Mac' }],
   creator: 'We Repair Mac',
   publisher: 'We Repair Mac',
-  metadataBase: new URL('https://werepairmac.co.uk'),
+  metadataBase: new URL('https://www.werepairmac.co.uk'),
   alternates: {
-    canonical: 'https://werepairmac.co.uk',
+    canonical: 'https://www.werepairmac.co.uk',
   },
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://werepairmac.co.uk',
+    url: 'https://www.werepairmac.co.uk',
     siteName: 'We Repair Mac',
     title: 'We Repair Mac | Mac, Laptop, PC & Console Repair London',
     description:
