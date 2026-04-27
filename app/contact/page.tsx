@@ -27,7 +27,7 @@ export default function ContactPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Contact Us</h1>
           <p className="text-blue-100 text-lg">
-            Call or email to book a repair. We respond within 30 minutes during working hours.
+            Call or email to book a repair. We are available 24/7 — call or book any time.
           </p>
         </div>
       </section>
@@ -47,7 +47,7 @@ export default function ContactPage() {
                   <a href="tel:07378349222" className="text-brand font-semibold text-lg hover:underline">
                     0737 834 9222
                   </a>
-                  <p className="text-sm text-gray-500 mt-1">Mon–Fri 8am–8pm · Sat–Sun 9am–6pm</p>
+                  <p className="text-sm text-gray-500 mt-1">Available 24/7 — day, night, weekday or weekend</p>
                 </div>
               </div>
               <div className="card flex items-start gap-4">
