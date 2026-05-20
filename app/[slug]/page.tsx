@@ -143,8 +143,48 @@ function ServicePage({ slug }: { slug: string }) {
 
       <TrustBadges />
 
+      {/* Pricing */}
+      <section className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="section-heading">How our pricing works</h2>
+            <p className="text-gray-500 mt-2">Agreed upfront before we touch your device. No surprises.</p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
+            <div className="grid md:grid-cols-3 gap-6 items-center text-center">
+              <div>
+                <div className="text-4xl font-extrabold text-brand">£100</div>
+                <div className="text-sm font-semibold text-gray-700 mt-1">per hour labour</div>
+                <div className="text-xs text-gray-400 mt-1">minimum 1 hour · no hidden extras</div>
+              </div>
+              <div className="text-3xl text-gray-300 font-light text-center hidden md:block">+</div>
+              <div>
+                <div className="text-4xl font-extrabold text-brand">Parts</div>
+                <div className="text-sm font-semibold text-gray-700 mt-1">quoted separately</div>
+                <div className="text-xs text-gray-400 mt-1">agreed before any work starts</div>
+              </div>
+            </div>
+            <div className="border-t border-gray-200 mt-6 pt-6 grid sm:grid-cols-3 gap-4 text-center">
+              {[
+                { label: 'No fix → you pay £0', sub: 'No diagnostic fee, no callout charge if we cannot repair' },
+                { label: 'No callout charge', sub: 'We travel anywhere in Greater London at no extra cost' },
+                { label: '90-day warranty', sub: 'Parts and labour covered if the same fault returns' },
+              ].map(({ label, sub }) => (
+                <div key={label}>
+                  <div className="font-bold text-gray-900 text-sm">{label}</div>
+                  <div className="text-xs text-gray-500 mt-0.5 leading-relaxed">{sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-4">
+            Software-only repairs with no parts are just the hourly labour charge. For screen replacements, batteries and board work, we confirm the parts cost with you before starting.
+          </p>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="section-heading text-center">Why Choose We Repair Mac?</h2>
           <div className="grid md:grid-cols-3 gap-6 mt-10">
