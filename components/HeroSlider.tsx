@@ -67,7 +67,7 @@ export default function HeroSlider() {
           {/* Left: copy */}
           <div>
             <p className="text-accent-light font-semibold text-sm uppercase tracking-wider mb-3">
-              Mobile Repair Service - All of Greater London
+              Home Visit Repair Service · All of Greater London
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-5">
               Mac repair that comes<br className="hidden sm:block" /> to <span className="text-accent-light">your door.</span>
