@@ -13,9 +13,9 @@ import { getLatestBlogPosts, formatBlogDate } from '@/lib/blog';
 import { PhoneIcon, ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon, ArrowRightIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Mobile Mac, Laptop & PlayStation Repair London | We Come To You | No Fix No Fee',
+  title: 'Mac, Laptop & Console Repair London | We Come To You | No Fix No Fee',
   description:
-    'London\'s mobile Mac, laptop and PlayStation repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. No fix, no fee. Call 0737 834 9222.',
+    'Mac, laptop, gaming PC and console repair across Greater London. We come to your home or office — no shop visit needed. MacBook, PlayStation, Xbox, Nintendo Switch, data recovery. No fix, no fee. Call 0737 834 9222.',
   alternates: { canonical: 'https://www.werepairmac.co.uk' },
 };
 

@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Mobile Mac & Laptop Repair London | We Come To You | No Fix No Fee',
+    default: 'Mac, Laptop & Console Repair London | We Come To You | No Fix No Fee',
     template: '%s | We Repair Mac London',
   },
   description:
