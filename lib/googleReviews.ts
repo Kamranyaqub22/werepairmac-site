@@ -62,7 +62,7 @@ export async function fetchGoogleReviews(): Promise<GoogleReviewsData | null> {
   try {
     const res = await fetch(
       `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=rating,user_ratings_total,reviews&reviews_sort=newest&key=${apiKey}`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 86400 } }
     );
 
     if (!res.ok) return null;
