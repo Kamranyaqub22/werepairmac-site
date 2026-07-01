@@ -23,7 +23,7 @@ export default function BlogIndexPage() {
           <span className="tag bg-white/10 text-white">Repair Advice</span>
           <h1 className="text-4xl md:text-5xl font-extrabold mt-4 mb-4">Helpful repair advice from working engineers</h1>
           <p className="text-blue-100 max-w-3xl text-lg leading-relaxed">
-            New articles publish automatically every 2 days, covering Mac, laptop, PC, PlayStation, Xbox, Nintendo Switch, data recovery, and practical fault-finding tips for London customers.
+            New articles publish automatically every week, covering Mac, laptop, PC, PlayStation, Xbox, Nintendo Switch, data recovery, and practical fault-finding tips for London customers.
           </p>
         </div>
       </section>

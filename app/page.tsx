@@ -309,7 +309,7 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <h2 className="section-heading mb-3">Fresh repair advice, published automatically</h2>
               <p className="text-gray-500 text-base leading-relaxed">
-                The blog now publishes a new article every 2 days, covering common Mac, laptop, PC, and console faults with practical advice before you book a visit.
+                The blog publishes a new article every week, covering common Mac, laptop, PC, and console faults with practical advice before you book a visit.
               </p>
             </div>
             <Link href="/blog" className="btn-outline">

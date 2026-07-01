@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getService, services } from '@/lib/services';
-import { getLocation, locations } from '@/lib/locations';
+import { getLocation, getNearbyLocations, locations } from '@/lib/locations';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
@@ -288,6 +288,8 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
   const location = getLocation(locationSlug);
   if (!location) return null;
 
+  const nearby = getNearbyLocations(locationSlug);
+
   const faqs = [
     { q: `Do you offer same-day Mac repair in ${location.name}?`, a: `Yes - we offer same-day callouts in ${location.name} and surrounding areas. Book before 2pm and we can typically visit the same day.` },
     { q: 'Is there a callout charge?', a: `There is no callout charge for visits to ${location.name}. You only pay for the repair itself, and only if we fix it.` },
@@ -384,8 +386,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-4">Mac Repair in {location.name} - What to Expect</h2>
           <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
+            {location.localIntro && <p>{location.localIntro}</p>}
             <p>
-              We Repair Mac provides a fully mobile repair service in {location.name} and the wider {location.borough || 'London'} area. Rather than asking you to travel to a workshop, our engineer comes directly to your address - whether that is your home, your office, or another convenient location.
+              We Repair Mac provides a fully mobile repair service across {location.description} in the {location.borough || 'London'} area ({location.postcode}). Rather than asking you to travel to a workshop, our engineer comes directly to your address - whether that is your home, your office, or another convenient location.
             </p>
             <p>
               Our {location.name} customers benefit from the same high standard of repair as our London-wide service: Apple-experienced technicians, quality replacement parts, and a genuine No Fix, No Fee guarantee. Most MacBook screen replacements, battery swaps, and software repairs are completed within an hour on-site.
@@ -407,6 +410,30 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
         </div>
       </section>
       <FAQSchema items={faqs} />
+
+      {/* Nearby areas we also cover */}
+      {nearby.length > 0 && (
+        <section className="py-12 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-2 text-center">Areas near {location.name} we also cover</h2>
+            <p className="text-center text-gray-500 mb-8 max-w-2xl mx-auto text-sm">
+              Our engineer travels across {location.borough || 'Greater London'} and beyond. If you are close to {location.name}, we can almost certainly come to you.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {nearby.map((n) => (
+                <Link
+                  key={n.slug}
+                  href={`/mac-repair-${n.slug}`}
+                  className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-brand hover:text-brand text-gray-700 text-sm font-medium rounded-full px-4 py-2 transition-colors"
+                >
+                  <MapPinIcon className="w-3.5 h-3.5 text-orange-400" />
+                  Mac Repair {n.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">

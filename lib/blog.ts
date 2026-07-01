@@ -35,7 +35,7 @@ interface BlogBlueprint {
 }
 
 const BLOG_START_DATE = new Date('2026-03-11T09:00:00.000Z');
-const BLOG_CADENCE_DAYS = 2;
+const BLOG_CADENCE_DAYS = 7;
 const BLOG_CADENCE_MS = BLOG_CADENCE_DAYS * 24 * 60 * 60 * 1000;
 
 const BLOG_BLUEPRINTS: BlogBlueprint[] = [
@@ -657,6 +657,47 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   },
 ];
 
+// Image variety: the generated blogs previously reused one image per category, so
+// every MacBook post (etc.) looked identical. We deterministically spread posts
+// across a topical pool keyed off the slug, so posts stay visually distinct while
+// remaining relevant to the device they cover.
+const MAC_LAPTOP_IMAGES = [
+  '/images/albert-vinas-F3t-AzyTbyU-unsplash.jpg',
+  '/images/nikolai-chernichenko-s6uS36SF91Y-unsplash.jpg',
+  '/images/revendo-7x0dGJqbfgk-unsplash.jpg',
+  '/images/revendo-DnLhg2eiozc-unsplash.jpg',
+  '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
+  '/images/jay-wennington-3xf07twcxsY-unsplash.jpg',
+  '/images/zoshua-colah-HEIeRujWthM-unsplash.jpg',
+  '/images/zoshua-colah-HEIeRujWthM-unsplash-2.jpg',
+];
+const DATA_RECOVERY_IMAGES = [
+  '/images/samsung-memory-QTW80j6ZK4c-unsplash.jpg',
+  '/images/nikolai-chernichenko-s6uS36SF91Y-unsplash.jpg',
+  '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
+];
+const CONSOLE_IMAGES = [XBOX_CONSOLE_IMAGE, NINTENDO_SWITCH_IMAGE];
+
+function hashSlug(slug: string): number {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function pickBlogImage(blueprint: BlogBlueprint): string {
+  const cat = blueprint.category.toLowerCase();
+  const title = blueprint.title.toLowerCase();
+  const isConsole =
+    cat.includes('console') || cat.includes('playstation') ||
+    /xbox|playstation|nintendo|switch|ps5|ps4/.test(title);
+
+  let pool = MAC_LAPTOP_IMAGES;
+  if (isConsole) pool = CONSOLE_IMAGES;
+  else if (cat.includes('data recovery')) pool = DATA_RECOVERY_IMAGES;
+
+  return pool[hashSlug(blueprint.slug) % pool.length];
+}
+
 function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
   const publishedAt = new Date(BLOG_START_DATE.getTime() + index * BLOG_CADENCE_MS).toISOString();
 
@@ -666,7 +707,7 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
     excerpt: blueprint.excerpt,
     category: blueprint.category,
     serviceSlug: blueprint.serviceSlug,
-    image: blueprint.image,
+    image: pickBlogImage(blueprint),
     readingTime: blueprint.readingTime,
     publishedAt,
     sections: [

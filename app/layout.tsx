@@ -116,12 +116,6 @@ export default function RootLayout({
             `,
           }}
         />
-
-        {/* Tidio live chat */}
-        <Script
-          src="//code.tidio.co/vpnjqrakfoalzdb1af9es0aa8nscsvfp.js"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   );
