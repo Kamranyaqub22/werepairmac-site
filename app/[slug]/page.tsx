@@ -10,7 +10,7 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
 import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import {
-  PhoneIcon, MailIcon, MapPinIcon, CheckIcon,
+  PhoneIcon, MapPinIcon, CheckIcon,
   ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon,
   CurrencyPoundIcon, BoltIcon, ArrowRightIcon,
 } from '@/components/Icons';
@@ -112,9 +112,9 @@ function ServicePage({ slug }: { slug: string }) {
               <a href="tel:07378349222" className="btn-accent py-4 px-8 text-base inline-flex items-center gap-2">
                 <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
               </a>
-              <a href="mailto:info@werepairmac.co.uk" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
-                <MailIcon className="w-4 h-4" /> Email for a Quote
-              </a>
+              <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
+                Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+              </Link>
             </div>
             <div className="flex flex-wrap gap-4 mt-6">
               {['No Fix, No Fee', 'Same Day Visit', '90-Day Warranty'].map((badge) => (
@@ -272,9 +272,9 @@ function ServicePage({ slug }: { slug: string }) {
             <a href="tel:07378349222" className="btn-accent text-base px-10 py-4 inline-flex items-center gap-2">
               <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
             </a>
-            <a href="mailto:info@werepairmac.co.uk" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
-              <MailIcon className="w-4 h-4" /> Send an Email
-            </a>
+            <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
+              Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -333,9 +333,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
               <a href="tel:07378349222" className="btn-accent py-4 px-8 text-base inline-flex items-center gap-2">
                 <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
               </a>
-              <a href="mailto:info@werepairmac.co.uk" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
-                <MailIcon className="w-4 h-4" /> Email for a Quote
-              </a>
+              <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
+                Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+              </Link>
             </div>
             <div className="flex flex-wrap gap-4 mt-6">
               {['No Fix, No Fee', 'No Callout Charge', 'Same-Day Visits', '90-Day Warranty'].map((badge) => (
@@ -452,9 +452,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
             <a href="tel:07378349222" className="btn-accent text-base px-10 py-4 inline-flex items-center gap-2">
               <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
             </a>
-            <a href="mailto:info@werepairmac.co.uk" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
-              <MailIcon className="w-4 h-4" /> Send an Email
-            </a>
+            <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
+              Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

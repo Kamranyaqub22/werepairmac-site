@@ -61,6 +61,30 @@ export default function HomePage() {
       {/* ── SERVICES ── */}
       <ServiceGrid />
 
+      {/* ── CARE PLANS + REMOTE SUPPORT BAND ── */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-5">
+          <div className="rounded-2xl bg-brand text-white p-7 flex flex-col">
+            <h3 className="text-xl font-bold mb-2">Join a Care Plan</h3>
+            <p className="text-blue-100 text-sm mb-5 flex-1 leading-relaxed">
+              Keep your Mac, laptop or PC monitored, protected and backed up — with remote support and discounted repairs. From <strong className="text-white">£6.99/mo</strong>.
+            </p>
+            <Link href="/care-plans" className="btn-white justify-center py-3 self-start px-6">
+              See care plans <ArrowRightIcon className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="rounded-2xl bg-gray-50 border border-gray-200 p-7 flex flex-col">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Can&apos;t wait for a visit?</h3>
+            <p className="text-gray-500 text-sm mb-5 flex-1 leading-relaxed">
+              Get software problems, viruses and slow computers fixed <strong className="text-gray-900">remotely today</strong> over a secure screen-share — from <strong className="text-gray-900">£49</strong>, no visit needed.
+            </p>
+            <Link href="/remote-support" className="btn-primary justify-center py-3 self-start px-6">
+              Remote support <ArrowRightIcon className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── WHY CHOOSE US ── */}
       <section className="py-14 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -373,9 +397,9 @@ export default function HomePage() {
               <PhoneIcon className="w-5 h-5" />
               0737 834 9222
             </a>
-            <a href="mailto:info@werepairmac.co.uk" className="btn-ghost-white py-4 px-7 text-base">
-              Email for a Quote
-            </a>
+            <Link href="/quote" className="btn-ghost-white py-4 px-7 text-base inline-flex items-center gap-2">
+              Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

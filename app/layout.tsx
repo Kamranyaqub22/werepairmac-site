@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import MobileCTABar from '@/components/MobileCTABar';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -97,7 +98,10 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        {/* Spacer so the fixed mobile bar never hides the footer's last row */}
+        <div className="h-16 sm:hidden" aria-hidden="true" />
         <WhatsAppButton />
+        <MobileCTABar />
 
         {/* Google Analytics 4 */}
         <Script

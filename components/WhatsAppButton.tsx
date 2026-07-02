@@ -12,7 +12,7 @@ export default function WhatsAppButton() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 left-6 z-[100] flex flex-col items-start gap-3 transition-all duration-300">
+    <div className="fixed bottom-24 sm:bottom-6 left-6 z-[100] flex flex-col items-start gap-3 transition-all duration-300">
       {/* Aggressive Interactive Chat Prompt */}
       {showPrompt && (
         <div className="relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4 w-64 border border-gray-100 animate-[bounce_1s_ease-in-out]">

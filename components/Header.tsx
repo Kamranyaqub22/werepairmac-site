@@ -79,12 +79,23 @@ export default function Header() {
                           </div>
                         </Link>
                       ))}
+                      <Link
+                        href="/remote-support"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group border-t border-gray-100 mt-1 pt-3"
+                      >
+                        <div className="w-8 h-8 bg-brand/8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm">🖥️</div>
+                        <div>
+                          <div className="font-medium text-gray-800 text-[13px] group-hover:text-brand transition-colors">Remote Support</div>
+                          <div className="text-[11px] text-gray-400">Fixed today from £49</div>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
+            <Link href="/care-plans" className="hover:text-brand transition-colors">Care Plans</Link>
             <Link href="/about" className="hover:text-brand transition-colors">About</Link>
             <Link href="/blog" className="hover:text-brand transition-colors">Blog</Link>
             <Link href="/faqs" className="hover:text-brand transition-colors">FAQs</Link>
@@ -92,6 +103,7 @@ export default function Header() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
+            <Link href="/quote" className="btn-outline px-4 py-2.5">Get a Quote</Link>
             <a href="tel:07378349222" className="btn-accent px-5 py-2.5">
               <PhoneIcon className="w-4 h-4" />
               Call Now
@@ -128,9 +140,15 @@ export default function Header() {
                   {s.shortTitle}
                 </Link>
               ))}
+              <Link href="/remote-support" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors">
+                <span className="text-base">🖥️</span>
+                Remote Support
+              </Link>
             </div>
 
             <div className="border-t border-gray-100 pt-2 mt-1 flex flex-col gap-1">
+              <Link href="/quote" onClick={() => setMenuOpen(false)} className="py-2.5 font-semibold text-brand hover:text-brand-dark">Get a Quote</Link>
+              <Link href="/care-plans" onClick={() => setMenuOpen(false)} className="py-2.5 font-semibold text-brand hover:text-brand-dark">Care Plans</Link>
               <Link href="/about" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">About</Link>
               <Link href="/blog" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Blog</Link>
               <Link href="/faqs" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">FAQs</Link>

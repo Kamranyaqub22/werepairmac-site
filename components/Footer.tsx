@@ -82,6 +82,9 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/remote-support" className="hover:text-white transition-colors">Remote Support</Link>
+            </li>
           </ul>
         </div>
 
@@ -104,6 +107,8 @@ export default function Footer() {
           <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Company</h3>
           <ul className="space-y-2.5 text-sm mb-8">
             <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+            <li><Link href="/quote" className="hover:text-white transition-colors">Get a Quote</Link></li>
+            <li><Link href="/care-plans" className="hover:text-white transition-colors">Care Plans</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
             <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
             <li><Link href="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
