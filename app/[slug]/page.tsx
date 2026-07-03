@@ -9,6 +9,7 @@ import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
 import LocalBusinessSchema from '@/components/LocalBusinessSchema';
+import LocationMap from '@/components/LocationMap';
 import {
   PhoneIcon, MapPinIcon, CheckIcon,
   ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon,
@@ -396,6 +397,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
             <p>
               For more complex repairs such as liquid damage, logic board issues, or advanced data recovery, we may need to bring the device to our workshop - but we will always discuss this with you and keep you updated throughout.
             </p>
+          </div>
+          <div className="mt-8">
+            <LocationMap name={location.name} postcode={location.postcode} />
           </div>
         </div>
       </section>

@@ -85,7 +85,27 @@ export const locations: Location[] = [
   { slug: 'cobham', name: 'Cobham', postcode: 'KT11', borough: 'Elmbridge', description: 'Cobham and Stoke d\'Abernon' },
   { slug: 'dorking', name: 'Dorking', postcode: 'RH4', borough: 'Mole Valley', description: 'Dorking and surrounding villages' },
   { slug: 'woking', name: 'Woking', postcode: 'GU21', borough: 'Woking', description: 'Woking town centre' },
-  { slug: 'guildford', name: 'Guildford', postcode: 'GU1', borough: 'Guildford', description: 'Guildford and surrounding areas' }
+  { slug: 'guildford', name: 'Guildford', postcode: 'GU1', borough: 'Guildford', description: 'Guildford and surrounding areas' },
+
+  // Previously missing London boroughs
+  { slug: 'barking', name: 'Barking', postcode: 'IG11', borough: 'Barking and Dagenham', description: 'Barking town centre and Dagenham' },
+  { slug: 'bexleyheath', name: 'Bexleyheath', postcode: 'DA6', borough: 'Bexley', description: 'Bexleyheath and Sidcup' },
+  { slug: 'wembley', name: 'Wembley', postcode: 'HA9', borough: 'Brent', description: 'Wembley and surrounding areas' },
+  { slug: 'harrow', name: 'Harrow', postcode: 'HA1', borough: 'Harrow', description: 'Harrow town centre and Harrow-on-the-Hill' },
+  { slug: 'walthamstow', name: 'Walthamstow', postcode: 'E17', borough: 'Waltham Forest', description: 'Walthamstow and surrounding areas' },
+  { slug: 'westminster', name: 'Westminster', postcode: 'SW1', borough: 'Westminster', description: 'Westminster, Victoria and Marylebone' },
+
+  // Guildford / Crawley corridor - the areas we cover beyond the M25
+  { slug: 'redhill', name: 'Redhill', postcode: 'RH1', borough: 'Reigate and Banstead', description: 'Redhill town centre' },
+  { slug: 'reigate', name: 'Reigate', postcode: 'RH2', borough: 'Reigate and Banstead', description: 'Reigate and surrounding areas' },
+  { slug: 'banstead', name: 'Banstead', postcode: 'SM7', borough: 'Reigate and Banstead', description: 'Banstead and surrounding areas' },
+  { slug: 'caterham', name: 'Caterham', postcode: 'CR3', borough: 'Tandridge', description: 'Caterham and Whyteleafe' },
+  { slug: 'oxted', name: 'Oxted', postcode: 'RH8', borough: 'Tandridge', description: 'Oxted and Limpsfield' },
+  { slug: 'staines', name: 'Staines', postcode: 'TW18', borough: 'Spelthorne', description: 'Staines-upon-Thames and surrounding areas' },
+  { slug: 'egham', name: 'Egham', postcode: 'TW20', borough: 'Runnymede', description: 'Egham and Englefield Green' },
+  { slug: 'chertsey', name: 'Chertsey', postcode: 'KT16', borough: 'Runnymede', description: 'Chertsey town centre' },
+  { slug: 'addlestone', name: 'Addlestone', postcode: 'KT15', borough: 'Runnymede', description: 'Addlestone and New Haw' },
+  { slug: 'crawley', name: 'Crawley', postcode: 'RH10', borough: 'Crawley', description: 'Crawley town centre and Gatwick area' }
 ];
 
 export function getLocation(slug: string): Location | undefined {
