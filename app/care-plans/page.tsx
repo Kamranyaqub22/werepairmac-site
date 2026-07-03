@@ -10,11 +10,11 @@ import { ShieldCheckIcon, BoltIcon, ClockIcon, CurrencyPoundIcon, PhoneIcon, Com
 export const metadata: Metadata = {
   title: 'Mac & Computer Care Plans | Monthly Support | We Repair Mac London',
   description:
-    'Affordable monthly and yearly care plans for your Mac, laptop or PC — monitoring, antivirus, backups, remote support and discounted repairs across London. From £6.99/mo.',
+    'Affordable monthly and yearly care plans for your Mac, laptop or PC — monitoring, antivirus, backups, remote support and discounted repairs across London. From £9.99/mo.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/care-plans' },
   openGraph: {
     title: 'Mac & Computer Care Plans | We Repair Mac London',
-    description: 'Monthly & yearly care plans — monitoring, antivirus, backups, remote support & discounted repairs. From £6.99/mo.',
+    description: 'Monthly & yearly care plans — monitoring, antivirus, backups, remote support & discounted repairs. From £9.99/mo.',
     url: 'https://www.werepairmac.co.uk/care-plans',
   },
 };

@@ -124,7 +124,7 @@ export default function RemoteSupportPage() {
           <div className="mt-6 rounded-2xl bg-brand/5 border border-brand/15 p-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
             <div className="flex-1">
               <h3 className="font-bold text-gray-900">Need help often? Get it included.</h3>
-              <p className="text-sm text-gray-600 mt-1">Care Plan members get remote support included plus monitoring, antivirus and discounted repairs — from £6.99/mo.</p>
+              <p className="text-sm text-gray-600 mt-1">Care Plan members get remote support included plus monitoring, antivirus and discounted repairs — from £9.99/mo.</p>
             </div>
             <Link href="/care-plans" className="btn-outline py-3 px-6 whitespace-nowrap">
               See care plans <ArrowRightIcon className="w-4 h-4" />

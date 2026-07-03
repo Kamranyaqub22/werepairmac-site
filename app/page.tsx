@@ -67,7 +67,7 @@ export default function HomePage() {
           <div className="rounded-2xl bg-brand text-white p-7 flex flex-col">
             <h3 className="text-xl font-bold mb-2">Join a Care Plan</h3>
             <p className="text-blue-100 text-sm mb-5 flex-1 leading-relaxed">
-              Keep your Mac, laptop or PC monitored, protected and backed up — with remote support and discounted repairs. From <strong className="text-white">£6.99/mo</strong>.
+              Keep your Mac, laptop or PC monitored, protected and backed up — with remote support and discounted repairs. From <strong className="text-white">£9.99/mo</strong>.
             </p>
             <Link href="/care-plans" className="btn-white justify-center py-3 self-start px-6">
               See care plans <ArrowRightIcon className="w-4 h-4" />

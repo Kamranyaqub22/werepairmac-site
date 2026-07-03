@@ -4,9 +4,14 @@
 // page components hard-codes a price. Annual price = ~2 months free vs monthly.
 //
 // Pricing rationale (July 2026 UK market research):
-//   • Mirrors proven UK residential ladder (Optima £72/yr → £10/mo → £30/mo)
-//   • Sits below Geek Squad Total (~£155/yr) on the whole-home comparison
-//   • Bottom two tiers are almost pure software margin (monitoring/AV/backup)
+//   • The PC Crew (direct UK comparable) charges £12/mo for a single tier with
+//     weaker remote support (5 min sessions, 1-2 day turnaround) than our Essential —
+//     our Essential must sit at or above that, not well below it.
+//   • UK B2B managed IT (RMM+AV+backup+helpdesk) runs £25-75/user/mo; our Complete
+//     sits below that range since it's residential, not a business SLA.
+//   • Monitoring/AV/patching is delivered via a free-tier RMM agent (e.g. ITarian,
+//     free up to 50 endpoints) — real marginal cost is the owner's time responding
+//     to alerts and honouring the discounts/free-labour promises, not software.
 
 export interface CarePlanTier {
   id: string;
@@ -23,10 +28,10 @@ export const carePlans: CarePlanTier[] = [
     id: 'essential',
     name: 'Essential',
     tagline: 'Keep one device protected and monitored.',
-    monthly: 6.99,
-    annual: 69,
+    monthly: 9.99,
+    annual: 99,
     features: [
-      '24/7 remote system monitoring',
+      '24/7 automated monitoring & alerts',
       'Enterprise antivirus & malware protection',
       'Automatic security patching & updates',
       'Priority booking on all repairs',
@@ -38,8 +43,8 @@ export const carePlans: CarePlanTier[] = [
     id: 'plus',
     name: 'Plus',
     tagline: 'Our most popular plan for home workers.',
-    monthly: 12.99,
-    annual: 129,
+    monthly: 16.99,
+    annual: 169,
     highlight: true,
     features: [
       'Everything in Essential',
@@ -54,8 +59,8 @@ export const carePlans: CarePlanTier[] = [
     id: 'complete',
     name: 'Complete',
     tagline: 'Total peace of mind, hands-off.',
-    monthly: 24.99,
-    annual: 249,
+    monthly: 29.99,
+    annual: 299,
     features: [
       'Everything in Plus',
       'Unlimited remote support (business hours)',
