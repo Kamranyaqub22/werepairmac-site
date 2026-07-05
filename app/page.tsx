@@ -185,8 +185,14 @@ export default function HomePage() {
       <section className="py-10 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center gap-6 bg-brand/5 rounded-2xl p-6 sm:p-8 border border-brand/10">
-            <div className="w-16 h-16 rounded-full bg-brand flex items-center justify-center text-white font-extrabold text-2xl flex-shrink-0 shadow-md">
-              M
+            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 shadow-md border-2 border-brand/20">
+              <Image
+                src="/profile.jpg"
+                alt="Muhammad - We Repair Mac engineer"
+                width={64}
+                height={64}
+                className="object-cover w-full h-full"
+              />
             </div>
             <div className="text-center sm:text-left">
               <div className="text-xs text-brand font-semibold uppercase tracking-wider mb-1">Your Engineer</div>
