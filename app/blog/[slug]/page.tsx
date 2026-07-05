@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { formatBlogDate, getAllBlogPosts, getBlogPost } from '@/lib/blog';
+import { formatBlogDate, getAllBlogPosts, getBlogPost, getRelatedBlogPosts } from '@/lib/blog';
 import { getService } from '@/lib/services';
 import { ArrowRightIcon, PhoneIcon } from '@/components/Icons';
 
@@ -44,9 +44,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   const service = getService(post.serviceSlug);
-  const relatedPosts = getAllBlogPosts()
-    .filter((candidate) => candidate.slug !== post.slug)
-    .slice(0, 3);
+  const relatedPosts = getRelatedBlogPosts(post, 3);
 
   const schema = {
     '@context': 'https://schema.org',

@@ -759,6 +759,31 @@ export function getLatestBlogPosts(limit = 3): BlogPost[] {
   return getAllBlogPosts().slice(0, limit);
 }
 
+// Prioritises posts covering the same service, then the same category, before
+// falling back to the newest other posts — keeps "related articles" topically
+// tight instead of an arbitrary slice of the newest posts.
+export function getRelatedBlogPosts(current: BlogPost, limit = 3): BlogPost[] {
+  const others = getAllBlogPosts().filter((post) => post.slug !== current.slug);
+
+  const scored = others.map((post) => {
+    let score = 0;
+    if (post.serviceSlug === current.serviceSlug) score += 2;
+    if (post.category === current.category) score += 1;
+    return { post, score };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map((entry) => entry.post);
+}
+
+// Blog posts that link to a given service — used on service pages to surface
+// related advice articles and complete the internal-linking loop the other way.
+export function getBlogPostsForService(serviceSlug: string, limit = 3): BlogPost[] {
+  return getAllBlogPosts()
+    .filter((post) => post.serviceSlug === serviceSlug)
+    .slice(0, limit);
+}
+
 export function formatBlogDate(date: string): string {
   return new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getService, services } from '@/lib/services';
 import { getLocation, getNearbyLocations, locations } from '@/lib/locations';
+import { getBlogPostsForService, formatBlogDate } from '@/lib/blog';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
@@ -72,6 +73,7 @@ function ServicePage({ slug }: { slug: string }) {
   ];
 
   const otherServices = services.filter((s) => s.slug !== slug).slice(0, 4);
+  const relatedPosts = getBlogPostsForService(slug, 3);
 
   const WHY_US = [
     { Icon: TruckIcon, title: 'We Come to You', desc: 'No need to visit a shop. We travel across all Greater London to your home or office. No extra charge for travel.' },
@@ -227,6 +229,44 @@ function ServicePage({ slug }: { slug: string }) {
         </div>
       </section>
       <FAQSchema items={faqs} />
+
+      {/* Related repair advice */}
+      {relatedPosts.length > 0 && (
+        <section className="py-14 bg-white border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="section-heading text-center">Related Repair Advice</h2>
+            <p className="text-center text-gray-500 mt-2 mb-10 max-w-2xl mx-auto">
+              Practical guides from our engineers covering {service.shortTitle.toLowerCase()}.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedPosts.map((post) => (
+                <article key={post.slug} className="card p-0 overflow-hidden">
+                  <Link href={`/blog/${post.slug}`} className="block relative h-40">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    />
+                  </Link>
+                  <div className="p-5">
+                    <div className="text-xs text-gray-400 mb-2">{formatBlogDate(post.publishedAt)}</div>
+                    <h3 className="font-bold text-gray-900 leading-snug mb-2">
+                      <Link href={`/blog/${post.slug}`} className="hover:text-brand transition-colors">
+                        {post.title}
+                      </Link>
+                    </h3>
+                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:gap-2.5 transition-all">
+                      Read more <ArrowRightIcon className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Other services */}
       <section className="py-12 bg-gray-50">
