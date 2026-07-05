@@ -190,7 +190,7 @@ export default function HomePage() {
             </div>
             <div className="text-center sm:text-left">
               <div className="text-xs text-brand font-semibold uppercase tracking-wider mb-1">Your Engineer</div>
-              <p className="text-gray-900 font-bold text-base mb-1">Hi, I&apos;m Muhammed</p>
+              <p className="text-gray-900 font-bold text-base mb-1">Hi, I&apos;m Muhammad</p>
               <p className="text-gray-500 text-sm leading-relaxed max-w-2xl">
                 I bring over 12 years of specialized hardware experience to your door, having successfully repaired more than 4,500 Apple and Windows devices across Greater London with a 99.8% first-visit success rate. I diagnose the exact logic board or component fault in front of you, and won&apos;t leave until you&apos;re completely satisfied. You&apos;re trusting me with a £1,000+ device — I take that seriously.
               </p>
