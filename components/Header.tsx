@@ -105,6 +105,7 @@ export default function Header() {
               )}
             </div>
 
+            <Link href="/areas-we-cover" className="hover:text-brand transition-colors">Areas We Cover</Link>
             <Link href="/care-plans" className="hover:text-brand transition-colors">Care Plans</Link>
             <Link href="/about" className="hover:text-brand transition-colors">About</Link>
             <Link href="/blog" className="hover:text-brand transition-colors">Blog</Link>
@@ -162,6 +163,7 @@ export default function Header() {
 
             <div className="border-t border-gray-100 pt-2 mt-1 flex flex-col gap-1">
               <Link href="/quote" onClick={() => setMenuOpen(false)} className="py-2.5 font-semibold text-brand hover:text-brand-dark">Get a Quote</Link>
+              <Link href="/areas-we-cover" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Areas We Cover</Link>
               <Link href="/care-plans" onClick={() => setMenuOpen(false)} className="py-2.5 font-semibold text-brand hover:text-brand-dark">Care Plans</Link>
               <Link href="/about" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">About</Link>
               <Link href="/blog" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Blog</Link>

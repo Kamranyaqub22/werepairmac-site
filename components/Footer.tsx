@@ -100,6 +100,9 @@ export default function Footer() {
               </li>
             ))}
           </ul>
+          <Link href="/areas-we-cover" className="inline-block mt-4 text-sm font-semibold text-white hover:underline">
+            View all areas we cover →
+          </Link>
         </div>
 
         {/* Links + trust */}

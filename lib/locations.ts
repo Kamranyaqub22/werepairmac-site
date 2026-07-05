@@ -112,6 +112,30 @@ export function getLocation(slug: string): Location | undefined {
   return locations.find((l) => l.slug === slug);
 }
 
+export interface LocationGroup {
+  borough: string;
+  locations: Location[];
+}
+
+// Used by the "Areas We Cover" index page so all locations are browsable from
+// one place, grouped by borough/district rather than one long flat list.
+export function getLocationsGroupedByBorough(): LocationGroup[] {
+  const groups = new Map<string, Location[]>();
+
+  for (const location of locations) {
+    const key = location.borough || 'Other';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(location);
+  }
+
+  return Array.from(groups.entries())
+    .map(([borough, locs]) => ({
+      borough,
+      locations: [...locs].sort((a, b) => a.name.localeCompare(b.name)),
+    }))
+    .sort((a, b) => a.borough.localeCompare(b.borough));
+}
+
 // Postcode-area letters (e.g. "KT" from "KT3") are a good geographic proximity
 // signal. We surface genuinely nearby areas on each location page so every page
 // has a unique block of internal links and localised content rather than a pure
