@@ -344,6 +344,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       <LocalBusinessSchema location={location.name} />
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://www.werepairmac.co.uk' },
+        { name: 'Areas We Cover', url: 'https://www.werepairmac.co.uk/areas-we-cover' },
         { name: `Mac Repair ${location.name}`, url: `https://www.werepairmac.co.uk/mac-repair-${locationSlug}` },
       ]} />
 
@@ -474,6 +475,11 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
                   Mac Repair {n.name}
                 </Link>
               ))}
+            </div>
+            <div className="text-center mt-6">
+              <Link href="/areas-we-cover" className="text-sm font-semibold text-brand hover:underline">
+                View all areas we cover →
+              </Link>
             </div>
           </div>
         </section>

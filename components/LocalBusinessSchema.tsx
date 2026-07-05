@@ -5,6 +5,7 @@ interface LocalBusinessSchemaProps {
 }
 
 import { FALLBACK_RATING, FALLBACK_TOTAL, fetchGoogleReviews } from '@/lib/googleReviews';
+import { GOOGLE_BUSINESS_LISTING_URL } from '@/lib/googleBusiness';
 
 export default async function LocalBusinessSchema({ service, location }: LocalBusinessSchemaProps) {
   const reviews = await fetchGoogleReviews();
@@ -77,6 +78,7 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
     sameAs: [
       'https://www.facebook.com/werepairmac',
       'https://www.instagram.com/werepairmac',
+      GOOGLE_BUSINESS_LISTING_URL,
     ],
   };
 
