@@ -35,6 +35,7 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
       itemListElement: [
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'MacBook Repair' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Laptop Repair' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Windows Support' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Data Recovery' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PlayStation Repair' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Virus Removal' } },

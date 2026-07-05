@@ -3,8 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { services } from '@/lib/services';
+import { services, SERVICE_CATEGORIES } from '@/lib/services';
 import { PhoneIcon, ChevronDownIcon, MenuIcon, XIcon } from '@/components/Icons';
+
+const servicesByCategory = SERVICE_CATEGORIES.map((category) => ({
+  category,
+  items: services.filter((s) => s.category === category),
+}));
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -62,34 +67,39 @@ export default function Header() {
               </button>
 
               {servicesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-72">
+                <div className="absolute top-full left-0 pt-3 w-[640px]">
                   <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
-                    <div className="p-2">
-                      {services.map((s) => (
-                        <Link
-                          key={s.slug}
-                          href={`/${s.slug}`}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group"
-                        >
-                          <div className="w-8 h-8 bg-brand/8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm">
-                            {s.icon}
+                    <div className="grid grid-cols-4 gap-1 p-4">
+                      {servicesByCategory.map(({ category, items }) => (
+                        <div key={category}>
+                          <div className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider px-2 mb-1.5">
+                            {category}
                           </div>
-                          <div>
-                            <div className="font-medium text-gray-800 text-[13px] group-hover:text-brand transition-colors">{s.shortTitle}</div>
-                          </div>
-                        </Link>
-                      ))}
-                      <Link
-                        href="/remote-support"
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group border-t border-gray-100 mt-1 pt-3"
-                      >
-                        <div className="w-8 h-8 bg-brand/8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm">🖥️</div>
-                        <div>
-                          <div className="font-medium text-gray-800 text-[13px] group-hover:text-brand transition-colors">Remote Support</div>
-                          <div className="text-[11px] text-gray-400">Fixed today from £49</div>
+                          {items.map((s) => (
+                            <Link
+                              key={s.slug}
+                              href={`/${s.slug}`}
+                              className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 transition-colors group"
+                            >
+                              <span className="text-sm flex-shrink-0">{s.icon}</span>
+                              <span className="font-medium text-gray-700 text-[12.5px] leading-snug group-hover:text-brand transition-colors">
+                                {s.shortTitle}
+                              </span>
+                            </Link>
+                          ))}
                         </div>
-                      </Link>
+                      ))}
                     </div>
+                    <Link
+                      href="/remote-support"
+                      className="flex items-center gap-3 px-6 py-3 hover:bg-gray-50 transition-colors group border-t border-gray-100"
+                    >
+                      <div className="w-8 h-8 bg-brand/8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm">🖥️</div>
+                      <div>
+                        <div className="font-medium text-gray-800 text-[13px] group-hover:text-brand transition-colors">Remote Support</div>
+                        <div className="text-[11px] text-gray-400">Fixed today from £49 — no visit needed</div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
               )}
@@ -128,19 +138,23 @@ export default function Header() {
             <Link href="/" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand transition-colors">Home</Link>
 
             <div className="py-1">
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 pt-2">Services</div>
-              {services.map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/${s.slug}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors"
-                >
-                  <span className="text-base">{s.icon}</span>
-                  {s.shortTitle}
-                </Link>
+              {servicesByCategory.map(({ category, items }) => (
+                <div key={category} className="mb-3">
+                  <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 pt-2">{category}</div>
+                  {items.map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={`/${s.slug}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors"
+                    >
+                      <span className="text-base">{s.icon}</span>
+                      {s.shortTitle}
+                    </Link>
+                  ))}
+                </div>
               ))}
-              <Link href="/remote-support" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors">
+              <Link href="/remote-support" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors border-t border-gray-100 pt-3">
                 <span className="text-base">🖥️</span>
                 Remote Support
               </Link>

@@ -11,7 +11,11 @@ export interface Service {
   commonIssues: string[];
   metaTitle: string;
   metaDescription: string;
+  // Used to group services in the nav menu — not shown on the service page itself.
+  category: string;
 }
+
+export const SERVICE_CATEGORIES = ['Apple & Mac', 'Windows Laptop & PC', 'Consoles & Gaming', 'Data & Security'] as const;
 
 export const services: Service[] = [
   {
@@ -34,6 +38,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'MacBook Repair London | Same Day Callout | We Repair Mac',
     metaDescription: 'Expert MacBook Pro, MacBook Air & iMac repair across London. Same-day home & office visits. No fix, no fee. Call 0737 834 9222.',
+    category: 'Apple & Mac',
   },
   {
     slug: 'laptop-repair-london',
@@ -55,6 +60,29 @@ export const services: Service[] = [
     ],
     metaTitle: 'Laptop Repair London | HP, Dell, Lenovo | We Repair Mac',
     metaDescription: 'Fast laptop repair across London. HP, Dell, Lenovo, Asus, Acer and more. Home visits available. No fix, no fee. Call 0737 834 9222.',
+    category: 'Windows Laptop & PC',
+  },
+  {
+    slug: 'windows-support-london',
+    title: 'Windows Support London',
+    shortTitle: 'Windows Support',
+    icon: '🪟',
+    image: '/images/nikolai-chernichenko-s6uS36SF91Y-unsplash.jpg',
+    description: 'Windows PC and laptop troubleshooting - updates, drivers, slow performance and setup. Home visits across London.',
+    longDescription: 'From a laptop stuck mid-update to driver conflicts, a corrupted profile, or setting up a new PC, we provide hands-on Windows support at your home or office. We work across Windows 10 and Windows 11 on all major laptop and desktop brands.',
+    commonIssues: [
+      'Windows stuck on updates or a repair loop',
+      'Blue screen (BSOD) errors',
+      'Slow performance after a Windows update',
+      'Driver conflicts and device errors',
+      'Wi-Fi, printer or Bluetooth setup issues',
+      'New PC setup and data transfer',
+      'Corrupted user profile or login errors',
+      'Windows 10 to Windows 11 upgrade help',
+    ],
+    metaTitle: 'Windows Support London | PC Troubleshooting | We Repair Mac',
+    metaDescription: 'Windows PC and laptop support across London. Updates, driver issues, slow performance and setup fixed at your door. No fix, no fee. Call 0737 834 9222.',
+    category: 'Windows Laptop & PC',
   },
   {
     slug: 'data-recovery-london',
@@ -76,6 +104,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'Data Recovery London | Hard Drive & SSD Recovery | We Repair Mac',
     metaDescription: 'Professional data recovery across London. Retrieve lost files from crashed drives, formatted disks and failed SSDs. Call 0737 834 9222.',
+    category: 'Data & Security',
   },
   {
     slug: 'gaming-pc-repair-london',
@@ -97,6 +126,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'Gaming PC Repair London | Desktop & Laptop | We Repair Mac',
     metaDescription: 'Gaming PC and laptop repair across London. GPU, PSU, overheating fixes. Alienware, ASUS ROG, MSI, custom builds. Call 0737 834 9222.',
+    category: 'Windows Laptop & PC',
   },
   {
     slug: 'virus-removal-london',
@@ -118,6 +148,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'Virus Removal London | Malware & Ransomware | We Repair Mac',
     metaDescription: 'Same-day virus and malware removal across London. Mac and PC. Ransomware, spyware, adware cleaned. No fix, no fee. Call 0737 834 9222.',
+    category: 'Data & Security',
   },
   {
     slug: 'macbook-screen-repair-london',
@@ -139,6 +170,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'MacBook Screen Repair London | Same Day | We Repair Mac',
     metaDescription: 'MacBook Pro and MacBook Air screen replacement across London. Cracked, flickering or dead displays. Same-day home visit. Call 0737 834 9222.',
+    category: 'Apple & Mac',
   },
   {
     slug: 'macbook-battery-replacement-london',
@@ -160,6 +192,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'MacBook Battery Replacement London | All Models | We Repair Mac',
     metaDescription: 'MacBook Pro and Air battery replacement across London. Home visits, genuine-spec parts. Fast turnaround. No fix, no fee. Call 0737 834 9222.',
+    category: 'Apple & Mac',
   },
   {
     slug: 'water-damage-repair-london',
@@ -181,6 +214,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'Water Damage Repair London | MacBook & Laptop | We Repair Mac',
     metaDescription: 'Emergency liquid damage repair across London. MacBook and laptop spill recovery. Same-day callout. Do not turn it on - call 0737 834 9222.',
+    category: 'Data & Security',
   },
   {
     slug: 'playstation-repair-london',
@@ -204,6 +238,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'PlayStation Repair London | PS5 & PS4 | Same Day | We Repair Mac',
     metaDescription: 'PS5 and PS4 repair across Greater London. HDMI port, overheating, disc drive, controller faults fixed at your door. No fix, no fee. Call 0737 834 9222.',
+    category: 'Consoles & Gaming',
   },
   {
     slug: 'gaming-console-repair-london',
@@ -225,6 +260,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'Gaming Console Repair London | Xbox & Nintendo Switch | We Repair Mac',
     metaDescription: 'Gaming console repair across London for Xbox, Nintendo Switch and more. HDMI, charging, overheating, storage and port faults fixed at your door.',
+    category: 'Consoles & Gaming',
   },
   {
     slug: 'macbook-pro-repair-london',
@@ -244,6 +280,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'MacBook Pro Repair London | Screen, Battery, Liquid Damage',
     metaDescription: 'Specialist MacBook Pro repair across London. M1, M2, M3 and Intel models. Screen replacement, battery, liquid damage fixed at your door. No fix, no fee.',
+    category: 'Apple & Mac',
   },
   {
     slug: 'macbook-air-repair-london',
@@ -263,6 +300,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'MacBook Air Repair London | Same Day Screen & Battery Repair',
     metaDescription: 'Expert MacBook Air repair in London. M1, M2, M3 screen replacement, battery upgrades and liquid damage repair. We come to you. Call 0737 834 9222.',
+    category: 'Apple & Mac',
   },
   {
     slug: 'ps5-hdmi-port-repair-london',
@@ -282,6 +320,7 @@ export const services: Service[] = [
     ],
     metaTitle: 'PS5 HDMI Port Repair London | Same Day Console Repair',
     metaDescription: 'PS5 HDMI port repair across London. No signal or broken port? We micro-solder a new HDMI port at your home today. No fix, no fee. Call 0737 834 9222.',
+    category: 'Consoles & Gaming',
   }
 ];
 
