@@ -8,13 +8,13 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import { ShieldCheckIcon, BoltIcon, ClockIcon, CurrencyPoundIcon, PhoneIcon, ComputerDesktopIcon, ArrowRightIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Mac & Computer Care Plans | Monthly Support | We Repair Mac London',
+  title: 'Mac & Computer Care Plans | Annual Support | We Repair Mac London',
   description:
-    'Affordable monthly and yearly care plans for your Mac, laptop or PC — monitoring, antivirus, backups, remote support and discounted repairs across London. From £9.99/mo.',
+    'Affordable annual care plans for your Mac, laptop or PC — monitoring, antivirus, backups, remote support and discounted repairs across London. From £99/year.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/care-plans' },
   openGraph: {
     title: 'Mac & Computer Care Plans | We Repair Mac London',
-    description: 'Monthly & yearly care plans — monitoring, antivirus, backups, remote support & discounted repairs. From £9.99/mo.',
+    description: 'Annual care plans — monitoring, antivirus, backups, remote support & discounted repairs. From £99/year.',
     url: 'https://www.werepairmac.co.uk/care-plans',
   },
 };
@@ -27,9 +27,9 @@ const WHY = [
 ];
 
 const faqs = [
-  { q: 'What is a care plan?', a: 'A low-cost monthly or yearly subscription that keeps your Mac, laptop or PC monitored, protected and backed up — plus remote support and discounts on any repairs you do need. Think of it as an ongoing service plan for your computer.' },
+  { q: 'What is a care plan?', a: 'A low-cost annual subscription that keeps your Mac, laptop or PC monitored, protected and backed up — plus remote support and discounts on any repairs you do need. Think of it as an ongoing service plan for your computer.' },
   { q: 'Which devices can I add?', a: 'Each plan covers one device (Mac, laptop or PC). Got several? Just add a plan per device — get in touch and we can bundle them for households or home offices.' },
-  { q: 'Do I have to sign a long contract?', a: 'No. Monthly plans are rolling and you can cancel anytime. Annual plans give you two months free and can be paid in one go.' },
+  { q: 'Do I have to sign a long contract?', a: 'Plans are billed as a single annual payment, not a rolling contract. You are free to simply not renew when the year is up — no notice period required.' },
   { q: 'How do payments work?', a: 'We set plans up by Direct Debit or bank transfer — no card needed. You’ll always know exactly what you pay and when.' },
   { q: 'What does “free labour on out-of-warranty repairs” mean?', a: 'On the Complete plan, if your device develops a fault after the manufacturer warranty has ended, you pay only for parts — our labour is included. A fair-use policy applies to prevent abuse.' },
   { q: 'What if I just need a one-off fix?', a: 'No problem — you don’t need a plan. Book a same-day home visit, or get many software issues fixed remotely from £49. Care plans simply save regular users money over time.' },
@@ -52,10 +52,10 @@ export default function CarePlansPage() {
             Care Plans · London
           </span>
           <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-            Look after your tech — for the price of a coffee a month
+            Look after your tech — for less than a coffee a week
           </h1>
           <p className="text-blue-100 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
-            Monitoring, antivirus, backups, remote support and discounted repairs — all in one simple plan for your Mac, laptop or PC. Cancel anytime.
+            Monitoring, antivirus, backups, remote support and discounted repairs — all in one simple annual plan for your Mac, laptop or PC.
           </p>
           <a href="tel:07378349222" className="btn-accent py-3.5 px-8 text-base inline-flex items-center gap-2">
             <PhoneIcon className="w-4 h-4" /> Questions? Call 0737 834 9222
@@ -70,7 +70,7 @@ export default function CarePlansPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-4">
             <h2 className="section-heading">Choose your plan</h2>
-            <p className="text-gray-500 mt-2 max-w-xl mx-auto">Switch between monthly and annual — annual gives you two months free.</p>
+            <p className="text-gray-500 mt-2 max-w-xl mx-auto">One simple annual payment — no rolling monthly billing.</p>
           </div>
           <CarePlans />
         </div>

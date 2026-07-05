@@ -1,32 +1,10 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
-import { carePlans, businessPlan, annualSaving } from '@/lib/carePlans';
+import { carePlans, businessPlan } from '@/lib/carePlans';
 import { CheckIcon, ArrowRightIcon, PhoneIcon } from '@/components/Icons';
 
 export default function CarePlans() {
-  const [annual, setAnnual] = useState(true);
-
   return (
     <div>
-      {/* Billing toggle */}
-      <div className="flex items-center justify-center gap-3 mb-10">
-        <span className={`text-sm font-medium ${!annual ? 'text-gray-900' : 'text-gray-400'}`}>Monthly</span>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={annual}
-          onClick={() => setAnnual((v) => !v)}
-          className={`relative w-14 h-7 rounded-full transition-colors ${annual ? 'bg-brand' : 'bg-gray-300'}`}
-        >
-          <span className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform ${annual ? 'translate-x-7' : ''}`} />
-        </button>
-        <span className={`text-sm font-medium ${annual ? 'text-gray-900' : 'text-gray-400'}`}>
-          Annual <span className="text-accent font-semibold">(2 months free)</span>
-        </span>
-      </div>
-
       {/* Tier cards */}
       <div className="grid md:grid-cols-3 gap-5">
         {carePlans.map((tier) => (
@@ -45,13 +23,11 @@ export default function CarePlans() {
             <p className="text-sm text-gray-500 mt-1 mb-4 leading-snug">{tier.tagline}</p>
 
             <div className="mb-1">
-              <span className="text-4xl font-extrabold text-brand">
-                £{annual ? tier.annual : tier.monthly}
-              </span>
-              <span className="text-sm text-gray-500 font-medium">/{annual ? 'year' : 'month'}</span>
+              <span className="text-4xl font-extrabold text-brand">£{tier.annual}</span>
+              <span className="text-sm text-gray-500 font-medium">/year</span>
             </div>
             <p className="text-xs text-gray-400 mb-5 h-4">
-              {annual ? `Save £${annualSaving(tier)} vs monthly` : `or £${tier.annual}/year`}
+              £{(tier.annual / 12).toFixed(2)}/mo equivalent
             </p>
 
             <ul className="space-y-2.5 mb-6 flex-1">
@@ -99,7 +75,7 @@ export default function CarePlans() {
       </div>
 
       <p className="text-center text-xs text-gray-400 mt-6">
-        Plans set up by Direct Debit or bank transfer · cancel anytime ·{' '}
+        Paid annually by Direct Debit or bank transfer · no auto-renewal without your confirmation ·{' '}
         <a href="tel:07378349222" className="text-brand font-medium inline-flex items-center gap-1">
           <PhoneIcon className="w-3.5 h-3.5" /> 0737 834 9222
         </a>

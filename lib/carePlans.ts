@@ -1,7 +1,7 @@
 // Care Plan (subscription) + Remote Support data.
 //
 // All commercial numbers live here so they're trivial to adjust — nothing in the
-// page components hard-codes a price. Annual price = ~2 months free vs monthly.
+// page components hard-codes a price. Annual billing only — no monthly option.
 //
 // Pricing rationale (July 2026 UK market research):
 //   • The PC Crew (direct UK comparable) charges £12/mo for a single tier with
@@ -17,7 +17,6 @@ export interface CarePlanTier {
   id: string;
   name: string;
   tagline: string;
-  monthly: number;
   annual: number;
   highlight?: boolean;
   features: string[];
@@ -28,7 +27,6 @@ export const carePlans: CarePlanTier[] = [
     id: 'essential',
     name: 'Essential',
     tagline: 'Keep one device protected and monitored.',
-    monthly: 9.99,
     annual: 99,
     features: [
       '24/7 automated monitoring & alerts',
@@ -43,7 +41,6 @@ export const carePlans: CarePlanTier[] = [
     id: 'plus',
     name: 'Plus',
     tagline: 'Our most popular plan for home workers.',
-    monthly: 16.99,
     annual: 169,
     highlight: true,
     features: [
@@ -59,7 +56,6 @@ export const carePlans: CarePlanTier[] = [
     id: 'complete',
     name: 'Complete',
     tagline: 'Total peace of mind, hands-off.',
-    monthly: 29.99,
     annual: 299,
     features: [
       'Everything in Plus',
@@ -85,10 +81,6 @@ export const businessPlan = {
     'Tailored to your team — quoted to fit',
   ],
 };
-
-export function annualSaving(tier: CarePlanTier): number {
-  return Math.round(tier.monthly * 12 - tier.annual);
-}
 
 // ── Remote Support (one-off) ──
 export const REMOTE_SESSION_PRICE = 49;
