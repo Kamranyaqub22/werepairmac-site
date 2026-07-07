@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "refresh:reviews": "node scripts/refresh-reviews-snapshot.js"
   },
   "dependencies": {
     "@types/nodemailer": "^7.0.11",
