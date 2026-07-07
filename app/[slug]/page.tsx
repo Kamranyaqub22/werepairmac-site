@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getService, services } from '@/lib/services';
-import { getLocation, getNearbyLocations, locations } from '@/lib/locations';
+import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/lib/locations';
 import { getBlogPostsForService, formatBlogDate } from '@/lib/blog';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
@@ -101,7 +101,6 @@ function ServicePage({ slug }: { slug: string }) {
             alt={service.shortTitle}
             fill
             className="object-cover opacity-20"
-            priority
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
@@ -330,14 +329,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
   if (!location) return null;
 
   const nearby = getNearbyLocations(locationSlug);
-
-  const faqs = [
-    { q: `Do you offer same-day Mac repair in ${location.name}?`, a: `Yes - we offer same-day callouts in ${location.name} and surrounding areas. Book before 2pm and we can typically visit the same day.` },
-    { q: 'Is there a callout charge?', a: `There is no callout charge for visits to ${location.name}. You only pay for the repair itself, and only if we fix it.` },
-    { q: `What areas near ${location.name} do you also cover?`, a: `We cover all of ${location.borough || location.name} and surrounding areas. We travel across all of Greater London, so if you are nearby, we can almost certainly come to you.` },
-    { q: 'What devices do you repair?', a: 'We repair MacBook Pro, MacBook Air, iMac, Mac Mini, all Windows laptops (HP, Dell, Lenovo, Asus, Acer), gaming PCs and more.' },
-    { q: 'How do I book a repair?', a: `Call us on 0737 834 9222 or email info@werepairmac.co.uk. We will arrange a convenient time to visit your home or workplace in ${location.name}.` },
-  ];
+  const faqs = getLocationFaqs(location);
 
   return (
     <>
@@ -352,11 +344,10 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1400&auto=format&fit=crop&q=60"
+            src="/images/mac-repair-location-hero-unsplash.jpg"
             alt={`Mac repair ${location.name}`}
             fill
             className="object-cover opacity-20"
-            priority
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4">
@@ -489,7 +480,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1400&auto=format&fit=crop&q=60"
+            src="/images/laptop-repair-hero-unsplash.jpg"
             alt="Laptop repair"
             fill
             className="object-cover opacity-15"

@@ -23,7 +23,7 @@ export const services: Service[] = [
     title: 'MacBook Repair London',
     shortTitle: 'MacBook Repair',
     icon: '💻',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
+    image: '/images/macbook-pro-unsplash.jpg',
     description: 'Expert MacBook Pro, MacBook Air & iMac repair. Same-day callout across London.',
     longDescription: 'We specialise in all MacBook models including M1, M2, M3 MacBook Pro and MacBook Air, plus iMac and Mac Mini. Our Apple-experienced technicians come to your home or office - no need to visit a shop.',
     commonIssues: [
@@ -45,7 +45,7 @@ export const services: Service[] = [
     title: 'Laptop Repair London',
     shortTitle: 'Laptop Repair',
     icon: '🖥️',
-    image: 'https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=600&auto=format&fit=crop&q=80',
+    image: '/images/laptop-repair-service-unsplash.jpg',
     description: 'HP, Dell, Lenovo, Asus, Acer laptop repairs. Home visits across Greater London.',
     longDescription: 'From screen replacements to motherboard repairs, we fix all major laptop brands at your home or office. Our engineers handle Dell XPS, HP Spectre, Lenovo ThinkPad, Asus ROG, Acer Aspire and more.',
     commonIssues: [
@@ -133,7 +133,7 @@ export const services: Service[] = [
     title: 'Data Recovery London',
     shortTitle: 'Data Recovery',
     icon: '💾',
-    image: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=600&auto=format&fit=crop&q=80',
+    image: '/images/data-recovery-service-unsplash.jpg',
     description: 'Recover lost files from crashed drives, deleted partitions, and formatted disks.',
     longDescription: 'Lost important files? We recover data from failed hard drives, SSDs, USB drives, SD cards and RAID arrays. We handle Mac APFS, Windows NTFS, formatted drives and accidental deletions.',
     commonIssues: [
@@ -155,7 +155,7 @@ export const services: Service[] = [
     title: 'Gaming PC Repair London',
     shortTitle: 'Gaming PC Repair',
     icon: '🎮',
-    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&auto=format&fit=crop&q=80',
+    image: '/images/gaming-pc-service-unsplash.jpg',
     description: 'Gaming desktop and laptop repair. BIOS tuning, GPU issues, performance optimisation.',
     longDescription: 'We fix gaming PCs, desktops and gaming laptops. Whether it\'s an Alienware, ASUS ROG, Razer Blade, MSI or custom-built PC - we diagnose and repair GPU faults, PSU failures, overheating, and Windows gaming issues.',
     commonIssues: [
@@ -177,7 +177,7 @@ export const services: Service[] = [
     title: 'Virus & Malware Removal London',
     shortTitle: 'Virus Removal',
     icon: '🛡️',
-    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&auto=format&fit=crop&q=80',
+    image: '/images/virus-removal-service-unsplash.jpg',
     description: 'Remove viruses, ransomware, spyware and malware from Mac and PC. Same-day service.',
     longDescription: 'Ransomware, spyware, adware and browser hijackers can destroy your data and compromise your privacy. We fully clean your Mac or PC, remove all malware, and set up proper security to prevent reinfection.',
     commonIssues: [
@@ -199,7 +199,7 @@ export const services: Service[] = [
     title: 'MacBook Screen Repair London',
     shortTitle: 'Screen Repair',
     icon: '🖱️',
-    image: 'https://images.unsplash.com/photo-1601524909162-ae8725290836?w=600&auto=format&fit=crop&q=80',
+    image: '/images/macbook-screen-repair-service-unsplash.jpg',
     description: 'MacBook Pro and MacBook Air screen replacement. Cracked, flickering or dead displays fixed same day.',
     longDescription: 'We replace cracked, flickering, dead, or dim MacBook screens using quality replacement panels. We cover MacBook Pro 13", 14", 15", 16" and MacBook Air 13", 15" - including Retina and Liquid Retina XDR displays.',
     commonIssues: [
@@ -243,7 +243,7 @@ export const services: Service[] = [
     title: 'Water Damage Repair London',
     shortTitle: 'Water Damage Repair',
     icon: '💧',
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&auto=format&fit=crop&q=80',
+    image: '/images/water-damage-service-unsplash.jpg',
     description: 'MacBook or laptop liquid damage? Act fast - we provide same-day emergency callout.',
     longDescription: 'Spilt water, coffee or juice on your MacBook or laptop? Act immediately - every minute counts with liquid damage. Do not turn it on. Call us now for a same-day emergency visit.',
     commonIssues: [
@@ -265,7 +265,7 @@ export const services: Service[] = [
     title: 'PlayStation Repair London',
     shortTitle: 'PlayStation Repair',
     icon: '🎮',
-    image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&auto=format&fit=crop&q=80',
+    image: '/images/playstation-service-unsplash.jpg',
     description: 'PS5 & PS4 repair at your home. HDMI port, overheating, disc drive & controller faults fixed.',
     longDescription: 'PlayStation not working? We repair PS5 and PS4 consoles at your home or office across Greater London. From the common PS5 HDMI port failure to disc drive faults, overheating shutdowns and controller issues — our engineers diagnose and fix your console on-site, so you are back gaming the same day.',
     commonIssues: [
@@ -311,7 +311,7 @@ export const services: Service[] = [
     title: 'MacBook Pro Repair London',
     shortTitle: 'MacBook Pro Repair',
     icon: '💻',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
+    image: '/images/macbook-pro-unsplash.jpg',
     description: 'Specialist MacBook Pro M1, M2, M3 and Intel logic board and screen repair.',
     longDescription: 'We offer hyper-specialised repairs for MacBook Pro 13", 14", 15" and 16" models. Whether you have an older Intel core model with a failing battery, or a brand new M3 Max with a cracked Liquid Retina XDR display, our engineers bring the Apple-certified workshop directly to your home.',
     commonIssues: [
@@ -351,7 +351,7 @@ export const services: Service[] = [
     title: 'PS5 HDMI Port Repair London',
     shortTitle: 'PS5 HDMI Repair',
     icon: '🎮',
-    image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&auto=format&fit=crop&q=80',
+    image: '/images/playstation-service-unsplash.jpg',
     description: 'PS5 turning on but no signal? We replace broken PS5 HDMI ports same-day.',
     longDescription: 'The most common PlayStation 5 fault is a broken or loose HDMI port. If your PS5 powers on with a blue or white light but shows "No Signal" on your TV, the port is likely damaged internally. We carry military-grade replacement ports and can micro-solder a brand new HDMI port onto your PS5 motherboard directly at your home.',
     commonIssues: [

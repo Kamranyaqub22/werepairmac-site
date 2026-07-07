@@ -29,11 +29,10 @@ export default function AboutPage() {
       <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=1400&auto=format&fit=crop&q=60"
+            src="/images/technician-macbook-hero-unsplash.jpg"
             alt="Technician repairing MacBook"
             fill
             className="object-cover opacity-20"
-            priority
           />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -95,7 +94,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           <div className="relative rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
             <Image
-              src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=70"
+              src="/images/engineer-working-macbook-unsplash.jpg"
               alt="Engineer working on MacBook"
               fill
               className="object-cover"
@@ -140,7 +139,7 @@ export default function AboutPage() {
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1400&auto=format&fit=crop&q=60"
+            src="/images/macbook-pro-unsplash.jpg"
             alt="MacBook"
             fill
             className="object-cover opacity-15"

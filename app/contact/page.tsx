@@ -17,11 +17,10 @@ export default function ContactPage() {
       <section className="relative bg-brand-dark text-white py-14 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1400&auto=format&fit=crop&q=60"
+            src="/images/laptop-repair-hero-unsplash.jpg"
             alt="Contact We Repair Mac"
             fill
             className="object-cover opacity-20"
-            priority
           />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">

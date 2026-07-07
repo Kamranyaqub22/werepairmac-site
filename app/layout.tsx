@@ -12,11 +12,11 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Mac, Laptop & Console Repair London | We Come To You | No Fix No Fee',
+    default: 'Mac, Laptop & Console Repair London | We Come To You',
     template: '%s | We Repair Mac London',
   },
   description:
-    'London\'s mobile Mac, laptop and console repair service. We come to your home or office - no shop visit needed. Same-day callout across Greater London. MacBook, data recovery, screen repair, PlayStation, Xbox, Nintendo Switch and virus removal. No fix, no fee. Call 0737 834 9222.',
+    'London\'s mobile Mac, laptop & console repair service. Same-day home or office visits, no shop needed. No fix, no fee. Call 0737 834 9222.',
   keywords: [
     'mobile mac repair london',
     'mac repair home visit london',
