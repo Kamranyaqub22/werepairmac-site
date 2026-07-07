@@ -4,13 +4,11 @@ interface LocalBusinessSchemaProps {
   location?: string;
 }
 
-import { FALLBACK_RATING, FALLBACK_TOTAL, fetchGoogleReviews } from '@/lib/googleReviews';
+import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { GOOGLE_BUSINESS_LISTING_URL } from '@/lib/googleBusiness';
 
 export default async function LocalBusinessSchema({ service, location }: LocalBusinessSchemaProps) {
   const reviews = await fetchGoogleReviews();
-  const ratingValue = reviews?.rating ?? FALLBACK_RATING;
-  const reviewCount = reviews?.total ?? FALLBACK_TOTAL;
 
   const schema = {
     '@context': 'https://schema.org',
@@ -23,13 +21,17 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
     description: service
       ? `Professional ${service} service across ${location || 'Greater London'}. Same-day home and office visits. No fix, no fee.`
       : 'Professional Mac, laptop, PC and PlayStation repair across Greater London. Same-day home and office visits. No fix, no fee guaranteed.',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: ratingValue.toFixed(1),
-      reviewCount: String(reviewCount),
-      bestRating: '5',
-      worstRating: '1',
-    },
+    // Only emit aggregateRating when we have real, live Google review data —
+    // never publish a hardcoded fallback number as if it were a genuine rating.
+    ...(reviews && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: reviews.rating.toFixed(1),
+        reviewCount: String(reviews.total),
+        bestRating: '5',
+        worstRating: '1',
+      },
+    }),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Repair Services',
