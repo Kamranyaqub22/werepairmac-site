@@ -9,7 +9,6 @@ import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
-import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import LocationMap from '@/components/LocationMap';
 import {
   PhoneIcon, MapPinIcon, CheckIcon,
@@ -86,7 +85,6 @@ function ServicePage({ slug }: { slug: string }) {
 
   return (
     <>
-      <LocalBusinessSchema service={service.shortTitle} />
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://www.werepairmac.co.uk' },
         { name: service.shortTitle, url: `https://www.werepairmac.co.uk/${slug}` },
@@ -333,7 +331,6 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
 
   return (
     <>
-      <LocalBusinessSchema location={location.name} />
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://www.werepairmac.co.uk' },
         { name: 'Areas We Cover', url: 'https://www.werepairmac.co.uk/areas-we-cover' },
