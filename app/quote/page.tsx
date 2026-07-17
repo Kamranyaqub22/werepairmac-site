@@ -5,12 +5,12 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import { PhoneIcon, ShieldCheckIcon, CurrencyPoundIcon, TruckIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Get a Quote & Book a Repair | We Repair Mac London',
+  title: 'Get a Quote & Book a Repair',
   description:
     'Get an instant price estimate for your Mac, laptop, PC or console repair, then request a home visit across Greater London. No fix, no fee. Call 0737 834 9222.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/quote' },
   openGraph: {
-    title: 'Get a Quote & Book a Repair | We Repair Mac London',
+    title: 'Get a Quote & Book a Repair',
     description: 'Instant repair estimate + request a home visit anywhere in Greater London. No fix, no fee.',
     url: 'https://www.werepairmac.co.uk/quote',
   },

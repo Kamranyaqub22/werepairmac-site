@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const location = getLocation(locationSlug);
   if (location) {
     return {
-      title: `Mac & Laptop Repair ${location.name} | Same Day | We Repair Mac`,
+      title: `Mac & Laptop Repair ${location.name}`,
       description: `Professional Mac, MacBook and laptop repair in ${location.name} (${location.postcode}). Same-day home visits, no fix no fee. Call 0737 834 9222.`,
       alternates: { canonical: `https://www.werepairmac.co.uk/mac-repair-${location.slug}` },
     };

@@ -6,7 +6,7 @@ import TrustBadges from '@/components/TrustBadges';
 import { MapPinIcon, PhoneIcon, ArrowRightIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Areas We Cover | Mac & Laptop Repair Across London & Surrey',
+  title: 'Areas We Cover | London & Surrey',
   description: 'We Repair Mac provides same-day home and office Mac, laptop and PC repair across every London borough plus the Surrey and M25 border. Find your area.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/areas-we-cover' },
 };

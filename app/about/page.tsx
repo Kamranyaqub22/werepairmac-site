@@ -7,7 +7,7 @@ import {
 } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'About We Repair Mac | London Mac & Laptop Repair Specialists',
+  title: 'About Us | London Mac & Laptop Repair',
   description:
     'Learn about We Repair Mac - London\'s mobile Mac and laptop repair specialists. Apple-experienced engineers, serving Greater London from New Malden since 2015.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/about' },

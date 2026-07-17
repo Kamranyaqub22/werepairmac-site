@@ -4,7 +4,7 @@ import { PhoneIcon, MailIcon, MapPinIcon, CheckIcon, ShieldCheckIcon } from '@/c
 import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact We Repair Mac | Book a Repair in London',
+  title: 'Contact Us | Book a Repair in London',
   description:
     'Contact We Repair Mac - call 0737 834 9222 or email info@werepairmac.co.uk to book a same-day Mac or laptop repair across Greater London. No fix, no fee.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/contact' },
