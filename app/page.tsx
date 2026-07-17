@@ -187,18 +187,18 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center gap-6 bg-brand/5 rounded-2xl p-6 sm:p-8 border border-brand/10">
             <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 shadow-md border-2 border-brand/20">
               <Image
-                src="/profile.jpg"
-                alt="Muhammad - We Repair Mac engineer"
+                src="/images/kamran-founder.jpg"
+                alt="Kamran, founder of We Repair Mac"
                 width={64}
                 height={64}
                 className="object-cover w-full h-full"
               />
             </div>
             <div className="text-center sm:text-left">
-              <div className="text-xs text-brand font-semibold uppercase tracking-wider mb-1">Your Engineer</div>
-              <p className="text-gray-900 font-bold text-base mb-1">Hi, I&apos;m Muhammad</p>
+              <div className="text-xs text-brand font-semibold uppercase tracking-wider mb-1">Founder &amp; Engineer</div>
+              <p className="text-gray-900 font-bold text-base mb-1">Hi, I&apos;m Kamran</p>
               <p className="text-gray-500 text-sm leading-relaxed max-w-2xl">
-                I bring over 12 years of specialized hardware experience to your door, having successfully repaired more than 4,500 Apple and Windows devices across Greater London with a 99.8% first-visit success rate. I diagnose the exact logic board or component fault in front of you, and won&apos;t leave until you&apos;re completely satisfied. You&apos;re trusting me with a £1,000+ device — I take that seriously.
+                I bring over 14 years of hands-on Mac and laptop repair experience to your door. I diagnose the exact logic board or component fault in front of you, and won&apos;t leave until you&apos;re completely satisfied. You&apos;re trusting me with a £1,000+ device — I take that seriously.
               </p>
             </div>
           </div>

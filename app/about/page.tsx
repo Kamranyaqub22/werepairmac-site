@@ -56,8 +56,8 @@ export default function AboutPage() {
             <div className="flex-shrink-0">
               <div className="w-48 h-48 rounded-full overflow-hidden shadow-lg border-4 border-brand/20">
                 <Image
-                  src="/profile.jpg"
-                  alt="Muhammad - We Repair Mac engineer"
+                  src="/images/kamran-founder.jpg"
+                  alt="Kamran, founder of We Repair Mac"
                   width={192}
                   height={192}
                   className="object-cover w-full h-full"
@@ -67,11 +67,11 @@ export default function AboutPage() {
             {/* Bio */}
             <div>
               <span className="inline-block bg-brand/10 text-brand text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
-                Your Engineer
+                Founder
               </span>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Hi, I&apos;m Muhammad</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Hi, I&apos;m Kamran</h2>
               <p className="text-gray-500 leading-relaxed mb-4 text-[15px]">
-                I&apos;ve been repairing Macs, laptops and PCs across London for years. I started We Repair Mac because I was tired of seeing customers wait weeks and pay Apple Store prices for repairs that take an hour on the bench.
+                I&apos;ve been repairing Macs, laptops and PCs across London for over 14 years. I founded We Repair Mac to give London a faster, more transparent alternative to waiting weeks and paying Apple Store prices for repairs that take an hour on the bench.
               </p>
               <p className="text-gray-500 leading-relaxed mb-6 text-[15px]">
                 When you book with me, I come to your door, explain exactly what&apos;s wrong, and get it fixed in front of you. You&apos;re handing over a £1,000+ device to a stranger — I take that seriously, and I won&apos;t leave until you&apos;re happy.
