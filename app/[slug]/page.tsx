@@ -414,9 +414,44 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       {/* About the area */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-3xl mx-auto px-4">
+          {/* Founder introduction */}
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-7 mb-10 flex flex-col sm:flex-row gap-6 items-start">
+            <Image
+              src="/images/kamran-founder.jpg"
+              alt="Kamran, founder of We Repair Mac"
+              width={112}
+              height={140}
+              className="rounded-xl object-cover w-28 h-auto flex-shrink-0 mx-auto sm:mx-0"
+            />
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">Meet Kamran — founder of We Repair Mac</h2>
+              <p className="text-sm text-brand font-semibold mb-3">Founder · 14+ years of Mac &amp; laptop repair experience</p>
+              <div className="text-gray-600 leading-relaxed text-sm space-y-3">
+                <p>
+                  I founded We Repair Mac to give London a faster, more transparent alternative to the traditional repair shop. With over 14 years of experience in Mac and laptop repair, I&apos;ve built a small team of experienced engineers who work the way I do: we come to you, quote before we start, and charge nothing if we can&apos;t fix the fault.
+                </p>
+                <p>
+                  Every engineer who arrives at your door in {location.name} is personally vetted, and every repair is backed by our 90-day parts-and-labour warranty.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <h2 className="text-2xl font-bold mb-4">Mac Repair in {location.name} - What to Expect</h2>
           <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
             {location.localIntro && <p>{location.localIntro}</p>}
+            {location.localRepairs && (
+              <>
+                <h3 className="text-lg font-bold text-gray-900 !mb-2">What we typically fix in {location.name}</h3>
+                <p>{location.localRepairs}</p>
+              </>
+            )}
+            {location.localLogistics && (
+              <>
+                <h3 className="text-lg font-bold text-gray-900 !mb-2">Getting to you in {location.name}</h3>
+                <p>{location.localLogistics}</p>
+              </>
+            )}
             <p>
               We Repair Mac provides a fully mobile repair service across {location.description} in the {location.borough || 'London'} area ({location.postcode}). Rather than asking you to travel to a workshop, our engineer comes directly to your address - whether that is your home, your office, or another convenient location.
             </p>

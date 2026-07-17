@@ -76,6 +76,12 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
       },
     ],
     priceRange: '££',
+    founder: {
+      '@type': 'Person',
+      name: 'Kamran',
+      jobTitle: 'Founder',
+      image: 'https://www.werepairmac.co.uk/images/kamran-founder.jpg',
+    },
     image: 'https://www.werepairmac.co.uk/logo.png',
     sameAs: [
       'https://www.facebook.com/werepairmac',

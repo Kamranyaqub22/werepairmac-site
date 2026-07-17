@@ -10,6 +10,33 @@ Read each area and mark anything wrong. I care most about the 🚩 flags — tho
 
 Everything is written in the existing house voice: British English, em-dashes, "we come to you", no jargon. I kept your original sentences where they were already doing the job and built around them.
 
+---
+
+# Founder bio block (NEW — appears on every area page)
+
+**Decision:** You're a founder-plus-team business, so this is written as a founder introduction, not as "your dedicated New Malden engineer." It renders identically on every area page as a trust element (like the competitor's Rafal block). The per-area SEO uniqueness stays in the three content fields below — this bio is deliberately the same everywhere, which is fine: Google treats a repeated trust/bio block like a testimonial or footer, not like thin duplicate content.
+
+**Name:** Kamran (first name only, per your choice)
+**Photo:** ✅ READY — processed and saved to `public/images/kamran-founder.jpg` (720×900, 73 KB, web-optimised). Upright, plain background, direct eye contact, smart casual. Slots into the left column of the bio card. (The old `app/Profile/IMG_3195.heic` was unusable — sunglasses/tourist background — and is not being used.)
+
+**Placement:** a card at the top of the "What to Expect" section, above `localIntro`.
+
+### Bio copy (FINAL — approved wording)
+
+> **Meet Kamran — founder of We Repair Mac**
+>
+> I founded We Repair Mac to give London a faster, more transparent alternative to the traditional repair shop. With over 14 years of experience in Mac and laptop repair, I've built a small team of experienced engineers who work the way I do: we come to you, quote before we start, and charge nothing if we can't fix the fault.
+>
+> Every engineer who arrives at your door is personally vetted, and every repair is backed by our 90-day parts-and-labour warranty.
+
+Reflects your decisions: neutral/professional founding story, "14 years of experience" included, "vetted" only (no insurance claim).
+
+### Optional: Person schema
+
+Once the bio is live I can add a `Person` entry (name: Kamran, founder) linked to the LocalBusiness schema as `founder`/`employee`. Small but genuine trust/entity signal for Google. First name only is slightly weaker here than a full name — say the word if you'd rather use the full name in schema only while displaying "Kamran" on the page.
+
+---
+
 ## Proposed structure
 
 Currently one `localIntro` field (~45 words median) carries all the unique content. This draft splits it into three, so each page gets ~440 unique words:
