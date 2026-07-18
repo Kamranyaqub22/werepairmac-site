@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const location = getLocation(locationSlug);
   if (location) {
     return {
-      title: `Mac & Laptop Repair ${location.name}`,
-      description: `Professional Mac, MacBook and laptop repair in ${location.name} (${location.postcode}). Same-day home visits, no fix no fee. Call 0737 834 9222.`,
+      title: `Mac, PC & Laptop Repair ${location.name}`,
+      description: `Professional Mac, PC, laptop and gaming repair in ${location.name} (${location.postcode}). Same-day home visits, no fix no fee. Call 0737 834 9222.`,
       alternates: { canonical: `https://www.werepairmac.co.uk/mac-repair-${location.slug}` },
     };
   }
@@ -79,7 +79,7 @@ function ServicePage({ slug }: { slug: string }) {
     { Icon: BoltIcon, title: 'Same-Day Repairs', desc: 'Most repairs are completed on-site within an hour. Book before 2pm and we will do our best to visit the same day.' },
     { Icon: ShieldCheckIcon, title: 'Genuine Parts & Warranty', desc: 'We use quality replacement parts and back every repair with a 90-day parts and labour warranty.' },
     { Icon: CurrencyPoundIcon, title: 'Fixed Price Quotes', desc: 'We quote before we start. No surprise bills, no hidden charges - only pay when you are satisfied.' },
-    { Icon: WrenchIcon, title: 'Experienced Engineers', desc: 'Our engineers are Apple-experienced technicians with years of Mac and laptop repair expertise.' },
+    { Icon: WrenchIcon, title: 'Experienced Engineers', desc: 'Our engineers are experienced technicians with years of Mac, Windows PC, laptop and gaming repair expertise.' },
     { Icon: ClockIcon, title: 'No Fix, No Fee', desc: 'If we cannot fix your device, you pay absolutely nothing. That is our guarantee to every customer.' },
   ];
 
@@ -353,11 +353,11 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
               <MapPinIcon className="w-3.5 h-3.5 text-orange-400" /> {location.name} &middot; {location.postcode} &middot; {location.borough}
             </span>
             <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-              Mac &amp; Laptop Repair<br />
+              Mac, PC &amp; Laptop Repair<br />
               <span className="text-orange-400">{location.name}</span>
             </h1>
             <p className="text-blue-100 text-lg mb-6 leading-relaxed">
-              Professional Mac, MacBook and laptop repair in {location.name} ({location.postcode}). Our engineers come directly to your home or office - same-day service with no callout charge.
+              Professional Mac, PC, laptop and gaming repair in {location.name} ({location.postcode}). Our engineers come directly to your home or office - same-day service with no callout charge.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="tel:07378349222" className="btn-accent py-4 px-8 text-base inline-flex items-center gap-2">
@@ -425,10 +425,10 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
             />
             <div>
               <h2 className="text-xl font-bold text-gray-900 mb-1">Meet Kamran — founder of We Repair Mac</h2>
-              <p className="text-sm text-brand font-semibold mb-3">Founder · 14+ years of Mac &amp; laptop repair experience</p>
+              <p className="text-sm text-brand font-semibold mb-3">Founder · 14+ years of Mac, PC &amp; laptop repair experience</p>
               <div className="text-gray-600 leading-relaxed text-sm space-y-3">
                 <p>
-                  I founded We Repair Mac to give London a faster, more transparent alternative to the traditional repair shop. With over 14 years of experience in Mac and laptop repair, I&apos;ve built a small team of experienced engineers who work the way I do: we come to you, quote before we start, and charge nothing if we can&apos;t fix the fault.
+                  I founded We Repair Mac to give London a faster, more transparent alternative to the traditional repair shop. With over 14 years of experience across Mac, PC and laptop repair, I&apos;ve built a small team of experienced engineers who work the way I do: we come to you, quote before we start, and charge nothing if we can&apos;t fix the fault.
                 </p>
                 <p>
                   Every engineer who arrives at your door in {location.name} is personally vetted, and every repair is backed by our 90-day parts-and-labour warranty.
@@ -437,7 +437,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
             </div>
           </div>
 
-          <h2 className="text-2xl font-bold mb-4">Mac Repair in {location.name} - What to Expect</h2>
+          <h2 className="text-2xl font-bold mb-4">Mac, PC &amp; Laptop Repair in {location.name} - What to Expect</h2>
           <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
             {location.localIntro && <p>{location.localIntro}</p>}
             {location.localRepairs && (
@@ -456,7 +456,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
               We Repair Mac provides a fully mobile repair service across {location.description} in the {location.borough || 'London'} area ({location.postcode}). Rather than asking you to travel to a workshop, our engineer comes directly to your address - whether that is your home, your office, or another convenient location.
             </p>
             <p>
-              Our {location.name} customers benefit from the same high standard of repair as our London-wide service: Apple-experienced technicians, quality replacement parts, and a genuine No Fix, No Fee guarantee. Most MacBook screen replacements, battery swaps, and software repairs are completed within an hour on-site.
+              Our {location.name} customers benefit from the same high standard of repair as our London-wide service: experienced technicians across Mac and PC, quality replacement parts, and a genuine No Fix, No Fee guarantee. Most screen replacements, battery swaps, upgrades and software repairs are completed within an hour on-site.
             </p>
             <p>
               For more complex repairs such as liquid damage, logic board issues, or advanced data recovery, we may need to bring the device to our workshop - but we will always discuss this with you and keep you updated throughout.
@@ -471,7 +471,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       {/* FAQ */}
       <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="section-heading text-center">Mac Repair {location.name} - FAQs</h2>
+          <h2 className="section-heading text-center">Mac, PC &amp; Laptop Repair {location.name} - FAQs</h2>
           <div className="mt-8">
             <FAQAccordion items={faqs} />
           </div>
