@@ -110,8 +110,28 @@ export default function CarePlansPage() {
         </div>
       </section>
 
+      {/* Explainer prose */}
+      <section className="py-16 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">What a computer care plan actually does for you</h2>
+          <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
+            <p>
+              Most serious computer disasters — a failed hard drive that takes your photos with it, ransomware that locks your files, a security update left unapplied for two years — are entirely preventable. A care plan shifts you from reacting to problems after they happen to quietly preventing them in the background. Rather than paying only when something breaks, you get ongoing maintenance for your Mac, laptop or PC as a single, predictable annual payment.
+            </p>
+            <h3 className="text-lg font-bold text-gray-900 !mb-2">Prevention, protection and peace of mind</h3>
+            <p>
+              Depending on the plan you choose, we monitor your device&apos;s disk health and free space, keep security patches and antivirus up to date, and check that your backups are actually running — because a backup you assume is working is the one that lets you down. When something does need a human, members get priority booking, discounted labour with no callout minimum, and remote support included. It is the difference between owning a computer and having someone quietly looking after it.
+            </p>
+            <h3 className="text-lg font-bold text-gray-900 !mb-2">Who care plans suit best</h3>
+            <p>
+              Care plans make the most sense for people who rely on their computer and would rather not think about it: freelancers and home-office workers who cannot afford downtime, families who want an older relative&apos;s Mac kept safe from scams, and small businesses that need their handful of machines maintained without a full IT department. Plans are billed once a year with no rolling contract and no notice period — if it stops being useful, you simply do not renew. And if you only need a single fix rather than ongoing cover, remote support is always there as a one-off.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="section-heading text-center">Care plan FAQs</h2>
           <div className="mt-8">

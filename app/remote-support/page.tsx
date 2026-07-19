@@ -133,8 +133,28 @@ export default function RemoteSupportPage() {
         </div>
       </section>
 
+      {/* Explainer prose */}
+      <section className="py-16 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Remote computer support in London — fixed today, no visit needed</h2>
+          <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
+            <p>
+              When the problem is software rather than hardware, there is rarely any reason to wait for an engineer to travel to you. Our remote support service connects to your Mac, laptop or PC over a secure, one-time screen-sharing session — usually within the hour — so a technician can diagnose and fix the fault live while you watch. You stay in control the whole time: you approve the connection, you see every action on your own screen, and access ends the moment we disconnect. Nothing is left installed on your machine afterwards.
+            </p>
+            <h3 className="text-lg font-bold text-gray-900 !mb-2">The kinds of problems we solve remotely</h3>
+            <p>
+              Most day-to-day frustrations are software-based and perfect for a remote session: a Mac that has slowed to a crawl, a macOS or Windows update that failed halfway, email and iCloud accounts that will not sync, printers and Wi-Fi that refuse to connect, suspected viruses or malware, unwanted pop-ups and browser hijacks, and setting up or migrating to a new machine. Because we work on your computer as it actually is — with your files, your accounts and your settings in front of us — the fix sticks, and you learn exactly what went wrong.
+            </p>
+            <h3 className="text-lg font-bold text-gray-900 !mb-2">Simple, per-session pricing</h3>
+            <p>
+              A standard remote session is a single agreed fee of £{REMOTE_SESSION_PRICE}, confirmed before we begin — larger jobs are quoted first, and you pay by bank transfer once the work is done, with no card details needed. There is no callout charge and no subscription: remote support is a one-off fix, whenever you need it. If a fault turns out to be physical — a cracked screen, a swollen battery, liquid damage or a machine that will not power on — we will tell you honestly and arrange an on-site visit across Greater London instead.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="section-heading text-center">Remote support FAQs</h2>
           <div className="mt-8">
