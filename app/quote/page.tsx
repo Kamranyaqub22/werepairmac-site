@@ -7,7 +7,7 @@ import { PhoneIcon, ShieldCheckIcon, CurrencyPoundIcon, TruckIcon } from '@/comp
 export const metadata: Metadata = {
   title: 'Get a Quote & Book a Repair',
   description:
-    'Get an instant price estimate for your Mac, laptop, PC or console repair, then request a home visit across Greater London. No fix, no fee. Call 0737 834 9222.',
+    'Get an instant price estimate for your Mac, laptop, PC or console repair, then request a home visit across Greater London. No fix, no fee. Call 07378 349222.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/quote' },
   openGraph: {
     title: 'Get a Quote & Book a Repair',
@@ -52,7 +52,7 @@ export default function QuotePage() {
             ))}
           </div>
           <a href="tel:07378349222" className="btn-accent py-3.5 px-8 text-base inline-flex items-center gap-2 mt-8">
-            <PhoneIcon className="w-4 h-4" /> Or call 0737 834 9222
+            <PhoneIcon className="w-4 h-4" /> Or call 07378 349222
           </a>
         </div>
       </section>

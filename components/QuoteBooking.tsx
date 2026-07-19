@@ -68,7 +68,7 @@ export default function QuoteBooking() {
         setStatus('error');
       }
     } catch {
-      setError('Network error. Please call us on 0737 834 9222.');
+      setError('Network error. Please call us on 07378 349222.');
       setStatus('error');
     }
   }
@@ -195,7 +195,7 @@ export default function QuoteBooking() {
             <h3 className="text-lg font-bold text-green-800 mb-2">Request received!</h3>
             <p className="text-green-700 text-sm">
               We&apos;ll call or message you shortly to confirm a visit time. If it&apos;s urgent, call{' '}
-              <a href="tel:07378349222" className="font-semibold underline">0737 834 9222</a>.
+              <a href="tel:07378349222" className="font-semibold underline">07378 349222</a>.
             </p>
             <button onClick={() => setStatus('idle')} className="mt-4 text-sm text-green-600 underline hover:text-green-800">
               Send another request
@@ -267,7 +267,7 @@ export default function QuoteBooking() {
             </button>
             <p className="text-xs text-gray-400 text-center">
               Prefer to talk? Call{' '}
-              <a href="tel:07378349222" className="text-brand font-semibold">0737 834 9222</a>{' '}
+              <a href="tel:07378349222" className="text-brand font-semibold">07378 349222</a>{' '}
               — we&apos;ll confirm a time that suits you.
             </p>
           </form>

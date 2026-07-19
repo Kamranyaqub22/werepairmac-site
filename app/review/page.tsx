@@ -75,7 +75,7 @@ export default function ReviewPage() {
             <p className="text-xs text-gray-400 mb-5">
               Not happy with something? Please call us first on{' '}
               <a href="tel:07378349222" className="text-brand font-medium hover:underline">
-                0737 834 9222
+                07378 349222
               </a>{' '}
               — we will put it right.
             </p>

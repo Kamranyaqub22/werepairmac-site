@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s | We Repair Mac',
   },
   description:
-    'London\'s mobile Mac, laptop & console repair service. Same-day home or office visits, no shop needed. No fix, no fee. Call 0737 834 9222.',
+    'London\'s mobile Mac, laptop & console repair service. Same-day home or office visits, no shop needed. No fix, no fee. Call 07378 349222.',
   keywords: [
     'mobile mac repair london',
     'mac repair home visit london',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     siteName: 'We Repair Mac',
     title: 'We Repair Mac | Mac, Laptop, PC & Console Repair London',
     description:
-      'Same-day Mac, laptop, PC and console repairs across Greater London. No fix, no fee. Call 0737 834 9222.',
+      'Same-day Mac, laptop, PC and console repairs across Greater London. No fix, no fee. Call 07378 349222.',
     images: [
       {
         url: '/og-image.jpg',

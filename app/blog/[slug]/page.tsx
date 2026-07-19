@@ -137,7 +137,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <div className="flex flex-wrap gap-3">
                   <a href="tel:07378349222" className="btn-accent">
                     <PhoneIcon className="w-4 h-4" />
-                    Call 0737 834 9222
+                    Call 07378 349222
                   </a>
                   <Link href={`/${service.slug}`} className="btn-outline">
                     View service page

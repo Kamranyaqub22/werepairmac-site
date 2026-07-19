@@ -37,7 +37,7 @@ export const services: Service[] = [
       'WiFi not connecting',
     ],
     metaTitle: 'MacBook Repair London | Same Day Callout',
-    metaDescription: 'Expert MacBook Pro, MacBook Air & iMac repair across London. Same-day home & office visits. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'Expert MacBook Pro, MacBook Air & iMac repair across London. Same-day home & office visits. No fix, no fee. Call 07378 349222.',
     category: 'Apple & Mac',
   },
   {
@@ -59,7 +59,7 @@ export const services: Service[] = [
       'Overheating and shutting down',
     ],
     metaTitle: 'Laptop Repair London | HP, Dell, Lenovo',
-    metaDescription: 'Fast laptop repair across London. HP, Dell, Lenovo, Asus, Acer and more. Home visits available. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'Fast laptop repair across London. HP, Dell, Lenovo, Asus, Acer and more. Home visits available. No fix, no fee. Call 07378 349222.',
     category: 'Windows Laptop & PC',
   },
   {
@@ -81,7 +81,7 @@ export const services: Service[] = [
       'Windows 10 to Windows 11 upgrade help',
     ],
     metaTitle: 'Windows Support London | PC Troubleshooting',
-    metaDescription: 'Windows PC and laptop support across London. Updates, driver issues, slow performance and setup fixed at your door. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'Windows PC and laptop support across London. Updates, driver issues, slow performance and setup fixed at your door. No fix, no fee. Call 07378 349222.',
     category: 'Windows Laptop & PC',
   },
   {
@@ -103,7 +103,7 @@ export const services: Service[] = [
       'Data migration to a new drive without losing files',
     ],
     metaTitle: 'Hardware Upgrades London | RAM & SSD',
-    metaDescription: 'RAM and SSD upgrades across London for laptops, desktops and older Macs. Faster performance, more storage, data migrated safely. Call 0737 834 9222.',
+    metaDescription: 'RAM and SSD upgrades across London for laptops, desktops and older Macs. Faster performance, more storage, data migrated safely. Call 07378 349222.',
     category: 'Windows Laptop & PC',
   },
   {
@@ -125,7 +125,7 @@ export const services: Service[] = [
       'Securing a home or office network',
     ],
     metaTitle: 'Networking & Wi-Fi Setup London',
-    metaDescription: 'Home and office network setup across London. Wi-Fi, routers, mesh systems and shared drives fixed at your door. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'Home and office network setup across London. Wi-Fi, routers, mesh systems and shared drives fixed at your door. No fix, no fee. Call 07378 349222.',
     category: 'Windows Laptop & PC',
   },
   {
@@ -147,7 +147,7 @@ export const services: Service[] = [
       'Photos and videos from memory cards',
     ],
     metaTitle: 'Data Recovery London | Hard Drive & SSD',
-    metaDescription: 'Professional data recovery across London. Retrieve lost files from crashed drives, formatted disks and failed SSDs. Call 0737 834 9222.',
+    metaDescription: 'Professional data recovery across London. Retrieve lost files from crashed drives, formatted disks and failed SSDs. Call 07378 349222.',
     category: 'Data & Security',
   },
   {
@@ -169,7 +169,7 @@ export const services: Service[] = [
       'Custom PC build and upgrades',
     ],
     metaTitle: 'Gaming PC Repair London | Desktop & Laptop',
-    metaDescription: 'Gaming PC and laptop repair across London. GPU, PSU, overheating fixes. Alienware, ASUS ROG, MSI, custom builds. Call 0737 834 9222.',
+    metaDescription: 'Gaming PC and laptop repair across London. GPU, PSU, overheating fixes. Alienware, ASUS ROG, MSI, custom builds. Call 07378 349222.',
     category: 'Windows Laptop & PC',
   },
   {
@@ -191,7 +191,7 @@ export const services: Service[] = [
       'Mac infected with adware',
     ],
     metaTitle: 'Virus Removal London | Malware & Ransomware',
-    metaDescription: 'Same-day virus and malware removal across London. Mac and PC. Ransomware, spyware, adware cleaned. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'Same-day virus and malware removal across London. Mac and PC. Ransomware, spyware, adware cleaned. No fix, no fee. Call 07378 349222.',
     category: 'Data & Security',
   },
   {
@@ -213,7 +213,7 @@ export const services: Service[] = [
       'Screen hinge broken',
     ],
     metaTitle: 'MacBook Screen Repair London | Same Day',
-    metaDescription: 'MacBook Pro and MacBook Air screen replacement across London. Cracked, flickering or dead displays. Same-day home visit. Call 0737 834 9222.',
+    metaDescription: 'MacBook Pro and MacBook Air screen replacement across London. Cracked, flickering or dead displays. Same-day home visit. Call 07378 349222.',
     category: 'Apple & Mac',
   },
   {
@@ -235,7 +235,7 @@ export const services: Service[] = [
       'macOS showing reduced battery capacity',
     ],
     metaTitle: 'MacBook Battery Replacement London',
-    metaDescription: 'MacBook Pro and Air battery replacement across London. Home visits, genuine-spec parts. Fast turnaround. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'MacBook Pro and Air battery replacement across London. Home visits, genuine-spec parts. Fast turnaround. No fix, no fee. Call 07378 349222.',
     category: 'Apple & Mac',
   },
   {
@@ -257,7 +257,7 @@ export const services: Service[] = [
       'Battery short-circuit from water',
     ],
     metaTitle: 'Water Damage Repair London | Mac & Laptop',
-    metaDescription: 'Emergency liquid damage repair across London. MacBook and laptop spill recovery. Same-day callout. Do not turn it on - call 0737 834 9222.',
+    metaDescription: 'Emergency liquid damage repair across London. MacBook and laptop spill recovery. Same-day callout. Do not turn it on - call 07378 349222.',
     category: 'Data & Security',
   },
   {
@@ -281,7 +281,7 @@ export const services: Service[] = [
       'USB port broken on controller or console',
     ],
     metaTitle: 'PlayStation Repair London | PS5 & PS4',
-    metaDescription: 'PS5 and PS4 repair across Greater London. HDMI port, overheating, disc drive, controller faults fixed at your door. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'PS5 and PS4 repair across Greater London. HDMI port, overheating, disc drive, controller faults fixed at your door. No fix, no fee. Call 07378 349222.',
     category: 'Consoles & Gaming',
   },
   {
@@ -343,7 +343,7 @@ export const services: Service[] = [
       'USB-C charging ports loose or failing',
     ],
     metaTitle: 'MacBook Air Repair London | Same Day',
-    metaDescription: 'Expert MacBook Air repair in London. M1, M2, M3 screen replacement, battery upgrades and liquid damage repair. We come to you. Call 0737 834 9222.',
+    metaDescription: 'Expert MacBook Air repair in London. M1, M2, M3 screen replacement, battery upgrades and liquid damage repair. We come to you. Call 07378 349222.',
     category: 'Apple & Mac',
   },
   {
@@ -363,7 +363,7 @@ export const services: Service[] = [
       'Requires wiggling the cable to get picture',
     ],
     metaTitle: 'PS5 HDMI Port Repair London | Same Day',
-    metaDescription: 'PS5 HDMI port repair across London. No signal or broken port? We micro-solder a new HDMI port at your home today. No fix, no fee. Call 0737 834 9222.',
+    metaDescription: 'PS5 HDMI port repair across London. No signal or broken port? We micro-solder a new HDMI port at your home today. No fix, no fee. Call 07378 349222.',
     category: 'Consoles & Gaming',
   }
 ];

@@ -15,7 +15,7 @@ import { PhoneIcon, ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon, ArrowRigh
 export const metadata: Metadata = {
   title: 'Mac, Laptop & Console Repair London | We Come To You',
   description:
-    'London\'s mobile Mac, laptop & console repair service. Same-day home or office visits, no shop needed. No fix, no fee. Call 0737 834 9222.',
+    'London\'s mobile Mac, laptop & console repair service. Same-day home or office visits, no shop needed. No fix, no fee. Call 07378 349222.',
   alternates: { canonical: 'https://www.werepairmac.co.uk' },
 };
 
@@ -146,7 +146,7 @@ export default function HomePage() {
               <div className="mt-8">
                 <a href="tel:07378349222" className="btn-primary py-3 px-7">
                   <PhoneIcon className="w-4 h-4" />
-                  Call 0737 834 9222
+                  Call 07378 349222
                 </a>
               </div>
             </div>
@@ -401,7 +401,7 @@ export default function HomePage() {
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="tel:07378349222" className="btn-accent text-base px-8 py-4">
               <PhoneIcon className="w-5 h-5" />
-              0737 834 9222
+              07378 349222
             </a>
             <Link href="/quote" className="btn-ghost-white py-4 px-7 text-base inline-flex items-center gap-2">
               Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />

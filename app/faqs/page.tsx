@@ -31,6 +31,27 @@ const faqCategories = [
     ],
   },
   {
+    category: 'Trust & Guarantees',
+    faqs: [
+      {
+        q: 'Is We Repair Mac a genuine, established business?',
+        a: 'Yes. We Repair Mac is a real, established repair service that has operated across Greater London since 2015. We are based in New Malden, KT3, our engineers are Apple-experienced technicians, and you can find and review us on our Google Business listing. We are not to be confused with similarly named repair firms — our only website is werepairmac.co.uk.',
+      },
+      {
+        q: 'How do I know I can trust an engineer in my home?',
+        a: 'We understand you are handing a £1,000+ device to someone in your own home, and we take that seriously. Founder Kamran and our engineers come to you in person, explain exactly what is wrong in plain English, and carry out the repair in front of you wherever possible. You only pay once the repair is complete and you are happy with the result.',
+      },
+      {
+        q: 'What protection do I have if the repair goes wrong?',
+        a: 'Every repair is backed by a 90-day parts and labour warranty. If the same fault returns within 90 days, we fix it again at no charge. And because we work on a No Fix, No Fee basis, you pay absolutely nothing if we cannot repair your device — no diagnostic fee, no callout charge.',
+      },
+      {
+        q: 'Are your engineers qualified to work on Apple and other devices?',
+        a: 'Yes. Our engineers are Apple-experienced technicians with many years of hands-on repair work — our founder alone has over 14 years of experience. We repair every MacBook, iMac and Mac Mini model, Windows laptops and PCs, gaming rigs and games consoles, and have handled every common fault from liquid-damaged logic boards to failed SSDs.',
+      },
+    ],
+  },
+  {
     category: 'Pricing & Payment',
     faqs: [
       {
@@ -144,7 +165,7 @@ export default function FAQPage() {
           <h2 className="text-2xl font-bold mb-3">Still have a question?</h2>
           <p className="text-blue-100 mb-6">Call or email - we usually respond within 30 minutes.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href="tel:07378349222" className="btn-accent py-3 px-8">📞 0737 834 9222</a>
+            <a href="tel:07378349222" className="btn-accent py-3 px-8">📞 07378 349222</a>
             <a href="mailto:info@werepairmac.co.uk" className="btn-outline border-white text-white hover:bg-white hover:text-brand py-3 px-6">
               ✉️ Email Us
             </a>

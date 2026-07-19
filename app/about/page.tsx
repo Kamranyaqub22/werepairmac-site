@@ -150,7 +150,7 @@ export default function AboutPage() {
           <p className="text-blue-100 mb-6">Same-day repairs across Greater London. No fix, no fee.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="tel:07378349222" className="btn-accent py-4 px-8 inline-flex items-center gap-2">
-              <PhoneIcon className="w-4 h-4" /> 0737 834 9222
+              <PhoneIcon className="w-4 h-4" /> 07378 349222
             </a>
             <a href="mailto:info@werepairmac.co.uk" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
               <MailIcon className="w-4 h-4" /> info@werepairmac.co.uk

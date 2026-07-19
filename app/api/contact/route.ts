@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
               </table>
               <div style="margin-top: 20px; padding: 14px 16px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #3b82f6;">
                 <p style="margin: 0; font-size: 14px; color: #1e3a8a; font-weight: 600;">⏱ We aim to respond within 30 minutes.</p>
-                <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">If it&apos;s urgent, call us directly on <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">0737 834 9222</a>.</p>
+                <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">If it&apos;s urgent, call us directly on <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">07378 349222</a>.</p>
               </div>
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
               <p style="margin: 0; font-size: 12px; color: #9ca3af; text-align: center;">

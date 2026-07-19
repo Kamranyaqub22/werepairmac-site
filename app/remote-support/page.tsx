@@ -12,7 +12,7 @@ const WHATSAPP = 'https://wa.me/447378349222?text=Hi%2C%20I%27d%20like%20a%20rem
 export const metadata: Metadata = {
   title: 'Remote Computer Support London | Fixed Today from £49 | We Repair Mac',
   description:
-    'Get your Mac, laptop or PC fixed remotely today — virus removal, slow speeds, software, email and setup. Secure screen-share, no visit needed. From £49. Call 0737 834 9222.',
+    'Get your Mac, laptop or PC fixed remotely today — virus removal, slow speeds, software, email and setup. Secure screen-share, no visit needed. From £49. Call 07378 349222.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/remote-support' },
   openGraph: {
     title: 'Remote Computer Support London | From £49 | We Repair Mac',
@@ -116,7 +116,7 @@ export default function RemoteSupportPage() {
               <span className="inline-flex items-center gap-1.5"><ComputerDesktopIcon className="w-4 h-4 text-brand" /> Nothing left installed</span>
             </div>
             <a href="tel:07378349222" className="btn-primary py-3.5 px-8 text-base inline-flex items-center gap-2">
-              <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
+              <PhoneIcon className="w-4 h-4" /> Call 07378 349222
             </a>
           </div>
 

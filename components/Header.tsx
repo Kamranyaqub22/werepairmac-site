@@ -24,7 +24,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <a href="tel:07378349222" className="flex items-center gap-1.5 font-semibold text-white hover:text-white/80 transition-colors text-sm">
               <PhoneIcon className="w-3.5 h-3.5" />
-              0737 834 9222
+              07378 349222
             </a>
             <a href="mailto:info@werepairmac.co.uk" className="hidden sm:block text-white/70 hover:text-white transition-colors">
               info@werepairmac.co.uk
@@ -173,7 +173,7 @@ export default function Header() {
 
             <a href="tel:07378349222" className="btn-accent mt-3 justify-center py-3">
               <PhoneIcon className="w-4 h-4" />
-              0737 834 9222
+              07378 349222
             </a>
           </div>
         </div>

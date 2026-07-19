@@ -6,7 +6,7 @@ import ContactForm from '@/components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact Us | Book a Repair in London',
   description:
-    'Contact We Repair Mac - call 0737 834 9222 or email info@werepairmac.co.uk to book a same-day Mac or laptop repair across Greater London. No fix, no fee.',
+    'Contact We Repair Mac - call 07378 349222 or email info@werepairmac.co.uk to book a same-day Mac or laptop repair across Greater London. No fix, no fee.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/contact' },
 };
 
@@ -44,7 +44,7 @@ export default function ContactPage() {
                 <div>
                   <div className="font-bold text-gray-900">Phone</div>
                   <a href="tel:07378349222" className="text-brand font-semibold text-lg hover:underline">
-                    0737 834 9222
+                    07378 349222
                   </a>
                   <p className="text-sm text-gray-500 mt-1">Available 24/7 — day, night, weekday or weekend</p>
                 </div>

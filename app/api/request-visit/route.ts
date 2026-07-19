@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
               </table>
               <div style="margin-top: 20px; padding: 14px 16px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #3b82f6;">
                 <p style="margin: 0; font-size: 14px; color: #1e3a8a; font-weight: 600;">⏱ We'll be in touch shortly to confirm.</p>
-                <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">Any estimate shown is a guide only — the final price is confirmed on site before any work. If it's urgent, call <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">0737 834 9222</a>.</p>
+                <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">Any estimate shown is a guide only — the final price is confirmed on site before any work. If it's urgent, call <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">07378 349222</a>.</p>
               </div>
               <p style="margin: 20px 0 0; font-size: 12px; color: #9ca3af; text-align: center;">
                 We Repair Mac &bull; <a href="https://www.werepairmac.co.uk" style="color: #9ca3af;">werepairmac.co.uk</a>

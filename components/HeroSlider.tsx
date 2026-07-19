@@ -82,7 +82,7 @@ export default function HeroSlider() {
             <div className="flex flex-wrap gap-3 mb-10">
               <a href="tel:07378349222" className="btn-accent px-7 py-3.5 text-base">
                 <PhoneIcon className="w-4 h-4" />
-                Call 0737 834 9222
+                Call 07378 349222
               </a>
               <a
                 href="https://wa.me/447378349222?text=Hi%2C%20I%20need%20help%20with%20a%20Mac%20or%20laptop%20repair"

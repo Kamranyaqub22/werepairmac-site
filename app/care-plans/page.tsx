@@ -58,7 +58,7 @@ export default function CarePlansPage() {
             Monitoring, antivirus, backups, remote support and discounted repairs — all in one simple annual plan for your Mac, laptop or PC.
           </p>
           <a href="tel:07378349222" className="btn-accent py-3.5 px-8 text-base inline-flex items-center gap-2">
-            <PhoneIcon className="w-4 h-4" /> Questions? Call 0737 834 9222
+            <PhoneIcon className="w-4 h-4" /> Questions? Call 07378 349222
           </a>
         </div>
       </section>

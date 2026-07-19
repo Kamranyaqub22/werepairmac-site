@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="flex flex-wrap gap-3">
             <a href="tel:07378349222" className="btn-white">
               <PhoneIcon className="w-4 h-4 text-brand" />
-              0737 834 9222
+              07378 349222
             </a>
             <a
               href="https://wa.me/447378349222?text=Hi%2C%20I%20need%20help%20with%20a%20repair"
@@ -62,7 +62,7 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <PhoneIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
-              <a href="tel:07378349222" className="hover:text-white transition-colors">0737 834 9222</a>
+              <a href="tel:07378349222" className="hover:text-white transition-colors">07378 349222</a>
             </div>
             <div className="flex items-center gap-2">
               <MailIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
@@ -113,6 +113,7 @@ export default function Footer() {
             <li><Link href="/quote" className="hover:text-white transition-colors">Get a Quote</Link></li>
             <li><Link href="/care-plans" className="hover:text-white transition-colors">Care Plans</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link href="/why-choose-us" className="hover:text-white transition-colors">Why Choose Us</Link></li>
             <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
             <li><Link href="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
             <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>

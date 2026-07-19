@@ -77,7 +77,7 @@ export default function CarePlans() {
       <p className="text-center text-xs text-gray-400 mt-6">
         Paid annually by Direct Debit or bank transfer · no auto-renewal without your confirmation ·{' '}
         <a href="tel:07378349222" className="text-brand font-medium inline-flex items-center gap-1">
-          <PhoneIcon className="w-3.5 h-3.5" /> 0737 834 9222
+          <PhoneIcon className="w-3.5 h-3.5" /> 07378 349222
         </a>
       </p>
     </div>

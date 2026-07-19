@@ -36,7 +36,7 @@ export default function AreasWeCoverPage() {
             Same-day home and office visits across every London borough, plus the Surrey and M25 border. Find your area below.
           </p>
           <a href="tel:07378349222" className="btn-accent py-3.5 px-8 text-base inline-flex items-center gap-2">
-            <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
+            <PhoneIcon className="w-4 h-4" /> Call 07378 349222
           </a>
         </div>
       </section>
@@ -80,7 +80,7 @@ export default function AreasWeCoverPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a href="tel:07378349222" className="btn-accent text-base px-10 py-4 inline-flex items-center gap-2">
-              <PhoneIcon className="w-4 h-4" /> Call 0737 834 9222
+              <PhoneIcon className="w-4 h-4" /> Call 07378 349222
             </a>
             <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
               Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />

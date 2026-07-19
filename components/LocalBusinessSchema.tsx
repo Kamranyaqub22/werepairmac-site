@@ -15,9 +15,28 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
     '@type': ['LocalBusiness', 'ComputerRepairService'],
     '@id': 'https://www.werepairmac.co.uk/#business',
     name: 'We Repair Mac',
+    // Common ways customers and other sites refer to the business — helps AI
+    // search engines resolve this as one entity and not confuse it with the
+    // similarly named repair firms (werepairmac.com, wehiremac, irepairmacs).
+    alternateName: ['We Repair Mac London', 'WeRepairMac', 'We Repair Mac UK'],
+    legalName: 'We Repair Mac',
+    slogan: 'We come to you. No fix, no fee.',
+    foundingDate: '2015',
     url: 'https://www.werepairmac.co.uk',
     telephone: '+447378349222',
     email: 'info@werepairmac.co.uk',
+    knowsAbout: [
+      'MacBook repair',
+      'MacBook Pro and MacBook Air repair',
+      'iMac and Mac Mini repair',
+      'Laptop and PC repair',
+      'Windows support and virus removal',
+      'Data recovery',
+      'Liquid and water damage repair',
+      'Logic board repair',
+      'Gaming PC repair',
+      'PlayStation and games console repair',
+    ],
     description: service
       ? `Professional ${service} service across ${location || 'Greater London'}. Same-day home and office visits. No fix, no fee.`
       : 'Professional Mac, laptop, PC and PlayStation repair across Greater London. Same-day home and office visits. No fix, no fee guaranteed.',
@@ -76,6 +95,8 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
       },
     ],
     priceRange: '££',
+    paymentAccepted: 'Cash, Debit Card, Credit Card, Bank Transfer',
+    currenciesAccepted: 'GBP',
     founder: {
       '@type': 'Person',
       name: 'Kamran',

@@ -39,7 +39,7 @@ export default function ContactForm() {
         setStatus('error');
       }
     } catch {
-      setError('Network error. Please call us on 0737 834 9222.');
+      setError('Network error. Please call us on 07378 349222.');
       setStatus('error');
     }
   }
@@ -51,7 +51,7 @@ export default function ContactForm() {
         <h3 className="text-lg font-bold text-green-800 mb-2">Request Sent!</h3>
         <p className="text-green-700 text-sm">
           We&apos;ll get back to you within 30 minutes. If it&apos;s urgent, call{' '}
-          <a href="tel:07378349222" className="font-semibold underline">0737 834 9222</a>.
+          <a href="tel:07378349222" className="font-semibold underline">07378 349222</a>.
         </p>
         <button
           onClick={() => setStatus('idle')}
@@ -154,7 +154,7 @@ export default function ContactForm() {
       <p className="text-xs text-gray-400 text-center">
         Or call directly:{' '}
         <a href="tel:07378349222" className="text-brand font-semibold">
-          0737 834 9222
+          07378 349222
         </a>
       </p>
     </form>
