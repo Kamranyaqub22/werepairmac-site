@@ -89,7 +89,7 @@ export const services: Service[] = [
     title: 'Printer Setup & Troubleshooting London',
     shortTitle: 'Printer Support',
     icon: '🖨️',
-    image: '/images/nikolai-chernichenko-s6uS36SF91Y-unsplash.jpg',
+    image: '/images/printer-service-unsplash.jpg',
     description: 'Printer won\'t connect, print or come online? We set up and troubleshoot home and office printers across London.',
     longDescription: 'A printer that shows offline, won\'t connect to Wi-Fi, or simply refuses to print is one of the most common home and office callouts we get - and one of the most frustrating. We set up new printers, fix connection and driver problems, clear stuck print queues, and get wireless and AirPrint printing working again from Windows PCs, Macs, iPhones and iPads, all at your home or office.',
     commonIssues: [
