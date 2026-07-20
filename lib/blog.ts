@@ -1,5 +1,4 @@
 import { NINTENDO_SWITCH_IMAGE, XBOX_CONSOLE_IMAGE } from '@/lib/consoleImages';
-import generatedBlogsData from './generated_blogs.json';
 
 export interface BlogSection {
   heading: string;
@@ -684,7 +683,39 @@ function hashSlug(slug: string): number {
   return h;
 }
 
+// Posts that have a dedicated, topic-matched photo at /images/blog/<slug>.jpg.
+// Every hand-written post gets its own unique image (no repeats). Any future
+// post not listed here falls back to the shared category pools below.
+const POSTS_WITH_DEDICATED_IMAGE = new Set<string>([
+  'macbook-wont-turn-on-london-guide',
+  'macbook-battery-draining-fast-london',
+  'macbook-screen-lines-flicker-repair-advice',
+  'water-damaged-laptop-first-steps',
+  'slow-laptop-home-office-checklist',
+  'data-recovery-from-dead-drive-expectations',
+  'gaming-pc-keeps-crashing-during-games',
+  'virus-or-popups-on-your-computer-what-now',
+  'ps5-hdmi-port-no-signal-repair-guide',
+  'gaming-console-overheating-what-causes-it',
+  'nintendo-switch-not-charging-ukb-c-port-signs',
+  'xbox-series-x-no-display-repair-advice',
+  'external-drive-not-showing-data-recovery-advice',
+  'cracked-laptop-screen-repair-or-replace',
+  'macbook-not-charging-port-or-battery',
+  'ps4-disc-drive-not-reading-discs',
+  'macbook-keyboard-keys-sticking-cleaning-guide',
+  'pc-making-loud-grinding-noise',
+  'macbook-pro-overheating-fan-noise-fix',
+  'macbook-trackpad-not-clicking',
+  'why-are-my-games-lagging-suddenly-pc',
+  'spilled-water-on-keyboard-what-not-to-do',
+]);
+
 function pickBlogImage(blueprint: BlogBlueprint): string {
+  if (POSTS_WITH_DEDICATED_IMAGE.has(blueprint.slug)) {
+    return `/images/blog/${blueprint.slug}.jpg`;
+  }
+
   const cat = blueprint.category.toLowerCase();
   const title = blueprint.title.toLowerCase();
   const isConsole =
@@ -739,8 +770,10 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
 }
 
 function getAllScheduledPosts(): BlogPost[] {
-  const combinedBlueprints = [...BLOG_BLUEPRINTS, ...(generatedBlogsData as BlogBlueprint[])];
-  return combinedBlueprints.map(buildBlogPost);
+  // Only hand-written, quality-reviewed posts are published. The previous
+  // auto-generated set (generate_blogs.js → generated_blogs.json) was removed
+  // because its formulaic device × fault × audience content was thin for SEO.
+  return BLOG_BLUEPRINTS.map(buildBlogPost);
 }
 
 export function getAllBlogPosts({ includeFuture = false }: { includeFuture?: boolean } = {}): BlogPost[] {
