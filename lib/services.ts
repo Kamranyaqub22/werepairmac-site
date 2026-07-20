@@ -13,6 +13,15 @@ export interface Service {
   metaDescription: string;
   // Used to group services in the nav menu — not shown on the service page itself.
   category: string;
+  // Optional page-specific FAQs. When present these replace the generic
+  // templated FAQs, giving the page unique, snippet-worthy Q&A content.
+  faqs?: { q: string; a: string }[];
+  // Optional "What to expect" prose block — unique body copy so the page is
+  // not a near-duplicate of the shared service template.
+  whatToExpect?: string[];
+  // Related service slugs. Used to surface relevant repair-advice blog posts
+  // and cross-link tightly related pages (e.g. PS5 HDMI ⇄ PlayStation repair).
+  relatedServiceSlugs?: string[];
 }
 
 export const SERVICE_CATEGORIES = ['Apple & Mac', 'Windows Laptop & PC', 'Consoles & Gaming', 'Data & Security'] as const;
@@ -305,6 +314,21 @@ export const services: Service[] = [
     metaTitle: 'PlayStation Repair London | PS5 & PS4',
     metaDescription: 'PS5 and PS4 repair across Greater London. HDMI port, overheating, disc drive, controller faults fixed at your door. No fix, no fee. Call 07378 349222.',
     category: 'Consoles & Gaming',
+    relatedServiceSlugs: ['ps5-hdmi-port-repair-london', 'gaming-console-repair-london'],
+    whatToExpect: [
+      'Your engineer starts with a full diagnosis so you know exactly what has failed before any work or cost is agreed — a "no picture" fault can be a damaged HDMI port, a failed HDMI encoder chip, or a cable/TV issue, and they are not all the same repair.',
+      'Straightforward jobs — controller drift, cleaning a clogged fan, reseating a disc drive, software and storage problems — are usually handled on-site in front of you the same day.',
+      'Board-level work such as HDMI port replacement or an overheating console that needs a full strip-down, re-paste and reflow is done at our workshop on proper soldering equipment, then returned to you. We always confirm this and quote before anything is taken away.',
+      'Every PlayStation repair is backed by our 90-day parts-and-labour warranty, and if we cannot fix it you pay nothing.',
+    ],
+    faqs: [
+      { q: 'My PS5 turns on but there is no picture on the TV — what is wrong?', a: 'This is almost always the HDMI port or the console\'s HDMI output, not your TV. If the console powers on with a light and fan noise but the screen shows "No Signal", the port is the most common cause — especially if the console was knocked or moved with the cable still plugged in. We test the port, cable and output to confirm before quoting. See our dedicated PS5 HDMI port repair page for this specific fault.' },
+      { q: 'Can you fix a broken PS5 HDMI port, or do I need a new console?', a: 'In most cases we can replace the HDMI port — you do not need to buy a new console. The damaged port is desoldered and a new one fitted at our workshop under a microscope. This is far cheaper than a replacement PS5 and keeps all your games, saves and account intact.' },
+      { q: 'Will I lose my games or save data if you repair my PlayStation?', a: 'No. Port repairs, fan cleans, disc-drive and controller fixes do not touch the internal storage, so your installed games, saves and PSN account are untouched. If a repair ever risked data we would tell you first.' },
+      { q: 'How long does a PlayStation repair take?', a: 'On-site jobs like controller drift, fan cleaning or software issues are usually done the same day within an hour. HDMI port replacement and full overheating strip-downs are workshop repairs, typically returned within a few days depending on parts.' },
+      { q: 'Why does my PS5 keep overheating and shutting down?', a: 'Usually dust build-up in the fan and heatsink, or dried-out thermal paste, causing the console to hit its safety cut-off. We strip the console down, clean it fully, and re-paste the APU so it runs cool and quiet again.' },
+      { q: 'Do you repair PS4 as well as PS5?', a: 'Yes — we repair PS5, PS5 Slim, PS4, PS4 Pro and PS4 Slim, including HDMI ports, disc drives, overheating, power faults and controllers.' },
+    ],
   },
   {
     slug: 'gaming-console-repair-london',
@@ -327,6 +351,20 @@ export const services: Service[] = [
     metaTitle: 'Console Repair London | Xbox & Switch',
     metaDescription: 'Gaming console repair across London for Xbox, Nintendo Switch and more. HDMI, charging, overheating, storage and port faults fixed at your door.',
     category: 'Consoles & Gaming',
+    relatedServiceSlugs: ['playstation-repair-london', 'ps5-hdmi-port-repair-london'],
+    whatToExpect: [
+      'We repair Xbox Series X, Series S, Xbox One, Nintendo Switch, Switch Lite and Switch OLED — so the first step is a proper diagnosis to confirm whether the fault is a port, the power system, thermals, or storage.',
+      'Common quick fixes — a Switch that will not charge because of a worn USB-C port, a dust-clogged fan, controller pairing faults, or a corrupt update — are often sorted on-site the same day.',
+      'HDMI port replacement, board-level power faults and full overheating strip-downs are workshop repairs on proper micro-soldering equipment. We explain which category your console falls into, and quote, before any work begins.',
+      'All console repairs carry our 90-day parts-and-labour warranty, and our No Fix, No Fee guarantee means you pay nothing if we can\'t repair it.',
+    ],
+    faqs: [
+      { q: 'My Xbox Series X shows no display — is it the HDMI port or the console?', a: 'Both are possible. A bent or damaged HDMI port is common after the console has been moved with the cable still connected, but a "no display" fault can also be the internal HDMI chip or the retimer. We test the port and output to pinpoint it before quoting, so you are not paying for the wrong repair.' },
+      { q: 'Why won\'t my Nintendo Switch charge?', a: 'The most common cause is a worn or damaged USB-C charging port, especially on consoles that are docked and undocked a lot. We can replace the USB-C port so it charges reliably again. We always test with a known-good charger first to rule out a faulty cable or adapter.' },
+      { q: 'Can you fix an Xbox or Switch HDMI port, or the Switch dock?', a: 'Yes. We replace damaged HDMI ports on Xbox consoles at our workshop under a microscope, and diagnose Switch dock and video-output faults. This is far cheaper than replacing the console and keeps your games and account intact.' },
+      { q: 'My console keeps overheating and shutting down — can you fix that?', a: 'Yes. Overheating is usually dust build-up and dried thermal paste making the console hit its safety cut-off. We strip it down, clean the fan and heatsink, and re-paste the processor so it runs cool and quiet again.' },
+      { q: 'Do you repair PlayStation too?', a: 'Yes — we have a dedicated PlayStation repair service for PS5 and PS4, including the common PS5 HDMI port failure. Just let us know your console when you book.' },
+    ],
   },
   {
     slug: 'macbook-pro-repair-london',
@@ -374,8 +412,8 @@ export const services: Service[] = [
     shortTitle: 'PS5 HDMI Repair',
     icon: '🎮',
     image: '/images/playstation-service-unsplash.jpg',
-    description: 'PS5 turning on but no signal? We replace broken PS5 HDMI ports same-day.',
-    longDescription: 'The most common PlayStation 5 fault is a broken or loose HDMI port. If your PS5 powers on with a blue or white light but shows "No Signal" on your TV, the port is likely damaged internally. We carry military-grade replacement ports and can micro-solder a brand new HDMI port onto your PS5 motherboard directly at your home.',
+    description: 'PS5 turning on but no signal? We replace broken PS5 HDMI ports with a full warranty.',
+    longDescription: 'The most common PlayStation 5 fault is a broken or loose HDMI port. If your PS5 powers on with a white light but shows "No Signal" on your TV, the port is likely damaged internally — often after the console was moved with the cable still plugged in. We desolder the damaged port and micro-solder a new one onto your PS5 board under a microscope at our workshop, then return your console fully tested. Diagnosis is free and we quote before any work begins.',
     commonIssues: [
       'PS5 No Signal on TV',
       'HDMI port visibly bent or broken',
@@ -384,9 +422,24 @@ export const services: Service[] = [
       'Pins pushed back inside the port',
       'Requires wiggling the cable to get picture',
     ],
-    metaTitle: 'PS5 HDMI Port Repair London | Same Day',
-    metaDescription: 'PS5 HDMI port repair across London. No signal or broken port? We micro-solder a new HDMI port at your home today. No fix, no fee. Call 07378 349222.',
+    metaTitle: 'PS5 HDMI Port Repair London | No Signal Fix',
+    metaDescription: 'PS5 HDMI port repair across London. No signal or broken port? We micro-solder a new HDMI port and return your console fully tested. No fix, no fee. Call 07378 349222.',
     category: 'Consoles & Gaming',
+    relatedServiceSlugs: ['playstation-repair-london', 'gaming-console-repair-london'],
+    whatToExpect: [
+      'First we confirm the fault is really the HDMI port. A PS5 that lights up but shows "No Signal" can be a damaged port, a failed HDMI encoder (retimer) chip, or simply a bad cable or TV input — and each needs a different fix. Diagnosis is free and you get a clear answer before any cost is agreed.',
+      'HDMI port replacement is precision board-level work: the damaged port is desoldered and a new one micro-soldered onto the PS5 mainboard under a microscope. This is done at our workshop on proper rework equipment, not on a kitchen table, so the joint is reliable and lasts.',
+      'Your games, saves and PSN account are on the internal storage and are completely unaffected — an HDMI repair does not touch your data.',
+      'The finished console is tested on a screen before it comes back to you, and the repair is covered by our 90-day parts-and-labour warranty. If we can\'t fix it, you pay nothing.',
+    ],
+    faqs: [
+      { q: 'How do I know if it\'s the HDMI port and not my TV?', a: 'Try a different HDMI cable and a different input or TV first. If the PS5 still shows "No Signal" everywhere but powers on with a light and fan noise, the fault is almost certainly the console\'s HDMI port or output rather than the TV. We confirm this with a free diagnosis before quoting.' },
+      { q: 'Can a broken PS5 HDMI port actually be repaired?', a: 'Yes. In most cases the physical port is replaced — we desolder the damaged one and micro-solder a new port onto the mainboard under a microscope. You do not need a new console, and all your games and saves are kept. Occasionally the fault is the HDMI encoder chip rather than the port; we tell you which it is after diagnosis.' },
+      { q: 'How much does a PS5 HDMI port repair cost?', a: 'It is our £100 hourly labour plus the replacement port, quoted upfront before any work starts. It is a fraction of the cost of a new PS5, and there is no charge at all if we cannot fix it.' },
+      { q: 'Will I lose my games or saves?', a: 'No. The HDMI port is separate from the internal SSD, so your installed games, saves and PSN account are completely untouched by the repair.' },
+      { q: 'How long does the repair take?', a: 'HDMI port replacement is board-level workshop work, usually turned around within a few days depending on parts. We keep you updated and only return the console once it is tested on a screen.' },
+      { q: 'What causes the PS5 HDMI port to break in the first place?', a: 'The most common cause is knocking or moving the console while the HDMI cable is plugged in, which levers the port and cracks its solder joints or bends the pins. Keeping the console on a stable surface and not tugging the cable helps prevent it.' },
+    ],
   }
 ];
 

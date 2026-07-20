@@ -60,6 +60,8 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Windows Support' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Data Recovery' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PlayStation Repair' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PS5 HDMI Port Repair' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gaming Console Repair' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Virus Removal' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Water Damage Repair' } },
       ],

@@ -784,6 +784,25 @@ export function getBlogPostsForService(serviceSlug: string, limit = 3): BlogPost
     .slice(0, limit);
 }
 
+// Pull related repair-advice posts for a service, drawing first on posts tagged
+// to the service itself, then topping up from related services (in order). This
+// stops tightly-focused pages like PS5 HDMI Port Repair — which have no directly
+// tagged posts — from rendering an empty "Related Repair Advice" section.
+export function getBlogPostsForServices(serviceSlugs: string[], limit = 3): BlogPost[] {
+  const seen = new Set<string>();
+  const result: BlogPost[] = [];
+  for (const slug of serviceSlugs) {
+    for (const post of getAllBlogPosts()) {
+      if (post.serviceSlug === slug && !seen.has(post.slug)) {
+        seen.add(post.slug);
+        result.push(post);
+        if (result.length >= limit) return result;
+      }
+    }
+  }
+  return result;
+}
+
 export function formatBlogDate(date: string): string {
   return new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',

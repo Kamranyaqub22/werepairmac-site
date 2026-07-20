@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getService, services } from '@/lib/services';
 import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/lib/locations';
-import { getBlogPostsForService, formatBlogDate } from '@/lib/blog';
+import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
@@ -63,16 +63,50 @@ function ServicePage({ slug }: { slug: string }) {
   const service = getService(slug);
   if (!service) return null;
 
-  const faqs = [
+  // Generic FAQs, used as a fallback for services that don't define their own.
+  const genericFaqs = [
     { q: `How quickly can you come for ${service.shortTitle} in London?`, a: 'We offer same-day callouts across Greater London. Book before 2pm and we can usually visit on the same day. Evening and weekend slots are also available.' },
     { q: 'Do I need to bring my device to a shop?', a: 'No - we come to you. Our engineers visit your home or office anywhere in Greater London. Most repairs are completed on-site in front of you.' },
     { q: `What does ${service.shortTitle} cost?`, a: 'Our labour rate is £100 per hour (minimum 1 hour), plus the cost of any parts required. We provide a clear upfront quote covering both labour and parts before we start any work — no surprises, no hidden fees.' },
     { q: 'Is there a warranty on the repair?', a: 'Yes. All repairs carry a 90-day parts and labour warranty. If the same fault recurs, we fix it free of charge.' },
     { q: 'What if you cannot fix it?', a: 'If we cannot fix your device, you pay nothing. No diagnostic fee, no callout charge - that is our No Fix, No Fee guarantee.' },
   ];
+  const faqs = service.faqs && service.faqs.length > 0 ? service.faqs : genericFaqs;
 
-  const otherServices = services.filter((s) => s.slug !== slug).slice(0, 4);
-  const relatedPosts = getBlogPostsForService(slug, 3);
+  // Prefer same-category services in the "Other Services" grid so a console page
+  // links to other console/gaming pages rather than an arbitrary first-four slice.
+  const otherServices = [
+    ...services.filter((s) => s.slug !== slug && s.category === service.category),
+    ...services.filter((s) => s.slug !== slug && s.category !== service.category),
+  ].slice(0, 4);
+
+  // Related repair advice: this service's own posts, topped up from related
+  // services so tightly-focused pages don't render an empty section.
+  const relatedPosts = service.relatedServiceSlugs
+    ? getBlogPostsForServices([slug, ...service.relatedServiceSlugs], 3)
+    : getBlogPostsForService(slug, 3);
+
+  // Tightly related pages for explicit cross-linking (reduces cannibalisation).
+  const relatedServices = (service.relatedServiceSlugs ?? [])
+    .map((s) => getService(s))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.title,
+    serviceType: service.shortTitle,
+    description: service.metaDescription,
+    url: `https://www.werepairmac.co.uk/${slug}`,
+    provider: { '@id': 'https://www.werepairmac.co.uk/#business' },
+    areaServed: { '@type': 'City', name: 'London' },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'GBP',
+      price: '100',
+      description: 'From £100 per hour labour plus parts. No fix, no fee.',
+    },
+  };
 
   const WHY_US = [
     { Icon: TruckIcon, title: 'We Come to You', desc: 'No need to visit a shop. We travel across all Greater London to your home or office. No extra charge for travel.' },
@@ -89,6 +123,10 @@ function ServicePage({ slug }: { slug: string }) {
         { name: 'Home', url: 'https://www.werepairmac.co.uk' },
         { name: service.shortTitle, url: `https://www.werepairmac.co.uk/${slug}` },
       ]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
 
       {/* Hero */}
       <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
@@ -142,6 +180,36 @@ function ServicePage({ slug }: { slug: string }) {
       </section>
 
       <TrustBadges />
+
+      {/* What to expect — unique per-service prose */}
+      {service.whatToExpect && service.whatToExpect.length > 0 && (
+        <section className="py-14 bg-white border-b border-gray-100">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="section-heading">What to expect with {service.shortTitle}</h2>
+            <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed mt-6 space-y-4">
+              {service.whatToExpect.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+            {relatedServices.length > 0 && (
+              <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+                <p className="text-sm font-semibold text-gray-700 mb-3">Related repairs</p>
+                <div className="flex flex-wrap gap-3">
+                  {relatedServices.map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={`/${s.slug}`}
+                      className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-brand hover:text-brand text-gray-700 text-sm font-medium rounded-full px-4 py-2 transition-colors"
+                    >
+                      {s.shortTitle} <ArrowRightIcon className="w-3.5 h-3.5" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Pricing */}
       <section className="py-12 bg-white">

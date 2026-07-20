@@ -239,6 +239,9 @@ export default function HomePage() {
                   PS5 & PS4 repairs
                 </Link>
               </div>
+              <p className="text-sm text-gray-500 mt-4">
+                Got the common <Link href="/ps5-hdmi-port-repair-london" className="text-brand font-semibold hover:underline">PS5 no-signal / HDMI port fault</Link>? We have a dedicated repair page for that.
+              </p>
             </div>
             <div className="bg-brand-dark rounded-2xl p-7 sm:p-8 text-white shadow-lg">
               <div className="grid grid-cols-2 gap-3 mb-5">
