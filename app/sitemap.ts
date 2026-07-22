@@ -18,6 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/quote`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/remote-support`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/care-plans`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/privacy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/cookies`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     // NOTE: /review is intentionally excluded — it is noindex (see app/review/page.tsx),
     // so listing it in the sitemap would send Google a conflicting signal.
   ];

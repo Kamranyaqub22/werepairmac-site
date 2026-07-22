@@ -18,7 +18,7 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
     // Common ways customers and other sites refer to the business — helps AI
     // search engines resolve this as one entity and not confuse it with the
     // similarly named repair firms (werepairmac.com, wehiremac, irepairmacs).
-    alternateName: ['We Repair Mac London', 'WeRepairMac', 'We Repair Mac UK'],
+    alternateName: ['We Repair Mac London', 'WeRepairMac', 'We Repair Mac UK', 'We Repair Mac Call Out'],
     legalName: 'We Repair Mac',
     slogan: 'We come to you. No fix, no fee.',
     foundingDate: '2015',

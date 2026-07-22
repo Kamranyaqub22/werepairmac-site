@@ -340,9 +340,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
             <div className="max-w-2xl">
-              <h2 className="section-heading mb-3">Fresh repair advice, published automatically</h2>
+              <h2 className="section-heading mb-3">Fresh repair advice from our engineers</h2>
               <p className="text-gray-500 text-base leading-relaxed">
-                The blog publishes a new article every week, covering common Mac, laptop, PC, and console faults with practical advice before you book a visit.
+                Practical, hand-written guides covering common Mac, laptop, PC, and console faults — real fixes and things to try before you book a visit.
               </p>
             </div>
             <Link href="/blog" className="btn-outline">
@@ -389,7 +389,7 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/samsung-memory-QTW80j6ZK4c-unsplash.jpg"
-            alt=""
+            alt="Computer memory and repair components"
             fill
             className="object-cover opacity-10"
           />

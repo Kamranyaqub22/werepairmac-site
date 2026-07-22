@@ -34,7 +34,7 @@ export const services: Service[] = [
     icon: '💻',
     image: '/images/macbook-pro-unsplash.jpg',
     description: 'Expert MacBook Pro, MacBook Air & iMac repair. Same-day callout across London.',
-    longDescription: 'We specialise in all MacBook models including M1, M2, M3 MacBook Pro and MacBook Air, plus iMac and Mac Mini. Our Apple-experienced technicians come to your home or office - no need to visit a shop.',
+    longDescription: 'MacBook repair across London, at your home or office. We fix every MacBook model — M1, M2 and M3 MacBook Pro and MacBook Air, plus older Intel MacBooks, iMac and Mac Mini. Most software and hardware faults are diagnosed and repaired on the spot by an Apple-experienced engineer, with no need to visit a shop or post your Mac away.',
     commonIssues: [
       'MacBook not turning on',
       'Liquid / water damage repair',
@@ -48,6 +48,21 @@ export const services: Service[] = [
     metaTitle: 'MacBook Repair London | Same Day Callout',
     metaDescription: 'Expert MacBook Pro, MacBook Air & iMac repair across London. Same-day home & office visits. No fix, no fee. Call 07378 349222.',
     category: 'Apple & Mac',
+    relatedServiceSlugs: ['macbook-screen-repair-london', 'macbook-battery-replacement-london', 'macbook-pro-repair-london'],
+    whatToExpect: [
+      'Your MacBook repair starts with a free, no-obligation diagnosis. Our engineer comes to your home or office anywhere in Greater London, finds out exactly what is wrong — whether it is a software fault, a failing battery, a cracked screen or a deeper logic-board problem — and gives you a clear, fixed price before any work begins. If it turns out not to be worth repairing, we tell you honestly.',
+      'Most everyday MacBook repairs are completed on-site while you watch: battery replacements, keyboard and trackpad faults, RAM and SSD upgrades, macOS reinstalls, virus removal and charging issues. Around seven in ten jobs are finished in your home or office in a single visit, so you usually keep your Mac the same day.',
+      'Some repairs are board-level and need a microscope and proper rework equipment — liquid damage, a MacBook that will not power on, or a failed logic board. For these we take the machine to our workshop, keep you updated throughout, and return it fully tested. Wherever possible your data stays exactly where it is; if the storage itself has failed we will always discuss data recovery options with you first.',
+      'Every MacBook repair is backed by our 90-day parts-and-labour warranty and our No Fix, No Fee guarantee — if we cannot fix it, you pay nothing at all. There is never a callout charge, and we quote before we start, so the price we agree is the price you pay.',
+    ],
+    faqs: [
+      { q: 'Which MacBook models do you repair?', a: 'All of them. That includes M1, M2 and M3 MacBook Pro and MacBook Air, every Intel-based MacBook Pro, MacBook Air and 12-inch MacBook, plus iMac, Mac Mini and Mac Pro. If it runs macOS, we can work on it.' },
+      { q: 'How much does a MacBook repair cost?', a: 'Our labour rate is £100 per hour (minimum one hour) plus any parts needed, and we always quote the full price upfront before we start. A software-only fix with no parts is just the hourly labour; screen, battery and board-level repairs include the part cost, which we confirm with you first. If we cannot fix it, there is no charge.' },
+      { q: 'Do you repair my MacBook at my home, or take it away?', a: 'Most repairs — batteries, keyboards, upgrades, software and charging faults — are done on-site in front of you, usually within the hour. Board-level work such as liquid damage or a Mac that will not power on needs our workshop equipment, so we take those away, keep you updated, and return the Mac fully tested.' },
+      { q: 'Will I lose my data during a MacBook repair?', a: 'In almost all repairs your data is completely untouched — a battery, screen or keyboard replacement does not affect the storage. If the SSD itself has failed we will tell you before doing anything and talk through data recovery options. We always recommend a backup before any repair where practical.' },
+      { q: 'Is it worth repairing a MacBook with liquid damage?', a: 'Often, yes — but it depends. Liquid damage is very repairable if it is dealt with quickly, before corrosion spreads across the logic board. We diagnose the extent of the damage first and give you an honest view on whether a repair makes sense or whether data recovery is the better route. The diagnosis is free.' },
+      { q: 'How quickly can you repair my MacBook in London?', a: 'We offer same-day callouts across Greater London — book before 2pm and we can usually visit the same day, including evenings and weekends at no extra charge. On-site repairs are typically finished in a single visit; workshop repairs are turned around as fast as the parts allow, and we keep you posted throughout.' },
+    ],
   },
   {
     slug: 'laptop-repair-london',

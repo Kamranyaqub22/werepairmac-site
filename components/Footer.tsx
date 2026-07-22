@@ -129,9 +129,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-gray-900 px-4 sm:px-6 py-5 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-600">
+      <div className="border-t border-gray-900 px-4 sm:px-6 py-5 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-600">
         <span>© {new Date().getFullYear()} We Repair Mac · New Malden, London</span>
-        <span>Mac · Laptop · PC Repair across Greater London &amp; Surrey</span>
+        <div className="flex items-center gap-4">
+          <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+          <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
+        </div>
       </div>
     </footer>
   );

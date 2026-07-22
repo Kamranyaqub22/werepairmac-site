@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import MobileCTABar from '@/components/MobileCTABar';
+import CookieConsent from '@/components/CookieConsent';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -103,23 +103,8 @@ export default function RootLayout({
         <WhatsAppButton />
         <MobileCTABar />
 
-        {/* Google Analytics 4 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-53GRHDW428"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="ga4-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-53GRHDW428');
-            `,
-          }}
-        />
+        {/* Google Analytics 4 — loaded only after cookie consent */}
+        <CookieConsent />
       </body>
     </html>
   );
