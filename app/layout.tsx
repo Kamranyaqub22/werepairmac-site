@@ -78,6 +78,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  // Site-ownership verification. Bing Webmaster Tools reads the msvalidate.01
+  // meta tag; set BING_SITE_VERIFICATION in the environment to emit it.
+  ...(process.env.BING_SITE_VERIFICATION
+    ? {
+        verification: {
+          other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION },
+        },
+      }
+    : {}),
 };
 
 export default function RootLayout({

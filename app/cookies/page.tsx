@@ -40,10 +40,11 @@ export default function CookiesPage() {
           <h3 className="text-lg font-bold text-gray-900">Analytics (optional, off by default)</h3>
           <p>
             If you click <strong>Accept</strong> on our cookie banner, we load
-            Google Analytics 4, which sets cookies to measure how visitors use the
-            site — for example which pages are viewed and how people arrive. This
-            helps us improve the site. We do <strong>not</strong> load Google
-            Analytics, and no analytics cookies are set, unless you accept.
+            <strong> Google Analytics 4</strong> and <strong>Microsoft Clarity</strong>,
+            which set cookies to measure how visitors use the site — for example
+            which pages are viewed, how people arrive, and where they click. This
+            helps us improve the site. We do <strong>not</strong> load these tools,
+            and no analytics cookies are set, unless you accept.
           </p>
 
           <h2 className="text-xl font-bold text-gray-900">Managing your choice</h2>

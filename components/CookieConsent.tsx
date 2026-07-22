@@ -6,15 +6,19 @@ import Script from 'next/script';
 
 const STORAGE_KEY = 'wrm-cookie-consent';
 const GA_ID = 'G-53GRHDW428';
+// Microsoft Clarity project id — set NEXT_PUBLIC_CLARITY_ID in .env.local.
+// Left empty, Clarity simply never loads.
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 type Consent = 'accepted' | 'declined';
 
 /**
- * GDPR-friendly consent gate for Google Analytics.
+ * GDPR-friendly consent gate for our analytics tools.
  *
- * GA4 is opt-in: the gtag scripts are only injected AFTER the visitor clicks
- * "Accept". Until a choice is stored in localStorage the banner shows and no
- * analytics cookies are set. Declining is remembered and never loads GA.
+ * Google Analytics 4 and Microsoft Clarity are opt-in: their scripts are only
+ * injected AFTER the visitor clicks "Accept". Until a choice is stored in
+ * localStorage the banner shows and no analytics cookies are set. Declining is
+ * remembered and never loads either tool.
  */
 export default function CookieConsent() {
   const [consent, setConsent] = useState<Consent | null>(null);
@@ -62,6 +66,23 @@ export default function CookieConsent() {
               `,
             }}
           />
+
+          {/* Microsoft Clarity — heatmaps & session replay, consent-gated */}
+          {CLARITY_ID && (
+            <Script
+              id="clarity-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function(c,l,a,r,i,t,y){
+                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                  })(window, document, "clarity", "script", "${CLARITY_ID}");
+                `,
+              }}
+            />
+          )}
         </>
       )}
 
@@ -74,8 +95,9 @@ export default function CookieConsent() {
         >
           <div className="bg-gray-950 text-gray-200 border-t border-gray-800 sm:border sm:rounded-2xl shadow-2xl px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center gap-4">
             <p className="text-sm leading-relaxed flex-1 text-gray-300">
-              We use cookies to run this site and, with your permission, Google
-              Analytics to understand how it&apos;s used. See our{' '}
+              We use cookies to run this site and, with your permission,
+              analytics tools (Google Analytics and Microsoft Clarity) to
+              understand how it&apos;s used. See our{' '}
               <Link href="/cookies" className="text-white font-semibold underline hover:no-underline">
                 Cookie Policy
               </Link>{' '}
