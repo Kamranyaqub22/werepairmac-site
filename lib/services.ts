@@ -156,7 +156,7 @@ export const services: Service[] = [
       'Scan to computer or email not working',
       'Sharing one printer across several devices',
     ],
-    metaTitle: 'Printer Setup & Troubleshooting London | Home & Office',
+    metaTitle: 'Printer Setup & Repair London | Home & Office',
     metaDescription: 'Printer setup and troubleshooting across London. Offline errors, Wi-Fi connection, driver and print-queue problems fixed at your door on Mac and PC. Call 07378 349222.',
     category: 'Windows Laptop & PC',
     relatedServiceSlugs: ['windows-support-london', 'home-office-networking-london', 'laptop-repair-london'],

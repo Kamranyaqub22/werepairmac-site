@@ -70,7 +70,7 @@ export default function HeroSlider() {
               Home Visit Repair Service · All of Greater London
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-5">
-              Mac repair that comes<br className="hidden sm:block" /> to <span className="text-accent-light">your door.</span>
+              Mac &amp; Laptop Repair<br className="hidden sm:block" /> that comes to <span className="text-accent-light">your door.</span>
             </h1>
             <p className="text-white/75 text-lg mb-3 leading-relaxed max-w-md">
               Skip the shop. Our engineer travels to your home or office, diagnoses and fixes your Mac or laptop <strong className="text-white">on-site in front of you</strong> - usually in under an hour.
