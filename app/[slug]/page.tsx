@@ -791,7 +791,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
             </div>
             <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
               <p className="text-sm text-gray-600">
-                This is our dedicated {family.label.toLowerCase()} page for {location.name}. For the full picture of everything we repair here, see our{' '}
+                This is our dedicated {family.labelLower} page for {location.name}. For the full picture of everything we repair here, see our{' '}
                 <Link href={`/mac-repair-${location.slug}`} className="text-brand font-semibold hover:underline">{location.name} repair page</Link>, or our London-wide{' '}
                 <Link href={`/${service.slug}`} className="text-brand font-semibold hover:underline">{service.shortTitle} service</Link>.
               </p>

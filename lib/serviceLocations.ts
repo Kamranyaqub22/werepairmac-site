@@ -19,15 +19,18 @@ export interface ServiceFamily {
   base: string;
   // Human keyword label used in copy/metadata, e.g. "Console Repair"
   label: string;
+  // Mid-sentence form of the label. Defined explicitly rather than via
+  // .toLowerCase() so brand terms keep their casing ("MacBook", "PC").
+  labelLower: string;
   // The canonical London-wide service this family maps to (source of unique copy)
   serviceSlug: string;
 }
 
 export const SERVICE_FAMILIES: ServiceFamily[] = [
-  { base: 'macbook-repair', label: 'MacBook Repair', serviceSlug: 'macbook-repair-london' },
-  { base: 'laptop-repair', label: 'Laptop & PC Repair', serviceSlug: 'laptop-repair-london' },
-  { base: 'console-repair', label: 'Console Repair', serviceSlug: 'gaming-console-repair-london' },
-  { base: 'data-recovery', label: 'Data Recovery', serviceSlug: 'data-recovery-london' },
+  { base: 'macbook-repair', label: 'MacBook Repair', labelLower: 'MacBook repair', serviceSlug: 'macbook-repair-london' },
+  { base: 'laptop-repair', label: 'Laptop & PC Repair', labelLower: 'laptop & PC repair', serviceSlug: 'laptop-repair-london' },
+  { base: 'console-repair', label: 'Console Repair', labelLower: 'console repair', serviceSlug: 'gaming-console-repair-london' },
+  { base: 'data-recovery', label: 'Data Recovery', labelLower: 'data recovery', serviceSlug: 'data-recovery-london' },
 ];
 
 // Core catchment: the towns near our New Malden (KT3) base where proximity is
@@ -183,11 +186,11 @@ const INTRO_OVERRIDES: Record<string, string[]> = {
 // hand-written copy (rendered separately on the page) for its real local value.
 const INTRO_VARIANTS: ((sl: ServiceLocation) => string[])[] = [
   ({ family, location }) => [
-    `When something goes wrong you shouldn't have to unplug everything and queue at a shop counter. We bring ${family.label.toLowerCase()} directly to your door across ${location.name}${location.postcode ? ` (${location.postcode})` : ''} — an engineer arrives, diagnoses the fault in front of you, and in most cases fixes it on the spot the same day.`,
+    `When something goes wrong you shouldn't have to unplug everything and queue at a shop counter. We bring ${family.labelLower} directly to your door across ${location.name}${location.postcode ? ` (${location.postcode})` : ''} — an engineer arrives, diagnoses the fault in front of you, and in most cases fixes it on the spot the same day.`,
     `${location.name} sits within our core ${location.borough || 'local'} coverage, close to our New Malden base, so we can usually offer a same-day slot and there is never a callout charge. You get a clear, fixed quote before any work starts, and if we can't fix it you pay nothing.`,
   ],
   ({ family, location }) => [
-    `Looking for ${family.label.toLowerCase()} in ${location.name}? We are a mobile repair service, not a drop-off shop — our engineer comes to your home or office anywhere in ${location.name} and the surrounding ${location.borough || 'area'}, carries the common parts, and completes most jobs on-site in a single visit.`,
+    `Looking for ${family.labelLower} in ${location.name}? We are a mobile repair service, not a drop-off shop — our engineer comes to your home or office anywhere in ${location.name} and the surrounding ${location.borough || 'area'}, carries the common parts, and completes most jobs on-site in a single visit.`,
     `Because ${location.name}${location.postcode ? ` (${location.postcode})` : ''} is close to our New Malden workshop, response times here are among the fastest we offer. Same-day visits are usually available if you call before 2pm — evenings and weekends included — all at no extra charge, and every repair carries a 90-day warranty.`,
   ],
   ({ family, location }) => [
@@ -211,16 +214,16 @@ export function getServiceLocationIntro(sl: ServiceLocation): string[] {
 // service); these two just localise the same-day / callout logistics.
 const LOGISTICS_FAQ_VARIANTS: ((sl: ServiceLocation) => LocationFAQ[])[] = [
   ({ family, location }) => [
-    { q: `Do you offer same-day ${family.label.toLowerCase()} in ${location.name}?`, a: `Usually yes — ${location.name} is close to our New Malden base, so bookings placed before 2pm are typically seen the same day, evenings and weekends included.` },
+    { q: `Do you offer same-day ${family.labelLower} in ${location.name}?`, a: `Usually yes — ${location.name} is close to our New Malden base, so bookings placed before 2pm are typically seen the same day, evenings and weekends included.` },
     { q: `Is there a callout charge to ${location.name}?`, a: `No. There is no callout charge anywhere in ${location.borough || 'our coverage area'}, including ${location.name}. You only pay for the repair itself, and nothing at all if we can't fix it.` },
   ],
   ({ family, location }) => [
-    { q: `How quickly can an engineer reach ${location.name} for ${family.label.toLowerCase()}?`, a: `${location.name} is one of our nearest towns to New Malden, so it gets some of our fastest response times — most same-day requests booked before 2pm are covered.` },
+    { q: `How quickly can an engineer reach ${location.name} for ${family.labelLower}?`, a: `${location.name} is one of our nearest towns to New Malden, so it gets some of our fastest response times — most same-day requests booked before 2pm are covered.` },
     { q: `Will I be charged just for you to come to ${location.name}?`, a: `No — there is no visit or callout fee in ${location.name}. We quote the repair upfront, and our No Fix, No Fee guarantee means you pay nothing if it can't be repaired.` },
   ],
   ({ family, location }) => [
-    { q: `Can you come to my home in ${location.name} rather than me travelling to a shop?`, a: `Yes — that is the whole model. Our engineer travels to you in ${location.name} and carries out most ${family.label.toLowerCase()} jobs on-site, the same day where possible.` },
-    { q: `Does ${family.label.toLowerCase()} cost more because I'm in ${location.name}?`, a: `No. Pricing is the same across ${location.borough || 'the area'} — £100/hr labour plus any parts, quoted before we start, with no location surcharge and no callout charge.` },
+    { q: `Can you come to my home in ${location.name} rather than me travelling to a shop?`, a: `Yes — that is the whole model. Our engineer travels to you in ${location.name} and carries out most ${family.labelLower} jobs on-site, the same day where possible.` },
+    { q: `Does ${family.labelLower} cost more because I'm in ${location.name}?`, a: `No. Pricing is the same across ${location.borough || 'the area'} — £100/hr labour plus any parts, quoted before we start, with no location surcharge and no callout charge.` },
   ],
 ];
 
