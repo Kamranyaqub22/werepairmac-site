@@ -64,6 +64,8 @@ export const CORE_CATCHMENT: string[] = [
   'wallington',
   'leatherhead',
   'banstead',
+  'claygate',
+  'tadworth',
 ];
 
 export interface ServiceLocation {
@@ -165,6 +167,14 @@ const INTRO_OVERRIDES: Record<string, string[]> = {
   'macbook-repair:surbiton': [
     `Surbiton is minutes from our New Malden base, which is exactly why the classic KT6 call-out — "it was fine yesterday and now it won't turn on", the night before a work trip — is one we can usually answer the same day. A failed boot, a dead battery or a drive on its way out is often fixable on the spot, at your kitchen table, without the machine ever leaving the house.`,
     `This is a commuter town, so evening MacBook appointments are more popular here than almost anywhere we cover, and they cost no more than a weekday slot. Beyond the emergencies, Surbiton is steady upgrade territory — an SSD and a little more memory into a five- or six-year-old Mac that's otherwise perfectly good, the cheapest way to make a slow machine fast again. We'll tell you when that's the honest fix rather than sell you a repair you don't need. We cover Surbiton, Berrylands and Hook on the same basis, with no callout charge.`,
+  ],
+  'macbook-repair:epsom': [
+    `Epsom is best known for the Derby, but day to day it's full of home workers and small offices for whom a MacBook down means a lost working day. We come to you — a home office near the racecourse, a business off the High Street, or a house on the streets climbing toward the Downs — and fix most Macs on the spot, with the price agreed before we touch anything.`,
+    `The work here is mostly about keeping good machines going: battery swaps, SSD and memory upgrades, and clean-ups on Macs that have slowed under years of use, alongside the cracked screens and worn batteries on family and student MacBooks. We carry the common parts to finish in a single visit, and there's no callout charge to Epsom, Ewell or the neighbouring villages — with our 90-day warranty and no fix, no fee on every job.`,
+  ],
+  'macbook-repair:walton-on-thames': [
+    `Walton-on-Thames runs on a mix of families and people working from home, and for the home workers a dead MacBook is a lost day — so rather than have you carry it into a shop, we come to the house, along the riverside, off the high street or out toward Hersham, and fix most Macs in front of you the same day.`,
+    `It's the practical jobs that keep us busy here: cracked screens and worn batteries, a Mac that's slowed and really only needs an SSD and a clean install, and the occasional urgent won't-boot the morning of something important. We carry the common parts so most finish in one visit, deal with kitchen-counter liquid spills fast, and set up a backup before we leave if there isn't one. No callout charge, and nothing to pay if we can't fix it.`,
   ],
 };
 
