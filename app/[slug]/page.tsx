@@ -4,6 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getService, services } from '@/lib/services';
 import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/lib/locations';
+import {
+  getServiceLocation, serviceLocationSlugs, serviceLocationsForTown,
+  serviceLocationsForService, getServiceLocationIntro, getServiceLocationFaqs,
+  CORE_CATCHMENT, type ServiceLocation,
+} from '@/lib/serviceLocations';
 import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
@@ -23,7 +28,8 @@ interface PageProps {
 export async function generateStaticParams() {
   const serviceSlugs = services.map((s) => ({ slug: s.slug }));
   const locationSlugs = locations.map((l) => ({ slug: `mac-repair-${l.slug}` }));
-  return [...serviceSlugs, ...locationSlugs];
+  const comboSlugs = serviceLocationSlugs().map((slug) => ({ slug }));
+  return [...serviceSlugs, ...locationSlugs, ...comboSlugs];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -39,6 +45,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: service.metaTitle,
         description: service.metaDescription,
         url: `https://www.werepairmac.co.uk/${slug}`,
+        type: 'website',
+        images: [service.image],
       },
     };
   }
@@ -51,6 +59,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `Mac, PC & Laptop Repair ${location.name}`,
       description: `Professional Mac, PC, laptop and gaming repair in ${location.name} (${location.postcode}). Same-day home visits, no fix no fee. Call 07378 349222.`,
       alternates: { canonical: `https://www.werepairmac.co.uk/mac-repair-${location.slug}` },
+    };
+  }
+
+  // Service × location combo page
+  const sl = getServiceLocation(slug);
+  if (sl) {
+    const { family, location: loc } = sl;
+    // Keep the title tight — the layout appends " | We Repair Mac", so anything
+    // extra here risks SERP truncation (~60 chars).
+    const title = `${family.label} ${loc.name}${loc.postcode ? ` (${loc.postcode})` : ''}`;
+    const description = `${family.label} in ${loc.name} at your home or office. Same-day visits, no callout charge, no fix no fee. 90-day warranty. Call 07378 349222.`;
+    return {
+      title,
+      description,
+      alternates: { canonical: `https://www.werepairmac.co.uk/${slug}` },
+      openGraph: {
+        title, description,
+        url: `https://www.werepairmac.co.uk/${slug}`,
+        type: 'website',
+        images: [sl.service.image],
+      },
     };
   }
 
@@ -90,6 +119,10 @@ function ServicePage({ slug }: { slug: string }) {
   const relatedServices = (service.relatedServiceSlugs ?? [])
     .map((s) => getService(s))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+  // Dedicated town pages for this service (only the four families have them).
+  // Links the parent service down to its spokes for topical internal linking.
+  const townPages = serviceLocationsForService(slug);
 
   const serviceSchema = {
     '@context': 'https://schema.org',
@@ -333,6 +366,26 @@ function ServicePage({ slug }: { slug: string }) {
         </section>
       )}
 
+      {/* Areas we cover for this service — links to dedicated town pages */}
+      {townPages.length > 0 && (
+        <section className="py-14 bg-white border-t border-gray-100">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="section-heading">{service.shortTitle} near you</h2>
+            <p className="text-gray-500 mt-2 mb-8 max-w-2xl mx-auto">
+              We come to you across our core Surrey and south-west London catchment. See our dedicated {service.shortTitle.toLowerCase()} page for your area:
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {townPages.map((t) => (
+                <Link key={t.slug} href={`/${t.slug}`}
+                  className="inline-flex items-center gap-1.5 bg-gray-50 border border-gray-200 hover:border-brand hover:text-brand text-gray-700 text-sm font-medium rounded-full px-4 py-2 transition-colors">
+                  <MapPinIcon className="w-3.5 h-3.5 text-orange-400" /> {service.shortTitle} {t.townName}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Other services */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -396,6 +449,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
 
   const nearby = getNearbyLocations(locationSlug);
   const faqs = getLocationFaqs(location);
+  // Core-catchment towns get dedicated service×location pages; surface them so
+  // the hub links down to its spokes (empty for towns outside the catchment).
+  const townServices = serviceLocationsForTown(locationSlug);
 
   return (
     <>
@@ -447,6 +503,24 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       </section>
 
       <TrustBadges />
+
+      {/* Popular repairs — dedicated service pages for this town (core catchment) */}
+      {townServices.length > 0 && (
+        <section className="py-10 bg-white border-b border-gray-100">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-xl font-bold text-gray-900 mb-1">Popular repairs in {location.name}</h2>
+            <p className="text-sm text-gray-500 mb-6">Dedicated {location.name} pages for our most-requested repairs.</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {townServices.map((s) => (
+                <Link key={s.slug} href={`/${s.slug}`}
+                  className="inline-flex items-center gap-1.5 bg-brand/5 border border-brand/20 hover:bg-brand hover:text-white text-brand text-sm font-semibold rounded-full px-4 py-2 transition-colors">
+                  {s.label} in {location.name} <ArrowRightIcon className="w-3.5 h-3.5" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Services in this area */}
       <section className="py-16 bg-white">
@@ -603,20 +677,285 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
   );
 }
 
+// ─── Service × Location Page ─────────────────────────────────────────────────
+
+function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
+  const { family, service, location } = sl;
+  const slug = `${family.base}-${location.slug}`;
+  const intro = getServiceLocationIntro(sl);
+  const faqs = getServiceLocationFaqs(sl);
+
+  // Same-service pages in nearby core-catchment towns (spoke → spoke links).
+  const nearbySameService = getNearbyLocations(location.slug, 12)
+    .filter((l) => CORE_CATCHMENT.includes(l.slug) && l.slug !== location.slug)
+    .slice(0, 4);
+
+  // The three other service families in this same town (sibling cross-links).
+  const siblingServices = serviceLocationsForTown(location.slug)
+    .filter((s) => s.slug !== slug);
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `${family.label} ${location.name}`,
+    serviceType: service.shortTitle,
+    description: `${family.label} in ${location.name}${location.postcode ? ` (${location.postcode})` : ''} — at your home or office, same-day, no callout charge.`,
+    url: `https://www.werepairmac.co.uk/${slug}`,
+    provider: { '@id': 'https://www.werepairmac.co.uk/#business' },
+    areaServed: { '@type': 'City', name: location.name },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'GBP',
+      price: '100',
+      description: 'From £100 per hour labour plus parts. No fix, no fee.',
+    },
+  };
+
+  const WHY_US = [
+    { Icon: TruckIcon, title: 'We Come to You', desc: `No shop drop-off. We travel to your home or office in ${location.name} at no extra charge.` },
+    { Icon: BoltIcon, title: 'Same-Day Visits', desc: 'Most repairs done on-site within the hour. Book before 2pm and we aim to visit the same day.' },
+    { Icon: ShieldCheckIcon, title: 'Genuine Parts & Warranty', desc: 'Quality replacement parts, backed by a 90-day parts and labour warranty.' },
+    { Icon: CurrencyPoundIcon, title: 'No Fix, No Fee', desc: 'If we cannot fix it, you pay absolutely nothing — no diagnostic or callout fee.' },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://www.werepairmac.co.uk' },
+        { name: 'Areas We Cover', url: 'https://www.werepairmac.co.uk/areas-we-cover' },
+        { name: `${location.name}`, url: `https://www.werepairmac.co.uk/mac-repair-${location.slug}` },
+        { name: `${family.label} ${location.name}`, url: `https://www.werepairmac.co.uk/${slug}` },
+      ]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+
+      {/* Hero */}
+      <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image src={service.image} alt={`${family.label} ${location.name}`} fill className="object-cover opacity-20" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <span className="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
+              <MapPinIcon className="w-3.5 h-3.5" /> Mobile {family.label} · {location.name}
+            </span>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+              {family.label} in <span className="text-orange-400">{location.name}</span>
+            </h1>
+            <div className="text-blue-100 text-lg mb-6 leading-relaxed space-y-3">
+              {intro.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <a href="tel:07378349222" className="btn-accent py-4 px-8 text-base inline-flex items-center gap-2">
+                <PhoneIcon className="w-4 h-4" /> Call 07378 349222
+              </a>
+              <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
+                Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="flex flex-wrap gap-4 mt-6">
+              {['No Fix, No Fee', 'No Callout Charge', 'Same-Day Visits', '90-Day Warranty'].map((badge) => (
+                <span key={badge} className="inline-flex items-center gap-1.5 text-sm text-blue-100">
+                  <CheckIcon className="w-4 h-4 text-orange-400 flex-shrink-0" /> {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="hidden md:block">
+            <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
+              <h2 className="font-bold text-lg mb-4 text-white">Common {service.shortTitle} Issues We Fix</h2>
+              <ul className="space-y-2.5">
+                {service.commonIssues.map((issue) => (
+                  <li key={issue} className="flex items-center gap-2.5 text-sm text-blue-100">
+                    <CheckIcon className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                    {issue}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TrustBadges />
+
+      {/* What to expect — unique per-service prose */}
+      {service.whatToExpect && service.whatToExpect.length > 0 && (
+        <section className="py-14 bg-white border-b border-gray-100">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="section-heading">{service.shortTitle} in {location.name} — what to expect</h2>
+            <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed mt-6 space-y-4">
+              {service.whatToExpect.map((para, i) => <p key={i}>{para}</p>)}
+            </div>
+            <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+              <p className="text-sm text-gray-600">
+                This is our dedicated {family.label.toLowerCase()} page for {location.name}. For the full picture of everything we repair here, see our{' '}
+                <Link href={`/mac-repair-${location.slug}`} className="text-brand font-semibold hover:underline">{location.name} repair page</Link>, or our London-wide{' '}
+                <Link href={`/${service.slug}`} className="text-brand font-semibold hover:underline">{service.shortTitle} service</Link>.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Pricing */}
+      <section className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="section-heading">How our pricing works</h2>
+            <p className="text-gray-500 mt-2">Agreed upfront before we touch your device. No surprises.</p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
+            <div className="grid md:grid-cols-3 gap-6 items-center text-center">
+              <div>
+                <div className="text-4xl font-extrabold text-brand">£100</div>
+                <div className="text-sm font-semibold text-gray-700 mt-1">per hour labour</div>
+                <div className="text-xs text-gray-400 mt-1">minimum 1 hour · no hidden extras</div>
+              </div>
+              <div className="text-3xl text-gray-300 font-light text-center hidden md:block">+</div>
+              <div>
+                <div className="text-4xl font-extrabold text-brand">Parts</div>
+                <div className="text-sm font-semibold text-gray-700 mt-1">quoted separately</div>
+                <div className="text-xs text-gray-400 mt-1">agreed before any work starts</div>
+              </div>
+            </div>
+            <div className="border-t border-gray-200 mt-6 pt-6 grid sm:grid-cols-3 gap-4 text-center">
+              {[
+                { label: 'No fix → you pay £0', sub: 'No diagnostic fee, no callout charge if we cannot repair' },
+                { label: 'No callout charge', sub: `We travel to you in ${location.name} at no extra cost` },
+                { label: '90-day warranty', sub: 'Parts and labour covered if the same fault returns' },
+              ].map(({ label, sub }) => (
+                <div key={label}>
+                  <div className="font-bold text-gray-900 text-sm">{label}</div>
+                  <div className="text-xs text-gray-500 mt-0.5 leading-relaxed">{sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Getting to you in this town — genuinely location-specific copy */}
+      {location.localLogistics && (
+        <section className="py-12 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-4">Getting to you in {location.name}</h2>
+            <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed space-y-4">
+              <p>{location.localLogistics}</p>
+            </div>
+            <div className="mt-8">
+              <LocationMap name={location.name} postcode={location.postcode} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Why Choose Us */}
+      <section className="py-16 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="section-heading text-center">Why {location.name} chooses We Repair Mac</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+            {WHY_US.map(({ Icon, title, desc }) => (
+              <div key={title} className="card">
+                <div className="w-10 h-10 rounded-lg bg-brand/8 flex items-center justify-center mb-3">
+                  <Icon className="w-5 h-5 text-brand" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="section-heading text-center">{family.label} {location.name} — FAQs</h2>
+          <div className="mt-8">
+            <FAQAccordion items={faqs} />
+          </div>
+        </div>
+      </section>
+      <FAQSchema items={faqs} />
+
+      {/* Cross-links: other repairs in this town + this repair in nearby towns */}
+      <section className="py-12 bg-white border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 grid md:grid-cols-2 gap-10">
+          {siblingServices.length > 0 && (
+            <div>
+              <h2 className="text-xl font-bold mb-4">Other repairs in {location.name}</h2>
+              <div className="flex flex-wrap gap-3">
+                {siblingServices.map((s) => (
+                  <Link key={s.slug} href={`/${s.slug}`}
+                    className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-brand hover:text-brand text-gray-700 text-sm font-medium rounded-full px-4 py-2 transition-colors">
+                    {s.label} <ArrowRightIcon className="w-3.5 h-3.5" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+          {nearbySameService.length > 0 && (
+            <div>
+              <h2 className="text-xl font-bold mb-4">{family.label} in nearby areas</h2>
+              <div className="flex flex-wrap gap-3">
+                {nearbySameService.map((l) => (
+                  <Link key={l.slug} href={`/${family.base}-${l.slug}`}
+                    className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-brand hover:text-brand text-gray-700 text-sm font-medium rounded-full px-4 py-2 transition-colors">
+                    <MapPinIcon className="w-3.5 h-3.5 text-orange-400" /> {l.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative bg-brand-dark text-white py-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image src={service.image} alt={`${family.label} ${location.name}`} fill className="object-cover opacity-15" />
+        </div>
+        <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-3">Book {family.label} in {location.name}</h2>
+          <p className="text-blue-100 mb-6">Same-day visits, no callout charge, no fix no fee.</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="tel:07378349222" className="btn-accent text-base px-10 py-4 inline-flex items-center gap-2">
+              <PhoneIcon className="w-4 h-4" /> Call 07378 349222
+            </a>
+            <Link href="/quote" className="btn-ghost-white py-4 px-6 inline-flex items-center gap-2">
+              Get a Quote &amp; Book <ArrowRightIcon className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 // ─── Page Router ─────────────────────────────────────────────────────────────
 
 export default async function SlugPage({ params }: PageProps) {
   const { slug } = await params;
 
-  // Check service
+  // Check service (exact match first, so real service slugs never fall through
+  // to the combo resolver).
   if (getService(slug)) {
     return <ServicePage slug={slug} />;
   }
 
-  // Check location
+  // Check location hub
   const locationSlug = slug.replace(/^mac-repair-/, '');
   if (getLocation(locationSlug)) {
     return <LocationPage locationSlug={locationSlug} />;
+  }
+
+  // Check service × location combo
+  const sl = getServiceLocation(slug);
+  if (sl) {
+    return <ServiceLocationPage sl={sl} />;
   }
 
   notFound();

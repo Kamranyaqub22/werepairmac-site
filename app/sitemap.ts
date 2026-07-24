@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllBlogPosts } from '@/lib/blog';
 import { services } from '@/lib/services';
 import { locations } from '@/lib/locations';
+import { serviceLocationSlugs } from '@/lib/serviceLocations';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://www.werepairmac.co.uk';
@@ -38,6 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const serviceLocationPages: MetadataRoute.Sitemap = serviceLocationSlugs().map((slug) => ({
+    url: `${base}/${slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  }));
+
   const blogPosts: MetadataRoute.Sitemap = getAllBlogPosts().map((post) => ({
     url: `${base}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
@@ -45,5 +53,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...servicePages, ...locationPages, ...blogPosts];
+  return [...staticPages, ...servicePages, ...locationPages, ...serviceLocationPages, ...blogPosts];
 }
