@@ -227,11 +227,142 @@ export function getServiceLocationFocus(sl: ServiceLocation): string {
   return `Across ${location.name}, the ${family.labelLower} calls we get most often involve ${family.typicalFaults} — though we are called out for plenty more besides.`;
 }
 
-/** The combination intro paragraphs: hand-written override if present, else a
- *  deterministically-chosen generated variant. */
+// Per-town intros for every core-catchment town. Each is hand-written and
+// grounded in that town's real hand-written localIntro copy (its genuine
+// neighbourhoods, stations, landmarks and character) with the service family's
+// label + typical faults slotted in — so all four services in a town share the
+// town's real local detail but read differently, and each town differs from the
+// next. No invented local facts: every place-name here also appears in the
+// town's localIntro/localRepairs in lib/locations.ts. Extend INTRO_OVERRIDES
+// above to deepen a specific service×town further.
+const TOWN_INTRO: Record<string, (sl: ServiceLocation) => string[]> = {
+  'new-malden': ({ family }) => [
+    `New Malden is our home turf — our base is right here, so a ${family.labelLower} call in New Malden, Motspur Park or Old Malden gets one of the fastest responses we offer anywhere, often within the hour. We diagnose it in front of you, at your desk or kitchen table, and the jobs we see most run to ${family.typicalFaults}.`,
+    `Being local genuinely helps: we know the streets around Beverley Park, the KT3 addresses that are really Motspur Park or Old Malden, and how to slot you in the same day even when the diary is full. No callout charge, a fixed quote first, and nothing to pay if we can't fix it.`,
+  ],
+  'kingston-upon-thames': ({ family }) => [
+    `We cover all of Kingston upon Thames — the riverside offices and the Bentall Centre area, the residential streets around Norbiton and Kingston Hill, and the university crowd — with a mobile ${family.labelLower} service that comes to you. With Kingston University on the doorstep, ${family.typicalFaults} are among the jobs we see most, and we can usually visit the same day rather than have you carry the machine into town.`,
+    `We are five minutes up the road in New Malden, so coming to your flat in Norbiton or your office near the Rose Theatre costs nothing extra and is quick to arrange. Fixed quote before we start, no callout charge, and our No Fix, No Fee guarantee on every visit.`,
+  ],
+  'surbiton': ({ family }) => [
+    `Surbiton's Art Deco station and riverside streets are full of London commuters, and a broken machine the night before a work trip is one of our most common call-outs here. We bring ${family.labelLower} to your door across Surbiton, Berrylands and Hook — ${family.typicalFaults} are all jobs we take on in front of you.`,
+    `We are just up the road in New Malden, so visits are quick to arrange and often same-day, and evening appointments — more popular in KT6 than almost anywhere we cover — cost no more than a weekday slot. No callout charge, a fixed quote first, and no fix, no fee.`,
+  ],
+  'tolworth': ({ family }) => [
+    `Tolworth is really two jobs in one — the offices along the A3 and the residential streets off the Broadway — so our ${family.labelLower} call-outs range from small-business machines to home laptops that won't start. Whatever it is, ${family.typicalFaults} included, we come to you and work on it in front of you.`,
+    `It is part of our core Kingston-area patch, minutes from our New Malden base, so there is almost no travel time to absorb and we can usually slot you in the same day even when we are busy. No callout charge, a price agreed upfront, and no fix, no fee.`,
+  ],
+  'worcester-park': ({ family }) => [
+    `Worcester Park sits almost on our doorstep, and it is a commuter town at heart — the station runs straight into Waterloo — so a lot of our KT4 ${family.labelLower} calls are people whose home machine has to work for the evening or the weekend. We come to your door rather than have you lose a day carrying it into Kingston or Sutton, taking on ${family.typicalFaults} on the spot where we can.`,
+    `Being this close to base, same-day visits are the norm here rather than the exception. We quote before we start, there is no callout charge, and you pay nothing if we can't fix it.`,
+  ],
+  'raynes-park': ({ family }) => [
+    `Raynes Park mixes Victorian terraces with new-build flats around the station, so we see everything here from vintage iMacs to brand-new gaming laptops. We cover Raynes Park and neighbouring West Barnes on the same visit, bringing ${family.labelLower} — ${family.typicalFaults} — to your door.`,
+    `It sits right between our New Malden base and Wimbledon, so we are often passing through anyway and can be flexible on timing; a call before 2pm usually means same-day. No callout charge, a fixed quote first, and no fix, no fee.`,
+  ],
+  'wimbledon': ({ family }) => [
+    `From Wimbledon Village down to South Wimbledon and Wimbledon Park, we come to your home or office rather than asking you to queue at a shop. This is one of our strongest work-from-home patches — a lot of SW19 machines are someone's livelihood — so when ${family.typicalFaults} strike, a machine down for days in a shop isn't an option. We handle ${family.labelLower} on-site around the Common where we can.`,
+    `We are minutes away in New Malden, so same-day visits are usually easy if you call before 2pm. A fixed quote agreed upfront, no callout charge, and nothing to pay if we can't fix it.`,
+  ],
+  'chessington': ({ family }) => [
+    `Chessington is best known for the theme park, but for us it is a settled family suburb just off the A3 — from North Chessington and the streets around Hook down to Chessington South. Most of our KT9 ${family.labelLower} call-outs are family or teenagers' machines that have taken a knock, and ${family.typicalFaults} are all in a day's work; we come to your door rather than have anyone carry a computer into Kingston.`,
+    `Being minutes from our New Malden base via the Kingston bypass, it is one of the quicker areas we reach, with same-day visits the norm. No callout charge, a fixed quote first, and no fix, no fee.`,
+  ],
+  'morden': ({ family }) => [
+    `Morden sits at the southern end of the Northern line, so it is a commuter town at heart — and a lot of our call-outs are people who need the home machine working for the evening or the weekend. We bring ${family.labelLower} to your door around Morden Hall Park, the town centre and the streets off Morden Road, and handle ${family.typicalFaults} on the spot where we can.`,
+    `Morden is one of the closest areas to our New Malden base, so response times here are among our quickest and same-day is usually easy if you call before 2pm. No callout charge, a fixed quote before we start, and nothing to pay if we can't fix it.`,
+  ],
+  'cheam': ({ family }) => [
+    `Cheam Village and North Cheam are among the quieter, more residential calls we get — often families whose children's laptops have taken a knock, or a machine that has simply slowed with age. We bring ${family.labelLower} to your door in Cheam, taking on ${family.typicalFaults} in front of you.`,
+    `It is settled, family-heavy territory in the Sutton borough, and we cover it with the same no callout charge and 90-day warranty as everywhere else — a fixed price agreed before we start, and no fee at all if we can't fix it.`,
+  ],
+  'sutton': ({ family }) => [
+    `Sutton is really two jobs for us: the busy high street and the offices around the town centre, where a dead machine stops trading, and the large residential belt around them. Either way we come to you — many of our ${family.labelLower} call-outs here are small businesses that can't afford a week without a laptop — and we take on ${family.typicalFaults} the same day where we can.`,
+    `We visit homes and workplaces across Sutton with no callout charge either way, quote before we start, and charge nothing if we can't fix it.`,
+  ],
+  'ewell': ({ family }) => [
+    `Ewell Village, with Bourne Hall and Nonsuch Park close by, is one of the quieter corners of our patch — mostly local families whose machine has slowed down or taken a knock. We bring ${family.labelLower} to your door rather than have you drive a fragile computer into Epsom or Kingston, and take on ${family.typicalFaults} in front of you.`,
+    `There is no callout charge either way, a fixed quote before we start, and our No Fix, No Fee guarantee on every job.`,
+  ],
+  'stoneleigh': ({ family }) => [
+    `Stoneleigh is a proper 1930s commuter suburb — mock-Tudor semis around the station and the parade of shops on The Broadway — sitting neatly between Worcester Park and Ewell, minutes from our New Malden base. Most of our call-outs are settled households whose machine has to work for the evening or the weekend, so the urgent "it won't start and I need it in the morning" ${family.labelLower} job is common. ${family.typicalFaults} are all things we take on at your door.`,
+    `We quote before we start, there is no callout charge, and same-day is usually realistic if you call before 2pm.`,
+  ],
+  'epsom': ({ family }) => [
+    `Best known for the Derby at Epsom Downs, Epsom itself is full of home workers and small offices for whom a machine down means a lost working day. We cover the town centre and station area, the streets climbing toward the Downs, and the villages beyond — coming to wherever the machine is with ${family.labelLower} for ${family.typicalFaults}.`,
+    `We can usually reach you the same day if you call before 2pm. There is no callout charge to Epsom or the surrounding villages, a fixed quote first, and no fix, no fee on every job.`,
+  ],
+  'teddington': ({ family }) => [
+    `Teddington's riverside streets and the studios nearby mean a real mix of home and creative-industry machines — often working tools stuffed with projects and running near capacity. When one goes down mid-job, "leave it a week" isn't an answer, so we come to your home studio or desk for ${family.labelLower}, ${family.typicalFaults} included.`,
+    `We cover Teddington and Hampton Wick together, usually on the same trip, so getting an engineer to your door rarely takes long. A fixed quote before we start, no callout charge, and no fix, no fee.`,
+  ],
+  'walton-on-thames': ({ family }) => [
+    `Walton-on-Thames runs on a mix of families and home workers, and for the home workers a broken machine is a lost working day — so we come to the house, along the riverside, off the high street or out toward Hersham, for ${family.labelLower}. ${family.typicalFaults} are the jobs we see most, handled in front of you.`,
+    `We cover Walton, Hersham and the surrounding streets on the same basis, with no callout charge for the visit, a fixed quote first, and nothing to pay if we can't fix it.`,
+  ],
+  'esher': ({ family }) => [
+    `Esher is one of Surrey's more affluent towns, and a good share of our call-outs are home workers around the High Street and out toward Sandown Park who would rather not hand an expensive machine across a shop counter. Our engineer comes to you, works in front of you, and takes on ${family.labelLower} — ${family.typicalFaults} — on the spot where possible.`,
+    `We look after a lot of Esher home offices, where the machine is a working tool and a few days without it costs something. We quote a fixed price before we start, with no callout charge and our No Fix, No Fee guarantee.`,
+  ],
+  'weybridge': ({ family }) => [
+    `Weybridge — Brooklands, Oatlands and one of Surrey's more affluent addresses — often means high-value machines people would rather not leave with a shop for a week. So we come to the house for ${family.labelLower}, work in front of you, and hand the machine straight back; ${family.typicalFaults} are all jobs we take on at your address.`,
+    `We cover Weybridge, Oatlands and the surrounding Elmbridge streets on the same basis, with the price agreed before we start and no callout charge.`,
+  ],
+  'cobham': ({ family }) => [
+    `Cobham is one of Surrey's most affluent villages — home to Chelsea FC's training ground and plenty of professionals working from home — and the machines here are often high-value and work-critical. We come to the house or office for ${family.labelLower}, keep the device in your sight the whole time, and take on ${family.typicalFaults} in front of you.`,
+    `We cover Cobham, Stoke d'Abernon and the surrounding streets with the same discretion we offer in Chelsea itself — a fixed price agreed before we start, and no callout charge.`,
+  ],
+  'richmond': ({ family }) => [
+    `Richmond is the most Mac-heavy area we cover — full of media and creative professionals editing, designing and producing, often on machines stuffed with project files and running at the limit of their storage. When one goes down mid-project, "leave it a week" isn't an answer, so we bring ${family.labelLower} to your home studio or office; ${family.typicalFaults} are the jobs we are called out for most.`,
+    `We cover Richmond, Kew and St Margarets with a fully mobile service — a fixed quote first, no callout charge, and our No Fix, No Fee guarantee.`,
+  ],
+  'twickenham': ({ family }) => [
+    `Away from the rugby stadium, Twickenham is riverside streets, family houses and a strong thread of creative work thanks to the studios nearby — so the machines here are often working tools running near capacity. We bring ${family.labelLower} to your home office or studio, ${family.typicalFaults} included, and plan around big fixtures so a booked visit isn't caught in matchday traffic.`,
+    `We cover Twickenham and St Margarets together, coming to your door with a fixed quote first, no callout charge, and no fix, no fee.`,
+  ],
+  'putney': ({ family }) => [
+    `Putney's riverside streets running up from the bridge, and the roads off Lower Richmond Road, are full of people who work from home at least part of the week — so a broken machine here usually means a lost working day. We come to you for ${family.labelLower}, covering Putney and Roehampton together, and take on ${family.typicalFaults} in front of you.`,
+    `There is no callout charge either way, a fixed quote before we start, and nothing to pay if we can't fix it.`,
+  ],
+  'mitcham': ({ family }) => [
+    `Mitcham is one of the busier, more mixed parts of our patch — the Cricket Green and the Common at its heart, the tram threading through to Mitcham Junction, and trade units out toward Willow Lane and Beddington. That makes for varied ${family.labelLower} call-outs: a family laptop in a terrace off London Road in the morning, a trade unit's office PC in the afternoon. ${family.typicalFaults} are all in a day's work.`,
+    `We are a short hop beyond Morden, itself minutes from our New Malden base, so Mitcham is quick to reach and same-day is realistic more often than not. No callout charge, a fixed quote first, and no fix, no fee.`,
+  ],
+  'carshalton': ({ family }) => [
+    `Carshalton is one of the leafier corners of our patch — the ponds and conservation area around the Village, the quieter avenues of Carshalton Beeches, the more mixed streets toward the Wrythe — and a good share of our SM5 calls are settled households with a machine that has been in the family for years and quietly slowed. We come to your door for ${family.labelLower} rather than have you drive a fragile machine into Sutton, ${family.typicalFaults} included.`,
+    `There is no callout charge either way, a fixed quote before we start, and no fix, no fee on every job.`,
+  ],
+  'wallington': ({ family }) => [
+    `Wallington is a proper commuter town — the station runs into London Bridge and Victoria — and a broken home laptop the night before a work day is one of our most common SM6 ${family.labelLower} call-outs. We come to you around Woodcote Road, the station and the residential streets, and take on ${family.typicalFaults} in front of you.`,
+    `We are a short run up from our New Malden base, so visits are quick to arrange and often same-day, and evening appointments — popular here — cost no more. No callout charge, a fixed quote first, and no fix, no fee.`,
+  ],
+  'leatherhead': ({ family }) => [
+    `Leatherhead sits right on the edge of the Surrey Hills, and while it is a smaller town than some on our list, we cover it with the same service — most call-outs are family laptops and older desktops due a service, and ${family.typicalFaults} are the jobs we see most. We come to the door for ${family.labelLower} rather than ask anyone to travel.`,
+    `We cover Leatherhead, Fetcham and the surrounding streets on the same basis — same-day where we can, no callout charge, and no fix, no fee.`,
+  ],
+  'banstead': ({ family }) => [
+    `Banstead's village feel and the open space of Banstead Downs make it one of our quieter, more residential call-outs — mostly family laptops and the odd ageing desktop. Much of the ${family.labelLower} work here is the practical stuff — ${family.typicalFaults} — that we can usually turn around in a single visit at home.`,
+    `We cover Banstead, the surrounding streets and neighbouring Nork on the same fixed-price, no-callout-charge basis as the rest of Surrey, with no fix, no fee on every job.`,
+  ],
+  'claygate': ({ family }) => [
+    `Claygate is a village in every sense — a green, a Parade of independent shops, and a station that empties toward Waterloo each morning — and most of our call-outs are professionals and home workers who would rather not hand an expensive machine across a shop counter. Our engineer comes to you for ${family.labelLower}, works in front of you, and takes on ${family.typicalFaults} on the spot where possible.`,
+    `We cover Claygate and the surrounding Elmbridge streets toward Esher, Hinchley Wood and Oxshott on the same basis, with the price agreed before we start and no callout charge.`,
+  ],
+  'tadworth': ({ family }) => [
+    `Tadworth sits up on the North Downs, a semi-rural village between Walton-on-the-Hill, Kingswood and Banstead — one of our quieter, more residential patches of larger houses, families and home workers who value a repair that comes to the door. Our engineer visits the house or home office for ${family.labelLower} and takes on ${family.typicalFaults} in front of you.`,
+    `We cover Tadworth and the neighbouring Downs villages on the same fixed-price, no-callout-charge basis as the rest of Surrey, with our No Fix, No Fee guarantee.`,
+  ],
+};
+
+/** The combination intro paragraphs, in order of preference: a hand-tuned
+ *  service×town override, then the town's own grounded intro, then a generic
+ *  deterministically-chosen variant (a safety net for any future catchment town
+ *  added without a TOWN_INTRO entry). */
 export function getServiceLocationIntro(sl: ServiceLocation): string[] {
   const key = `${sl.family.base}:${sl.location.slug}`;
   if (INTRO_OVERRIDES[key]) return INTRO_OVERRIDES[key];
+  const townIntro = TOWN_INTRO[sl.location.slug];
+  if (townIntro) return townIntro(sl);
   const slug = `${sl.family.base}-${sl.location.slug}`;
   return INTRO_VARIANTS[hashIndex(slug, INTRO_VARIANTS.length)](sl);
 }
