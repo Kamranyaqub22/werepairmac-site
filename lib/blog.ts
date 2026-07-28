@@ -1,4 +1,5 @@
 import { NINTENDO_SWITCH_IMAGE, XBOX_CONSOLE_IMAGE } from '@/lib/consoleImages';
+import { hashSlug } from '@/lib/hash';
 
 export interface BlogSection {
   heading: string;
@@ -40,7 +41,29 @@ interface BlogBlueprint {
   quickChecks: string[];
   engineerChecks: string[];
   preventionTips: string[];
+  /**
+   * Fault-specific H2s for the three body sections. Every post previously shared
+   * the same three generic headings, which made 20 hand-written posts read as one
+   * template to a crawler. Falls back to the generic set when absent.
+   */
+  sectionHeadings?: [string, string, string];
+  /** Lead paragraph for the diagnosis section. Generic fallback if absent. */
+  diagnosisIntro?: string;
+  /** Lead paragraph for the prevention section. Generic fallback if absent. */
+  preventionIntro?: string;
 }
+
+const FALLBACK_SECTION_HEADINGS: [string, string, string] = [
+  'What to do first',
+  'What we usually check on-site',
+  'How to reduce the chance of a repeat fault',
+];
+
+const FALLBACK_DIAGNOSIS_INTRO =
+  'A good repair visit should narrow the fault down quickly, explain what has failed, and tell you whether the problem is economical to repair before unnecessary work starts.';
+
+const FALLBACK_PREVENTION_INTRO =
+  'Even when the immediate problem is fixed, a few simple habits can help keep the same issue from returning.';
 
 const BLOG_START_DATE = new Date('2026-03-11T09:00:00.000Z');
 const BLOG_CADENCE_DAYS = 7;
@@ -75,6 +98,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Back up important files regularly so a no-power fault stays inconvenient rather than catastrophic.',
       'If the device recently got wet, stop testing it and get it inspected properly.',
     ],
+    sectionHeadings: [
+      'Before you assume the logic board has gone',
+      'How we tell a power fault from a display fault',
+      'Keeping a Mac powering on reliably',
+    ],
+    diagnosisIntro:
+      'A no-power MacBook needs the fault narrowed to one of three places — the charging path, the battery, or the board itself — before any part is ordered. That is what the first twenty minutes of a visit are for.',
+    preventionIntro:
+      'Most of the dead MacBooks we collect had been giving smaller warnings for weeks. These habits keep those warnings from becoming a machine that will not start.',
   },
   {
     slug: 'macbook-battery-draining-fast-london',
@@ -104,6 +136,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Use reputable chargers that negotiate power correctly.',
       'Do not ignore swelling, heat, or a lifting trackpad.',
     ],
+    sectionHeadings: [
+      'Reading the warning signs early',
+      'How we confirm the battery is the bottleneck',
+      'Getting more life out of the next battery',
+    ],
+    diagnosisIntro:
+      'Fast drain can come from a worn cell, a charging circuit that is no longer negotiating properly, or software holding the machine awake. Cycle count alone does not settle it, so we measure rather than guess.',
+    preventionIntro:
+      'A replacement battery lasts considerably longer when it is not held at full charge and high temperature for months at a time.',
   },
   {
     slug: 'macbook-screen-lines-flicker-repair-advice',
@@ -133,6 +174,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Avoid lifting the laptop by one corner of the screen.',
       'Use a padded sleeve when travelling with the machine.',
     ],
+    sectionHeadings: [
+      'Working out which part of the display failed',
+      'How we isolate panel, cable or board',
+      'Protecting the display and its hinge cable',
+    ],
+    diagnosisIntro:
+      'Lines, flicker and a fully black panel each implicate a different component. An external monitor answers the biggest question in about a minute, and the rest follows from there.',
+    preventionIntro:
+      'Display flex cables fail from repeated bending and pressure far more often than from a single accident.',
   },
   {
     slug: 'water-damaged-laptop-first-steps',
@@ -162,6 +212,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Back up business-critical data before there is ever an accident.',
       'Treat sugary drinks, coffee, and alcohol spills as especially urgent.',
     ],
+    sectionHeadings: [
+      'The first thirty minutes after a spill',
+      'What a liquid-damage inspection involves',
+      'Limiting the damage if it happens again',
+    ],
+    diagnosisIntro:
+      'Liquid damage is a cleaning and corrosion job before it is a parts job. The inspection decides how far the liquid travelled and what can still be saved.',
+    preventionIntro:
+      'Spills happen. What changes the outcome is how quickly the machine is powered down and how it is positioned afterwards.',
   },
   {
     slug: 'slow-laptop-home-office-checklist',
@@ -191,6 +250,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Install updates deliberately rather than ignoring them for months.',
       'Do not let laptops run blocked on soft bedding or carpets.',
     ],
+    sectionHeadings: [
+      'Quick wins worth trying this afternoon',
+      'What we look at when a laptop is genuinely slow',
+      'Keeping a working laptop quick',
+    ],
+    diagnosisIntro:
+      'A slow laptop is usually several small problems stacked together — a full drive, thermal throttling, and too much launching at startup. We measure each one rather than reinstalling and hoping.',
+    preventionIntro:
+      'Most of the speed a laptop loses over two or three years is recoverable with maintenance rather than replacement.',
   },
   {
     slug: 'data-recovery-from-dead-drive-expectations',
@@ -220,6 +288,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Replace backup drives that are ageing or intermittently disconnecting.',
       'Do not wait for clicking or mounting failures before reviewing backups.',
     ],
+    sectionHeadings: [
+      'What to do the moment a drive fails',
+      'How a recovery attempt actually proceeds',
+      'Making the next failure a non-event',
+    ],
+    diagnosisIntro:
+      'Recovery odds are set largely by what happens in the first hour. Powering a failing drive on repeatedly is the most common way a recoverable disk becomes an unrecoverable one.',
+    preventionIntro:
+      'Recovery is always more expensive and less certain than a backup that already ran last night.',
   },
   {
     slug: 'gaming-pc-keeps-crashing-during-games',
@@ -249,6 +326,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Make one hardware change at a time so faults stay traceable.',
       'Do not chase unstable benchmark scores with unsafe voltage tweaks.',
     ],
+    sectionHeadings: [
+      'Narrowing down a mid-game crash',
+      'How we isolate heat, memory and power',
+      'Keeping a stable machine stable',
+    ],
+    diagnosisIntro:
+      'Crashes that only happen under load point at heat, power delivery or memory instability. Working out which one means stressing each subsystem separately rather than all at once.',
+    preventionIntro:
+      'Most gaming PCs that start crashing after two years are telling you about dust and dried thermal paste, not a failing component.',
   },
   {
     slug: 'virus-or-popups-on-your-computer-what-now',
@@ -278,6 +364,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Keep browsers and operating systems up to date.',
       'Treat urgent warning banners and “call Microsoft/Apple now” prompts as suspicious.',
     ],
+    sectionHeadings: [
+      'What to do before clicking anything else',
+      'How we clean a compromised machine',
+      'Staying out of trouble afterwards',
+    ],
+    diagnosisIntro:
+      'A cleanup is only half the work. The other half is establishing what the malware had access to, so you know which passwords and accounts genuinely need attention.',
+    preventionIntro:
+      'Nearly every infection we clean arrived through a browser prompt, a fake update, or a password reused from somewhere else.',
   },
   {
     slug: 'ps5-hdmi-port-no-signal-repair-guide',
@@ -307,6 +402,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Give the rear ports enough clearance from walls and furniture.',
       'Use a stable shelf so the console is not tugging against the cable.',
     ],
+    sectionHeadings: [
+      'Ruling out the cable and the TV first',
+      'How we confirm the port is the fault',
+      'Keeping the new port intact',
+    ],
+    diagnosisIntro:
+      'A no-signal PS5 is usually a bent pin or a lifted pad on the HDMI port. Confirming that before any board work starts avoids a micro-soldering job on a console that only needed a different cable.',
+    preventionIntro:
+      'HDMI ports fail from sideways force on a plugged-in cable far more often than from ordinary wear.',
   },
   {
     slug: 'gaming-console-overheating-what-causes-it',
@@ -336,6 +440,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Clean external vents regularly and keep pets away from intake areas.',
       'If the fan suddenly becomes much louder, treat it as an early warning.',
     ],
+    sectionHeadings: [
+      'What overheating actually looks like',
+      'What we find inside an overheating console',
+      'Keeping a console running cool',
+    ],
+    diagnosisIntro:
+      'Overheating is a maintenance problem before it becomes a hardware one. The question is whether the thermal system is blocked, dried out, or genuinely failing.',
+    preventionIntro:
+      'A console in a closed cabinet will overheat regardless of how clean it is inside.',
   },
   {
     slug: 'nintendo-switch-not-charging-usb-c-port-signs',
@@ -365,6 +478,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Keep the port clear of lint from bags and fabric cases.',
       'Replace damaged charging cables early instead of compensating with pressure.',
     ],
+    sectionHeadings: [
+      'Telling a port fault from a battery fault',
+      'How we test a Switch charging path',
+      'Protecting the USB-C port',
+    ],
+    diagnosisIntro:
+      'A Switch that will not charge has four candidates — the cable, the port, the battery, or the charging circuit on the board. The symptoms usually separate them before anything is opened.',
+    preventionIntro:
+      'USB-C ports on handhelds fail mechanically, from the cable being knocked while the console is docked or played.',
   },
   {
     slug: 'xbox-series-x-no-display-repair-advice',
@@ -394,6 +516,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Avoid stacking hot devices directly on top of the console.',
       'Use stable shelving when consoles are connected to wall-mounted TVs.',
     ],
+    sectionHeadings: [
+      'Checking the simple causes first',
+      'How we trace a no-display fault',
+      'Avoiding a repeat',
+    ],
+    diagnosisIntro:
+      'A black screen on an Xbox can be a resolution handshake, a cable, the HDMI port, or the board. Each is ruled out in order, cheapest first.',
+    preventionIntro:
+      'Most no-display faults we see trace back to the HDMI connection rather than the console itself.',
   },
   {
     slug: 'external-drive-not-showing-data-recovery-advice',
@@ -423,6 +554,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Replace loose or unreliable USB cables before they cause bigger issues.',
       'Do not move external drives while they are actively in use.',
     ],
+    sectionHeadings: [
+      'Stop before you reformat anything',
+      'How we approach a drive that will not mount',
+      'Making your data harder to lose',
+    ],
+    diagnosisIntro:
+      'A drive that has stopped mounting still usually holds everything on it. The work is reading it safely once, rather than repeatedly asking a failing device to try again.',
+    preventionIntro:
+      'One copy on one external drive is not a backup — it is a single point of failure with a handle on it.',
   },
   {
     slug: 'cracked-laptop-screen-repair-or-replace',
@@ -452,6 +592,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Do not pick the device up by the screen corner.',
       'Keep chargers, pens, and earbuds away from the keyboard before closing the lid.',
     ],
+    sectionHeadings: [
+      'Deciding whether the laptop is worth the screen',
+      'What we check before quoting a screen',
+      'Keeping the replacement intact',
+    ],
+    diagnosisIntro:
+      'A screen quote only makes sense once the rest of the machine has been checked. Replacing a panel in a laptop with a failing battery and a full drive is rarely money well spent.',
+    preventionIntro:
+      'Most cracked panels we replace were cracked by pressure in a bag rather than by a drop.',
   },
   {
     slug: 'macbook-not-charging-port-or-battery',
@@ -481,6 +630,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Keep charging ports clear of lint and dust from bags or sleeves.',
       'Replace damaged charging cables before they stress the connector further.',
     ],
+    sectionHeadings: [
+      'Separating a charger fault from a board fault',
+      'How we test a MacBook charging path',
+      'Charging habits that extend battery life',
+    ],
+    diagnosisIntro:
+      'The symptom pattern usually says which part failed: intermittent charging points at the port or cable, while no charging at all points at the battery or the board.',
+    preventionIntro:
+      'Charging ports collect pocket lint and take strain from the angle of the cable — both are avoidable.',
   },
   {
     slug: 'ps4-disc-drive-not-reading-discs',
@@ -510,6 +668,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Do not leave discs partly inserted or force them against resistance.',
       'Address odd drive noises early rather than waiting for complete failure.',
     ],
+    sectionHeadings: [
+      'What the noises tell you',
+      'How we test a disc drive',
+      'Keeping the drive reading reliably',
+    ],
+    diagnosisIntro:
+      'Disc-read faults split cleanly between mechanical problems you can hear and laser problems you cannot. Which one it is decides whether the drive is worth repairing.',
+    preventionIntro:
+      'A level console with a clear path to the disc slot has noticeably fewer read problems.',
   },
   {
     slug: 'macbook-keyboard-keys-sticking-cleaning-guide',
@@ -539,6 +706,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Avoid eating directly over the laptop.',
       'Wash hands before typing to prevent natural oil buildup.'
     ],
+    sectionHeadings: [
+      'Why compressed air often is not enough',
+      'How we free a stuck key properly',
+      'Keeping crumbs out of the keyboard',
+    ],
+    diagnosisIntro:
+      'A sticking key is either debris under the mechanism or a failed butterfly or scissor clip. Blowing air at it tends to move the debris rather than remove it.',
+    preventionIntro:
+      'Butterfly-era keyboards in particular are intolerant of anything falling between the keys.',
   },
   {
     slug: 'pc-making-loud-grinding-noise',
@@ -568,6 +744,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Clean dust filters on your PC case every 3 to 6 months.',
       'Keep the PC elevated off carpet floors to reduce dust intake.'
     ],
+    sectionHeadings: [
+      'Identifying where the noise comes from',
+      'How we trace a grinding noise',
+      'Keeping a PC quiet',
+    ],
+    diagnosisIntro:
+      'Grinding is mechanical, so it comes from one of the few parts that actually move: a fan, a pump, or a hard drive. Telling them apart is largely a matter of listening in the right place.',
+    preventionIntro:
+      'Fan bearings and hard drives both give plenty of audible warning before they fail outright.',
   },
   {
     slug: 'macbook-pro-overheating-fan-noise-fix',
@@ -597,6 +782,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Close dozens of unused browser tabs to reduce memory and CPU load.',
       'Schedule a professional internal cleaning once every two years.'
     ],
+    sectionHeadings: [
+      'What loud fans are actually telling you',
+      'How we check the cooling system',
+      'Keeping a MacBook Pro cool',
+    ],
+    diagnosisIntro:
+      'Constant fan noise means the machine cannot shed heat fast enough. That is either a blocked airflow path, dried thermal paste, or software keeping the processor busy.',
+    preventionIntro:
+      'A MacBook Pro used on soft surfaces will run hot no matter how clean its internals are.',
   },
   {
     slug: 'macbook-trackpad-not-clicking',
@@ -626,6 +820,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Do not expose the device to extreme temperatures.',
       'If you notice even a slight lift in the casing, get it checked immediately.'
     ],
+    sectionHeadings: [
+      'Why the trackpad is rarely the problem',
+      'How we confirm a swollen battery',
+      'Catching battery swelling early',
+    ],
+    diagnosisIntro:
+      'A trackpad that will not click is usually being pushed from underneath by a swelling battery. Confirming that matters, because a swollen cell is a safety issue as well as a repair.',
+    preventionIntro:
+      'Swelling develops over months and gives visible warning long before it reaches the trackpad.',
   },
   {
     slug: 'why-are-my-games-lagging-suddenly-pc',
@@ -655,6 +858,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Do not install random "PC Optimizer" or "Game Booster" software.',
       'Keep your RAM running efficiently by maintaining your XMP profile.'
     ],
+    sectionHeadings: [
+      'When frame rates drop out of nowhere',
+      'How we find the cause of sudden lag',
+      'Keeping frame rates steady',
+    ],
+    diagnosisIntro:
+      'Lag that appeared suddenly usually has a specific cause — a driver update, a background process, or thermal throttling that has only just crossed a threshold.',
+    preventionIntro:
+      'Frame-rate stability is mostly about heat and background load rather than raw hardware.',
   },
   {
     slug: 'spilled-water-on-keyboard-what-not-to-do',
@@ -684,6 +896,15 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'If an accident happens, prioritize data recovery before assuming the laptop is okay.',
       'React calmly and systematically. Force stopping power is your top priority.'
     ],
+    sectionHeadings: [
+      'The three things that make it worse',
+      'What a keyboard-spill inspection covers',
+      'Reducing the risk next time',
+    ],
+    diagnosisIntro:
+      'Most of the damage from a keyboard spill is done after the spill, by powering the machine on to check whether it still works.',
+    preventionIntro:
+      'A keyboard cover and a drink kept away from the machine prevent nearly all of these jobs.',
   },
 ];
 
@@ -707,12 +928,6 @@ const DATA_RECOVERY_IMAGES = [
   '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
 ];
 const CONSOLE_IMAGES = [XBOX_CONSOLE_IMAGE, NINTENDO_SWITCH_IMAGE];
-
-function hashSlug(slug: string): number {
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
-  return h;
-}
 
 // Posts that have a dedicated, topic-matched photo at /images/blog/<slug>.jpg.
 // Every hand-written post gets its own unique image (no repeats). Any future
@@ -762,6 +977,7 @@ function pickBlogImage(blueprint: BlogBlueprint): string {
 
 function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
   const publishedAt = new Date(BLOG_START_DATE.getTime() + index * BLOG_CADENCE_MS).toISOString();
+  const headings = blueprint.sectionHeadings ?? FALLBACK_SECTION_HEADINGS;
 
   return {
     slug: blueprint.slug,
@@ -775,7 +991,7 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
     publishedAt,
     sections: [
       {
-        heading: 'What to do first',
+        heading: headings[0],
         paragraphs: [
           blueprint.firstResponse,
           blueprint.whySpeedMatters,
@@ -784,17 +1000,13 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
         bullets: blueprint.quickChecks,
       },
       {
-        heading: 'What we usually check on-site',
-        paragraphs: [
-          'A good repair visit should narrow the fault down quickly, explain what has failed, and tell you whether the problem is economical to repair before unnecessary work starts.',
-        ],
+        heading: headings[1],
+        paragraphs: [blueprint.diagnosisIntro ?? FALLBACK_DIAGNOSIS_INTRO],
         bullets: blueprint.engineerChecks,
       },
       {
-        heading: 'How to reduce the chance of a repeat fault',
-        paragraphs: [
-          'Even when the immediate problem is fixed, a few simple habits can help keep the same issue from returning.',
-        ],
+        heading: headings[2],
+        paragraphs: [blueprint.preventionIntro ?? FALLBACK_PREVENTION_INTRO],
         bullets: blueprint.preventionTips,
       },
     ],

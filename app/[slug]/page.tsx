@@ -7,9 +7,10 @@ import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/l
 import {
   getServiceLocation, serviceLocationSlugs, serviceLocationsForTown,
   serviceLocationsForService, getServiceLocationIntro, getServiceLocationFaqs,
-  getServiceLocationFocus, CORE_CATCHMENT, type ServiceLocation,
+  getServiceLocationFocus, comboHeadings, CORE_CATCHMENT, type ServiceLocation,
 } from '@/lib/serviceLocations';
 import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
+import { firstThatFits } from '@/lib/meta';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
@@ -55,9 +56,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const locationSlug = slug.replace(/^mac-repair-/, '');
   const location = getLocation(locationSlug);
   if (location) {
+    const pc = location.postcode ? ` (${location.postcode})` : '';
     return {
       title: `Mac, PC & Laptop Repair ${location.name}`,
-      description: `Professional Mac, PC, laptop and gaming repair in ${location.name} (${location.postcode}). Same-day home visits, no fix no fee. Call 07378 349222.`,
+      // Lead with the town's own `metaHook` so each area page reads differently
+      // rather than being one template with the name swapped in. Towns without a
+      // hook yet fall through to the original wording.
+      description: firstThatFits([
+        location.metaHook
+          ? `Mac, PC and laptop repair in ${location.name}${pc} — ${location.metaHook}. Same-day home visits, no fix no fee.`
+          : '',
+        `Professional Mac, PC, laptop and gaming repair in ${location.name}${pc}. Same-day home visits, no fix no fee. Call 07378 349222.`,
+      ].filter(Boolean)),
       alternates: { canonical: `https://www.werepairmac.co.uk/mac-repair-${location.slug}` },
     };
   }
@@ -69,7 +79,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     // Keep the title tight — the layout appends " | We Repair Mac", so anything
     // extra here risks SERP truncation (~60 chars).
     const title = `${family.label} ${loc.name}${loc.postcode ? ` (${loc.postcode})` : ''}`;
-    const description = `${family.label} in ${loc.name} at your home or office. Same-day visits, no callout charge, no fix no fee. 90-day warranty. Call 07378 349222.`;
+    // Combine the town's own hook with this family's fault list, so a town's four
+    // combo pages differ from each other as well as from every other town's.
+    const description = firstThatFits([
+      loc.metaHook
+        ? `${family.label} in ${loc.name} — ${loc.metaHook}. We fix ${family.metaFaults} at your door, no fix no fee.`
+        : '',
+      loc.metaHook
+        ? `${family.label} in ${loc.name} — ${loc.metaHook}. No fix, no fee, 90-day warranty.`
+        : '',
+      `${family.label} in ${loc.name} at your home or office. We fix ${family.metaFaults}. No fix, no fee, 90-day warranty.`,
+    ].filter(Boolean));
     return {
       title,
       description,
@@ -198,7 +218,7 @@ function ServicePage({ slug }: { slug: string }) {
           {/* Issues card */}
           <div className="hidden md:block">
             <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
-              <h2 className="font-bold text-lg mb-4 text-white">Common Issues We Fix</h2>
+              <h2 className="font-bold text-lg mb-4 text-white">Common {service.shortTitle} faults</h2>
               <ul className="space-y-2.5">
                 {service.commonIssues.map((issue) => (
                   <li key={issue} className="flex items-center gap-2.5 text-sm text-blue-100">
@@ -248,7 +268,7 @@ function ServicePage({ slug }: { slug: string }) {
       <section className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="section-heading">How our pricing works</h2>
+            <h2 className="section-heading">What {service.shortTitle.toLowerCase()} costs</h2>
             <p className="text-gray-500 mt-2">Agreed upfront before we touch your device. No surprises.</p>
           </div>
           <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
@@ -305,7 +325,7 @@ function ServicePage({ slug }: { slug: string }) {
       {/* Mobile common issues */}
       <section className="py-10 bg-gray-50 md:hidden">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-6">Common Issues We Fix</h2>
+          <h2 className="text-2xl font-bold mb-6">{service.shortTitle} problems we fix most often</h2>
           <ul className="space-y-3">
             {service.commonIssues.map((issue) => (
               <li key={issue} className="flex items-center gap-2.5 text-gray-700">
@@ -684,6 +704,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
   const slug = `${family.base}-${location.slug}`;
   const intro = getServiceLocationIntro(sl);
   const faqs = getServiceLocationFaqs(sl);
+  const headings = comboHeadings(sl);
 
   // Same-service pages in nearby core-catchment towns (spoke → spoke links).
   const nearbySameService = getNearbyLocations(location.slug, 12)
@@ -765,7 +786,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
           </div>
           <div className="hidden md:block">
             <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
-              <h2 className="font-bold text-lg mb-4 text-white">Common {service.shortTitle} Issues We Fix</h2>
+              <h2 className="font-bold text-lg mb-4 text-white">{headings.issues}</h2>
               <ul className="space-y-2.5">
                 {service.commonIssues.map((issue) => (
                   <li key={issue} className="flex items-center gap-2.5 text-sm text-blue-100">
@@ -785,7 +806,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
       {service.whatToExpect && service.whatToExpect.length > 0 && (
         <section className="py-14 bg-white border-b border-gray-100">
           <div className="max-w-3xl mx-auto px-4">
-            <h2 className="section-heading">{service.shortTitle} in {location.name} — what to expect</h2>
+            <h2 className="section-heading">{headings.whatToExpect}</h2>
             <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed mt-6 space-y-4">
               {service.whatToExpect.map((para, i) => <p key={i}>{para}</p>)}
             </div>
@@ -805,7 +826,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
       {location.localRepairs && (
         <section className="py-14 bg-gray-50 border-b border-gray-100">
           <div className="max-w-3xl mx-auto px-4">
-            <h2 className="section-heading">The repairs we&apos;re called out for around {location.name}</h2>
+            <h2 className="section-heading">{headings.calledOutFor}</h2>
             <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed mt-6 space-y-4">
               <p>{getServiceLocationFocus(sl)}</p>
               <p>{location.localRepairs}</p>
@@ -818,7 +839,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
       <section className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="section-heading">How our pricing works</h2>
+            <h2 className="section-heading">What {family.labelLower} costs in {location.name}</h2>
             <p className="text-gray-500 mt-2">Agreed upfront before we touch your device. No surprises.</p>
           </div>
           <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">

@@ -1,5 +1,6 @@
 import { getService, type Service } from '@/lib/services';
 import { getLocation, type Location, type LocationFAQ } from '@/lib/locations';
+import { pickVariant } from '@/lib/hash';
 
 // ─── Service × Location landing pages ────────────────────────────────────────
 //
@@ -29,13 +30,133 @@ export interface ServiceFamily {
   // service×town FAQ so each service reads differently in the same town — content
   // that exists on neither the London service page nor the town hub.
   typicalFaults: string;
+  // Very short fault summary (~40 chars) for meta descriptions, where
+  // `typicalFaults` is far too long to fit inside 155 characters.
+  metaFaults: string;
+  // Alternative phrasings for the three repeated H2 slots on the combo template.
+  // Each town picks one set deterministically (see comboHeadings), so the 29
+  // pages in a family no longer share a single heading skeleton — which is what
+  // made 116 genuinely-different pages read as one template to a crawler.
+  headingVariants: {
+    issues: readonly string[];
+    whatToExpect: readonly string[];
+    calledOutFor: readonly string[];
+  };
 }
 
 export const SERVICE_FAMILIES: ServiceFamily[] = [
-  { base: 'macbook-repair', label: 'MacBook Repair', labelLower: 'MacBook repair', serviceSlug: 'macbook-repair-london', typicalFaults: "a MacBook that won't turn on, liquid damage, a worn-out battery or a cracked screen" },
-  { base: 'laptop-repair', label: 'Laptop & PC Repair', labelLower: 'laptop & PC repair', serviceSlug: 'laptop-repair-london', typicalFaults: "cracked screens, laptops that won't power on, keyboard spills and failing hard drives" },
-  { base: 'console-repair', label: 'Console Repair', labelLower: 'console repair', serviceSlug: 'gaming-console-repair-london', typicalFaults: "HDMI ports with no picture, overheating shutdowns, charging-port faults and drifting controllers" },
-  { base: 'data-recovery', label: 'Data Recovery', labelLower: 'data recovery', serviceSlug: 'data-recovery-london', typicalFaults: "drives that won't mount, accidentally deleted files, failed SSDs and clicking hard drives" },
+  {
+    base: 'macbook-repair',
+    label: 'MacBook Repair',
+    labelLower: 'MacBook repair',
+    serviceSlug: 'macbook-repair-london',
+    typicalFaults: "a MacBook that won't turn on, liquid damage, a worn-out battery or a cracked screen",
+    metaFaults: 'screens, batteries and liquid damage',
+    headingVariants: {
+      issues: [
+        'MacBook faults we fix most often',
+        'The MacBook problems we see week to week',
+        'Common MacBook faults, and what causes them',
+        'What usually goes wrong with a MacBook',
+      ],
+      whatToExpect: [
+        'What a MacBook repair visit in {town} looks like',
+        'How a MacBook call-out in {town} actually runs',
+        'What happens when we arrive in {town}',
+        'From first call to working MacBook in {town}',
+      ],
+      calledOutFor: [
+        'The MacBook jobs we get called to around {town}',
+        'What {town} MacBook owners call us about',
+        'Typical MacBook call-outs in {town}',
+        'The MacBook repairs {town} sends us',
+      ],
+    },
+  },
+  {
+    base: 'laptop-repair',
+    label: 'Laptop & PC Repair',
+    labelLower: 'laptop & PC repair',
+    serviceSlug: 'laptop-repair-london',
+    typicalFaults: "cracked screens, laptops that won't power on, keyboard spills and failing hard drives",
+    metaFaults: 'cracked screens, spills and dead laptops',
+    headingVariants: {
+      issues: [
+        'Laptop and PC faults we fix most often',
+        'The laptop problems we see week to week',
+        'Common laptop and PC faults, and their causes',
+        'What usually goes wrong with a laptop',
+      ],
+      whatToExpect: [
+        'What a laptop repair visit in {town} looks like',
+        'How a laptop call-out in {town} actually runs',
+        'What happens when we arrive in {town}',
+        'From first call to working laptop in {town}',
+      ],
+      calledOutFor: [
+        'The laptop jobs we get called to around {town}',
+        'What {town} laptop owners call us about',
+        'Typical laptop call-outs in {town}',
+        'The laptop repairs {town} sends us',
+      ],
+    },
+  },
+  {
+    base: 'console-repair',
+    label: 'Console Repair',
+    labelLower: 'console repair',
+    serviceSlug: 'gaming-console-repair-london',
+    typicalFaults: "HDMI ports with no picture, overheating shutdowns, charging-port faults and drifting controllers",
+    metaFaults: 'HDMI ports, overheating and charging faults',
+    headingVariants: {
+      issues: [
+        'Console faults we fix most often',
+        'The console problems we see week to week',
+        'Common console faults, and what causes them',
+        'What usually goes wrong with a console',
+      ],
+      whatToExpect: [
+        'What a console repair visit in {town} looks like',
+        'How a console call-out in {town} actually runs',
+        'What happens when we arrive in {town}',
+        'From first call to working console in {town}',
+      ],
+      calledOutFor: [
+        'The console jobs we get called to around {town}',
+        'What {town} gamers call us about',
+        'Typical console call-outs in {town}',
+        'The console repairs {town} sends us',
+      ],
+    },
+  },
+  {
+    base: 'data-recovery',
+    label: 'Data Recovery',
+    labelLower: 'data recovery',
+    serviceSlug: 'data-recovery-london',
+    typicalFaults: "drives that won't mount, accidentally deleted files, failed SSDs and clicking hard drives",
+    metaFaults: 'drives that will not mount and lost files',
+    headingVariants: {
+      issues: [
+        'Data loss we recover from most often',
+        'The drive failures we see week to week',
+        'Common causes of lost data, and what they mean',
+        'How drives usually fail',
+      ],
+      whatToExpect: [
+        'What a data recovery job in {town} involves',
+        'How a recovery attempt for {town} actually runs',
+        'What happens when we collect the drive in {town}',
+        'From first call to recovered files in {town}',
+      ],
+      calledOutFor: [
+        'The recovery jobs we get called to around {town}',
+        'What {town} customers call us about',
+        'Typical recovery call-outs in {town}',
+        'The data losses {town} sends us',
+      ],
+    },
+  },
 ];
 
 // Core catchment: the towns near our New Malden (KT3) base where proximity is
@@ -80,6 +201,30 @@ export interface ServiceLocation {
   family: ServiceFamily;
   service: Service;
   location: Location;
+}
+
+export interface ComboHeadings {
+  issues: string;
+  whatToExpect: string;
+  calledOutFor: string;
+}
+
+/**
+ * Deterministic H2 set for a combo page.
+ *
+ * The variant is chosen from the town slug, so a page's headings never change
+ * between builds. Each slot is salted separately, so the three choices are
+ * independent — 4^3 = 64 possible skeletons per family rather than 4.
+ */
+export function comboHeadings(sl: ServiceLocation): ComboHeadings {
+  const { headingVariants } = sl.family;
+  const key = sl.location.slug;
+  const town = (h: string) => h.replace(/\{town\}/g, sl.location.name);
+  return {
+    issues: town(pickVariant(`${key}:issues`, headingVariants.issues)),
+    whatToExpect: town(pickVariant(`${key}:expect`, headingVariants.whatToExpect)),
+    calledOutFor: town(pickVariant(`${key}:calledout`, headingVariants.calledOutFor)),
+  };
 }
 
 const familyByBase = new Map(SERVICE_FAMILIES.map((f) => [f.base, f]));
