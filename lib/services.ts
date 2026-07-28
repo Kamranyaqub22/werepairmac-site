@@ -156,8 +156,8 @@ export const services: Service[] = [
       'Scan to computer or email not working',
       'Sharing one printer across several devices',
     ],
-    metaTitle: 'Printer Setup & Repair London | Home & Office',
-    metaDescription: 'Printer setup and troubleshooting across London. Offline errors, Wi-Fi connection, driver and print-queue problems fixed at your door on Mac and PC. Call 07378 349222.',
+    metaTitle: 'Printer Setup & Repair London',
+    metaDescription: 'Printer setup and troubleshooting across London. Offline errors, Wi-Fi, drivers and print-queue faults fixed at your door on Mac and PC.',
     category: 'Windows Laptop & PC',
     relatedServiceSlugs: ['windows-support-london', 'home-office-networking-london', 'laptop-repair-london'],
     whatToExpect: [
@@ -498,7 +498,7 @@ export const services: Service[] = [
       'Requires wiggling the cable to get picture',
     ],
     metaTitle: 'PS5 HDMI Port Repair London | No Signal Fix',
-    metaDescription: 'PS5 HDMI port repair across London. No signal or broken port? We micro-solder a new HDMI port and return your console fully tested. No fix, no fee. Call 07378 349222.',
+    metaDescription: 'PS5 HDMI port repair across London. No signal or a broken port? We micro-solder a new port and return the console fully tested. No fix, no fee.',
     category: 'Consoles & Gaming',
     relatedServiceSlugs: ['playstation-repair-london', 'gaming-console-repair-london'],
     whatToExpect: [

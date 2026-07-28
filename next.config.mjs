@@ -9,6 +9,13 @@ const nextConfig = {
         destination: 'https://www.werepairmac.co.uk/:path*',
         permanent: true,
       },
+      // Typo fix: the slug read "ukb-c" where it meant "usb-c". The old URL was
+      // already indexed, so it redirects rather than 404s.
+      {
+        source: '/blog/nintendo-switch-not-charging-ukb-c-port-signs',
+        destination: '/blog/nintendo-switch-not-charging-usb-c-port-signs',
+        permanent: true,
+      },
       { source: '/blank-5', destination: '/contact', permanent: true },
       { source: '/blank', destination: '/', permanent: true },
       { source: '/hardware-repair', destination: '/macbook-repair-london', permanent: true },

@@ -10,9 +10,9 @@ import {
 } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Why Choose Us | London Mac & Laptop Repair You Can Trust',
+  title: 'Why Choose Us | London Mac & Laptop Repair',
   description:
-    'Why London chooses We Repair Mac: we come to you, fix most devices on-site within the hour, No Fix No Fee, a 90-day warranty and a real Apple-experienced engineer at your door. Serving Greater London since 2015.',
+    'We come to you, fix most devices on the spot, and charge nothing if we cannot. No Fix No Fee, 90-day warranty, Apple-experienced engineers since 2015.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/why-choose-us' },
 };
 

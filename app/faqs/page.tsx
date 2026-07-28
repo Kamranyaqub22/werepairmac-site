@@ -4,7 +4,7 @@ import FAQAccordion from '@/components/FAQAccordion';
 export const metadata: Metadata = {
   title: 'FAQs | Mac & Laptop Repair London',
   description:
-    'Frequently asked questions about our Mac and laptop repair service in London. Learn about costs, same-day service, warranties and our No Fix, No Fee policy.',
+    'Common questions about our London Mac and laptop repair service: costs, same-day visits, warranties and our No Fix, No Fee policy.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/faqs' },
 };
 

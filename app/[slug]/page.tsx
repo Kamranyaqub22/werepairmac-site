@@ -405,7 +405,7 @@ function ServicePage({ slug }: { slug: string }) {
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <div className="font-bold text-white text-sm group-hover:text-orange-300 transition-colors">{s.shortTitle}</div>
                   <div className="text-blue-200 text-xs mt-0.5 flex items-center gap-1">
-                    Learn more <ArrowRightIcon className="w-3 h-3" />
+                    See prices &amp; book <ArrowRightIcon className="w-3 h-3" />
                   </div>
                 </div>
               </Link>

@@ -8,9 +8,10 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import { ShieldCheckIcon, BoltIcon, ClockIcon, CurrencyPoundIcon, PhoneIcon, ComputerDesktopIcon, ArrowRightIcon } from '@/components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Mac & Computer Care Plans | Annual Support | We Repair Mac London',
+  // Brand is appended by the root layout's `title.template` — do not repeat it.
+  title: 'Mac & Computer Care Plans | From £99/year',
   description:
-    'Affordable annual care plans for your Mac, laptop or PC — monitoring, antivirus, backups, remote support and discounted repairs across London. From £99/year.',
+    'Annual care plans for your Mac, laptop or PC — monitoring, antivirus, backups, remote support and discounted repairs across London. From £99/year.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/care-plans' },
   openGraph: {
     title: 'Mac & Computer Care Plans | We Repair Mac London',

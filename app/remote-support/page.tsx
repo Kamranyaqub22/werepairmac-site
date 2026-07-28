@@ -10,9 +10,11 @@ import { CheckIcon, PhoneIcon, BoltIcon, ShieldCheckIcon, ArrowRightIcon, Comput
 const WHATSAPP = 'https://wa.me/447378349222?text=Hi%2C%20I%27d%20like%20a%20remote%20support%20session';
 
 export const metadata: Metadata = {
-  title: 'Remote Computer Support London | Fixed Today from £49 | We Repair Mac',
+  // The root layout appends " | We Repair Mac" via `title.template`, so the brand
+  // must not be repeated here. Keep the base ≤44 chars so the full title fits 60.
+  title: 'Remote Computer Support London | From £49',
   description:
-    'Get your Mac, laptop or PC fixed remotely today — virus removal, slow speeds, software, email and setup. Secure screen-share, no visit needed. From £49. Call 07378 349222.',
+    'Mac, laptop and PC problems fixed remotely today — viruses, slow speeds, software, email and setup. Secure screen-share, no visit needed. From £49.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/remote-support' },
   openGraph: {
     title: 'Remote Computer Support London | From £49 | We Repair Mac',

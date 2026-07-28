@@ -17,27 +17,9 @@ export const metadata: Metadata = {
   },
   description:
     'London\'s mobile Mac, laptop & console repair service. Same-day home or office visits, no shop needed. No fix, no fee. Call 07378 349222.',
-  keywords: [
-    'mobile mac repair london',
-    'mac repair home visit london',
-    'macbook repair callout london',
-    'laptop repair home visit london',
-    'mobile laptop repair london',
-    'mac repair at home london',
-    'macbook repair without shop visit',
-    'same day mac repair london',
-    'we come to you mac repair',
-    'mobile computer repair london',
-    'macbook screen repair london',
-    'data recovery london',
-    'virus removal london',
-    'playstation repair london',
-    'ps5 repair london',
-    'ps4 repair london',
-    'console repair london',
-    'mac repair new malden',
-    'mac repair kingston',
-  ],
+  // NOTE: no `keywords`. Google has ignored meta keywords since 2009 and Bing
+  // treats a stuffed list as a spam signal. It was previously emitted identically
+  // on all 251 pages, which is pure downside.
   authors: [{ name: 'We Repair Mac' }],
   creator: 'We Repair Mac',
   publisher: 'We Repair Mac',

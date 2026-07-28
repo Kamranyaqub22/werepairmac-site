@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'The cookies We Repair Mac uses, why we use them, and how to accept, decline or change your choice. Analytics cookies are opt-in.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/cookies' },
-  robots: { index: true, follow: true },
+  // No `robots` override — inherited from the root layout. See app/privacy/page.tsx.
 };
 
 export default function CookiesPage() {

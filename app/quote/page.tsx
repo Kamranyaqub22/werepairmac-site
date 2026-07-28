@@ -7,7 +7,7 @@ import { PhoneIcon, ShieldCheckIcon, CurrencyPoundIcon, TruckIcon } from '@/comp
 export const metadata: Metadata = {
   title: 'Get a Quote & Book a Repair',
   description:
-    'Get an instant price estimate for your Mac, laptop, PC or console repair, then request a home visit across Greater London. No fix, no fee. Call 07378 349222.',
+    'Instant price estimate for your Mac, laptop, PC or console repair, then book a home visit across Greater London. No fix, no fee. Call 07378 349222.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/quote' },
   openGraph: {
     title: 'Get a Quote & Book a Repair',

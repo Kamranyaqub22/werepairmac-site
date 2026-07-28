@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   description:
     'How We Repair Mac collects, uses and protects your personal data under UK GDPR. Contact, booking, analytics and your data rights explained.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/privacy' },
-  robots: { index: true, follow: true },
+  // No `robots` override: the root layout already sets index/follow plus
+  // max-image-preview:large and max-snippet:-1. Re-declaring it here would
+  // silently drop those two.
 };
 
 export default function PrivacyPage() {

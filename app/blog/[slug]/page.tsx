@@ -25,7 +25,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: post.title,
+    // The <title> uses the short `metaTitle` so it survives the layout's
+    // " | We Repair Mac" suffix inside ~60 chars. The H1 below keeps the full
+    // conversational headline. Open Graph has no such limit, so it keeps the
+    // full title.
+    title: post.metaTitle ?? post.title,
     description: post.excerpt,
     alternates: { canonical: `https://www.werepairmac.co.uk/blog/${post.slug}` },
     openGraph: {
