@@ -24,13 +24,18 @@ export interface ServiceFamily {
   labelLower: string;
   // The canonical London-wide service this family maps to (source of unique copy)
   serviceSlug: string;
+  // A natural-prose summary of this family's real common faults, drawn from the
+  // mapped service's commonIssues. Woven into the combo intros, focus copy and a
+  // service×town FAQ so each service reads differently in the same town — content
+  // that exists on neither the London service page nor the town hub.
+  typicalFaults: string;
 }
 
 export const SERVICE_FAMILIES: ServiceFamily[] = [
-  { base: 'macbook-repair', label: 'MacBook Repair', labelLower: 'MacBook repair', serviceSlug: 'macbook-repair-london' },
-  { base: 'laptop-repair', label: 'Laptop & PC Repair', labelLower: 'laptop & PC repair', serviceSlug: 'laptop-repair-london' },
-  { base: 'console-repair', label: 'Console Repair', labelLower: 'console repair', serviceSlug: 'gaming-console-repair-london' },
-  { base: 'data-recovery', label: 'Data Recovery', labelLower: 'data recovery', serviceSlug: 'data-recovery-london' },
+  { base: 'macbook-repair', label: 'MacBook Repair', labelLower: 'MacBook repair', serviceSlug: 'macbook-repair-london', typicalFaults: "a MacBook that won't turn on, liquid damage, a worn-out battery or a cracked screen" },
+  { base: 'laptop-repair', label: 'Laptop & PC Repair', labelLower: 'laptop & PC repair', serviceSlug: 'laptop-repair-london', typicalFaults: "cracked screens, laptops that won't power on, keyboard spills and failing hard drives" },
+  { base: 'console-repair', label: 'Console Repair', labelLower: 'console repair', serviceSlug: 'gaming-console-repair-london', typicalFaults: "HDMI ports with no picture, overheating shutdowns, charging-port faults and drifting controllers" },
+  { base: 'data-recovery', label: 'Data Recovery', labelLower: 'data recovery', serviceSlug: 'data-recovery-london', typicalFaults: "drives that won't mount, accidentally deleted files, failed SSDs and clicking hard drives" },
 ];
 
 // Core catchment: the towns near our New Malden (KT3) base where proximity is
@@ -181,23 +186,46 @@ const INTRO_OVERRIDES: Record<string, string[]> = {
   ],
 };
 
-// Three structurally-different intro shapes so the combo pages are not
-// byte-identical to one another. Each still leans on the town's genuinely-unique
-// hand-written copy (rendered separately on the page) for its real local value.
+// Six structurally-different intro shapes so the combo pages are not
+// near-identical to one another. Each weaves in the family's real typical faults
+// (service axis) and the town's name/borough/postcode (location axis), so the
+// same service reads differently town-to-town and the four services read
+// differently within a town. Deeper hand-written value comes from the town's own
+// copy (localRepairs etc.) rendered separately on the page.
 const INTRO_VARIANTS: ((sl: ServiceLocation) => string[])[] = [
   ({ family, location }) => [
-    `When something goes wrong you shouldn't have to unplug everything and queue at a shop counter. We bring ${family.labelLower} directly to your door across ${location.name}${location.postcode ? ` (${location.postcode})` : ''} — an engineer arrives, diagnoses the fault in front of you, and in most cases fixes it on the spot the same day.`,
+    `When something goes wrong you shouldn't have to unplug everything and queue at a shop counter. We bring ${family.labelLower} directly to your door across ${location.name}${location.postcode ? ` (${location.postcode})` : ''} — an engineer arrives, diagnoses the fault in front of you, and in most cases fixes it the same day. Around here that usually means ${family.typicalFaults}.`,
     `${location.name} sits within our core ${location.borough || 'local'} coverage, close to our New Malden base, so we can usually offer a same-day slot and there is never a callout charge. You get a clear, fixed quote before any work starts, and if we can't fix it you pay nothing.`,
   ],
   ({ family, location }) => [
-    `Looking for ${family.labelLower} in ${location.name}? We are a mobile repair service, not a drop-off shop — our engineer comes to your home or office anywhere in ${location.name} and the surrounding ${location.borough || 'area'}, carries the common parts, and completes most jobs on-site in a single visit.`,
+    `Looking for ${family.labelLower} in ${location.name}? We are a mobile repair service, not a drop-off shop — our engineer comes to your home or office anywhere in ${location.name} and the surrounding ${location.borough || 'area'}, carries the common parts, and completes most jobs on-site in a single visit. The faults we see most here are ${family.typicalFaults}.`,
     `Because ${location.name}${location.postcode ? ` (${location.postcode})` : ''} is close to our New Malden workshop, response times here are among the fastest we offer. Same-day visits are usually available if you call before 2pm — evenings and weekends included — all at no extra charge, and every repair carries a 90-day warranty.`,
   ],
   ({ family, location }) => [
-    `${family.label} in ${location.name}, done at your kitchen table or desk. Rather than being without your machine for days, you book a visit, we come to you in ${location.name}, and you watch the repair happen. Most faults are sorted the same day, in front of you.`,
+    `${family.label} in ${location.name}, done at your kitchen table or desk. Rather than being without your machine for days, you book a visit, we come to you in ${location.name}, and you watch the repair happen. Typical jobs here run to ${family.typicalFaults} — most sorted the same day, in front of you.`,
     `We cover ${location.name} and the wider ${location.borough || 'local'} district from our nearby New Malden base — no callout fee, a fixed quote agreed upfront, and our No Fix, No Fee promise, so there is no risk in getting it looked at.`,
   ],
+  ({ family, location }) => [
+    `A dead or damaged device in ${location.name} doesn't have to mean a trip into town. We handle ${family.typicalFaults} on-site, coming to you anywhere in ${location.name}${location.borough ? ` and the rest of ${location.borough}` : ''}, usually the same day you call.`,
+    `Our base in New Malden is only a short hop from ${location.name}, so you get quick response times, no callout charge, and a fixed price agreed before we start. Every ${family.labelLower} job is covered by our 90-day parts-and-labour warranty.`,
+  ],
+  ({ family, location }) => [
+    `If you need ${family.labelLower} in ${location.name}, we come to you — home or office — and get it sorted while you watch. ${location.name} is one of the towns nearest our New Malden base, which is why ${family.typicalFaults} are all jobs we can often turn around the same day.`,
+    `There is no callout charge to ${location.name}${location.postcode ? ` (${location.postcode})` : ''}, no drop-off, and no fee at all if we can't fix it. We quote before any work begins, so the price we agree is the price you pay.`,
+  ],
+  ({ family, location }) => [
+    `We are the mobile alternative to a ${location.name} repair shop: instead of leaving your device on a counter for a week, you get an engineer at your door, a diagnosis in front of you, and most ${family.labelLower} jobs — ${family.typicalFaults} — finished on the spot.`,
+    `${location.name} falls inside our core catchment near New Malden, so same-day slots are usually there if you book before 2pm, and evenings and weekends cost no more. No callout charge, a fixed upfront quote, and our No Fix, No Fee guarantee on every visit.`,
+  ],
 ];
+
+/** A short, service-framed lead-in for the town's local-repairs section. Pairs
+ *  the family's real typical faults with the town — a sentence that appears on
+ *  neither the London service page nor the town hub. */
+export function getServiceLocationFocus(sl: ServiceLocation): string {
+  const { family, location } = sl;
+  return `Across ${location.name}, the ${family.labelLower} calls we get most often involve ${family.typicalFaults} — though we are called out for plenty more besides.`;
+}
 
 /** The combination intro paragraphs: hand-written override if present, else a
  *  deterministically-chosen generated variant. */
@@ -225,13 +253,26 @@ const LOGISTICS_FAQ_VARIANTS: ((sl: ServiceLocation) => LocationFAQ[])[] = [
     { q: `Can you come to my home in ${location.name} rather than me travelling to a shop?`, a: `Yes — that is the whole model. Our engineer travels to you in ${location.name} and carries out most ${family.labelLower} jobs on-site, the same day where possible.` },
     { q: `Does ${family.labelLower} cost more because I'm in ${location.name}?`, a: `No. Pricing is the same across ${location.borough || 'the area'} — £100/hr labour plus any parts, quoted before we start, with no location surcharge and no callout charge.` },
   ],
+  ({ family, location }) => [
+    { q: `Do I need to book ${family.labelLower} in ${location.name} in advance?`, a: `Not far ahead — ${location.name} is close to our New Malden base, so same-day is usually possible if you call before 2pm, and we keep evening and weekend slots open at no extra cost.` },
+    { q: `What areas around ${location.name} do you also cover?`, a: `We cover ${location.name} and the wider ${location.borough || 'local'} area on the same terms — same-day where possible, no callout charge, and no fix, no fee.` },
+  ],
+  ({ family, location }) => [
+    { q: `Can you fix my device at home in ${location.name} the same day?`, a: `Usually yes. ${location.name} is one of our nearest towns, so most same-day requests booked before 2pm are covered, and most ${family.labelLower} jobs are finished on-site in a single visit.` },
+    { q: `Is ${family.labelLower} in ${location.name} guaranteed?`, a: `Every repair carries a 90-day parts-and-labour warranty, and our No Fix, No Fee guarantee means you pay nothing if we can't fix it — with no callout charge to ${location.name} either way.` },
+  ],
 ];
 
-/** FAQs for a combo page: two rotated town-logistics FAQs followed by the
- *  service's own unique FAQs. */
+/** FAQs for a combo page: a service×town focus FAQ, then two rotated
+ *  town-logistics FAQs, then the service's own unique FAQs. The focus FAQ is
+ *  unique to the intersection, so no two combos share an identical FAQ set. */
 export function getServiceLocationFaqs(sl: ServiceLocation): LocationFAQ[] {
   const slug = `${sl.family.base}-${sl.location.slug}`;
   const logistics = LOGISTICS_FAQ_VARIANTS[hashIndex(slug, LOGISTICS_FAQ_VARIANTS.length)](sl);
+  const focusFaq: LocationFAQ = {
+    q: `What kind of ${sl.family.labelLower} do you do in ${sl.location.name}?`,
+    a: `In ${sl.location.name} we handle ${sl.family.typicalFaults}, plus everything else covered on our ${sl.family.label} service. Straightforward jobs are usually completed on-site the same day; board-level work goes to our nearby workshop and comes back fully tested — always quoted first.`,
+  };
   const serviceFaqs = sl.service.faqs ?? [];
-  return [...logistics, ...serviceFaqs];
+  return [focusFaq, ...logistics, ...serviceFaqs];
 }

@@ -7,7 +7,7 @@ import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/l
 import {
   getServiceLocation, serviceLocationSlugs, serviceLocationsForTown,
   serviceLocationsForService, getServiceLocationIntro, getServiceLocationFaqs,
-  CORE_CATCHMENT, type ServiceLocation,
+  getServiceLocationFocus, CORE_CATCHMENT, type ServiceLocation,
 } from '@/lib/serviceLocations';
 import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
 import FAQAccordion from '@/components/FAQAccordion';
@@ -795,6 +795,20 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
                 <Link href={`/mac-repair-${location.slug}`} className="text-brand font-semibold hover:underline">{location.name} repair page</Link>, or our London-wide{' '}
                 <Link href={`/${service.slug}`} className="text-brand font-semibold hover:underline">{service.shortTitle} service</Link>.
               </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Local repair character — the town's own hand-written copy, framed by this
+          service. Real per-town content that isn't on the London service page. */}
+      {location.localRepairs && (
+        <section className="py-14 bg-gray-50 border-b border-gray-100">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="section-heading">The repairs we&apos;re called out for around {location.name}</h2>
+            <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed mt-6 space-y-4">
+              <p>{getServiceLocationFocus(sl)}</p>
+              <p>{location.localRepairs}</p>
             </div>
           </div>
         </section>
