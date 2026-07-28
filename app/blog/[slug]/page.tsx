@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatBlogDate, getAllBlogPosts, getBlogPost, getRelatedBlogPosts } from '@/lib/blog';
-import { getService } from '@/lib/services';
+import { getService, serviceLower } from '@/lib/services';
 import { ArrowRightIcon, PhoneIcon } from '@/components/Icons';
 
 interface PageProps {
@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">Need help with this fault?</h2>
                   <p className="text-gray-500 leading-relaxed">
-                    We come to your home or office anywhere in Greater London for {service.shortTitle.toLowerCase()}.
+                    We come to your home or office anywhere in Greater London for {serviceLower(service)}.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3">

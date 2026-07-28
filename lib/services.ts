@@ -4,6 +4,10 @@ export interface Service {
   slug: string;
   title: string;
   shortTitle: string;
+  // Mid-sentence form of `shortTitle`. Needed because lowercasing the whole
+  // string wrecks proper nouns — "macbook repair", "imac repair", "ps5 hdmi
+  // repair". Only set it where naive lowercasing is wrong; see serviceLower.
+  shortTitleLower?: string;
   icon: string;
   image: string;
   description: string;
@@ -33,6 +37,7 @@ export const services: Service[] = [
     slug: 'macbook-repair-london',
     title: 'MacBook Repair London',
     shortTitle: 'MacBook Repair',
+    shortTitleLower: 'MacBook repair',
     icon: '💻',
     image: '/images/macbook-pro-unsplash.jpg',
     description: 'Expert MacBook Pro, MacBook Air & iMac repair. Same-day callout across London.',
@@ -50,7 +55,7 @@ export const services: Service[] = [
     metaTitle: 'MacBook Repair London | Same Day Callout',
     metaDescription: 'Expert MacBook Pro, MacBook Air & iMac repair across London. Same-day home & office visits. No fix, no fee. Call 07378 349222.',
     category: 'Apple & Mac',
-    relatedServiceSlugs: ['macbook-screen-repair-london', 'macbook-battery-replacement-london', 'macbook-pro-repair-london'],
+    relatedServiceSlugs: ['macbook-screen-repair-london', 'macbook-battery-replacement-london', 'macbook-pro-repair-london', 'imac-repair-london'],
     whatToExpect: [
       'Your MacBook repair starts with a free, no-obligation diagnosis. Our engineer comes to your home or office anywhere in Greater London, finds out exactly what is wrong — whether it is a software fault, a failing battery, a cracked screen or a deeper logic-board problem — and gives you a clear, fixed price before any work begins. If it turns out not to be worth repairing, we tell you honestly.',
       'Most everyday MacBook repairs are completed on-site while you watch: battery replacements, keyboard and trackpad faults, RAM and SSD upgrades, macOS reinstalls, virus removal and charging issues. Around seven in ten jobs are finished in your home or office in a single visit, so you usually keep your Mac the same day.',
@@ -91,22 +96,23 @@ export const services: Service[] = [
     whatToExpect: [
       'Every laptop repair begins with a free diagnosis. Our engineer comes to your home or office anywhere in Greater London, works out exactly what has failed — a screen, a battery, a charging port, a drive or something on the motherboard — and gives you a fixed price before any work starts. If the laptop is not worth repairing, we will tell you straight.',
       'Most laptop repairs are done on-site while you wait: screen replacements, keyboard and battery swaps, SSD and RAM upgrades, and Windows or software fixes. Around seven in ten jobs are finished in a single visit, so in most cases you keep your laptop the same day rather than losing it for a week.',
-      'Some faults are board-level — liquid damage, a laptop that will not power on, or a failed charging circuit — and need a microscope and proper rework tools. For those we take the machine to our workshop, keep you updated, and return it fully tested. Your files stay on the drive throughout; if the drive itself has failed we will talk through data recovery before doing anything.',
-      'Every laptop repair carries our 90-day parts-and-labour warranty and our No Fix, No Fee guarantee — if we cannot fix it, you pay nothing, and there is never a callout charge. We quote before we start, so the price we agree is the price you pay.',
+      'The awkward part of Windows laptop repair is not the work, it is the parts. There are hundreds of models across a dozen manufacturers, and a Dell XPS panel is nothing like the one in an HP Pavilion of the same size. We identify your exact model and service tag before ordering anything, which is why we ask for it on the phone — it is the difference between arriving with the right screen and wasting your afternoon.',
+      'Where a Windows laptop differs most from a Mac is the economics, and we would rather have that conversation honestly than take the job regardless. A £1,400 ThinkPad or XPS is almost always worth repairing. A four-year-old £300 budget laptop with a cracked screen and a dying drive frequently is not, and we will show you the arithmetic rather than quietly billing you for it. When replacement is the sensible answer, we can move your files, programs and Windows licence across to the new machine instead.',
     ],
     faqs: [
       { q: 'Which laptop brands do you repair?', a: 'All the major ones — Dell, HP, Lenovo, Asus, Acer, MSI, Microsoft Surface, Samsung, Huawei and more, across both Windows laptops and Chromebooks. Whether it is an everyday ultrabook or a gaming laptop, we can diagnose and repair it.' },
-      { q: 'How much does a laptop repair cost?', a: 'Our labour rate is £100 per hour (minimum one hour) plus any parts, and we quote the full price upfront before starting. A software-only fix is just the hourly labour; screen, battery, drive and board-level repairs include the part cost, which we confirm with you first. If we cannot fix it, there is no charge.' },
-      { q: 'Is it worth replacing a cracked laptop screen?', a: 'Usually, yes. A screen replacement is one of the most common laptop repairs and is far cheaper than a new machine, especially on a laptop that is otherwise healthy. We source the correct panel for your exact model, fit it — often on-site — and back it with our warranty.' },
-      { q: 'Will I lose my files during a laptop repair?', a: 'In almost all cases, no. A screen, battery or keyboard repair does not touch your storage. If the hard drive or SSD itself has failed we will tell you before doing anything and go through data recovery options. We always suggest a backup before any repair where possible.' },
-      { q: 'Do you repair laptops at my home or take them away?', a: 'Most repairs — screens, batteries, upgrades and software — are completed on-site in front of you, usually within the hour. Board-level work such as liquid damage or a dead motherboard needs our workshop, so we take those away, keep you posted, and return the laptop fully tested.' },
-      { q: 'How quickly can you repair my laptop in London?', a: 'We offer same-day callouts across Greater London — book before 2pm and we can usually visit the same day, including evenings and weekends at no extra charge. On-site repairs are typically done in one visit; workshop repairs are turned around as fast as the parts allow.' },
+      { q: 'How much does a laptop repair cost?', a: 'Labour is £100 an hour with a one-hour minimum, and the parts cost sits on top — you get both figures before we begin. The variable is the part, not the labour: panels, batteries and drives differ enormously between manufacturers and models, which is why we confirm your exact model first rather than quoting a range that turns out to be wrong.' },
+      { q: 'Is it worth replacing a cracked laptop screen?', a: 'On a decent machine, almost always — a panel is a fraction of what a comparable replacement laptop costs. On a cheap laptop that is also slowing down and out of warranty, sometimes not, and we will say so. We source the correct panel for your exact model, fit it on-site where we can, and warranty it for 90 days.' },
+      { q: 'Will I lose my files during a laptop repair?', a: 'Screens, batteries, keyboards and ports are all separate from your storage, so those repairs leave your files exactly where they are. The exception is a failing hard drive or SSD, where the data is the whole problem — in that case we stop, explain what we are looking at, and agree a recovery approach with you before touching it.' },
+      { q: 'Do you repair laptops at my home or take them away?', a: 'The majority of jobs never leave your desk — panels, batteries, drives, memory, keyboards and anything software-related. What does come back with us is board-level: liquid that has already corroded, a dead motherboard, or a charging circuit that has failed, all of which need a microscope and a soldering station. You will know which category yours is before we arrive, not after.' },
+      { q: 'How quickly can you repair my laptop in London?', a: 'Ring before 2pm and there is usually a slot the same day, evenings and weekends included at no premium. On-site jobs finish in that visit. Where a part has to be ordered for a less common model, the honest answer is that it depends on the supplier, and we will give you a real date rather than an optimistic one.' },
     ],
   },
   {
     slug: 'windows-support-london',
     title: 'Windows Support London',
     shortTitle: 'Windows Support',
+    shortTitleLower: 'Windows support',
     icon: '🪟',
     image: '/images/nikolai-chernichenko-s6uS36SF91Y-unsplash.jpg',
     description: 'Windows PC and laptop troubleshooting - updates, drivers, slow performance and setup. Home visits across London.',
@@ -198,7 +204,7 @@ export const services: Service[] = [
     metaTitle: 'Hardware Upgrades London | RAM & SSD',
     metaDescription: 'RAM and SSD upgrades across London for laptops, desktops and older Macs. Faster performance, more storage, data migrated safely. Call 07378 349222.',
     category: 'Windows Laptop & PC',
-    relatedServiceSlugs: ['laptop-repair-london', 'data-recovery-london', 'macbook-repair-london'],
+    relatedServiceSlugs: ['laptop-repair-london', 'imac-repair-london', 'macbook-repair-london'],
     whatToExpect: [
       'Every hardware upgrade starts with an honest check. Our engineer confirms what your machine actually takes — how much RAM it supports, whether the drive can be swapped, and whether an upgrade will genuinely make a difference — and gives you a fixed price for parts and fitting before anything is opened up. If an upgrade would not help, we will say so.',
       'The single biggest speed jump on most older computers is moving from a hard drive to an SSD. We clone your existing Windows or macOS setup across to the new drive so everything — your programs, files and settings — comes back exactly as it was, just far faster to boot and open. Adding RAM on top helps machines that struggle with lots of tabs, video calls or editing.',
@@ -278,6 +284,7 @@ export const services: Service[] = [
     slug: 'gaming-pc-repair-london',
     title: 'Gaming PC Repair London',
     shortTitle: 'Gaming PC Repair',
+    shortTitleLower: 'gaming PC repair',
     icon: '🎮',
     image: '/images/gaming-pc-service-unsplash.jpg',
     description: 'Gaming desktop and laptop repair. BIOS tuning, GPU issues, performance optimisation.',
@@ -436,6 +443,7 @@ export const services: Service[] = [
     slug: 'playstation-repair-london',
     title: 'PlayStation Repair London',
     shortTitle: 'PlayStation Repair',
+    shortTitleLower: 'PlayStation repair',
     icon: '🎮',
     image: '/images/playstation-service-unsplash.jpg',
     description: 'PS5 & PS4 repair at your home. HDMI port, overheating, disc drive & controller faults fixed.',
@@ -511,6 +519,7 @@ export const services: Service[] = [
     slug: 'macbook-pro-repair-london',
     title: 'MacBook Pro Repair London',
     shortTitle: 'MacBook Pro Repair',
+    shortTitleLower: 'MacBook Pro repair',
     icon: '💻',
     image: '/images/macbook-pro-unsplash.jpg',
     description: 'Specialist MacBook Pro M1, M2, M3 and Intel logic board and screen repair.',
@@ -547,6 +556,7 @@ export const services: Service[] = [
     slug: 'macbook-air-repair-london',
     title: 'MacBook Air Repair London',
     shortTitle: 'MacBook Air Repair',
+    shortTitleLower: 'MacBook Air repair',
     icon: '💻',
     image: '/images/albert-vinas-F3t-AzyTbyU-unsplash.jpg',
     description: 'Expert MacBook Air repair. M1, M2, M3 and Intel models fixed at your home.',
@@ -580,9 +590,51 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: 'imac-repair-london',
+    title: 'iMac Repair London',
+    shortTitle: 'iMac Repair',
+    shortTitleLower: 'iMac repair',
+    icon: '🖥️',
+    // Reused bench photo: the storage-and-tools shot suits a page about Fusion
+    // Drive and SSD failure. Worth replacing with a real iMac photo when we have one.
+    image: '/images/samsung-memory-QTW80j6ZK4c-unsplash.jpg',
+    description: 'iMac, Mac Mini and desktop Mac repair at your home or office. Slow drives, no-boot and display faults.',
+    longDescription: 'Desktop Mac repair across London, at your home or office. We work on every iMac generation — the 24-inch M1 and M3 machines, the 21.5-inch and 27-inch Intel iMacs, and the 5K Retina models — plus Mac Mini, Mac Studio and Mac Pro. A desktop Mac is the one machine nobody wants to carry into a shop, which is exactly why we come to you: a 27-inch iMac is awkward, heavy and expensive to move, and most of what goes wrong with one can be diagnosed and often fixed where it already sits.',
+    commonIssues: [
+      'iMac stuck on the Apple logo or a grey screen',
+      'Fusion Drive failure — the hard-disk half has died',
+      'iMac slowed to a crawl on an ageing hard drive',
+      'Vertical lines, dark patches or a dead display',
+      'Loud fans and dust-related overheating',
+      'iMac will not power on at all',
+      'Mac Mini not booting, or running slowly',
+      'RAM and SSD upgrades on upgradeable models',
+    ],
+    metaTitle: 'iMac Repair London | Desktop Macs',
+    metaDescription: 'iMac, Mac Mini, Mac Studio and Mac Pro repair across London. Fusion Drive failures, slow drives, no-boot and display faults fixed at your desk.',
+    category: 'Apple & Mac',
+    updatedAt: '2026-07-29',
+    relatedServiceSlugs: ['macbook-repair-london', 'hardware-upgrades-london', 'data-recovery-london'],
+    whatToExpect: [
+      'Desktop Macs fail differently from laptops, so the diagnosis looks different too. There is no battery to blame and nothing gets dropped or spilled on in a rucksack; instead the usual suspects are storage, heat and dust, and age. The single most common iMac fault we are called to is a machine that has become unusably slow or will not boot past the Apple logo, and the cause is very often a mechanical hard drive that is on its way out. The diagnosis is free and happens at your desk.',
+      'If your iMac has a Fusion Drive, that is worth understanding, because it explains a lot of otherwise baffling behaviour. A Fusion Drive is a small SSD and a spinning hard disk stitched together by macOS to look like one volume — and when the hard-disk half starts failing, the whole volume becomes unreliable even though the SSD part is perfectly healthy. Machines like this often limp along for months, freezing and beachballing, before they stop booting entirely. Replacing the mechanical half with an SSD and moving your data across usually transforms the machine, and it costs a fraction of a replacement.',
+      'Dust and heat are the other big one, and they build up quietly over years. An iMac pulls air through a narrow vent and eventually the internal fan and heatsink clog, at which point it gets loud, gets hot, and throttles itself slow. A full internal clean and fresh thermal paste brings a surprising amount of performance back on an older machine. Software work, RAM upgrades on the models with an accessible hatch, macOS reinstalls and new-machine setup are also done on-site while you watch.',
+      'One thing we will always be straight about: anything that means opening the display. From 2012 onwards the screen is glued to the chassis with adhesive strips rather than screwed on, so opening one properly is a workshop job with the right tools and fresh adhesive — not something to attempt on a kitchen table. Display panels themselves are expensive, and on an older iMac the honest answer is sometimes that the screen costs more than the machine is worth. We will tell you that rather than quote you for it. Every repair carries our 90-day parts-and-labour warranty, there is no callout charge, and nothing to pay if we cannot fix it.',
+    ],
+    faqs: [
+      { q: 'Which desktop Macs do you repair?', a: 'Every iMac generation — the 24-inch M1 and M3 models, the 21.5-inch and 27-inch Intel machines including the 5K Retina versions, and the older aluminium and white iMacs. We also work on Mac Mini, Mac Studio and Mac Pro. Tell us the model and roughly the year when you call and we will bring what we are likely to need.' },
+      { q: 'My iMac is unbearably slow and sometimes will not boot — is it worth repairing?', a: 'Very often yes, and usually for far less than you would expect. On an iMac still running a mechanical hard drive or a Fusion Drive, that exact combination of symptoms almost always points at failing storage rather than a machine at the end of its life. Fitting an SSD and migrating your data typically makes it feel newer than it has in years. We confirm the cause first so you are not spending money on a guess.' },
+      { q: 'What is a Fusion Drive, and why does it cause problems?', a: 'It is a small SSD and a spinning hard disk that macOS presents as a single volume. It made sense as a compromise, but it means the whole volume depends on the mechanical disk, so when that half starts to fail the entire Mac becomes unreliable — freezing, beachballing, then refusing to boot — even though the SSD half is fine. Splitting the pair and moving everything onto a single SSD is one of the most worthwhile repairs available on these machines.' },
+      { q: 'Can you repair an iMac at my home, or does it have to be collected?', a: 'It depends on the job, and we tell you which upfront. Software, storage and drive work, dust and thermal cleaning, RAM on models with an accessible hatch, and setup or migration are all done at your desk. Anything requiring the display to come off is different: since 2012 the screen is glued rather than screwed on, so it needs workshop tools and fresh adhesive to reseal properly. Those we collect and return fully tested.' },
+      { q: 'Can I upgrade the memory or storage in my iMac?', a: 'On many Intel iMacs, yes — the 27-inch models have a memory hatch you can reach without opening the machine, and their drives can be replaced. The 21.5-inch models need the display off to reach anything. On the M1 and M3 iMacs, neither memory nor storage can be changed by anyone, because both are soldered to the board. We confirm exactly what your model takes before quoting.' },
+      { q: 'My iMac is loud and hot — is the fan failing?', a: 'Usually it is not the fan itself but what has collected around it. Years of dust in the vent, fan and heatsink, plus thermal paste that has dried out, make the machine run hot and throttle its own speed to compensate. A proper internal clean and re-paste quietens it down and gives back performance you had probably written off as the Mac simply being old.' },
+    ],
+  },
+  {
     slug: 'ps5-hdmi-port-repair-london',
     title: 'PS5 HDMI Port Repair London',
     shortTitle: 'PS5 HDMI Repair',
+    shortTitleLower: 'PS5 HDMI repair',
     icon: '🎮',
     image: '/images/playstation-service-unsplash.jpg',
     description: 'PS5 turning on but no signal? We replace broken PS5 HDMI ports with a full warranty.',
@@ -618,4 +670,13 @@ export const services: Service[] = [
 
 export function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
+}
+
+/**
+ * `shortTitle` as it should read inside a sentence — "what iMac repair costs",
+ * not "what imac repair costs". Falls back to plain lowercasing, which is
+ * correct for the services whose names contain no proper nouns.
+ */
+export function serviceLower(service: Service): string {
+  return service.shortTitleLower ?? service.shortTitle.toLowerCase();
 }

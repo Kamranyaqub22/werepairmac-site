@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getService, services } from '@/lib/services';
+import { getService, serviceLower, services } from '@/lib/services';
 import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/lib/locations';
 import {
   getServiceLocation, serviceLocationSlugs, serviceLocationsForTown,
@@ -270,7 +270,7 @@ function ServicePage({ slug }: { slug: string }) {
       <section className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="section-heading">What {service.shortTitle.toLowerCase()} costs</h2>
+            <h2 className="section-heading">What {serviceLower(service)} costs</h2>
             <p className="text-gray-500 mt-2">Agreed upfront before we touch your device. No surprises.</p>
           </div>
           <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
@@ -356,7 +356,7 @@ function ServicePage({ slug }: { slug: string }) {
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="section-heading text-center">Related Repair Advice</h2>
             <p className="text-center text-gray-500 mt-2 mb-10 max-w-2xl mx-auto">
-              Practical guides from our engineers covering {service.shortTitle.toLowerCase()}.
+              Practical guides from our engineers covering {serviceLower(service)}.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedPosts.map((post) => (
@@ -394,7 +394,7 @@ function ServicePage({ slug }: { slug: string }) {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="section-heading">{service.shortTitle} near you</h2>
             <p className="text-gray-500 mt-2 mb-8 max-w-2xl mx-auto">
-              We come to you across our core Surrey and south-west London catchment. See our dedicated {service.shortTitle.toLowerCase()} page for your area:
+              We come to you across our core Surrey and south-west London catchment. See our dedicated {serviceLower(service)} page for your area:
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {townPages.map((t) => (
