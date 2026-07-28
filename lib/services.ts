@@ -595,9 +595,9 @@ export const services: Service[] = [
     shortTitle: 'iMac Repair',
     shortTitleLower: 'iMac repair',
     icon: '🖥️',
-    // Reused bench photo: the storage-and-tools shot suits a page about Fusion
-    // Drive and SSD failure. Worth replacing with a real iMac photo when we have one.
-    image: '/images/samsung-memory-QTW80j6ZK4c-unsplash.jpg',
+    // iMac in a home office — Andreas Rasmussen (@andreasdress) via Unsplash,
+    // Unsplash Licence. No text in frame, so it stays legible at card size.
+    image: '/images/andreas-rasmussen-ZtD4DdClWGI-unsplash.jpg',
     description: 'iMac, Mac Mini and desktop Mac repair at your home or office. Slow drives, no-boot and display faults.',
     longDescription: 'Desktop Mac repair across London, at your home or office. We work on every iMac generation — the 24-inch M1 and M3 machines, the 21.5-inch and 27-inch Intel iMacs, and the 5K Retina models — plus Mac Mini, Mac Studio and Mac Pro. A desktop Mac is the one machine nobody wants to carry into a shop, which is exactly why we come to you: a 27-inch iMac is awkward, heavy and expensive to move, and most of what goes wrong with one can be diagnosed and often fixed where it already sits.',
     commonIssues: [
