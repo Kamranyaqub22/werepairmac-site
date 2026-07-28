@@ -11,6 +11,8 @@ export interface Service {
   commonIssues: string[];
   metaTitle: string;
   metaDescription: string;
+  // ISO date of the last edit to this service's copy — see lib/contentDates.ts.
+  updatedAt?: string;
   // Used to group services in the nav menu — not shown on the service page itself.
   category: string;
   // Optional page-specific FAQs. When present these replace the generic

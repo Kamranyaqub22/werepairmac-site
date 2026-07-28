@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getLocationsGroupedByBorough } from '@/lib/locations';
+import { serviceLocationsForTown } from '@/lib/serviceLocations';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
 import { MapPinIcon, PhoneIcon, ArrowRightIcon } from '@/components/Icons';
@@ -53,17 +54,36 @@ export default function AreasWeCoverPage() {
                   <MapPinIcon className="w-4 h-4 text-orange-400 flex-shrink-0" />
                   {group.borough}
                 </h2>
-                <ul className="space-y-2">
-                  {group.locations.map((l) => (
-                    <li key={l.slug}>
-                      <Link
-                        href={`/mac-repair-${l.slug}`}
-                        className="text-sm text-gray-600 hover:text-brand transition-colors"
-                      >
-                        {l.name} <span className="text-gray-400">({l.postcode})</span>
-                      </Link>
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  {group.locations.map((l) => {
+                    // Towns in the core catchment have dedicated per-service
+                    // pages. Listing them here is the only link they get from a
+                    // page with real authority — without it the 116 combos are
+                    // reachable only from their own town hub and parent service.
+                    const combos = serviceLocationsForTown(l.slug);
+                    return (
+                      <li key={l.slug}>
+                        <Link
+                          href={`/mac-repair-${l.slug}`}
+                          className="text-sm text-gray-600 hover:text-brand transition-colors"
+                        >
+                          {l.name} <span className="text-gray-400">({l.postcode})</span>
+                        </Link>
+                        {combos.length > 0 && (
+                          <span className="block text-xs text-gray-400 mt-0.5 leading-relaxed">
+                            {combos.map((c, i) => (
+                              <span key={c.slug}>
+                                {i > 0 && <span aria-hidden="true"> · </span>}
+                                <Link href={`/${c.slug}`} className="hover:text-brand transition-colors">
+                                  {c.label}
+                                </Link>
+                              </span>
+                            ))}
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

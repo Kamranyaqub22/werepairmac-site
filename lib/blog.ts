@@ -23,6 +23,8 @@ export interface BlogPost {
   image: string;
   readingTime: number;
   publishedAt: string;
+  /** ISO date of the last substantive edit; falls back to publishedAt. */
+  updatedAt?: string;
   sections: BlogSection[];
 }
 
@@ -31,6 +33,8 @@ interface BlogBlueprint {
   title: string;
   /** See BlogPost.metaTitle — short SERP title, <= 44 chars. */
   metaTitle?: string;
+  /** ISO date of the last substantive edit; falls back to publishedAt. */
+  updatedAt?: string;
   excerpt: string;
   category: string;
   serviceSlug: string;
@@ -983,6 +987,7 @@ function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
     slug: blueprint.slug,
     title: blueprint.title,
     metaTitle: blueprint.metaTitle,
+    updatedAt: blueprint.updatedAt,
     excerpt: blueprint.excerpt,
     category: blueprint.category,
     serviceSlug: blueprint.serviceSlug,

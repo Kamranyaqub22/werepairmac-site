@@ -7,7 +7,7 @@ import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/l
 import {
   getServiceLocation, serviceLocationSlugs, serviceLocationsForTown,
   serviceLocationsForService, getServiceLocationIntro, getServiceLocationFaqs,
-  getServiceLocationFocus, comboHeadings, CORE_CATCHMENT, type ServiceLocation,
+  getServiceLocationFocus, comboHeadings, nearbyCoreTowns, type ServiceLocation,
 } from '@/lib/serviceLocations';
 import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
 import { firstThatFits } from '@/lib/meta';
@@ -707,9 +707,9 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
   const headings = comboHeadings(sl);
 
   // Same-service pages in nearby core-catchment towns (spoke → spoke links).
-  const nearbySameService = getNearbyLocations(location.slug, 12)
-    .filter((l) => CORE_CATCHMENT.includes(l.slug) && l.slug !== location.slug)
-    .slice(0, 4);
+  // nearbyCoreTowns always returns four, so edge-of-catchment towns get the same
+  // number of sibling links as central ones.
+  const nearbySameService = nearbyCoreTowns(location.slug);
 
   // The three other service families in this same town (sibling cross-links).
   const siblingServices = serviceLocationsForTown(location.slug)

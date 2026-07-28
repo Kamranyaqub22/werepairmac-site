@@ -13,6 +13,10 @@ export interface Location {
   // template with only the town name swapped in. Backfilled for the
   // CORE_CATCHMENT towns first — see lib/serviceLocations.ts.
   metaHook?: string;
+  // ISO date (YYYY-MM-DD) of the last edit to THIS town's copy. Drives the
+  // sitemap's <lastmod>; see lib/contentDates.ts. Leave unset to inherit
+  // SITE_CONTENT_DATE — only set it when you actually change this town's text.
+  updatedAt?: string;
   // Optional deeper local copy for priority areas: what we typically get called out
   // for here, and the practical logistics of reaching you. Rendered only when present,
   // so areas without them fall back to the existing template unchanged.
@@ -163,35 +167,91 @@ function postcodeArea(postcode?: string): string {
   return (postcode || '').replace(/[0-9].*$/, '').toUpperCase();
 }
 
-export function getNearbyLocations(slug: string, limit = 6): Location[] {
-  const current = getLocation(slug);
-  if (!current) return [];
+// Cross-link graph tuning. NEARBY_TARGET is how many "areas we also cover"
+// links a town page aims to show; MIN_INBOUND is the floor we guarantee for how
+// many other town pages link *to* each town; NEARBY_CAP stops the balancing pass
+// turning any one page into a link dump.
+const NEARBY_TARGET = 10;
+const MIN_INBOUND = 8;
+const NEARBY_CAP = 14;
 
-  const currentArea = postcodeArea(current.postcode);
-  const others = locations.filter((l) => l.slug !== current.slug);
+let nearbyGraph: Map<string, Location[]> | null = null;
 
-  const scored = others
-    .map((l) => {
-      let score = 0;
-      if (l.borough && l.borough === current.borough) score += 3;
-      if (currentArea && postcodeArea(l.postcode) === currentArea) score += 2;
-      return { location: l, score };
-    })
-    .filter((entry) => entry.score > 0)
-    .sort((a, b) => b.score - a.score);
+/**
+ * Build the town-to-town cross-link graph once, with a guaranteed in-degree.
+ *
+ * Scoring alone produced a badly lopsided graph. A town with same-borough peers
+ * (Wimbledon, Putney) was linked from everywhere; a town with none (Romford,
+ * Camden) was linked only by other orphans, because the top-up pass was the only
+ * thing that could reach it and that pass ran for very few towns. The crawl
+ * showed the outcome: 68 of 86 town pages on 1-7 internal links, which reads to
+ * a crawler as "these pages do not matter".
+ *
+ * Two passes:
+ *   1. Give every town its scored neighbours (same borough +3, same postcode
+ *      area +2), best first, up to NEARBY_TARGET.
+ *   2. Walk the towns that are still below MIN_INBOUND and place each one on the
+ *      lists of the hosts with the most spare capacity, so the floor is met
+ *      without any page exceeding NEARBY_CAP.
+ *
+ * Deterministic: ties break on slug, so the same input always yields the same
+ * graph and the rendered HTML is stable across builds.
+ */
+function buildNearbyGraph(): Map<string, Location[]> {
+  if (nearbyGraph) return nearbyGraph;
 
-  const nearby = scored.map((entry) => entry.location);
+  const lists = new Map<string, Location[]>();
+  const inbound = new Map<string, number>(locations.map((l) => [l.slug, 0]));
 
-  // Fall back to a few other London areas if a location has no scored neighbours,
-  // so the "areas we also cover" block is never empty.
-  if (nearby.length < limit) {
-    for (const l of others) {
-      if (nearby.length >= limit) break;
-      if (!nearby.includes(l)) nearby.push(l);
+  // Pass 1 — geography.
+  for (const current of locations) {
+    const currentArea = postcodeArea(current.postcode);
+    const scored = locations
+      .filter((l) => l.slug !== current.slug)
+      .map((l) => {
+        let score = 0;
+        if (l.borough && l.borough === current.borough) score += 3;
+        if (currentArea && postcodeArea(l.postcode) === currentArea) score += 2;
+        return { location: l, score };
+      })
+      .filter((entry) => entry.score > 0)
+      .sort((a, b) => b.score - a.score || a.location.slug.localeCompare(b.location.slug))
+      .slice(0, NEARBY_TARGET)
+      .map((entry) => entry.location);
+
+    lists.set(current.slug, scored);
+    for (const n of scored) inbound.set(n.slug, (inbound.get(n.slug) ?? 0) + 1);
+  }
+
+  // Pass 2 — raise everyone to the inbound floor.
+  const byNeed = [...locations].sort(
+    (a, b) => (inbound.get(a.slug) ?? 0) - (inbound.get(b.slug) ?? 0) || a.slug.localeCompare(b.slug),
+  );
+
+  for (const target of byNeed) {
+    while ((inbound.get(target.slug) ?? 0) < MIN_INBOUND) {
+      const host = locations
+        .filter((h) => {
+          const list = lists.get(h.slug)!;
+          return h.slug !== target.slug && list.length < NEARBY_CAP && !list.includes(target);
+        })
+        .sort(
+          (a, b) => lists.get(a.slug)!.length - lists.get(b.slug)!.length || a.slug.localeCompare(b.slug),
+        )[0];
+
+      if (!host) break; // no capacity left; better a short list than an infinite loop
+      lists.get(host.slug)!.push(target);
+      inbound.set(target.slug, (inbound.get(target.slug) ?? 0) + 1);
     }
   }
 
-  return nearby.slice(0, limit);
+  nearbyGraph = lists;
+  return nearbyGraph;
+}
+
+/** Geographically-related towns for the "areas we also cover" cross-links. */
+export function getNearbyLocations(slug: string, limit = NEARBY_TARGET): Location[] {
+  return (buildNearbyGraph().get(slug) ?? []).slice(0, limit);
 }
 
 export interface LocationFAQ {

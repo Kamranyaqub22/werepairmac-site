@@ -1,5 +1,5 @@
 import { getService, type Service } from '@/lib/services';
-import { getLocation, type Location, type LocationFAQ } from '@/lib/locations';
+import { getLocation, getNearbyLocations, type Location, type LocationFAQ } from '@/lib/locations';
 import { pickVariant } from '@/lib/hash';
 
 // ─── Service × Location landing pages ────────────────────────────────────────
@@ -216,6 +216,76 @@ export interface ComboHeadings {
  * between builds. Each slot is salted separately, so the three choices are
  * independent — 4^3 = 64 possible skeletons per family rather than 4.
  */
+// Spoke-to-spoke link budget across the core catchment. Guaranteeing out-degree
+// alone is not enough: a town can link out to four neighbours and still be
+// linked back by almost nobody, which is how the edge-of-catchment combos ended
+// up on 6 inlinks while central ones had 15. MIN_CORE_INBOUND is the floor that
+// actually matters.
+const CORE_OUT_TARGET = 5;
+const MIN_CORE_INBOUND = 4;
+const CORE_OUT_CAP = 7;
+
+let coreGraph: Map<string, Location[]> | null = null;
+
+/**
+ * Balanced cross-link graph over the core-catchment towns.
+ *
+ * Mirrors buildNearbyGraph in lib/locations.ts: geography first, then a pass
+ * that lifts every town to the inbound floor using whichever hosts have spare
+ * capacity. Deterministic — ties break on slug.
+ */
+function buildCoreGraph(): Map<string, Location[]> {
+  if (coreGraph) return coreGraph;
+
+  const towns = CORE_CATCHMENT.map((s) => getLocation(s)).filter(
+    (l): l is Location => Boolean(l),
+  );
+  const lists = new Map<string, Location[]>();
+  const inbound = new Map<string, number>(towns.map((t) => [t.slug, 0]));
+
+  // Pass 1 — nearest catchment neighbours.
+  for (const town of towns) {
+    const near = getNearbyLocations(town.slug, 100)
+      .filter((l) => l.slug !== town.slug && CORE_CATCHMENT.includes(l.slug))
+      .slice(0, CORE_OUT_TARGET);
+    lists.set(town.slug, near);
+    for (const n of near) inbound.set(n.slug, (inbound.get(n.slug) ?? 0) + 1);
+  }
+
+  // Pass 2 — lift everyone to the inbound floor.
+  const byNeed = [...towns].sort(
+    (a, b) => (inbound.get(a.slug) ?? 0) - (inbound.get(b.slug) ?? 0) || a.slug.localeCompare(b.slug),
+  );
+
+  for (const target of byNeed) {
+    while ((inbound.get(target.slug) ?? 0) < MIN_CORE_INBOUND) {
+      const host = towns
+        .filter((h) => {
+          const list = lists.get(h.slug)!;
+          return h.slug !== target.slug && list.length < CORE_OUT_CAP && !list.includes(target);
+        })
+        .sort(
+          (a, b) => lists.get(a.slug)!.length - lists.get(b.slug)!.length || a.slug.localeCompare(b.slug),
+        )[0];
+
+      if (!host) break;
+      lists.get(host.slug)!.push(target);
+      inbound.set(target.slug, (inbound.get(target.slug) ?? 0) + 1);
+    }
+  }
+
+  coreGraph = lists;
+  return coreGraph;
+}
+
+/**
+ * Core-catchment towns to link to from a combo page's "same service in nearby
+ * areas" block.
+ */
+export function nearbyCoreTowns(townSlug: string, count = CORE_OUT_TARGET): Location[] {
+  return (buildCoreGraph().get(townSlug) ?? []).slice(0, count);
+}
+
 export function comboHeadings(sl: ServiceLocation): ComboHeadings {
   const { headingVariants } = sl.family;
   const key = sl.location.slug;
