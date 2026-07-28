@@ -718,8 +718,10 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
   const headings = comboHeadings(sl);
 
   // Same-service pages in nearby core-catchment towns (spoke → spoke links).
-  // nearbyCoreTowns always returns four, so edge-of-catchment towns get the same
-  // number of sibling links as central ones.
+  // Five to seven links depending on the town: the graph gives every town five
+  // geographic neighbours, then adds a couple more where a town would otherwise
+  // fall below the inbound floor. Rendering the full list is deliberate — see
+  // nearbyCoreTowns.
   const nearbySameService = nearbyCoreTowns(location.slug);
 
   // The three other service families in this same town (sibling cross-links).

@@ -209,13 +209,6 @@ export interface ComboHeadings {
   calledOutFor: string;
 }
 
-/**
- * Deterministic H2 set for a combo page.
- *
- * The variant is chosen from the town slug, so a page's headings never change
- * between builds. Each slot is salted separately, so the three choices are
- * independent — 4^3 = 64 possible skeletons per family rather than 4.
- */
 // Spoke-to-spoke link budget across the core catchment. Guaranteeing out-degree
 // alone is not enough: a town can link out to four neighbours and still be
 // linked back by almost nobody, which is how the edge-of-catchment combos ended
@@ -281,11 +274,25 @@ function buildCoreGraph(): Map<string, Location[]> {
 /**
  * Core-catchment towns to link to from a combo page's "same service in nearby
  * areas" block.
+ *
+ * The default limit is CORE_OUT_CAP, not CORE_OUT_TARGET: buildCoreGraph appends
+ * the inbound-balancing links *after* the first five, so slicing to five here
+ * would silently discard exactly the links that pass 2 added — which is what
+ * left Stoneleigh, Teddington and Twickenham on two inbound spoke links each
+ * despite a declared floor of four. The graph already caps out-degree at
+ * CORE_OUT_CAP, so this returns the whole list rather than a truncation of it.
  */
-export function nearbyCoreTowns(townSlug: string, count = CORE_OUT_TARGET): Location[] {
+export function nearbyCoreTowns(townSlug: string, count = CORE_OUT_CAP): Location[] {
   return (buildCoreGraph().get(townSlug) ?? []).slice(0, count);
 }
 
+/**
+ * Deterministic H2 set for a combo page.
+ *
+ * The variant is chosen from the town slug, so a page's headings never change
+ * between builds. Each slot is salted separately, so the three choices are
+ * independent — 4^3 = 64 possible skeletons per family rather than 4.
+ */
 export function comboHeadings(sl: ServiceLocation): ComboHeadings {
   const { headingVariants } = sl.family;
   const key = sl.location.slug;
