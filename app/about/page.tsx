@@ -33,6 +33,9 @@ export default function AboutPage() {
             alt="Technician repairing MacBook"
             fill
             className="object-cover opacity-20"
+            sizes="100vw"
+            quality={45}
+            priority
           />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -98,6 +101,7 @@ export default function AboutPage() {
               alt="Engineer working on MacBook"
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
           <div>
@@ -143,6 +147,8 @@ export default function AboutPage() {
             alt="MacBook"
             fill
             className="object-cover opacity-15"
+            sizes="100vw"
+            quality={45}
           />
         </div>
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">

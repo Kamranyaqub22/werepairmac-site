@@ -304,7 +304,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   },
   {
     slug: 'gaming-pc-keeps-crashing-during-games',
-    title: 'Gaming PC Crashing During Games? The Fault Is Often Smaller Than It Looks',
+    title: 'Gaming PC Crashing During Games? The Fault Is Usually Small',
     metaTitle: 'Gaming PC Crashing During Games: Fixes',
     excerpt: 'Game crashes can come from heat, RAM instability, GPU faults, power issues, or corrupt drivers. The trick is isolating them properly.',
     category: 'Gaming PC Repair',

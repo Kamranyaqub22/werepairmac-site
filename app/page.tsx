@@ -392,6 +392,8 @@ export default function HomePage() {
             alt="Computer memory and repair components"
             fill
             className="object-cover opacity-10"
+            sizes="100vw"
+            quality={45}
           />
         </div>
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">

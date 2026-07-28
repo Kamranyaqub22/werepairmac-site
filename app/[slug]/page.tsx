@@ -190,6 +190,8 @@ function ServicePage({ slug }: { slug: string }) {
             alt={service.shortTitle}
             fill
             className="object-cover opacity-20"
+            sizes="100vw"
+            quality={45}
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
@@ -419,6 +421,7 @@ function ServicePage({ slug }: { slug: string }) {
                     alt={s.shortTitle}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 to-brand-dark/20" />
                 </div>
@@ -442,6 +445,8 @@ function ServicePage({ slug }: { slug: string }) {
             alt={service.shortTitle}
             fill
             className="object-cover opacity-15"
+            sizes="100vw"
+            quality={45}
           />
         </div>
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
@@ -489,6 +494,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
             alt={`Mac repair ${location.name}`}
             fill
             className="object-cover opacity-20"
+            sizes="100vw"
+            quality={45}
+            priority
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4">
@@ -558,6 +566,7 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
                     alt={s.shortTitle}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/85 to-brand-dark/10" />
                 </div>
@@ -678,6 +687,8 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
             alt="Laptop repair"
             fill
             className="object-cover opacity-15"
+            sizes="100vw"
+            quality={45}
           />
         </div>
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
@@ -755,7 +766,9 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
       {/* Hero */}
       <section className="relative bg-brand-dark text-white py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image src={service.image} alt={`${family.label} ${location.name}`} fill className="object-cover opacity-20" />
+          <Image src={service.image} alt={`${family.label} ${location.name}`} fill className="object-cover opacity-20"
+            sizes="100vw" quality={45}
+          />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
           <div>
@@ -951,7 +964,9 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
       {/* CTA */}
       <section className="relative bg-brand-dark text-white py-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image src={service.image} alt={`${family.label} ${location.name}`} fill className="object-cover opacity-15" />
+          <Image src={service.image} alt={`${family.label} ${location.name}`} fill className="object-cover opacity-15"
+            sizes="100vw" quality={45}
+          />
         </div>
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-3">Book {family.label} in {location.name}</h2>

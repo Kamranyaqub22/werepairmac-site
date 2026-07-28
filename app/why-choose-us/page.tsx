@@ -77,6 +77,9 @@ export default function WhyChooseUsPage() {
             alt="Engineer repairing a MacBook at a customer's home"
             fill
             className="object-cover opacity-20"
+            sizes="100vw"
+            quality={45}
+            priority
           />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -157,6 +160,7 @@ export default function WhyChooseUsPage() {
               alt="We Repair Mac engineer working on a laptop"
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
           <div>
@@ -196,6 +200,8 @@ export default function WhyChooseUsPage() {
             alt="MacBook"
             fill
             className="object-cover opacity-15"
+            sizes="100vw"
+            quality={45}
           />
         </div>
         <div className="relative z-10 max-w-2xl mx-auto px-4 text-center">

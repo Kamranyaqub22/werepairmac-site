@@ -1,5 +1,30 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Response headers were absent on 99.7% of URLs in the site crawl. None of
+  // these affect ranking, but they are cheap and clear three standing warnings.
+  //
+  // Deliberately no Content-Security-Policy here: the site loads Google Maps
+  // embeds, GA4, Clarity and Google review avatars, so a policy strict enough to
+  // be worth having needs to be worked out against those origins and tested,
+  // rather than guessed at in a header block.
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          // Keeps the full URL off cross-origin requests without losing the
+          // same-origin referrer that analytics relies on.
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          // Stop browsers guessing content types from response bodies.
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          // Framing is only ever same-origin here, so deny the rest (clickjacking).
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+        ],
+      },
+    ];
+  },
+
   async redirects() {
     return [
       // www canonical redirect — non-www → www
