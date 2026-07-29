@@ -10,7 +10,7 @@ import {
   getServiceLocationFocus, comboHeadings, nearbyCoreTowns, type ServiceLocation,
 } from '@/lib/serviceLocations';
 import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
-import { firstThatFits } from '@/lib/meta';
+import { firstThatFits, MAX_TITLE_BASE } from '@/lib/meta';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
@@ -76,9 +76,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const sl = getServiceLocation(slug);
   if (sl) {
     const { family, location: loc } = sl;
-    // Keep the title tight — the layout appends " | We Repair Mac", so anything
-    // extra here risks SERP truncation (~60 chars).
-    const title = `${family.label} ${loc.name}${loc.postcode ? ` (${loc.postcode})` : ''}`;
+    // The layout appends " | We Repair Mac", leaving MAX_TITLE_BASE for this.
+    // The postcode is the first thing to go: "Laptop & PC Repair Kingston upon
+    // Thames (KT1)" is 45 chars and was being truncated in the SERP.
+    const title = firstThatFits(
+      [
+        `${family.label} ${loc.name}${loc.postcode ? ` (${loc.postcode})` : ''}`,
+        `${family.label} ${loc.name}`,
+      ],
+      MAX_TITLE_BASE,
+    );
     // Combine the town's own hook with this family's fault list, so a town's four
     // combo pages differ from each other as well as from every other town's.
     const description = firstThatFits([

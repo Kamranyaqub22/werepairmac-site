@@ -2,6 +2,17 @@
 export const MAX_META_DESCRIPTION = 155;
 
 /**
+ * Longest a page's own title may be.
+ *
+ * Google truncates titles around 60 characters, and the root layout appends
+ * " | We Repair Mac" (16 chars) via `title.template`, so a page gets 44. Titles
+ * built from a town name overflow silently at the long end — "Laptop & PC Repair
+ * Kingston upon Thames (KT1)" is 45 — so compose them with `firstThatFits`
+ * against this, richest form first.
+ */
+export const MAX_TITLE_BASE = 44;
+
+/**
  * Pick the first candidate that fits within `max`, richest first.
  *
  * Composed descriptions (town name + local hook + fault list) vary in length by

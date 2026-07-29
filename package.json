@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "refresh:reviews": "node scripts/refresh-reviews-snapshot.js",
-    "optimise:images": "node scripts/optimise-images.mjs"
+    "optimise:images": "node scripts/optimise-images.mjs",
+    "seo:audit": "node scripts/seo-audit.mjs"
   },
   "dependencies": {
     "@types/nodemailer": "^7.0.11",
