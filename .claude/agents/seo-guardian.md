@@ -73,13 +73,13 @@ good, whether a page should exist, or whether a claim is true.
 - **No duplication.** The audit fails any service-page pair sharing ≥8% of their
   eight-word sequences. `macbook-repair-london` and `laptop-repair-london` once
   shared 19% and two byte-identical sentences. Shared *policy* wording (warranty,
-  no-callout-charge, £100/hour) is fine and should stay consistent; shared
+  no-callout-charge, £120/hour) is fine and should stay consistent; shared
   *explanations* are not.
 - **Only recombine vetted facts.** Real service `commonIssues`, real per-town
   `localIntro`/`localRepairs`/`localLogistics`. Never invent a local landmark, a
   capability, a piece of equipment, or a price structure. If copy would require a
   new claim about the business, stop and ask the owner instead of writing it.
-- **Verified business facts** you may rely on: £100/hour labour with a one-hour
+- **Verified business facts** you may rely on: £120/hour labour with a one-hour
   minimum plus parts, quoted upfront; 90-day parts-and-labour warranty; No Fix No
   Fee; no callout charge; roughly 70% of jobs finished on-site and 30% taken to
   the workshop; same-day if booked before 2pm; evenings and weekends at no extra

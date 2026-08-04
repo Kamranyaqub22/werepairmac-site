@@ -123,7 +123,7 @@ function ServicePage({ slug }: { slug: string }) {
   const genericFaqs = [
     { q: `How quickly can you come for ${service.shortTitle} in London?`, a: 'We offer same-day callouts across Greater London. Book before 2pm and we can usually visit on the same day. Evening and weekend slots are also available.' },
     { q: 'Do I need to bring my device to a shop?', a: 'No - we come to you. Our engineers visit your home or office anywhere in Greater London. Most repairs are completed on-site in front of you.' },
-    { q: `What does ${service.shortTitle} cost?`, a: 'Our labour rate is £100 per hour (minimum 1 hour), plus the cost of any parts required. We provide a clear upfront quote covering both labour and parts before we start any work — no surprises, no hidden fees.' },
+    { q: `What does ${service.shortTitle} cost?`, a: 'Our labour rate is £120 per hour (minimum 1 hour), plus the cost of any parts required. We provide a clear upfront quote covering both labour and parts before we start any work — no surprises, no hidden fees.' },
     { q: 'Is there a warranty on the repair?', a: 'Yes. All repairs carry a 90-day parts and labour warranty. If the same fault recurs, we fix it free of charge.' },
     { q: 'What if you cannot fix it?', a: 'If we cannot fix your device, you pay nothing. No diagnostic fee, no callout charge - that is our No Fix, No Fee guarantee.' },
   ];
@@ -163,8 +163,8 @@ function ServicePage({ slug }: { slug: string }) {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'GBP',
-      price: '100',
-      description: 'From £100 per hour labour plus parts. No fix, no fee.',
+      price: '120',
+      description: 'From £120 per hour labour plus parts. No fix, no fee.',
     },
   };
 
@@ -283,7 +283,7 @@ function ServicePage({ slug }: { slug: string }) {
           <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
             <div className="grid md:grid-cols-3 gap-6 items-center text-center">
               <div>
-                <div className="text-4xl font-extrabold text-brand">£100</div>
+                <div className="text-4xl font-extrabold text-brand">£120</div>
                 <div className="text-sm font-semibold text-gray-700 mt-1">per hour labour</div>
                 <div className="text-xs text-gray-400 mt-1">minimum 1 hour · no hidden extras</div>
               </div>
@@ -747,8 +747,8 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'GBP',
-      price: '100',
-      description: 'From £100 per hour labour plus parts. No fix, no fee.',
+      price: '120',
+      description: 'From £120 per hour labour plus parts. No fix, no fee.',
     },
   };
 
@@ -867,7 +867,7 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
           <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
             <div className="grid md:grid-cols-3 gap-6 items-center text-center">
               <div>
-                <div className="text-4xl font-extrabold text-brand">£100</div>
+                <div className="text-4xl font-extrabold text-brand">£120</div>
                 <div className="text-sm font-semibold text-gray-700 mt-1">per hour labour</div>
                 <div className="text-xs text-gray-400 mt-1">minimum 1 hour · no hidden extras</div>
               </div>

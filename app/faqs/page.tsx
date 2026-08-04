@@ -64,7 +64,7 @@ const faqCategories = [
       },
       {
         q: 'How much does a repair cost?',
-        a: 'Our labour rate is £100 per hour (minimum 1 hour), plus the cost of any parts required. We always give you a clear quote covering both labour and parts before we start — no surprises and no hidden fees. For simple software jobs with no parts needed, you just pay the hourly labour charge.',
+        a: 'Our labour rate is £120 per hour (minimum 1 hour), plus the cost of any parts required. We always give you a clear quote covering both labour and parts before we start — no surprises and no hidden fees. For simple software jobs with no parts needed, you just pay the hourly labour charge.',
       },
       {
         q: 'What payment methods do you accept?',

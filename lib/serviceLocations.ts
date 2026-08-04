@@ -604,7 +604,7 @@ const LOGISTICS_FAQ_VARIANTS: ((sl: ServiceLocation) => LocationFAQ[])[] = [
   ],
   ({ family, location }) => [
     { q: `Can you come to my home in ${location.name} rather than me travelling to a shop?`, a: `Yes — that is the whole model. Our engineer travels to you in ${location.name} and carries out most ${family.labelLower} jobs on-site, the same day where possible.` },
-    { q: `Does ${family.labelLower} cost more because I'm in ${location.name}?`, a: `No. Pricing is the same across ${location.borough || 'the area'} — £100/hr labour plus any parts, quoted before we start, with no location surcharge and no callout charge.` },
+    { q: `Does ${family.labelLower} cost more because I'm in ${location.name}?`, a: `No. Pricing is the same across ${location.borough || 'the area'} — £120/hr labour plus any parts, quoted before we start, with no location surcharge and no callout charge.` },
   ],
   ({ family, location }) => [
     { q: `Do I need to book ${family.labelLower} in ${location.name} in advance?`, a: `Not far ahead — ${location.name} is close to our New Malden base, so same-day is usually possible if you call before 2pm, and we keep evening and weekend slots open at no extra cost.` },

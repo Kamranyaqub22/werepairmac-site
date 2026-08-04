@@ -38,7 +38,7 @@ const homeFaqs = [
   },
   {
     q: 'How much does a MacBook repair cost?',
-    a: 'Our labour rate is £100 per hour (minimum 1 hour), plus parts where needed. We always provide a clear, upfront quote before touching your device — covering both labour and any parts — so you know exactly what you will pay. Simple software repairs with no parts are just the hourly labour charge.',
+    a: 'Our labour rate is £120 per hour (minimum 1 hour), plus parts where needed. We always provide a clear, upfront quote before touching your device — covering both labour and any parts — so you know exactly what you will pay. Simple software repairs with no parts are just the hourly labour charge.',
   },
   {
     q: 'Do you offer a warranty on repairs?',

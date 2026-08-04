@@ -279,7 +279,7 @@ const LOCATION_FAQ_VARIANTS: ((loc: Location) => LocationFAQ[])[] = [
   ],
   (loc) => [
     { q: `What's the fastest way to get a repair booked in ${loc.name}?`, a: `Call 07378 349222 - most ${loc.name} callouts booked before 2pm are seen the same day, with no need to bring anything to a shop.` },
-    { q: 'Do you charge extra for parts and labour separately, or is it all inclusive?', a: 'We quote labour (£100/hr) and any parts separately, upfront and before we start, so there are no surprises on the final bill.' },
+    { q: 'Do you charge extra for parts and labour separately, or is it all inclusive?', a: 'We quote labour (£120/hr) and any parts separately, upfront and before we start, so there are no surprises on the final bill.' },
     { q: `Is ${loc.name} within your standard service area?`, a: `Yes, ${loc.name} and the rest of ${loc.borough || 'the surrounding area'} are covered as standard, with no callout charge added to your bill.` },
     { q: 'What if the repair doesn\'t work?', a: 'Every repair carries a 90-day parts and labour warranty. If the same fault comes back, we return and fix it at no extra cost.' },
     { q: `Can you come to an office as well as a home in ${loc.name}?`, a: `Yes - we visit homes, offices and co-working spaces across ${loc.name} equally, and can work around meeting times if needed.` },

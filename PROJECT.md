@@ -273,7 +273,7 @@ Stored in `.env.local` (never commit to git):
 - **No inline styles** — use Tailwind utility classes only
 - **Component structure**: large data arrays at the top of file, JSX below
 - **Image sources**: prefer `/public/images/` for owned photos; Unsplash for stock (with `?w=600&auto=format&fit=crop&q=80` params)
-    - All monetary figures: `£100/hr labour + parts` — the rate is £100 per hour (minimum 1 hour billing). Parts are quoted separately upfront. Never state a lower "from £XX" figure on the site
+    - All monetary figures: `£120/hr labour + parts` — the rate is £120 per hour (minimum 1 hour billing). Parts are quoted separately upfront. Never state a lower "from £XX" figure on the site
 - **Phone number formats**:
   - Display: `0737 834 9222`
   - `href`: `tel:07378349222`  
@@ -322,4 +322,4 @@ Stored in `.env.local` (never commit to git):
 
 **Not suitable for this business:**
 - Online booking system — callout times are flexible/ad-hoc, not fixed slots
-- Fixed pricing page — labour is £100/hr + parts which varies per job; upfront pricing page would be misleading
+- Fixed pricing page — labour is £120/hr + parts which varies per job; upfront pricing page would be misleading
