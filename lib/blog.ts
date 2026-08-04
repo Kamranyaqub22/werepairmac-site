@@ -1058,6 +1058,51 @@ export function getRelatedBlogPosts(current: BlogPost, limit = 3): BlogPost[] {
   return scored.slice(0, limit).map((entry) => entry.post);
 }
 
+/**
+ * Related posts for a page that has no service of its own to key off — town
+ * hubs and service×town combos.
+ *
+ * Those 202 pages carried no blog links at all, which left the 21 posts on one
+ * to four internal links each while every service page collected 254 from the
+ * nav. Since Google discounts sitewide boilerplate, that meant the most
+ * differentiated content on the site was effectively unlinked.
+ *
+ * The rotation matters as much as the links. Dropping an identical three-post
+ * block onto all 202 pages would just mint new boilerplate and concentrate the
+ * benefit on three posts. Seeding the starting offset from the page slug gives
+ * each town a different set, deterministically — same slug, same picks, every
+ * build — so the links spread across the whole archive.
+ *
+ * `preferredServiceSlugs` keeps relevance where the page has a topic: a combo
+ * page rotates within its own family's posts first, and only tops up from the
+ * wider archive if that family has too few.
+ */
+export function getRotatedBlogPosts(
+  seed: string,
+  preferredServiceSlugs: string[] = [],
+  limit = 3,
+): BlogPost[] {
+  const all = getAllBlogPosts();
+  if (!all.length) return [];
+
+  const preferred = preferredServiceSlugs.length
+    ? all.filter((post) => preferredServiceSlugs.includes(post.serviceSlug))
+    : [];
+  const preferredSlugs = new Set(preferred.map((post) => post.slug));
+  const rest = all.filter((post) => !preferredSlugs.has(post.slug));
+
+  const take = (pool: BlogPost[], count: number, poolSeed: string): BlogPost[] => {
+    if (!pool.length || count <= 0) return [];
+    const start = hashSlug(poolSeed) % pool.length;
+    return Array.from({ length: Math.min(count, pool.length) }, (_, i) => pool[(start + i) % pool.length]);
+  };
+
+  const picked = take(preferred, limit, seed);
+  return picked.length >= limit
+    ? picked
+    : [...picked, ...take(rest, limit - picked.length, `${seed}-topup`)];
+}
+
 // Blog posts that link to a given service — used on service pages to surface
 // related advice articles and complete the internal-linking loop the other way.
 export function getBlogPostsForService(serviceSlug: string, limit = 3): BlogPost[] {

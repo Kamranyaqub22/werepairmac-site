@@ -23,6 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified: contentDate('2026-07-19'), priority: 0.8 },
     { url: `${base}/areas-we-cover`, lastModified: contentDate('2026-07-19'), priority: 0.8 },
     { url: `${base}/quote`, lastModified: contentDate(), priority: 0.8 },
+    // The callout/home-visit landing page. High priority: it targets the one
+    // term class where the service is genuinely differentiated.
+    { url: `${base}/mac-repair-home-visit-london`, lastModified: contentDate('2026-08-04'), priority: 0.9 },
     { url: `${base}/remote-support`, lastModified: contentDate(), priority: 0.8 },
     { url: `${base}/care-plans`, lastModified: contentDate(), priority: 0.7 },
     { url: `${base}/privacy`, lastModified: contentDate('2026-07-19'), priority: 0.3 },

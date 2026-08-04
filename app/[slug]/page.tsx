@@ -9,13 +9,15 @@ import {
   serviceLocationsForService, getServiceLocationIntro, getServiceLocationFaqs,
   getServiceLocationFocus, comboHeadings, nearbyCoreTowns, type ServiceLocation,
 } from '@/lib/serviceLocations';
-import { getBlogPostsForService, getBlogPostsForServices, formatBlogDate } from '@/lib/blog';
+import { getBlogPostsForService, getBlogPostsForServices, getRotatedBlogPosts, formatBlogDate } from '@/lib/blog';
 import { firstThatFits, MAX_TITLE_BASE } from '@/lib/meta';
 import FAQAccordion from '@/components/FAQAccordion';
 import FAQSchema from '@/components/FAQSchema';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
 import LocationMap from '@/components/LocationMap';
+import ServicePriceGuide from '@/components/ServicePriceGuide';
+import RelatedAdvice from '@/components/RelatedAdvice';
 import {
   PhoneIcon, MapPinIcon, CheckIcon,
   ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon,
@@ -346,6 +348,9 @@ function ServicePage({ slug }: { slug: string }) {
         </div>
       </section>
 
+      {/* Typical costs — server-rendered so the figures are actually indexable */}
+      <ServicePriceGuide service={service} />
+
       {/* FAQ */}
       <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
@@ -481,6 +486,9 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
 
   const nearby = getNearbyLocations(locationSlug);
   const faqs = getLocationFaqs(location);
+  // No single service to key off on a hub page, so rotate across the whole
+  // archive — seeded by town, so all 86 hubs link to different posts.
+  const townAdvice = getRotatedBlogPosts(locationSlug);
   // Core-catchment towns get dedicated service×location pages; surface them so
   // the hub links down to its spokes (empty for towns outside the catchment).
   const townServices = serviceLocationsForTown(locationSlug);
@@ -657,6 +665,13 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       </section>
       <FAQSchema items={faqs} />
 
+      {/* Repair advice — rotated per town so the archive gets linked evenly */}
+      <RelatedAdvice
+        posts={townAdvice}
+        heading="Repair advice from our engineers"
+        intro={`Guides written from the jobs we actually get called out to around ${location.name} and the rest of ${location.borough || 'London'}.`}
+      />
+
       {/* Nearby areas we also cover */}
       {nearby.length > 0 && (
         <section className="py-12 bg-gray-50 border-t border-gray-100">
@@ -723,6 +738,9 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
   const intro = getServiceLocationIntro(sl);
   const faqs = getServiceLocationFaqs(sl);
   const headings = comboHeadings(sl);
+  // This family's own posts first, rotated by town so the 29 pages in a family
+  // do not all point at the same three articles.
+  const comboAdvice = getRotatedBlogPosts(slug, [family.serviceSlug]);
 
   // Same-service pages in nearby core-catchment towns (spoke → spoke links).
   // Five to seven links depending on the town: the graph gives every town five
@@ -937,6 +955,13 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
         </div>
       </section>
       <FAQSchema items={faqs} />
+
+      {/* Repair advice — this family's posts first, rotated by town */}
+      <RelatedAdvice
+        posts={comboAdvice}
+        heading={`${family.label} advice`}
+        intro={`Written by the engineers who do this work — the faults behind most ${family.labelLower} call-outs, and what you can check before we arrive.`}
+      />
 
       {/* Cross-links: other repairs in this town + this repair in nearby towns */}
       <section className="py-12 bg-white border-t border-gray-100">

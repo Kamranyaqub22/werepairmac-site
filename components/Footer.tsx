@@ -85,6 +85,9 @@ export default function Footer() {
             <li>
               <Link href="/remote-support" className="hover:text-white transition-colors">Remote Support</Link>
             </li>
+            <li>
+              <Link href="/mac-repair-home-visit-london" className="hover:text-white transition-colors">Home Visit Repair</Link>
+            </li>
           </ul>
         </div>
 
