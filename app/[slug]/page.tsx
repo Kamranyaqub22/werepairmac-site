@@ -848,13 +848,19 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
 
       <TrustBadges />
 
-      {/* What to expect — unique per-service prose */}
+      {/* What to expect — an extract from the parent service page, not the whole thing.
+          Republishing the full block copied every word of the parent onto all of
+          that family's town pages, so improving a service page automatically
+          diluted it: adding four paragraphs to the console hub duplicated them 18
+          times and dropped that page from above the uniqueness floor to 19.3%.
+          The audit caught it. Two paragraphs give the town page enough context to
+          stand up, and the link below sends readers to the full version. */}
       {service.whatToExpect && service.whatToExpect.length > 0 && (
         <section className="py-14 bg-white border-b border-gray-100">
           <div className="max-w-3xl mx-auto px-4">
             <h2 className="section-heading">{headings.whatToExpect}</h2>
             <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed mt-6 space-y-4">
-              {service.whatToExpect.map((para, i) => <p key={i}>{para}</p>)}
+              {service.whatToExpect.slice(0, 2).map((para, i) => <p key={i}>{para}</p>)}
             </div>
             <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
               <p className="text-sm text-gray-600">
