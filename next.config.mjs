@@ -41,6 +41,30 @@ const nextConfig = {
         destination: '/blog/nintendo-switch-not-charging-usb-c-port-signs',
         permanent: true,
       },
+      // Retired blog slugs that Search Console still reports Google crawling.
+      // The first was serving a live 404; the other two were dead ends burning
+      // crawl budget on a site where the flagship service pages are already
+      // going uncrawled. Each points at the closest surviving match on intent,
+      // not at the homepage — a redirect to something unrelated is treated as a
+      // soft 404 and helps nobody who lands on it.
+      {
+        // Renamed, same article.
+        source: '/blog/macbook-pro-making-a-loud-grinding-sound-advice-from-experts',
+        destination: '/blog/pc-making-loud-grinding-noise',
+        permanent: true,
+      },
+      {
+        // Windows laptop, sticking keys. The surviving keys-sticking guide is
+        // MacBook-specific, so the Windows repair page is the honest match.
+        source: '/blog/dell-xps-keys-heavily-sticking-for-home-workers',
+        destination: '/laptop-repair-london',
+        permanent: true,
+      },
+      {
+        source: '/blog/macbook-air-running-extremely-slow-advice-from-experts',
+        destination: '/blog/slow-laptop-home-office-checklist',
+        permanent: true,
+      },
       { source: '/blank-5', destination: '/contact', permanent: true },
       { source: '/blank', destination: '/', permanent: true },
       { source: '/hardware-repair', destination: '/macbook-repair-london', permanent: true },
