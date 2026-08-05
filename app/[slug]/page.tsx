@@ -7,7 +7,7 @@ import { getLocation, getNearbyLocations, getLocationFaqs, locations } from '@/l
 import {
   getServiceLocation, serviceLocationSlugs, serviceLocationsForTown,
   serviceLocationsForService, getServiceLocationIntro, getServiceLocationFaqs,
-  getServiceLocationFocus, comboHeadings, nearbyCoreTowns, type ServiceLocation,
+  getServiceLocationFocus, comboHeadings, nearbyCoreTowns, RETIRED_COMBOS, type ServiceLocation,
 } from '@/lib/serviceLocations';
 import { getBlogPostsForService, getBlogPostsForServices, getRotatedBlogPosts, formatBlogDate } from '@/lib/blog';
 import { firstThatFits, MAX_TITLE_BASE } from '@/lib/meta';
@@ -747,7 +747,13 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
   // geographic neighbours, then adds a couple more where a town would otherwise
   // fall below the inbound floor. Rendering the full list is deliberate — see
   // nearbyCoreTowns.
-  const nearbySameService = nearbyCoreTowns(location.slug);
+  //
+  // Filtered against RETIRED_COMBOS: the neighbour graph is built from towns, so
+  // it happily produces a link to `${family.base}-${town}` for a combo that has
+  // since been withdrawn — an internal link straight into a 301.
+  const nearbySameService = nearbyCoreTowns(location.slug).filter(
+    (l) => !RETIRED_COMBOS.has(`${family.base}-${l.slug}`),
+  );
 
   // The three other service families in this same town (sibling cross-links).
   const siblingServices = serviceLocationsForTown(location.slug)

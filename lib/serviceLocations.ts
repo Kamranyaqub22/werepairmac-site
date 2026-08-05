@@ -1,6 +1,7 @@
 import { getService, type Service } from '@/lib/services';
 import { getLocation, getNearbyLocations, type Location, type LocationFAQ } from '@/lib/locations';
 import { pickVariant } from '@/lib/hash';
+import retiredCombos from '@/lib/retired-combos.json';
 
 // ─── Service × Location landing pages ────────────────────────────────────────
 //
@@ -315,7 +316,30 @@ const familyByBase = new Map(SERVICE_FAMILIES.map((f) => [f.base, f]));
  * slug such as "macbook-repair-london" is never treated as a combo (there is no
  * "london" location in the catchment, so it wouldn't match here anyway).
  */
+/**
+ * Combo pages withdrawn after the Search Console review of 2026-08-05.
+ *
+ * Every slug here returned **zero impressions over three months** — not a poor
+ * position, not a low click-through, nothing at all. They are redirected to
+ * their town hub in next.config.mjs.
+ *
+ * Only the genuinely dead ones are listed. 87 of the 116 combos did earn
+ * impressions, and an earlier read of the Page Indexing report — which reported
+ * 113 as unindexed — turned out to be stale: a page cannot draw impressions
+ * without being indexed. Those 87 stay. The lesson is in the asymmetry: a page
+ * with traffic gets the benefit of the doubt, a page with none does not.
+ */
+export const RETIRED_COMBOS: ReadonlySet<string> = new Set(retiredCombos.retired);
+
+/** The town hub a retired combo redirects to. */
+export function retiredComboTarget(slug: string): string | undefined {
+  if (!RETIRED_COMBOS.has(slug)) return undefined;
+  const family = SERVICE_FAMILIES.find((f) => slug.startsWith(`${f.base}-`));
+  return family ? `/mac-repair-${slug.slice(family.base.length + 1)}` : undefined;
+}
+
 export function getServiceLocation(slug: string): ServiceLocation | undefined {
+  if (RETIRED_COMBOS.has(slug)) return undefined;
   for (const family of SERVICE_FAMILIES) {
     const prefix = `${family.base}-`;
     if (!slug.startsWith(prefix)) continue;
@@ -333,7 +357,8 @@ export function serviceLocationSlugs(): string[] {
   const slugs: string[] = [];
   for (const family of SERVICE_FAMILIES) {
     for (const townSlug of CORE_CATCHMENT) {
-      if (getLocation(townSlug)) slugs.push(`${family.base}-${townSlug}`);
+      const slug = `${family.base}-${townSlug}`;
+      if (getLocation(townSlug) && !RETIRED_COMBOS.has(slug)) slugs.push(slug);
     }
   }
   return slugs;
@@ -342,7 +367,11 @@ export function serviceLocationSlugs(): string[] {
 /** The combo slugs for a single town (used by the town hub's "popular repairs"). */
 export function serviceLocationsForTown(townSlug: string): { slug: string; label: string }[] {
   if (!CORE_CATCHMENT.includes(townSlug)) return [];
-  return SERVICE_FAMILIES.map((f) => ({ slug: `${f.base}-${townSlug}`, label: f.label }));
+  // Retired combos are filtered here too, so a town hub never links to a URL
+  // that now 301s straight back to itself.
+  return SERVICE_FAMILIES
+    .map((f) => ({ slug: `${f.base}-${townSlug}`, label: f.label }))
+    .filter((x) => !RETIRED_COMBOS.has(x.slug));
 }
 
 /** The combo pages for a single service, across every catchment town. Used by
@@ -353,7 +382,8 @@ export function serviceLocationsForService(serviceSlug: string): { slug: string;
   if (!family) return [];
   return CORE_CATCHMENT.flatMap((townSlug) => {
     const loc = getLocation(townSlug);
-    return loc ? [{ slug: `${family.base}-${townSlug}`, townName: loc.name }] : [];
+    const slug = `${family.base}-${townSlug}`;
+    return loc && !RETIRED_COMBOS.has(slug) ? [{ slug, townName: loc.name }] : [];
   });
 }
 

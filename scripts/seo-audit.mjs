@@ -293,6 +293,73 @@ for (const file of [...walk('app'), ...walk('components')]) {
   }
 }
 
+// ─── 8. Content uniqueness — the guardrail that stops the next combo episode ──
+//
+// The 116 service×location pages were not a careless mistake: each was ~1,300
+// words and individually plausible. What nobody measured was how much of that
+// text already existed elsewhere on the site. At 8-9% unique, Google indexed 3
+// of them and 29 earned literally zero impressions in three months.
+//
+// Judgement applied 116 times still compounds into a problem when nothing gates
+// page creation, so the rule is enforced here rather than remembered.
+//
+// Method: 8-word shingles, and a shingle is "distinctive" if it appears on no
+// more than 2 pages. Uniqueness is the share of a page's shingles that are
+// distinctive. Measured on this site: static 55%, blog 44%, service 44%,
+// town hubs 30%, combos 8.6%.
+//
+// Existing pages are grandfathered via the baseline file, because retrofitting
+// a floor onto 87 known-weak pages would just mean the audit is permanently red
+// and everyone learns to ignore it. New pages must clear NEW_PAGE_FLOOR. To
+// accept a new page below it, add it to the baseline deliberately — the point
+// is that it takes a decision, not an accident.
+const SHINGLE = 8;
+const NEW_PAGE_FLOOR = 0.25;
+const BASELINE_FILE = 'scripts/uniqueness-baseline.json';
+
+const shinglesOf = (body) => {
+  const w = body.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean);
+  const set = new Set();
+  for (let i = 0; i + SHINGLE <= w.length; i++) set.add(w.slice(i, i + SHINGLE).join(' '));
+  return set;
+};
+
+const shingleSets = new Map();
+for (const [slug, html] of pages) shingleSets.set(slug, shinglesOf(text(html)));
+
+const docFreq = new Map();
+for (const set of shingleSets.values())
+  for (const sh of set) docFreq.set(sh, (docFreq.get(sh) || 0) + 1);
+
+const uniqueness = new Map();
+for (const [slug, set] of shingleSets) {
+  if (!set.size) continue;
+  let distinctive = 0;
+  for (const sh of set) if (docFreq.get(sh) <= 2) distinctive++;
+  uniqueness.set(slug, distinctive / set.size);
+}
+
+const baseline = existsSync(BASELINE_FILE)
+  ? new Set(JSON.parse(readFileSync(BASELINE_FILE, 'utf8')).grandfathered)
+  : new Set();
+
+for (const [slug, score] of uniqueness) {
+  if (THIN_OK.has(slug)) continue;
+  const pct = (score * 100).toFixed(1);
+  if (!baseline.has(slug)) {
+    // New page. This is the gate.
+    if (score < NEW_PAGE_FLOOR)
+      fail(
+        'new-page-too-derivative',
+        `${slug} — ${pct}% unique, floor is ${NEW_PAGE_FLOOR * 100}%. ` +
+          `Most of this page already exists elsewhere on the site. Rewrite it, fold it ` +
+          `into an existing page, or add it to ${BASELINE_FILE} if you have decided it earns its URL.`,
+      );
+  } else if (score < 0.15) {
+    warn('low-uniqueness', `${slug} — ${pct}% unique (grandfathered)`);
+  }
+}
+
 // ─── Report ──────────────────────────────────────────────────────────────────
 
 const group = (list) => {

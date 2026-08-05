@@ -1,3 +1,23 @@
+import { readFileSync } from 'node:fs';
+
+// Same JSON that lib/serviceLocations.ts reads to stop generating these pages.
+// One source of truth, so a retired combo can never be un-generated but
+// un-redirected (a 404) or redirected but still built (a redirect loop).
+const { retired } = JSON.parse(readFileSync(new URL('./lib/retired-combos.json', import.meta.url), 'utf8'));
+
+const FAMILY_BASES = ['macbook-repair', 'laptop-repair', 'console-repair', 'data-recovery'];
+
+/** Each retired combo 301s to its own town hub, which still covers the service. */
+const retiredComboRedirects = retired.map((slug) => {
+  const base = FAMILY_BASES.find((b) => slug.startsWith(`${b}-`));
+  if (!base) throw new Error(`retired-combos.json: "${slug}" matches no service family`);
+  return {
+    source: `/${slug}`,
+    destination: `/mac-repair-${slug.slice(base.length + 1)}`,
+    permanent: true,
+  };
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Response headers were absent on 99.7% of URLs in the site crawl. None of
@@ -27,6 +47,7 @@ const nextConfig = {
 
   async redirects() {
     return [
+      ...retiredComboRedirects,
       // www canonical redirect — non-www → www
       {
         source: '/:path*',
