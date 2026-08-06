@@ -26,6 +26,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // The callout/home-visit landing page. High priority: it targets the one
     // term class where the service is genuinely differentiated.
     { url: `${base}/mac-repair-home-visit-london`, lastModified: contentDate('2026-08-04'), priority: 0.9 },
+    // The cost guide. High priority: it targets a query class the site loses
+    // outright today, in both AI answers and traditional search.
+    { url: `${base}/repair-costs-london`, lastModified: contentDate('2026-08-05'), priority: 0.9 },
     { url: `${base}/remote-support`, lastModified: contentDate(), priority: 0.8 },
     { url: `${base}/care-plans`, lastModified: contentDate(), priority: 0.7 },
     { url: `${base}/privacy`, lastModified: contentDate('2026-07-19'), priority: 0.3 },

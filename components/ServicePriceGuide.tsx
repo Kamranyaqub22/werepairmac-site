@@ -58,8 +58,12 @@ export default function ServicePriceGuide({ service }: { service: Service }) {
           a typical job needs. They are a guide, not a quote: the exact price is confirmed with
           you on site before anything is opened, and under our no fix, no fee guarantee you pay
           nothing if we cannot put it right.{' '}
+          <Link href="/repair-costs-london" className="text-brand font-semibold hover:underline">
+            See full repair costs
+          </Link>{' '}
+          or{' '}
           <Link href="/quote" className="text-brand font-semibold hover:underline">
-            Get a closer estimate for your fault
+            get a closer estimate for your fault
           </Link>
           .
         </p>

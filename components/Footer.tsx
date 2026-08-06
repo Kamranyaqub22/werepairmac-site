@@ -88,6 +88,9 @@ export default function Footer() {
             <li>
               <Link href="/mac-repair-home-visit-london" className="hover:text-white transition-colors">Home Visit Repair</Link>
             </li>
+            <li>
+              <Link href="/repair-costs-london" className="hover:text-white transition-colors">Repair Costs</Link>
+            </li>
           </ul>
         </div>
 
