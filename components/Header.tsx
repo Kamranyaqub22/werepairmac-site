@@ -100,6 +100,16 @@ export default function Header() {
                         <div className="text-[11px] text-gray-400">Fixed today from £49 — no visit needed</div>
                       </div>
                     </Link>
+                    <Link
+                      href="/common-computer-problems-london"
+                      className="flex items-center gap-3 px-6 py-3 hover:bg-gray-50 transition-colors group border-t border-gray-100"
+                    >
+                      <div className="w-8 h-8 bg-brand/8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm">🔎</div>
+                      <div>
+                        <div className="font-medium text-gray-800 text-[13px] group-hover:text-brand transition-colors">Common Problems</div>
+                        <div className="text-[11px] text-gray-400">What your fault is, and what to try first</div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
               )}
@@ -158,6 +168,10 @@ export default function Header() {
               <Link href="/remote-support" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors border-t border-gray-100 pt-3">
                 <span className="text-base">🖥️</span>
                 Remote Support
+              </Link>
+              <Link href="/common-computer-problems-london" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 py-2 pl-2 hover:text-brand transition-colors">
+                <span className="text-base">🔎</span>
+                Common Problems
               </Link>
             </div>
 

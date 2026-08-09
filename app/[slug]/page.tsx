@@ -17,6 +17,7 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import TrustBadges from '@/components/TrustBadges';
 import LocationMap from '@/components/LocationMap';
 import ServicePriceGuide from '@/components/ServicePriceGuide';
+import ServiceCommonIssues from '@/components/ServiceCommonIssues';
 import RelatedAdvice from '@/components/RelatedAdvice';
 import {
   PhoneIcon, MapPinIcon, CheckIcon,
@@ -350,6 +351,11 @@ function ServicePage({ slug }: { slug: string }) {
 
       {/* Typical costs — server-rendered so the figures are actually indexable */}
       <ServicePriceGuide service={service} />
+
+      {/* Symptom-level detail. Service pages only, deliberately: the same block on
+          every combo page for a service would be identical copy across dozens of
+          URLs, which is what put the combos in "crawled, not indexed" before. */}
+      <ServiceCommonIssues service={service} />
 
       {/* FAQ */}
       <section className="py-16 bg-white">

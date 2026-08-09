@@ -16,7 +16,20 @@ export interface Service {
   metaTitle: string;
   metaDescription: string;
   // ISO date of the last edit to this service's copy — see lib/contentDates.ts.
+  //
+  // This is the date combo pages inherit, because a combo is composed from the
+  // fields below (longDescription, commonIssues, faqs). Only bump it when one
+  // of *those* changes.
   updatedAt?: string;
+  // ISO date of the last change to what the service page *renders* that a combo
+  // page does not share — a new section on the service template, for instance.
+  //
+  // Exists because bumping `updatedAt` for a service-page-only change re-dated
+  // 69 combo pages that had not changed, telling Google 35% of the sitemap was
+  // touched when 13 URLs were. Those combos are the ones already sitting in
+  // "crawled, not indexed"; a lastmod that does not correlate with a real edit
+  // is exactly what discredits the signal on the pages we want recrawled.
+  pageUpdatedAt?: string;
   // Used to group services in the nav menu — not shown on the service page itself.
   category: string;
   // Optional page-specific FAQs. When present these replace the generic
@@ -55,6 +68,7 @@ export const services: Service[] = [
     metaTitle: 'MacBook Repair London | Same Day Callout',
     metaDescription: 'Expert MacBook Pro, MacBook Air & iMac repair across London. Same-day home & office visits. No fix, no fee. Call 07378 349222.',
     category: 'Apple & Mac',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['macbook-screen-repair-london', 'macbook-battery-replacement-london', 'macbook-keyboard-replacement-london', 'macbook-logic-board-repair-london', 'macbook-pro-repair-london', 'imac-repair-london'],
     whatToExpect: [
       'Your MacBook repair starts with a free, no-obligation diagnosis. Our engineer comes to your home or office anywhere in Greater London, finds out exactly what is wrong — whether it is a software fault, a failing battery, a cracked screen or a deeper logic-board problem — and gives you a clear, fixed price before any work begins. If it turns out not to be worth repairing, we tell you honestly.',
@@ -92,6 +106,7 @@ export const services: Service[] = [
     metaTitle: 'Laptop Repair London | HP, Dell, Lenovo',
     metaDescription: 'Fast laptop repair across London. HP, Dell, Lenovo, Asus, Acer and more. Home visits available. No fix, no fee. Call 07378 349222.',
     category: 'Windows Laptop & PC',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['windows-support-london', 'hardware-upgrades-london', 'virus-removal-london'],
     whatToExpect: [
       'Every laptop repair begins with a free diagnosis. Our engineer comes to your home or office anywhere in Greater London, works out exactly what has failed — a screen, a battery, a charging port, a drive or something on the motherboard — and gives you a fixed price before any work starts. If the laptop is not worth repairing, we will tell you straight.',
@@ -130,6 +145,7 @@ export const services: Service[] = [
     metaTitle: 'Windows Support London | PC Troubleshooting',
     metaDescription: 'Windows PC and laptop support across London. Updates, driver issues, slow performance and setup fixed at your door. No fix, no fee. Call 07378 349222.',
     category: 'Windows Laptop & PC',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['laptop-repair-london', 'virus-removal-london', 'printer-setup-repair-london'],
     whatToExpect: [
       'Windows support starts with a free diagnosis at your home or office. Rather than reading from a script, our engineer sits at the machine, reproduces the problem and finds the real cause — a broken update, a driver conflict, a corrupted profile or something failing in the background — then tells you the fixed price before doing the work.',
@@ -167,6 +183,7 @@ export const services: Service[] = [
     metaTitle: 'Printer Setup & Repair London',
     metaDescription: 'Printer setup and troubleshooting across London. Offline errors, Wi-Fi, drivers and print-queue faults fixed at your door on Mac and PC.',
     category: 'Windows Laptop & PC',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['windows-support-london', 'home-office-networking-london', 'laptop-repair-london'],
     whatToExpect: [
       'Printer support starts with a free diagnosis at your home or office. Our engineer finds out why the printer will not play — an offline status, a dropped Wi-Fi connection, a missing or wrong driver, a stuck queue or a setup that was never finished — and gives you a fixed price before any work, so there are no surprises.',
@@ -241,6 +258,7 @@ export const services: Service[] = [
     metaTitle: 'Networking & Wi-Fi Setup London',
     metaDescription: 'Home and office network setup across London. Wi-Fi, routers, mesh systems and shared drives fixed at your door. No fix, no fee. Call 07378 349222.',
     category: 'Windows Laptop & PC',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['windows-support-london', 'printer-setup-repair-london', 'hardware-upgrades-london'],
     whatToExpect: [
       'Wi-Fi problems are the one job that genuinely cannot be diagnosed over the phone, because the answer is almost always about the building rather than the equipment. A London terrace with solid brick internal walls, a Victorian conversion with a foil-backed insulated floor, a flat with the incoming line in a hallway cupboard — each defeats a router in a different way, and no amount of resetting it will help. So we start by measuring rather than guessing: signal strength and interference in the rooms that actually matter to you, which channels your neighbours are sitting on, and what speed the line itself is delivering at the socket before Wi-Fi enters the picture. That last check settles the most common argument of all, because a good deal of what gets reported as slow broadband turns out to be a perfectly healthy line and a Wi-Fi signal that cannot reach the room.',
@@ -276,6 +294,7 @@ export const services: Service[] = [
     metaTitle: 'Data Recovery London | Hard Drive & SSD',
     metaDescription: 'Professional data recovery across London. Retrieve lost files from crashed drives, formatted disks and failed SSDs. Call 07378 349222.',
     category: 'Data & Security',
+    pageUpdatedAt: '2026-08-09',
     updatedAt: '2026-07-28',
     relatedServiceSlugs: ['water-damage-repair-london', 'macbook-repair-london', 'hardware-upgrades-london'],
     whatToExpect: [
@@ -315,6 +334,7 @@ export const services: Service[] = [
     metaTitle: 'Gaming PC Repair London | Desktop & Laptop',
     metaDescription: 'Gaming PC and laptop repair across London. GPU, PSU, overheating fixes. Alienware, ASUS ROG, MSI, custom builds. Call 07378 349222.',
     category: 'Windows Laptop & PC',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['hardware-upgrades-london', 'windows-support-london', 'laptop-repair-london'],
     whatToExpect: [
       'A gaming PC that is stable on the desktop and falls over in games is telling you something specific, and it is worth reading that signal properly before anyone spends money on parts. Games are the only thing most machines do that loads the graphics card, the processor and the power supply hard at the same time, which is why they surface faults that ordinary use never touches. The three usual culprits are heat, power delivery and memory, and they are cheap to tell apart: we watch the actual core and hotspot temperatures under load, check whether clocks are being pulled back as things get warm, and read the Windows event log for the reset signatures that point at a driver crash rather than a hardware fault.',
@@ -350,6 +370,7 @@ export const services: Service[] = [
     metaTitle: 'Virus Removal London | Malware & Ransomware',
     metaDescription: 'Same-day virus and malware removal across London. Mac and PC. Ransomware, spyware, adware cleaned. No fix, no fee. Call 07378 349222.',
     category: 'Data & Security',
+    pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['windows-support-london', 'data-recovery-london', 'macbook-repair-london'],
     whatToExpect: [
       'The first thing worth saying is that most machines we are called out to for a virus do not have one. The great majority of what people describe as an infection is either adware and a hijacked browser — a search engine that has been swapped, a toolbar that will not leave, ads appearing on sites that never had them — or it is not on the machine at all, just a web page designed to look like a system warning. If a full-screen alert appeared while you were browsing, gave a phone number to call, and will not close, that is a scareware page rather than a virus, and the machine is usually untouched. Closing the tab and clearing the browser resolves it. We would rather tell you that in five minutes than bill you for a clean-up you never needed.',
@@ -389,6 +410,7 @@ export const services: Service[] = [
     metaTitle: 'MacBook Screen Replacement London | Same Day',
     metaDescription: 'MacBook Pro and MacBook Air screen replacement across London. Cracked, flickering or dead displays. Same-day home visit. Call 07378 349222.',
     category: 'Apple & Mac',
+    pageUpdatedAt: '2026-08-09',
     updatedAt: '2026-07-28',
     relatedServiceSlugs: ['macbook-repair-london', 'macbook-pro-repair-london', 'macbook-air-repair-london'],
     whatToExpect: [
@@ -433,6 +455,7 @@ export const services: Service[] = [
     metaTitle: 'MacBook Battery Replacement London',
     metaDescription: 'MacBook Pro and Air battery replacement across London. Home visits, genuine-spec parts. Fast turnaround. No fix, no fee. Call 07378 349222.',
     category: 'Apple & Mac',
+    pageUpdatedAt: '2026-08-09',
     updatedAt: '2026-07-28',
     relatedServiceSlugs: ['macbook-repair-london', 'macbook-pro-repair-london', 'hardware-upgrades-london'],
     whatToExpect: [
@@ -477,6 +500,7 @@ export const services: Service[] = [
     metaTitle: 'Water Damage Repair London | Mac & Laptop',
     metaDescription: 'Emergency liquid damage repair across London. MacBook and laptop spill recovery. Same-day callout. Do not turn it on - call 07378 349222.',
     category: 'Data & Security',
+    pageUpdatedAt: '2026-08-09',
     updatedAt: '2026-07-28',
     relatedServiceSlugs: ['macbook-repair-london', 'data-recovery-london', 'laptop-repair-london'],
     whatToExpect: [
@@ -754,6 +778,7 @@ export const services: Service[] = [
     metaTitle: 'MacBook Keyboard Replacement London',
     metaDescription: 'MacBook keyboard replacement across London. Sticking, repeating or dead keys fixed without paying Apple to swap the whole top case. No fix, no fee.',
     category: 'Apple & Mac',
+    pageUpdatedAt: '2026-08-09',
     updatedAt: '2026-08-04',
     relatedServiceSlugs: ['macbook-repair-london', 'macbook-pro-repair-london', 'water-damage-repair-london'],
     whatToExpect: [

@@ -90,6 +90,7 @@ ${serviceLines}
 
 - **Home**: ${SITE}/
 - **Repair costs**: ${SITE}/repair-costs-london
+- **Common problems & fixes**: ${SITE}/common-computer-problems-london
 - **Home visit / callout**: ${SITE}/mac-repair-home-visit-london
 - **Remote support**: ${SITE}/remote-support
 - **Get an estimate**: ${SITE}/quote
