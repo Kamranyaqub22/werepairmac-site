@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { services } from '@/lib/services';
 import { locations } from '@/lib/locations';
-import { PhoneIcon, MailIcon, MapPinIcon } from '@/components/Icons';
+import { PhoneIcon, MailIcon, MapPinIcon, FacebookIcon } from '@/components/Icons';
+import { FACEBOOK_URL } from '@/lib/social';
 
 export default function Footer() {
   const featuredLocations = locations.slice(0, 18);
@@ -68,6 +69,19 @@ export default function Footer() {
               <MailIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
               <a href="mailto:info@werepairmac.co.uk" className="hover:text-white transition-colors">info@werepairmac.co.uk</a>
             </div>
+          </div>
+
+          {/* Verified profiles only — see lib/social.ts. */}
+          <div className="flex items-center gap-3 mt-5">
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="me noopener noreferrer"
+              aria-label="We Repair Mac on Facebook"
+              className="w-9 h-9 rounded-full border border-gray-800 flex items-center justify-center text-gray-500 hover:text-white hover:border-gray-600 transition-colors"
+            >
+              <FacebookIcon className="w-4 h-4" />
+            </a>
           </div>
         </div>
 

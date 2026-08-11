@@ -6,6 +6,7 @@ interface LocalBusinessSchemaProps {
 
 import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { GOOGLE_BUSINESS_LISTING_URL } from '@/lib/googleBusiness';
+import { SOCIAL_PROFILE_URLS } from '@/lib/social';
 
 export default async function LocalBusinessSchema({ service, location }: LocalBusinessSchemaProps) {
   const reviews = await fetchGoogleReviews();
@@ -98,7 +99,7 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
       },
     ],
     priceRange: '££',
-    paymentAccepted: 'Cash, Debit Card, Credit Card, Bank Transfer',
+    paymentAccepted: 'Cash, Debit Card, Credit Card, Contactless, Apple Pay, Google Pay, Bank Transfer',
     currenciesAccepted: 'GBP',
     founder: {
       '@type': 'Person',
@@ -107,11 +108,8 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
       image: 'https://www.werepairmac.co.uk/images/kamran-founder.jpg',
     },
     image: 'https://www.werepairmac.co.uk/logo.png',
-    sameAs: [
-      'https://www.facebook.com/werepairmac',
-      'https://www.instagram.com/werepairmac',
-      GOOGLE_BUSINESS_LISTING_URL,
-    ],
+    // Verified profiles only — see lib/social.ts for why.
+    sameAs: [...SOCIAL_PROFILE_URLS, GOOGLE_BUSINESS_LISTING_URL],
   };
 
   return (

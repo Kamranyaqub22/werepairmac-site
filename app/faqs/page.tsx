@@ -68,7 +68,7 @@ const faqCategories = [
       },
       {
         q: 'What payment methods do you accept?',
-        a: 'We accept cash, bank transfer and major debit/credit cards. Payment is only due on completion of the repair.',
+        a: 'We accept cash, bank transfer and major debit/credit cards. Our engineers carry a card reader, so contactless, Apple Pay and Google Pay all work on the doorstep — you do not need to have cash ready. Payment is only due on completion of the repair.',
       },
     ],
   },
