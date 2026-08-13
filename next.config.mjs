@@ -86,6 +86,41 @@ const nextConfig = {
         destination: '/blog/slow-laptop-home-office-checklist',
         permanent: true,
       },
+      // Second batch of the same retired family, reported as live 404s in
+      // Search Console on 2026-08-13. Same rule as above: closest surviving
+      // match on intent, never the homepage.
+      {
+        // Dell, so the PC-oriented grinding guide — exactly as the MacBook Pro
+        // grinding slug above points at the same article.
+        source: '/blog/dell-xps-making-a-loud-grinding-sound-quick-fixes',
+        destination: '/blog/pc-making-loud-grinding-noise',
+        permanent: true,
+      },
+      {
+        // Spill over the whole machine, so the broad "first 30 minutes"
+        // article. Both surviving liquid guides are laptop-generic rather than
+        // Mac-specific, so either fits a Dell; this is the closer one on intent.
+        source: '/blog/dell-xps-spilled-coffee-over-it-for-students',
+        destination: '/blog/water-damaged-laptop-first-steps',
+        permanent: true,
+      },
+      {
+        // Coffee over the keyboard, so the keyboard-spill article.
+        source: '/blog/macbook-air-spilled-coffee-over-it-before-you-panic',
+        destination: '/blog/spilled-water-on-keyboard-what-not-to-do',
+        permanent: true,
+      },
+      // The retired auto-generated family was exactly 90 slugs (10 devices ×
+      // 9 faults; see lib/generated_blogs.json before commit 6808448). Six are
+      // redirected above because Search Console showed Google crawling them.
+      // THE REMAINING 84 ARE MEANT TO 404. They are in no sitemap, have no
+      // internal links, and no honest destination exists for most of them —
+      // 10 are combos that never made sense (console "keys sticking"), the
+      // whole usb-ports-not-responding fault has no surviving article, and the
+      // flickering/sticking guides that did survive are Mac-only. A "Not found"
+      // row in Search Console for one of these is Google confirming the intent,
+      // not a defect to clear. Only add a redirect here if GSC shows a real
+      // referring page or non-zero impressions for that specific slug.
       { source: '/blank-5', destination: '/contact', permanent: true },
       { source: '/blank', destination: '/', permanent: true },
       { source: '/hardware-repair', destination: '/macbook-repair-london', permanent: true },
