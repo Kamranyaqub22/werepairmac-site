@@ -62,6 +62,35 @@ async function gh<T>(
 
   if (!res.ok) {
     const detail = await res.text();
+
+    // Every write in this file — blobs, trees, commits, refs — needs the
+    // fine-grained token's "Contents" permission set to Read and write.
+    // Read-only still satisfies the reads, so the token looks fine until the
+    // first publish and then fails with a message that names no permission.
+    if (res.status === 403 && /not accessible by personal access token/i.test(detail)) {
+      throw new PublishError(
+        'GitHub rejected the write. The token can read this repo but not write to it — ' +
+          'set its Contents permission to "Read and write" (Settings → Developer settings → ' +
+          'Fine-grained tokens → your token → Repository permissions → Contents).'
+      );
+    }
+    if (res.status === 401) {
+      throw new PublishError(
+        'GitHub rejected the token. It may have expired or been revoked — issue a new one and update GITHUB_TOKEN.'
+      );
+    }
+    if (res.status === 404) {
+      throw new PublishError(
+        `GitHub could not find ${cfg.owner}/${cfg.repo}. Check GITHUB_REPO, and that the token's ` +
+          'repository access includes this repo (a 404 here usually means no access rather than no repo).'
+      );
+    }
+    if (res.status === 422 && path.startsWith('/git/refs')) {
+      throw new PublishError(
+        'Someone pushed to the branch while this was publishing. Nothing was lost — try again.'
+      );
+    }
+
     throw new PublishError(
       `GitHub ${init?.method ?? 'GET'} ${path} failed (${res.status}). ${detail.slice(0, 300)}`
     );
