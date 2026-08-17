@@ -13,7 +13,8 @@ import type { CaseStudy } from '@/lib/caseStudies';
 import type { RepairDraft } from '@/lib/repairDraft';
 
 export const runtime = 'nodejs';
-export const maxDuration = 300;
+// See the note in the draft route — 60s is the Hobby-plan ceiling.
+export const maxDuration = 60;
 
 const MAX_PHOTOS = 6;
 const MAX_BYTES = 4 * 1024 * 1024;

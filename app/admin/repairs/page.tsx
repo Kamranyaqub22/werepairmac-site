@@ -44,6 +44,39 @@ type Stage = 'auth' | 'capture' | 'review' | 'done';
 const MAX_UPLOAD_WIDTH = 1800;
 
 /**
+ * Read an API response without assuming it is JSON.
+ *
+ * Not every response to these endpoints comes from our own code: a function
+ * timeout, a body-size rejection or a bot-protection challenge all return HTML
+ * from Vercel's edge. Calling `.json()` on those throws a parser error — in
+ * Safari, "The string did not match the expected pattern" — which tells the
+ * operator nothing about what actually went wrong and hides the status code
+ * that would.
+ */
+async function readJson(res: Response): Promise<Record<string, unknown>> {
+  const body = await res.text();
+
+  try {
+    return JSON.parse(body) as Record<string, unknown>;
+  } catch {
+    if (res.status === 504 || /timeout|FUNCTION_INVOCATION_TIMEOUT/i.test(body)) {
+      throw new Error(
+        'The server took too long and gave up (60s limit). Try again with fewer photos.'
+      );
+    }
+    if (res.status === 413) {
+      throw new Error('Those photos were too large for the server to accept.');
+    }
+    if (res.status === 401 || res.status === 403) {
+      throw new Error('Your session expired, or the request was blocked. Reload and sign in again.');
+    }
+    throw new Error(
+      `The server returned ${res.status} rather than a result. ${body.slice(0, 120).replace(/<[^>]*>/g, ' ').trim()}`
+    );
+  }
+}
+
+/**
  * Decode, downscale and re-encode a photo to JPEG in the browser before it is
  * uploaded. Three separate reasons this happens client-side rather than on the
  * server:
@@ -142,8 +175,8 @@ export default function AdminRepairsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Sign-in failed.');
+      const data = await readJson(res);
+      if (!res.ok) throw new Error(String(data.error ?? 'Sign-in failed.'));
       setPassword('');
       setStage('capture');
     } catch (err) {
@@ -163,9 +196,9 @@ export default function AdminRepairsPage() {
       files.forEach((f) => body.append('photos', f));
 
       const res = await fetch('/api/admin/repairs/draft', { method: 'POST', body });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Drafting failed.');
-      setDraft(data.draft);
+      const data = await readJson(res);
+      if (!res.ok) throw new Error(String(data.error ?? 'Drafting failed.'));
+      setDraft(data.draft as Draft);
       setStage('review');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Drafting failed.');
@@ -184,9 +217,9 @@ export default function AdminRepairsPage() {
       files.forEach((f) => body.append('photos', f));
 
       const res = await fetch('/api/admin/repairs/publish', { method: 'POST', body });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Publishing failed.');
-      setResult({ url: data.url, commitUrl: data.commitUrl });
+      const data = await readJson(res);
+      if (!res.ok) throw new Error(String(data.error ?? 'Publishing failed.'));
+      setResult({ url: String(data.url), commitUrl: String(data.commitUrl) });
       setStage('done');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Publishing failed.');

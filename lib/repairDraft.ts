@@ -183,14 +183,24 @@ export async function draftRepair(
 
   const response = await client.beta.messages.create({
     model: 'claude-opus-5',
-    max_tokens: 16000,
+    // The output is one small JSON object; 16k was headroom this never uses,
+    // and a tighter cap bounds the worst case inside the 60s function budget.
+    max_tokens: 4000,
     // A safety classifier can decline a request; without a fallback the
     // owner's publish flow would just stop. This re-runs a declined request on
     // Anthropic's recommended substitute inside the same call.
     betas: ['server-side-fallback-2026-07-01'],
     fallbacks: 'default',
     system: SYSTEM_PROMPT,
-    output_config: { format: { type: 'json_schema', schema: DRAFT_SCHEMA } },
+    output_config: {
+      format: { type: 'json_schema', schema: DRAFT_SCHEMA },
+      // Opus 5 defaults to `high`, which on a task this bounded spends
+      // thinking time we cannot afford — the whole request must land inside
+      // a 60s function. `medium` holds up here: judging what a photo does
+      // and does not show is a discrimination task, not a depth-of-reasoning
+      // one.
+      effort: 'medium',
+    },
     messages: [
       {
         role: 'user',

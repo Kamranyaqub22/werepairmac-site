@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import sharp from 'sharp';
 import { requireAdmin } from '@/lib/adminAuth';
 import { draftRepair, RepairDraftError, type DraftPhoto } from '@/lib/repairDraft';
 
 export const runtime = 'nodejs';
-// Opus 5 thinks before answering and reads several images; the platform default
-// would cut a normal draft off partway.
-export const maxDuration = 300;
+// 60s is the ceiling on Vercel's Hobby plan. Asking for more does not raise it
+// — the value is clamped and the function is still killed at 60s, returning an
+// HTML timeout page rather than JSON. Stating the real limit here keeps this
+// file honest about the budget the work below has to fit inside.
+export const maxDuration = 60;
 
 // The Claude vision API accepts exactly these. HEIC is absent deliberately —
 // it is not supported there, so the browser converts to JPEG before upload
@@ -17,6 +20,16 @@ const MAX_BYTES = 4 * 1024 * 1024;
 // so the meaningful limit is the total, not the per-file size. The client sends
 // downscaled JPEGs a few hundred KB each; this is the backstop.
 const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
+/**
+ * Width of the copies sent to the model — deliberately smaller than the 1800px
+ * we publish.
+ *
+ * Image tokens scale with resolution, and prefill time scales with tokens. The
+ * questions being asked of these photos ("is that battery swollen", "is there
+ * corrosion on the board") are answerable at 1024px, so the extra detail buys
+ * nothing here and costs seconds we do not have inside a 60s function.
+ */
+const MODEL_IMAGE_WIDTH = 1024;
 
 export async function POST(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -70,10 +83,14 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const shrunk = await sharp(Buffer.from(await file.arrayBuffer()))
+      .resize({ width: MODEL_IMAGE_WIDTH, withoutEnlargement: true })
+      .jpeg({ quality: 80 })
+      .toBuffer();
+
     photos.push({
-      data: buffer.toString('base64'),
-      mediaType: file.type as DraftPhoto['mediaType'],
+      data: shrunk.toString('base64'),
+      mediaType: 'image/jpeg',
     });
   }
 
