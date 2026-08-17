@@ -40,6 +40,59 @@ interface Draft {
 
 type Stage = 'auth' | 'capture' | 'review' | 'done';
 
+/** Matches MAX_WIDTH in the publish route — no point uploading more detail than we keep. */
+const MAX_UPLOAD_WIDTH = 1800;
+
+/**
+ * Decode, downscale and re-encode a photo to JPEG in the browser before it is
+ * uploaded. Three separate reasons this happens client-side rather than on the
+ * server:
+ *
+ * 1. iPhones shoot HEIC, and the Claude vision API does not accept it. Neither
+ *    does sharp's prebuilt binary, which ships without an HEVC decoder — so the
+ *    server genuinely cannot do this conversion. Safari decodes HEIC natively,
+ *    so the browser can.
+ * 2. Vercel caps a serverless request body at 4.5MB. Six untouched iPhone
+ *    photos are several times that and would 413 before any of our code ran.
+ * 3. It makes the upload fast on mobile data — a ~5MB original becomes a few
+ *    hundred KB.
+ *
+ * Re-encoding through a canvas also drops EXIF, so the customer's GPS
+ * coordinates never leave the phone.
+ */
+async function prepareImage(file: File): Promise<File> {
+  let bitmap: ImageBitmap;
+  try {
+    // `from-image` applies the EXIF rotation before we discard the metadata,
+    // so portrait photos don't come out sideways.
+    bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+  } catch {
+    throw new Error(
+      `This browser can't read "${file.name}". If it's a HEIC from an iPhone, open it in Photos and share it as a JPEG, or use Safari.`
+    );
+  }
+
+  const scale = Math.min(1, MAX_UPLOAD_WIDTH / bitmap.width);
+  const width = Math.round(bitmap.width * scale);
+  const height = Math.round(bitmap.height * scale);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Could not process the image in this browser.');
+  ctx.drawImage(bitmap, 0, 0, width, height);
+  bitmap.close();
+
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, 'image/jpeg', 0.85)
+  );
+  if (!blob) throw new Error(`Could not convert "${file.name}".`);
+
+  const name = file.name.replace(/\.[^.]+$/, '') || 'photo';
+  return new File([blob], `${name}.jpg`, { type: 'image/jpeg' });
+}
+
 const VISIT_LABELS: Record<Draft['visitType'], string> = {
   'on-site': 'Fixed on site',
   workshop: 'Collected and returned',
@@ -56,9 +109,28 @@ export default function AdminRepairsPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [draft, setDraft] = useState<Draft | null>(null);
   const [result, setResult] = useState<{ url: string; commitUrl: string } | null>(null);
+  const [preparing, setPreparing] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
 
   const previews = files.map((f) => URL.createObjectURL(f));
+
+  async function onFilesChosen(chosen: File[]) {
+    setError('');
+    setPreparing(true);
+    try {
+      const prepared: File[] = [];
+      for (const file of chosen.slice(0, 6)) {
+        prepared.push(await prepareImage(file));
+      }
+      setFiles(prepared);
+    } catch (err) {
+      setFiles([]);
+      if (fileInput.current) fileInput.current.value = '';
+      setError(err instanceof Error ? err.message : 'Could not read those photos.');
+    } finally {
+      setPreparing(false);
+    }
+  }
 
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
@@ -183,15 +255,29 @@ export default function AdminRepairsPage() {
               <input
                 ref={fileInput}
                 type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif"
+                // HEIC is listed explicitly or the iOS picker greys out camera
+                // roll photos. It is converted to JPEG before upload.
+                accept="image/*,.heic,.heif"
                 multiple
-                onChange={(e) => setFiles(Array.from(e.target.files ?? []).slice(0, 6))}
+                onChange={(e) => onFilesChosen(Array.from(e.target.files ?? []))}
                 className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm"
               />
               <span className="block text-xs text-gray-500 mt-2">
-                Up to 6. Check for serial numbers, screen contents and anything identifying the
-                customer&apos;s home before uploading.
+                Up to 6, straight from the camera roll — iPhone HEIC is fine. Check for serial
+                numbers, screen contents and anything identifying the customer&apos;s home
+                before uploading.
               </span>
+              {preparing && (
+                <span className="block text-xs text-brand font-semibold mt-2">
+                  Preparing photos…
+                </span>
+              )}
+              {!preparing && files.length > 0 && (
+                <span className="block text-xs text-gray-500 mt-2">
+                  {files.length} photo{files.length > 1 ? 's' : ''} ready (
+                  {Math.round(files.reduce((n, f) => n + f.size, 0) / 1024)} KB total)
+                </span>
+              )}
             </label>
 
             {previews.length > 0 && (
@@ -228,7 +314,7 @@ export default function AdminRepairsPage() {
 
             <button
               type="submit"
-              disabled={busy || files.length === 0}
+              disabled={busy || preparing || files.length === 0}
               className="btn-primary w-full justify-center"
             >
               {busy ? 'Reading the photos…' : 'Write the draft'}

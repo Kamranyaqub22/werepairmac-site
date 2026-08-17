@@ -7,9 +7,16 @@ export const runtime = 'nodejs';
 // would cut a normal draft off partway.
 export const maxDuration = 300;
 
+// The Claude vision API accepts exactly these. HEIC is absent deliberately —
+// it is not supported there, so the browser converts to JPEG before upload
+// (see prepareImage in app/admin/repairs/page.tsx).
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'] as const;
 const MAX_PHOTOS = 6;
-const MAX_BYTES = 8 * 1024 * 1024;
+const MAX_BYTES = 4 * 1024 * 1024;
+// Vercel rejects a serverless request body over 4.5MB before any of this runs,
+// so the meaningful limit is the total, not the per-file size. The client sends
+// downscaled JPEGs a few hundred KB each; this is the backstop.
+const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
 
 export async function POST(req: NextRequest) {
   const denied = requireAdmin(req);
@@ -41,6 +48,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const total = uploads.reduce((n, f) => n + f.size, 0);
+  if (total > MAX_TOTAL_BYTES) {
+    return NextResponse.json(
+      { error: 'Those photos are too large in total. Try fewer at once.' },
+      { status: 413 }
+    );
+  }
+
   const photos: DraftPhoto[] = [];
   for (const file of uploads) {
     if (!ALLOWED_TYPES.includes(file.type as (typeof ALLOWED_TYPES)[number])) {
@@ -51,7 +66,7 @@ export async function POST(req: NextRequest) {
     }
     if (file.size > MAX_BYTES) {
       return NextResponse.json(
-        { error: `${file.name} is over 8MB — shrink it first.` },
+        { error: `${file.name} is too large.` },
         { status: 400 }
       );
     }

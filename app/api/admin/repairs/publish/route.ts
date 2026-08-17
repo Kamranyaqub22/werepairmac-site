@@ -16,7 +16,10 @@ export const runtime = 'nodejs';
 export const maxDuration = 300;
 
 const MAX_PHOTOS = 6;
-const MAX_BYTES = 8 * 1024 * 1024;
+const MAX_BYTES = 4 * 1024 * 1024;
+// See the note in the draft route: Vercel's 4.5MB body cap makes the total the
+// limit that actually binds.
+const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
 /** Wide enough for the 896px hero at 2x; anything larger only bloats the repo. */
 const MAX_WIDTH = 1800;
 
@@ -81,6 +84,12 @@ export async function POST(req: NextRequest) {
   if (uploads.length > MAX_PHOTOS) {
     return NextResponse.json({ error: `Up to ${MAX_PHOTOS} photos.` }, { status: 400 });
   }
+  if (uploads.reduce((n, f) => n + f.size, 0) > MAX_TOTAL_BYTES) {
+    return NextResponse.json(
+      { error: 'Those photos are too large in total. Try fewer at once.' },
+      { status: 413 }
+    );
+  }
 
   try {
     const existing = await fetchCaseStudiesJson();
@@ -109,15 +118,15 @@ export async function POST(req: NextRequest) {
       const file = uploads[i];
       if (file.size > MAX_BYTES) {
         return NextResponse.json(
-          { error: `${file.name} is over 8MB — shrink it first.` },
+          { error: `${file.name} is too large.` },
           { status: 400 }
         );
       }
 
-      // Re-encode rather than commit the phone's original: an 8MB HEIC-converted
-      // JPEG in git is permanent, and the page only ever renders ~900px wide.
-      // Re-encoding also strips EXIF, which on a phone photo carries the GPS
-      // coordinates of the customer's home.
+      // The browser already downscaled and stripped EXIF (see prepareImage).
+      // This second pass is the backstop for anything that reaches the endpoint
+      // another way: it normalises to JPEG at a known width and quality, so a
+      // large image can never be committed to the repo permanently.
       const optimised = await sharp(Buffer.from(await file.arrayBuffer()))
         .rotate()
         .resize({ width: MAX_WIDTH, withoutEnlargement: true })
