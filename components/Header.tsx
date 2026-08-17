@@ -11,7 +11,18 @@ const servicesByCategory = SERVICE_CATEGORIES.map((category) => ({
   items: services.filter((s) => s.category === category),
 }));
 
-export default function Header() {
+interface HeaderProps {
+  /**
+   * Whether to surface the "Real Repairs" nav item. Passed in from the server
+   * layout rather than read here: this is a client component, and importing
+   * lib/caseStudies would drag lib/locations (~75KB of copy) into the client
+   * bundle to answer a boolean. It also keeps the link out of the nav entirely
+   * while /repairs has no entries and 404s.
+   */
+  showRepairs?: boolean;
+}
+
+export default function Header({ showRepairs = false }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
@@ -118,6 +129,9 @@ export default function Header() {
             <Link href="/areas-we-cover" className="hover:text-brand transition-colors">Areas We Cover</Link>
             <Link href="/care-plans" className="hover:text-brand transition-colors">Care Plans</Link>
             <Link href="/about" className="hover:text-brand transition-colors">About</Link>
+            {showRepairs && (
+              <Link href="/repairs" className="hover:text-brand transition-colors">Real Repairs</Link>
+            )}
             <Link href="/blog" className="hover:text-brand transition-colors">Blog</Link>
             <Link href="/faqs" className="hover:text-brand transition-colors">FAQs</Link>
             <Link href="/contact" className="hover:text-brand transition-colors">Contact</Link>
@@ -180,6 +194,9 @@ export default function Header() {
               <Link href="/areas-we-cover" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Areas We Cover</Link>
               <Link href="/care-plans" onClick={() => setMenuOpen(false)} className="py-2.5 font-semibold text-brand hover:text-brand-dark">Care Plans</Link>
               <Link href="/about" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">About</Link>
+              {showRepairs && (
+                <Link href="/repairs" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Real Repairs</Link>
+              )}
               <Link href="/blog" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Blog</Link>
               <Link href="/faqs" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">FAQs</Link>
               <Link href="/contact" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand">Contact</Link>

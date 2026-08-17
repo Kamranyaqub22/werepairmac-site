@@ -48,14 +48,47 @@ const warn = (check, detail) => warns.push({ check, detail });
 
 // ─── Load the built pages ────────────────────────────────────────────────────
 
+/**
+ * Next writes a sidecar `<page>.meta` next to each prerendered `<page>.html`
+ * carrying the real HTTP status. A route that calls notFound() at build time
+ * still emits an .html file, but it is the error shell and it serves 404 — it
+ * has no H1, no canonical and ~10 words, so auditing it produces three
+ * guaranteed failures about a page no crawler will ever index. Anything that
+ * does not answer 200 is not a page for SEO purposes, so skip it.
+ */
+/**
+ * A page that tells crawlers not to index it will never appear in a search
+ * result, so title length, canonical target, uniqueness and word count are all
+ * meaningless for it. Auditing one produces guaranteed failures about a page
+ * that is working exactly as intended — /admin and /review are both noindex by
+ * design. Detect it from the rendered robots meta rather than a hardcoded slug
+ * list, so a new noindex page never has to be remembered here.
+ */
+function isNoindex(html) {
+  const meta = html.match(/<meta[^>]+name="robots"[^>]*>/i)?.[0];
+  return Boolean(meta && /content="[^"]*\bnoindex\b/i.test(meta));
+}
+
+function servesOk(htmlPath) {
+  const metaPath = `${htmlPath.slice(0, -5)}.meta`;
+  if (!existsSync(metaPath)) return true;
+  try {
+    const { status } = JSON.parse(readFileSync(metaPath, 'utf8'));
+    return status === undefined || status === 200;
+  } catch {
+    return true;
+  }
+}
+
 function collect(dir, prefix = '') {
   const out = new Map();
   for (const entry of readdirSync(dir)) {
     const full = path.join(dir, entry);
     if (statSync(full).isDirectory()) {
       for (const [k, v] of collect(full, `${prefix}${entry}/`)) out.set(k, v);
-    } else if (entry.endsWith('.html')) {
-      out.set(prefix + entry.slice(0, -5), readFileSync(full, 'utf8'));
+    } else if (entry.endsWith('.html') && servesOk(full)) {
+      const html = readFileSync(full, 'utf8');
+      if (!isNoindex(html)) out.set(prefix + entry.slice(0, -5), html);
     }
   }
   return out;

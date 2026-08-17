@@ -3,6 +3,7 @@ import { getAllBlogPosts } from '@/lib/blog';
 import { services } from '@/lib/services';
 import { locations } from '@/lib/locations';
 import { serviceLocationSlugs, getServiceLocation } from '@/lib/serviceLocations';
+import { getAllCaseStudies, hasCaseStudies } from '@/lib/caseStudies';
 import { contentDate } from '@/lib/contentDates';
 
 // `changeFrequency` is deliberately omitted throughout: Google has confirmed it
@@ -77,5 +78,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...servicePages, ...locationPages, ...serviceLocationPages, ...blogPosts];
+  // Real repair case studies. High priority for their number: they are the only
+  // pages carrying first-hand photographs of our own work, which is exactly the
+  // evidence the rest of the site cannot supply. Both the index and the entries
+  // stay out of the sitemap entirely until at least one is written, because
+  // /repairs 404s while the set is empty.
+  const caseStudyPages: MetadataRoute.Sitemap = hasCaseStudies()
+    ? [
+        {
+          url: `${base}/repairs`,
+          lastModified: new Date(
+            Math.max(
+              ...getAllCaseStudies().map((c) =>
+                new Date(c.updatedAt ?? c.publishedAt).getTime()
+              )
+            )
+          ),
+          priority: 0.8,
+        },
+        ...getAllCaseStudies().map((caseStudy) => ({
+          url: `${base}/repairs/${caseStudy.slug}`,
+          lastModified: new Date(caseStudy.updatedAt ?? caseStudy.publishedAt),
+          priority: 0.8,
+        })),
+      ]
+    : [];
+
+  return [
+    ...staticPages,
+    ...servicePages,
+    ...locationPages,
+    ...serviceLocationPages,
+    ...blogPosts,
+    ...caseStudyPages,
+  ];
 }

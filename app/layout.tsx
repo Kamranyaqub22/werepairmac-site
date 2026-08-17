@@ -7,6 +7,7 @@ import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import MobileCTABar from '@/components/MobileCTABar';
 import CookieConsent from '@/components/CookieConsent';
+import { hasCaseStudies } from '@/lib/caseStudies';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -86,7 +87,7 @@ export default function RootLayout({
         <meta name="ICBM" content="51.404, -0.257" />
       </head>
       <body>
-        <Header />
+        <Header showRepairs={hasCaseStudies()} />
         <main>{children}</main>
         <Footer />
         {/* Spacer so the fixed mobile bar never hides the footer's last row */}

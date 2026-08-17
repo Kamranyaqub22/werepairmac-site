@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { services } from '@/lib/services';
 import { locations } from '@/lib/locations';
+import { hasCaseStudies } from '@/lib/caseStudies';
 import { PhoneIcon, MailIcon, MapPinIcon, FacebookIcon } from '@/components/Icons';
 import { FACEBOOK_URL } from '@/lib/social';
 
@@ -137,6 +138,9 @@ export default function Footer() {
             <li><Link href="/care-plans" className="hover:text-white transition-colors">Care Plans</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
             <li><Link href="/why-choose-us" className="hover:text-white transition-colors">Why Choose Us</Link></li>
+            {hasCaseStudies() && (
+              <li><Link href="/repairs" className="hover:text-white transition-colors">Real Repairs</Link></li>
+            )}
             <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
             <li><Link href="/faqs" className="hover:text-white transition-colors">FAQs</Link></li>
             <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
