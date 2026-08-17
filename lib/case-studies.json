@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "slug": "imac-ssd-upgrade-dust-clean-earls-court",
+    "title": "iMac 21-inch (2015): SSD upgrade and full dust clean",
+    "metaTitle": "iMac 21-inch SSD Upgrade & Dust Clean",
+    "excerpt": "A 2015 21-inch iMac from a customer in Earl's Court came in for an SSD upgrade and internal clean. We fitted a Crucial BX SSD, cleared heavy dust from the fan and vents, and returned it on the latest macOS within 24 hours.",
+    "locationSlug": "earls-court",
+    "serviceSlug": "imac-repair-london",
+    "device": "iMac 21-inch (2015)",
+    "fault": "Wanted an SSD upgrade and a clean-out",
+    "visitType": "workshop",
+    "turnaround": "24 hours",
+    "partsUsed": [
+      "Crucial BX-series SSD 500GB"
+    ],
+    "photos": [
+      {
+        "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-1.jpg",
+        "alt": "Cooling fan removed from an iMac, held in hand, with a thick layer of dust caked along the intake edge",
+        "caption": "The fan intake was matted with dust."
+      },
+      {
+        "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-2.jpg",
+        "alt": "iMac opened with the display panel lifted away, showing the logic board, power supply and a Crucial SSD fitted next to the fan",
+        "caption": "Inside the 21-inch iMac with the new SSD in place."
+      },
+      {
+        "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-3.jpg",
+        "alt": "Close-up of the reinstalled iMac fan next to a Crucial BX SSD mounted in the drive bay"
+      },
+      {
+        "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-4.jpg",
+        "alt": "Reassembled iMac powered on and showing the macOS lock screen",
+        "caption": "Back together and booting on the latest macOS."
+      }
+    ],
+    "theCall": "A customer in Earl's Court asked about upgrading the storage in their 21-inch iMac and having the machine serviced at the same time. We collected it and did the work at the bench.",
+    "diagnosis": [
+      "The iMac is a 2015 21-inch model, opened by releasing the display panel to reach the logic board and drive bay.",
+      "With the fan out, the intake edge was packed with a thick mat of dust and lint — visible in the first photo."
+    ],
+    "theRepair": [
+      "Removed the display panel and lifted out the cooling fan.",
+      "Cleaned the dust from the fan intake and the internal vents.",
+      "Fitted a Crucial BX SSD in place of the original drive.",
+      "Reassembled the machine and refitted the display panel.",
+      "Installed the latest version of macOS and tested the machine before return."
+    ],
+    "outcome": "The iMac went back to the customer within 24 hours, running on the new SSD with the latest macOS installed and the cooling path clear. As with all our work, it carries a 90-day warranty and our no-fix-no-fee position applies.",
+    "publishedAt": "2026-08-17"
+  }
+]
