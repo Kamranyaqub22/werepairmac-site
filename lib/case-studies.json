@@ -97,5 +97,57 @@
     ],
     "outcome": "The customer has had no more mid-game shutdowns since the service. The work is covered by our 90-day warranty, and if we can't fix a fault there's no fee.",
     "publishedAt": "2026-08-18"
+  },
+  {
+    "slug": "macbook-pro-battery-replacement-a1398-richmond",
+    "title": "MacBook Pro 15-inch (A1398) shutting down mid-work — battery replaced and fans cleaned",
+    "metaTitle": "MacBook Pro A1398 Battery Replacement",
+    "excerpt": "A 2015 15-inch MacBook Pro in Richmond was shutting down mid-work with a battery service warning. We fitted a new genuine Apple battery and cleaned the clogged fans.",
+    "metaDescription": "MacBook Pro 15-inch A1398 in Richmond shutting down mid-work with a battery service error. New genuine Apple battery fitted and clogged fans cleaned out.",
+    "locationSlug": "richmond",
+    "serviceSlug": "macbook-battery-replacement-london",
+    "device": "MacBook Pro 15-inch 2015 (A1398)",
+    "fault": "Shutting down mid-work with a battery service warning",
+    "visitType": "on-site",
+    "turnaround": "1 hour",
+    "partsUsed": [
+      "Genuine Apple battery for MacBook Pro 15-inch 2015 (A1398)"
+    ],
+    "photos": [
+      {
+        "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-1.jpg",
+        "alt": "System Information Power pane on a MacBook Pro showing battery model, charge and health information with condition Normal",
+        "caption": "Battery reporting after the replacement — condition Normal and charging."
+      },
+      {
+        "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-2.jpg",
+        "alt": "MacBook Pro 15-inch with the bottom case removed, showing the logic board, two fans and the battery cells in place",
+        "caption": "New Battery Installed"
+      },
+      {
+        "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-3.jpg",
+        "alt": "MacBook Pro top case with the battery removed, showing adhesive strips and dust and lint built up around the fans and heatsink",
+        "caption": "With the battery out, the dust build-up around the fans is clear."
+      },
+      {
+        "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-4.jpg",
+        "alt": "MacBook Pro internals with battery cells fitted, dust and lint visible on the fans and board",
+        "caption": "Old battery and clogged fans"
+      }
+    ],
+    "theCall": "A customer in Richmond got in touch about a 15-inch MacBook Pro that kept shutting down in the middle of work. macOS was also showing a battery service error. They asked us to look at it where the machine was being used.",
+    "diagnosis": [
+      "The machine was shutting down mid-use and reporting a battery service error, so the battery was condemned.",
+      "With the bottom case off, the internals were heavy with dust and lint — the fan intakes and heatsink areas are visibly clogged in the photos."
+    ],
+    "theRepair": [
+      "Opened the bottom case and disconnected the battery.",
+      "Removed the old battery pack from the top case.",
+      "Cleaned the dust and lint out of both fans and the surrounding heatsink and vent areas.",
+      "Fitted a new genuine Apple battery for the 15-inch 2015 MacBook Pro and reconnected it.",
+      "Reassembled and checked the battery reporting in System Information — condition reading Normal and charging correctly."
+    ],
+    "outcome": "The MacBook Pro went back to the customer in Richmond holding charge and no longer shutting down mid-work, with the cooling cleaned out so it runs cooler under load. The battery and the work carry our 90-day warranty, and we work no-fix-no-fee.",
+    "publishedAt": "2026-08-18"
   }
 ]
