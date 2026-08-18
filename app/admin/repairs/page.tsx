@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { locations } from '@/lib/locations';
 import { services } from '@/lib/services';
 
@@ -40,8 +40,25 @@ interface Draft {
 
 type Stage = 'auth' | 'capture' | 'review' | 'done';
 
-/** Matches MAX_WIDTH in the publish route — no point uploading more detail than we keep. */
-const MAX_UPLOAD_WIDTH = 1800;
+/**
+ * Cap on the image's LONG edge, whichever way round it is.
+ *
+ * Capping width instead is the obvious-looking mistake: a portrait photo is
+ * narrow, so a width cap barely scales it down. A 3024x4032 phone shot capped
+ * to 1800 wide comes out 1800x2400 — 4.3 megapixels, nearly double a landscape
+ * shot capped the same way, and big enough that the "converted" file is still
+ * about a megabyte. Bench photos of a laptop are usually portrait, so that was
+ * the common case, not the edge case.
+ */
+const MAX_UPLOAD_EDGE = 1800;
+
+/** Matches MAX_PHOTOS in both API routes. */
+const MAX_PHOTOS = 6;
+
+function formatBytes(bytes: number): string {
+  if (bytes >= 1024 * 1024) return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  return `${Math.round(bytes / 1024)} KB`;
+}
 
 /**
  * Read an API response without assuming it is JSON.
@@ -105,7 +122,7 @@ async function prepareImage(file: File): Promise<File> {
     );
   }
 
-  const scale = Math.min(1, MAX_UPLOAD_WIDTH / bitmap.width);
+  const scale = Math.min(1, MAX_UPLOAD_EDGE / Math.max(bitmap.width, bitmap.height));
   const width = Math.round(bitmap.width * scale);
   const height = Math.round(bitmap.height * scale);
 
@@ -118,9 +135,13 @@ async function prepareImage(file: File): Promise<File> {
   bitmap.close();
 
   const blob = await new Promise<Blob | null>((resolve) =>
-    canvas.toBlob(resolve, 'image/jpeg', 0.85)
+    canvas.toBlob(resolve, 'image/jpeg', 0.82)
   );
-  if (!blob) throw new Error(`Could not convert "${file.name}".`);
+  if (!blob) {
+    // iOS returns null here when the canvas exceeds its area limit, which is
+    // the other way a "converted" photo can come back wrong.
+    throw new Error(`Could not convert "${file.name}" — try a smaller photo.`);
+  }
 
   const name = file.name.replace(/\.[^.]+$/, '') || 'photo';
   return new File([blob], `${name}.jpg`, { type: 'image/jpeg' });
@@ -143,21 +164,37 @@ export default function AdminRepairsPage() {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [result, setResult] = useState<{ url: string; commitUrl: string } | null>(null);
   const [preparing, setPreparing] = useState(false);
+  // Kept so the capture screen can show the before/after, which is the only way
+  // to tell from the phone that conversion actually happened.
+  const [originalBytes, setOriginalBytes] = useState(0);
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const previews = files.map((f) => URL.createObjectURL(f));
+  // Minted once per file set and revoked on replacement: building them inline
+  // re-created a blob URL on every render and never released any of them, which
+  // on a phone is a steady leak while you work through the review form.
+  const previews = useMemo(() => files.map((f) => URL.createObjectURL(f)), [files]);
+  useEffect(() => () => previews.forEach(URL.revokeObjectURL), [previews]);
 
   async function onFilesChosen(chosen: File[]) {
     setError('');
     setPreparing(true);
     try {
+      if (chosen.length > MAX_PHOTOS) {
+        // Previously the extras were dropped silently, so you could pick eight
+        // and never learn which two were missing.
+        setError(`Only the first ${MAX_PHOTOS} photos were used.`);
+      }
+      const take = chosen.slice(0, MAX_PHOTOS);
+      setOriginalBytes(take.reduce((n, f) => n + f.size, 0));
+
       const prepared: File[] = [];
-      for (const file of chosen.slice(0, 6)) {
+      for (const file of take) {
         prepared.push(await prepareImage(file));
       }
       setFiles(prepared);
     } catch (err) {
       setFiles([]);
+      setOriginalBytes(0);
       if (fileInput.current) fileInput.current.value = '';
       setError(err instanceof Error ? err.message : 'Could not read those photos.');
     } finally {
@@ -231,6 +268,7 @@ export default function AdminRepairsPage() {
   function reset() {
     setNote('');
     setFiles([]);
+    setOriginalBytes(0);
     setDraft(null);
     setResult(null);
     setError('');
@@ -307,8 +345,12 @@ export default function AdminRepairsPage() {
               )}
               {!preparing && files.length > 0 && (
                 <span className="block text-xs text-gray-500 mt-2">
-                  {files.length} photo{files.length > 1 ? 's' : ''} ready (
-                  {Math.round(files.reduce((n, f) => n + f.size, 0) / 1024)} KB total)
+                  {files.length} photo{files.length > 1 ? 's' : ''} ready —{' '}
+                  <span className="line-through">{formatBytes(originalBytes)}</span>{' '}
+                  <span className="font-semibold text-gray-700">
+                    {formatBytes(files.reduce((n, f) => n + f.size, 0))}
+                  </span>{' '}
+                  after converting
                 </span>
               )}
             </label>
