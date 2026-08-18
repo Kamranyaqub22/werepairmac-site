@@ -48,5 +48,54 @@
     ],
     "outcome": "The iMac went back to the customer within 24 hours, running on the new SSD with the latest macOS installed and the cooling path clear. As with all our work, it carries a 90-day warranty and our no-fix-no-fee position applies.",
     "publishedAt": "2026-08-17"
+  },
+  {
+    "slug": "ps5-overheating-shutdown-clean-liquid-metal-battersea",
+    "title": "PS5 shutting down mid-game: clogged heatsink and spread liquid metal",
+    "metaTitle": "PS5 Turning Off Mid-Game: Full Service",
+    "excerpt": "A PS5 near Wandsworth kept switching off during play. The heatsink and power supply were packed with dust and the liquid metal had spread, so we serviced it on site and topped the liquid metal up.",
+    "metaDescription": "PS5 turning off mid-game near Wandsworth: clogged heatsink, dusty PSU and spread liquid metal. Full on-site service and liquid metal top-up fixed it.",
+    "locationSlug": "battersea",
+    "serviceSlug": "ps5-hdmi-port-repair-london",
+    "device": "Sony PlayStation 5",
+    "fault": "turns off on its own mid-game",
+    "visitType": "on-site",
+    "turnaround": "Same day in 1 hour",
+    "partsUsed": [
+      "Liquid metal thermal compound"
+    ],
+    "photos": [
+      {
+        "src": "/images/repairs/ps5-overheating-shutdown-clean-liquid-metal-battersea-1.jpg",
+        "alt": "PS5 opened up on a bench showing the metal shielding, copper heat pipe and fan, all coated in grey dust",
+        "caption": "Console open on arrival — dust across the shielding and around the fan."
+      },
+      {
+        "src": "/images/repairs/ps5-overheating-shutdown-clean-liquid-metal-battersea-2.jpg",
+        "alt": "Heatsink assembly held in one hand, with thick felted dust matted between the fins and the copper heat pipes visible",
+        "caption": "The fin stack was blocked with matted dust."
+      },
+      {
+        "src": "/images/repairs/ps5-overheating-shutdown-clean-liquid-metal-battersea-3.jpg",
+        "alt": "PS5 outer case panel held up showing a line of caked dust along the vent, with the dusty fan visible in the chassis below",
+        "caption": "Dust caked along the intake vents on the case panel."
+      }
+    ],
+    "theCall": "A customer near Wandsworth got in touch about a PS5 that kept turning itself off part way through a game. It had been happening often enough that the console was unusable for longer sessions. We visited at his home to strip and service it there.",
+    "diagnosis": [
+      "With the console opened, the fan housing and internal shielding were heavily coated in dust — clearly visible as grey matting around the fan and across the chassis.",
+      "The heatsink fins were packed with felted dust, thick enough to block airflow through the fin stack.",
+      "The liquid metal on the APU had spread out from where it should sit, so heat transfer to the heatsink was no longer even.",
+      "Dust was also caked along the intake vents and inside the outer housing panels."
+    ],
+    "theRepair": [
+      "Removed the outer panels and shielding to get to the cooling assembly.",
+      "Cleaned the dust out of the heatsink fin stack and the fan housing with a brush.",
+      "Cleared the dust from the power supply area and the vent openings on the case panels.",
+      "Tidied and topped up the liquid metal on the processor before refitting the heatsink.",
+      "Reassembled the console and ran it under load to confirm it stayed on."
+    ],
+    "outcome": "The customer has had no more mid-game shutdowns since the service. The work is covered by our 90-day warranty, and if we can't fix a fault there's no fee.",
+    "publishedAt": "2026-08-18"
   }
 ]
