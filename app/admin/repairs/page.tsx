@@ -111,28 +111,45 @@ async function readJson(res: Response): Promise<Record<string, unknown>> {
  * coordinates never leave the phone.
  */
 async function prepareImage(file: File): Promise<File> {
-  let bitmap: ImageBitmap;
+  // Loaded through an <img> rather than createImageBitmap. The latter takes an
+  // `imageOrientation: 'from-image'` option that Safari accepts and then
+  // ignores — so a photo taken with the phone rotated came through in raw
+  // sensor orientation, and the canvas step then stripped the EXIF that would
+  // have let anything downstream correct it. The rotation was lost for good,
+  // and only for photos that needed it, which is why most looked fine.
+  //
+  // Browsers apply EXIF orientation to <img> by default (`image-orientation:
+  // from-image`), so naturalWidth/naturalHeight and the drawn pixels are both
+  // already upright. Safari also decodes HEIC here, which is why this still
+  // covers the iPhone case.
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.src = url;
   try {
-    // `from-image` applies the EXIF rotation before we discard the metadata,
-    // so portrait photos don't come out sideways.
-    bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    await img.decode();
   } catch {
+    URL.revokeObjectURL(url);
     throw new Error(
       `This browser can't read "${file.name}". If it's a HEIC from an iPhone, open it in Photos and share it as a JPEG, or use Safari.`
     );
   }
 
-  const scale = Math.min(1, MAX_UPLOAD_EDGE / Math.max(bitmap.width, bitmap.height));
-  const width = Math.round(bitmap.width * scale);
-  const height = Math.round(bitmap.height * scale);
+  const srcWidth = img.naturalWidth;
+  const srcHeight = img.naturalHeight;
+  const scale = Math.min(1, MAX_UPLOAD_EDGE / Math.max(srcWidth, srcHeight));
+  const width = Math.round(srcWidth * scale);
+  const height = Math.round(srcHeight * scale);
 
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('Could not process the image in this browser.');
-  ctx.drawImage(bitmap, 0, 0, width, height);
-  bitmap.close();
+  if (!ctx) {
+    URL.revokeObjectURL(url);
+    throw new Error('Could not process the image in this browser.');
+  }
+  ctx.drawImage(img, 0, 0, width, height);
+  URL.revokeObjectURL(url);
 
   const blob = await new Promise<Blob | null>((resolve) =>
     canvas.toBlob(resolve, 'image/jpeg', 0.82)

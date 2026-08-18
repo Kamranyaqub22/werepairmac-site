@@ -34,6 +34,17 @@ export interface CaseStudyPhoto {
   alt: string;
   /** Optional caption shown under the image. */
   caption?: string;
+  /**
+   * Pixel dimensions of the committed file, recorded at publish time.
+   *
+   * Without them the page has to guess an aspect ratio, which means a fixed-
+   * height box and `object-cover` — and cropping is exactly wrong for these
+   * photos. A 1800x2400 portrait shot of a dusty fan shown in a 320px-tall
+   * landscape box is a narrow band across the middle, with the thing the
+   * caption is pointing at cropped out.
+   */
+  width?: number;
+  height?: number;
 }
 
 export interface CaseStudy {

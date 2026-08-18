@@ -17,21 +17,29 @@
       {
         "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-1.jpg",
         "alt": "Cooling fan removed from an iMac, held in hand, with a thick layer of dust caked along the intake edge",
-        "caption": "The fan intake was matted with dust."
+        "caption": "The fan intake was matted with dust.",
+        "width": 1800,
+        "height": 2400
       },
       {
         "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-2.jpg",
         "alt": "iMac opened with the display panel lifted away, showing the logic board, power supply and a Crucial SSD fitted next to the fan",
-        "caption": "Inside the 21-inch iMac with the new SSD in place."
+        "caption": "Inside the 21-inch iMac with the new SSD in place.",
+        "width": 1800,
+        "height": 1350
       },
       {
         "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-3.jpg",
-        "alt": "Close-up of the reinstalled iMac fan next to a Crucial BX SSD mounted in the drive bay"
+        "alt": "Close-up of the reinstalled iMac fan next to a Crucial BX SSD mounted in the drive bay",
+        "width": 1800,
+        "height": 2400
       },
       {
         "src": "/images/repairs/imac-ssd-upgrade-dust-clean-earls-court-4.jpg",
         "alt": "Reassembled iMac powered on and showing the macOS lock screen",
-        "caption": "Back together and booting on the latest macOS."
+        "caption": "Back together and booting on the latest macOS.",
+        "width": 1800,
+        "height": 1350
       }
     ],
     "theCall": "A customer in Earl's Court asked about upgrading the storage in their 21-inch iMac and having the machine serviced at the same time. We collected it and did the work at the bench.",

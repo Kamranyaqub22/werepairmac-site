@@ -128,7 +128,7 @@ export async function POST(req: NextRequest) {
       // This second pass is the backstop for anything that reaches the endpoint
       // another way: it normalises to JPEG at a known width and quality, so a
       // large image can never be committed to the repo permanently.
-      const optimised = await sharp(Buffer.from(await file.arrayBuffer()))
+      const pipeline = sharp(Buffer.from(await file.arrayBuffer()))
         .rotate()
         // Bounds the long edge whichever way round the photo is — a width-only
         // cap leaves a portrait shot half again as tall as intended.
@@ -138,8 +138,12 @@ export async function POST(req: NextRequest) {
           fit: 'inside',
           withoutEnlargement: true,
         })
-        .jpeg({ quality: 82, mozjpeg: true })
-        .toBuffer();
+        .jpeg({ quality: 82, mozjpeg: true });
+
+      // `info` reports the dimensions actually written, after the resize — the
+      // page needs these to lay the photo out at its true aspect ratio instead
+      // of cropping it into a fixed box.
+      const { data: optimised, info } = await pipeline.toBuffer({ resolveWithObject: true });
 
       const path = `public/images/repairs/${slug}-${i + 1}.jpg`;
       files.push({ path, content: optimised.toString('base64'), encoding: 'base64' });
@@ -149,6 +153,8 @@ export async function POST(req: NextRequest) {
         src: `/images/repairs/${slug}-${i + 1}.jpg`,
         alt: caption?.alt?.trim() || `${draft.device} repair in ${location.name}`,
         ...(caption?.caption?.trim() ? { caption: caption.caption.trim() } : {}),
+        width: info.width,
+        height: info.height,
       });
     }
 

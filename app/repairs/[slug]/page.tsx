@@ -16,6 +16,11 @@ import { serviceLower } from '@/lib/services';
 import BreadcrumbSchema from '@/components/BreadcrumbSchema';
 import { ArrowRightIcon, PhoneIcon, CheckIcon } from '@/components/Icons';
 
+/** Portrait photos get a narrower column so they don't dominate the page. */
+function isPortrait(photo: { width?: number; height?: number }): boolean {
+  return Boolean(photo.width && photo.height && photo.height > photo.width);
+}
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -172,13 +177,25 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </dl>
 
           <figure className="mb-12">
-            <div className="relative h-[320px] sm:h-[420px] rounded-2xl overflow-hidden shadow-lg">
+            {/*
+              Laid out at the photo's own aspect ratio rather than cropped into
+              a fixed-height box. A portrait shot of a dusty fan lost the dust
+              to an object-cover crop, which is the one thing the picture is
+              there to show. Portrait images are held to a narrower column so a
+              4:3 upright photo does not run the length of the screen.
+            */}
+            <div
+              className={`relative rounded-2xl overflow-hidden shadow-lg ${
+                isPortrait(cover) ? 'max-w-md mx-auto' : ''
+              }`}
+            >
               <Image
                 src={cover.src}
                 alt={cover.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 896px) 100vw, 896px"
+                width={cover.width ?? 1800}
+                height={cover.height ?? 1350}
+                className="w-full h-auto"
+                sizes={isPortrait(cover) ? '(max-width: 448px) 100vw, 448px' : '(max-width: 896px) 100vw, 896px'}
                 priority
               />
             </div>
@@ -217,12 +234,13 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 <div className="grid sm:grid-cols-2 gap-5">
                   {morePhotos.map((photo) => (
                     <figure key={photo.src}>
-                      <div className="relative h-56 rounded-xl overflow-hidden border border-gray-100">
+                      <div className="rounded-xl overflow-hidden border border-gray-100">
                         <Image
                           src={photo.src}
                           alt={photo.alt}
-                          fill
-                          className="object-cover"
+                          width={photo.width ?? 1800}
+                          height={photo.height ?? 1350}
+                          className="w-full h-auto"
                           sizes="(max-width: 640px) 100vw, 440px"
                         />
                       </div>
