@@ -30,6 +30,7 @@ export interface RepairDraft {
   title: string;
   metaTitle: string;
   excerpt: string;
+  metaDescription: string;
   locationSlug: string;
   serviceSlug: string;
   device: string;
@@ -100,6 +101,10 @@ const DRAFT_SCHEMA = {
     title: { type: 'string' },
     metaTitle: { type: 'string', description: '44 characters or fewer' },
     excerpt: { type: 'string' },
+    metaDescription: {
+      type: 'string',
+      description: 'SERP description, 155 characters or fewer. Google truncates past that.',
+    },
     locationSlug: { type: 'string', enum: LOCATION_SLUGS },
     serviceSlug: { type: 'string', enum: SERVICE_SLUGS },
     device: { type: 'string', description: 'As specific as the evidence allows' },
@@ -147,6 +152,7 @@ const DRAFT_SCHEMA = {
     'title',
     'metaTitle',
     'excerpt',
+    'metaDescription',
     'locationSlug',
     'serviceSlug',
     'device',

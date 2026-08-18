@@ -130,7 +130,14 @@ export async function POST(req: NextRequest) {
       // large image can never be committed to the repo permanently.
       const optimised = await sharp(Buffer.from(await file.arrayBuffer()))
         .rotate()
-        .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+        // Bounds the long edge whichever way round the photo is — a width-only
+        // cap leaves a portrait shot half again as tall as intended.
+        .resize({
+          width: MAX_WIDTH,
+          height: MAX_WIDTH,
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
         .jpeg({ quality: 82, mozjpeg: true })
         .toBuffer();
 
@@ -151,6 +158,9 @@ export async function POST(req: NextRequest) {
       title: draft.title.trim(),
       ...(draft.metaTitle?.trim() ? { metaTitle: draft.metaTitle.trim() } : {}),
       excerpt: draft.excerpt.trim(),
+      ...(draft.metaDescription?.trim()
+        ? { metaDescription: draft.metaDescription.trim().slice(0, 155) }
+        : {}),
       locationSlug: location.slug,
       serviceSlug: service.slug,
       device: draft.device.trim(),

@@ -15,7 +15,7 @@ import { ArrowRightIcon, PhoneIcon } from '@/components/Icons';
 export const metadata: Metadata = {
   title: 'Real Repairs',
   description:
-    'Real Mac, laptop and console repairs we have carried out at customers’ homes and offices across South West London — the fault, the diagnosis, the parts and the result, photographed on the day.',
+    'Real Mac and laptop repairs across South West London — the fault, what we found, the parts fitted and the result, photographed on the day.',
   alternates: { canonical: 'https://www.werepairmac.co.uk/repairs' },
 };
 

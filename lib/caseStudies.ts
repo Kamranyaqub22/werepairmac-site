@@ -42,8 +42,15 @@ export interface CaseStudy {
   title: string;
   /** Short <title> — aim <= 44 chars, since the layout appends " | We Repair Mac". */
   metaTitle?: string;
-  /** One or two sentences used as the meta description and the card summary. */
+  /** One or two sentences shown on the page and on the index card. */
   excerpt: string;
+  /**
+   * SERP description, <= 155 chars. Separate from `excerpt` because the two
+   * have different masters: the excerpt should read well under the headline,
+   * while this is truncated by Google past ~155. Older entries predate the
+   * field — `caseStudyDescription()` falls back to a trimmed excerpt.
+   */
+  metaDescription?: string;
 
   /** Must match a slug in lib/locations.ts. */
   locationSlug: string;
@@ -199,6 +206,28 @@ export const VISIT_TYPE_LABEL: Record<CaseStudy['visitType'], string> = {
   workshop: 'Collected and returned',
   'on-site-then-workshop': 'Diagnosed on site, finished in the workshop',
 };
+
+/** Longest description Google will render before truncating. */
+const MAX_DESCRIPTION = 155;
+
+/**
+ * The description for a case study's <meta>, guaranteed to fit.
+ *
+ * Falls back to the excerpt trimmed at a word boundary, so an entry published
+ * before `metaDescription` existed still gets a clean description rather than
+ * one Google cuts mid-word.
+ */
+export function caseStudyDescription(caseStudy: CaseStudy): string {
+  const preferred = caseStudy.metaDescription?.trim();
+  if (preferred && preferred.length <= MAX_DESCRIPTION) return preferred;
+
+  const source = preferred || caseStudy.excerpt.trim();
+  if (source.length <= MAX_DESCRIPTION) return source;
+
+  const cut = source.slice(0, MAX_DESCRIPTION - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.\s]+$/, '')}…`;
+}
 
 export function formatCaseStudyDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-GB', {

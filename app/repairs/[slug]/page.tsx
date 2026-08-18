@@ -6,6 +6,7 @@ import {
   getAllCaseStudies,
   getCaseStudy,
   getRelatedCaseStudies,
+  caseStudyDescription,
   caseStudyLocation,
   caseStudyService,
   formatCaseStudyDate,
@@ -35,11 +36,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: caseStudy.metaTitle ?? caseStudy.title,
-    description: caseStudy.excerpt,
+    description: caseStudyDescription(caseStudy),
     alternates: { canonical: url },
     openGraph: {
       title: caseStudy.title,
-      description: caseStudy.excerpt,
+      description: caseStudyDescription(caseStudy),
       url,
       images: caseStudy.photos.map((photo) => ({ url: photo.src })),
     },
@@ -62,7 +63,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: caseStudy.title,
-    description: caseStudy.excerpt,
+    description: caseStudyDescription(caseStudy),
     image: caseStudy.photos.map((photo) =>
       photo.src.startsWith('http') ? photo.src : `https://www.werepairmac.co.uk${photo.src}`
     ),
