@@ -76,17 +76,23 @@
       {
         "src": "/images/repairs/ps5-overheating-shutdown-clean-liquid-metal-battersea-1.jpg",
         "alt": "PS5 opened up on a bench showing the metal shielding, copper heat pipe and fan, all coated in grey dust",
-        "caption": "Console open on arrival — dust across the shielding and around the fan."
+        "caption": "Console open on arrival — dust across the shielding and around the fan.",
+        "width": 1350,
+        "height": 1800
       },
       {
         "src": "/images/repairs/ps5-overheating-shutdown-clean-liquid-metal-battersea-2.jpg",
         "alt": "Heatsink assembly held in one hand, with thick felted dust matted between the fins and the copper heat pipes visible",
-        "caption": "The fin stack was blocked with matted dust."
+        "caption": "The fin stack was blocked with matted dust.",
+        "width": 1350,
+        "height": 1800
       },
       {
         "src": "/images/repairs/ps5-overheating-shutdown-clean-liquid-metal-battersea-3.jpg",
         "alt": "PS5 outer case panel held up showing a line of caked dust along the vent, with the dusty fan visible in the chassis below",
-        "caption": "Dust caked along the intake vents on the case panel."
+        "caption": "Dust caked along the intake vents on the case panel.",
+        "width": 1350,
+        "height": 1800
       }
     ],
     "theCall": "A customer near Wandsworth got in touch about a PS5 that kept turning itself off part way through a game. It had been happening often enough that the console was unusable for longer sessions. We visited at his home to strip and service it there.",
@@ -125,22 +131,30 @@
       {
         "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-1.jpg",
         "alt": "System Information Power pane on a MacBook Pro showing battery model, charge and health information with condition Normal",
-        "caption": "Battery reporting after the replacement — condition Normal and charging."
+        "caption": "Battery reporting after the replacement — condition Normal and charging.",
+        "width": 1350,
+        "height": 1800
       },
       {
         "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-2.jpg",
         "alt": "MacBook Pro 15-inch with the bottom case removed, showing the logic board, two fans and the battery cells in place",
-        "caption": "New Battery Installed"
+        "caption": "New Battery Installed",
+        "width": 1350,
+        "height": 1800
       },
       {
         "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-3.jpg",
         "alt": "MacBook Pro top case with the battery removed, showing adhesive strips and dust and lint built up around the fans and heatsink",
-        "caption": "With the battery out, the dust build-up around the fans is clear."
+        "caption": "With the battery out, the dust build-up around the fans is clear.",
+        "width": 1350,
+        "height": 1800
       },
       {
         "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-4.jpg",
         "alt": "MacBook Pro internals with battery cells fitted, dust and lint visible on the fans and board",
-        "caption": "Old battery and clogged fans"
+        "caption": "Old battery and clogged fans",
+        "width": 1350,
+        "height": 1800
       }
     ],
     "theCall": "A customer in Richmond got in touch about a 15-inch MacBook Pro that kept shutting down in the middle of work. macOS was also showing a battery service error. They asked us to look at it where the machine was being used.",
