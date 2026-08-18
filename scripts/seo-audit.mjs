@@ -25,10 +25,15 @@ const MIN_DESC = 70;
 // 1,000 flags the pages still on a bare template without flagging healthy ones.
 const MIN_CONTENT_WORDS = 1000;
 // Pages that are legitimately short: legal, utility and conversion pages.
+// `blog` and `repairs` are here as index hubs — a hub's text is by definition
+// its children's titles and summaries, so it can never score as "unique"
+// against them. That is the page working, not a defect, and it is why they are
+// exempted here rather than added to the grandfathered baseline, which exists
+// for pages that predate the gate.
 const THIN_OK = new Set([
   '_not-found', 'cookies', 'privacy', 'review', 'quote', 'contact', 'about',
-  'remote-support', 'blog', 'faqs', 'care-plans', 'why-choose-us', 'index',
-  'areas-we-cover',
+  'remote-support', 'blog', 'repairs', 'faqs', 'care-plans', 'why-choose-us',
+  'index', 'areas-we-cover',
 ]);
 // Internal-link floors. These are the numbers lib/locations.ts and
 // lib/serviceLocations.ts claim to guarantee; the render used to silently

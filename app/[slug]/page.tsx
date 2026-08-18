@@ -19,6 +19,8 @@ import LocationMap from '@/components/LocationMap';
 import ServicePriceGuide from '@/components/ServicePriceGuide';
 import ServiceCommonIssues from '@/components/ServiceCommonIssues';
 import RelatedAdvice from '@/components/RelatedAdvice';
+import RelatedRepairs from '@/components/RelatedRepairs';
+import { getCaseStudiesForLocation, getCaseStudiesForService } from '@/lib/caseStudies';
 import {
   PhoneIcon, MapPinIcon, CheckIcon,
   ShieldCheckIcon, ClockIcon, TruckIcon, WrenchIcon,
@@ -357,6 +359,14 @@ function ServicePage({ slug }: { slug: string }) {
           URLs, which is what put the combos in "crawled, not indexed" before. */}
       <ServiceCommonIssues service={service} />
 
+      {/* Real jobs of this type. First-hand evidence for the service claim, and
+          an inbound link the case study pages otherwise do not have. */}
+      <RelatedRepairs
+        caseStudies={getCaseStudiesForService(service.slug)}
+        heading={`${service.title}: jobs we have done`}
+        intro="Real repairs of this kind, with the fault, what we found, the parts fitted and the result."
+      />
+
       {/* FAQ */}
       <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
@@ -671,6 +681,15 @@ function LocationPage({ locationSlug }: { locationSlug: string }) {
       </section>
       <FAQSchema items={faqs} />
 
+      {/* Jobs we actually did here. Placed above the advice block because a
+          real repair in this town is stronger evidence than a general guide —
+          and it is the route by which those pages get crawled at all. */}
+      <RelatedRepairs
+        caseStudies={getCaseStudiesForLocation(location.slug)}
+        heading={`Repairs we have done in ${location.name}`}
+        intro={`Real call-outs in ${location.name}, written up from the engineer's notes and photographed on the day.`}
+      />
+
       {/* Repair advice — rotated per town so the archive gets linked evenly */}
       <RelatedAdvice
         posts={townAdvice}
@@ -973,6 +992,14 @@ function ServiceLocationPage({ sl }: { sl: ServiceLocation }) {
         </div>
       </section>
       <FAQSchema items={faqs} />
+
+      {/* A real job in this town — the one thing a combo page can carry that
+          none of its siblings share. */}
+      <RelatedRepairs
+        caseStudies={getCaseStudiesForLocation(location.slug)}
+        heading={`Repairs we have done in ${location.name}`}
+        intro={`Real call-outs in ${location.name}, photographed on the day.`}
+      />
 
       {/* Repair advice — this family's posts first, rotated by town */}
       <RelatedAdvice
