@@ -7,6 +7,7 @@ import LocalBusinessSchema from '@/components/LocalBusinessSchema';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import MobileCTABar from '@/components/MobileCTABar';
 import CookieConsent from '@/components/CookieConsent';
+import CallTracking from '@/components/CallTracking';
 import { hasCaseStudies } from '@/lib/caseStudies';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
@@ -97,6 +98,8 @@ export default function RootLayout({
 
         {/* Google Analytics 4 — loaded only after cookie consent */}
         <CookieConsent />
+        {/* Reports phone taps to GA4; silent until consent loads gtag */}
+        <CallTracking />
       </body>
     </html>
   );
