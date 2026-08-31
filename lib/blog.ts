@@ -11,10 +11,11 @@ export interface BlogPost {
   slug: string;
   title: string;
   /**
-   * Short form of `title` used for the <title> tag only. The on-page H1 keeps
-   * the full conversational headline; this keeps the SERP title inside ~60
-   * chars once the root layout appends " | We Repair Mac" (16 chars), so aim
-   * for <= 44. Falls back to `title` when absent.
+   * Short form of `title` used for the <title> tag only, for the posts whose
+   * headline runs past the ~60 chars a SERP shows. The blog route sets the
+   * title as `absolute`, so there is no " | We Repair Mac" suffix to budget
+   * for and the whole 60 belongs to the hook. Omit it when `title` already
+   * fits; it falls back to `title`.
    */
   metaTitle?: string;
   excerpt: string;
@@ -31,7 +32,7 @@ export interface BlogPost {
 interface BlogBlueprint {
   slug: string;
   title: string;
-  /** See BlogPost.metaTitle — short SERP title, <= 44 chars. */
+  /** See BlogPost.metaTitle — short SERP title, <= 60 chars, no brand suffix. */
   metaTitle?: string;
   /** ISO date of the last substantive edit; falls back to publishedAt. */
   updatedAt?: string;
@@ -77,7 +78,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-wont-turn-on-london-guide',
     title: 'MacBook Won’t Turn On? What To Check Before You Panic',
-    metaTitle: 'MacBook Won’t Turn On? What To Check',
+    updatedAt: '2026-08-31',
     excerpt: 'A dead MacBook does not always mean a dead logic board. These are the first checks worth making before you assume the worst.',
     category: 'MacBook Repair',
     serviceSlug: 'macbook-repair-london',
@@ -115,7 +116,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-battery-draining-fast-london',
     title: 'MacBook Battery Draining Fast? The Signs It Is Time For Replacement',
-    metaTitle: 'MacBook Battery Draining Fast: Signs',
+    metaTitle: 'MacBook Battery Draining Fast? Signs It Needs Replacing',
+    updatedAt: '2026-08-31',
     excerpt: 'Fast battery drain, random shutdowns, and service warnings usually follow a pattern. Here is what to watch for.',
     category: 'Battery Replacement',
     serviceSlug: 'macbook-battery-replacement-london',
@@ -153,7 +155,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-screen-lines-flicker-repair-advice',
     title: 'Lines, Flicker, or Black Screen on a MacBook: What It Usually Means',
-    metaTitle: 'MacBook Screen Lines or Flicker: Causes',
+    metaTitle: 'MacBook Screen Lines or Flicker? What It Usually Means',
+    updatedAt: '2026-08-31',
     excerpt: 'Display faults are not all the same. Some point to panel damage, some to flex cables, and some to board issues.',
     category: 'Screen Repair',
     serviceSlug: 'macbook-screen-repair-london',
@@ -191,7 +194,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'water-damaged-laptop-first-steps',
     title: 'Spilled Water On a Laptop? The First 30 Minutes Matter Most',
-    metaTitle: 'Water-Damaged Laptop: First Steps',
+    metaTitle: 'Water-Damaged Laptop? The First 30 Minutes Matter Most',
+    updatedAt: '2026-08-31',
     excerpt: 'The best decision after a spill is usually what you stop doing. Here is the safest response after liquid gets into a laptop.',
     category: 'Water Damage',
     serviceSlug: 'water-damage-repair-london',
@@ -229,7 +233,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'slow-laptop-home-office-checklist',
     title: 'Slow Laptop At Home Or Work? Start With This Practical Checklist',
-    metaTitle: 'Slow Laptop? A Practical Checklist',
+    metaTitle: 'Slow Laptop? Start With This Practical Checklist',
+    updatedAt: '2026-08-31',
     excerpt: 'A sluggish laptop is usually a combination of storage, heat, startup apps, and age rather than one single problem.',
     category: 'Laptop Repair',
     serviceSlug: 'laptop-repair-london',
@@ -267,7 +272,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'data-recovery-from-dead-drive-expectations',
     title: 'Data Recovery From a Dead Drive: What To Expect',
-    metaTitle: 'Data Recovery From a Dead Drive',
+    updatedAt: '2026-08-31',
     excerpt: 'If your drive has failed, the right first move is not always to keep plugging it in. Here is what usually helps most.',
     category: 'Data Recovery',
     serviceSlug: 'data-recovery-london',
@@ -305,7 +310,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'gaming-pc-keeps-crashing-during-games',
     title: 'Gaming PC Crashing During Games? The Fault Is Usually Small',
-    metaTitle: 'Gaming PC Crashing During Games: Fixes',
+    updatedAt: '2026-08-31',
     excerpt: 'Game crashes can come from heat, RAM instability, GPU faults, power issues, or corrupt drivers. The trick is isolating them properly.',
     category: 'Gaming PC Repair',
     serviceSlug: 'gaming-pc-repair-london',
@@ -343,7 +348,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'virus-or-popups-on-your-computer-what-now',
     title: 'Virus Warnings, Redirects, Or Pop-Ups? What To Do Next',
-    metaTitle: 'Virus Warnings or Pop-Ups? What To Do',
+    updatedAt: '2026-08-31',
     excerpt: 'Not every scary pop-up is real, but every compromised machine deserves a careful cleanup and password review.',
     category: 'Virus Removal',
     serviceSlug: 'virus-removal-london',
@@ -381,7 +386,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'ps5-hdmi-port-no-signal-repair-guide',
     title: 'PS5 No Signal? Broken HDMI Port Symptoms To Look For',
-    metaTitle: 'PS5 No Signal? HDMI Port Symptoms',
+    updatedAt: '2026-08-31',
     excerpt: 'If a PS5 powers on but shows no picture, the HDMI port is one of the first things worth checking.',
     category: 'PlayStation Repair',
     serviceSlug: 'playstation-repair-london',
@@ -419,7 +424,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'gaming-console-overheating-what-causes-it',
     title: 'Gaming Console Overheating: What Usually Causes It',
-    metaTitle: 'Gaming Console Overheating: Causes',
+    updatedAt: '2026-08-31',
     excerpt: 'Unexpected shutdowns, loud fans, and heat warnings are often a maintenance problem before they become a hardware failure.',
     category: 'Console Repair',
     serviceSlug: 'gaming-console-repair-london',
@@ -457,7 +462,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'nintendo-switch-not-charging-usb-c-port-signs',
     title: 'Nintendo Switch Not Charging? The Port Is Not Always The Whole Story',
-    metaTitle: 'Nintendo Switch Not Charging: Causes',
+    metaTitle: 'Nintendo Switch Not Charging? It’s Not Always The Port',
+    updatedAt: '2026-08-31',
     excerpt: 'Charging issues on a Switch can come from the USB-C port, the battery, the dock, or the charging circuit itself.',
     category: 'Console Repair',
     serviceSlug: 'gaming-console-repair-london',
@@ -495,7 +501,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'xbox-series-x-no-display-repair-advice',
     title: 'Xbox Series X No Display? The Most Common Causes',
-    metaTitle: 'Xbox Series X No Display: Common Causes',
+    updatedAt: '2026-08-31',
     excerpt: 'A black screen on an Xbox can be a cable issue, HDMI damage, resolution confusion, or a deeper board fault.',
     category: 'Console Repair',
     serviceSlug: 'gaming-console-repair-london',
@@ -533,7 +539,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'external-drive-not-showing-data-recovery-advice',
     title: 'External Drive Not Showing Up? How To Avoid Making Recovery Harder',
-    metaTitle: 'External Drive Not Showing Up? Do This',
+    metaTitle: 'External Drive Not Showing Up? Don’t Make It Worse',
+    updatedAt: '2026-08-31',
     excerpt: 'A drive that suddenly disappears is not a good place for random trial-and-error. These first steps protect the best recovery options.',
     category: 'Data Recovery',
     serviceSlug: 'data-recovery-london',
@@ -571,7 +578,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'cracked-laptop-screen-repair-or-replace',
     title: 'Cracked Laptop Screen: Repair It Or Replace The Whole Laptop?',
-    metaTitle: 'Cracked Laptop Screen: Repair or Replace',
+    metaTitle: 'Cracked Laptop Screen: Repair Or Replace?',
+    updatedAt: '2026-08-31',
     excerpt: 'A cracked display looks expensive, but the screen is often the only part that needs attention. The key is confirming the rest of the laptop is healthy.',
     category: 'Laptop Repair',
     serviceSlug: 'laptop-repair-london',
@@ -609,7 +617,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-not-charging-port-or-battery',
     title: 'MacBook Not Charging? How To Tell Battery Faults From Port Faults',
-    metaTitle: 'MacBook Not Charging: Battery or Port?',
+    metaTitle: 'MacBook Not Charging? Battery Fault Or Port Fault?',
+    updatedAt: '2026-08-31',
     excerpt: 'Charging problems can come from the battery, charger, USB-C ports, MagSafe, or the board itself. The symptoms usually leave clues.',
     category: 'MacBook Repair',
     serviceSlug: 'macbook-repair-london',
@@ -647,7 +656,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'ps4-disc-drive-not-reading-discs',
     title: 'PS4 Disc Drive Not Reading Discs? What Usually Fails',
-    metaTitle: 'PS4 Disc Drive Not Reading Discs',
+    updatedAt: '2026-08-31',
     excerpt: 'Disc-read errors can come from the drive mechanism, rollers, laser issues, or software trouble. The symptom pattern helps narrow it down.',
     category: 'PlayStation Repair',
     serviceSlug: 'playstation-repair-london',
@@ -685,7 +694,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-keyboard-keys-sticking-cleaning-guide',
     title: 'MacBook Keys Sticking? Why Air Dusters Usually Are Not Enough',
-    metaTitle: 'MacBook Keys Sticking? Cleaning Guide',
+    metaTitle: 'MacBook Keys Sticking? Why Air Dusters Aren’t Enough',
+    updatedAt: '2026-08-31',
     excerpt: 'A sticky MacBook keyboard often points to trapped crumbs or dried liquid underneath the butterfly or scissor mechanisms.',
     category: 'MacBook Repair',
     serviceSlug: 'macbook-repair-london',
@@ -723,7 +733,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'pc-making-loud-grinding-noise',
     title: 'PC Making a Loud Grinding Noise? Here Are The Prime Suspects',
-    metaTitle: 'PC Making a Loud Grinding Noise: Causes',
+    updatedAt: '2026-08-31',
     excerpt: 'Is your computer suddenly sounding like a lawnmower? It is usually a mechanical failure involving a fan or a dying hard drive.',
     category: 'Gaming PC Repair',
     serviceSlug: 'gaming-pc-repair-london',
@@ -761,7 +771,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-pro-overheating-fan-noise-fix',
     title: 'MacBook Pro Getting Too Hot? Why The Fans Are Spinning So Loud',
-    metaTitle: 'MacBook Pro Overheating & Loud Fans',
+    metaTitle: 'MacBook Pro Overheating? Why The Fans Are So Loud',
+    updatedAt: '2026-08-31',
     excerpt: 'Loud fans and a hot aluminum chassis can indicate thermal throttling. Here is how to keep your MacBook Pro cool.',
     category: 'MacBook Repair',
     serviceSlug: 'macbook-repair-london',
@@ -799,7 +810,8 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'macbook-trackpad-not-clicking',
     title: 'MacBook Trackpad Not Clicking Anymore? It Might Be Your Battery',
-    metaTitle: 'MacBook Trackpad Not Clicking: Why',
+    metaTitle: 'MacBook Trackpad Not Clicking? It Might Be The Battery',
+    updatedAt: '2026-08-31',
     excerpt: 'When a MacBook trackpad stops clicking or feels stuck, the trackpad itself is rarely at fault. It is usually the battery swelling underneath it.',
     category: 'MacBook Repair',
     serviceSlug: 'macbook-repair-london',
@@ -837,7 +849,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'why-are-my-games-lagging-suddenly-pc',
     title: 'PC Games Suddenly Lagging? Quick Solutions for Frame Drops',
-    metaTitle: 'PC Games Suddenly Lagging? Frame Drops',
+    updatedAt: '2026-08-31',
     excerpt: 'Game stuttering that came out of nowhere is incredibly frustrating, but usually reversible by diagnosing background interference, drivers, or thermals.',
     category: 'Gaming PC Repair',
     serviceSlug: 'gaming-pc-repair-london',
@@ -875,7 +887,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'spilled-water-on-keyboard-what-not-to-do',
     title: 'Spilled Water on Your Keyboard? Stop Doing These 3 Things',
-    metaTitle: 'Spilled Water on Keyboard: What Not To Do',
+    updatedAt: '2026-08-31',
     excerpt: 'When liquid touches electronics, the first few minutes dictate whether the device survives. Stop reaching for the rice bag.',
     category: 'Water Damage',
     serviceSlug: 'water-damage-repair-london',

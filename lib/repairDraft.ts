@@ -82,7 +82,7 @@ Keep it tight: the whole piece should read in about a minute. Two to five diagno
 ## Fields
 
 - \`title\`: natural headline, includes the device and the fault. No town needed.
-- \`metaTitle\`: 44 characters or fewer. The layout appends " | We Repair Mac".
+- \`metaTitle\`: 60 characters or fewer. Only needed when \`title\` runs longer than that; no brand suffix is appended.
 - \`excerpt\`: one or two sentences; used as the meta description and card summary.
 - \`slug\`: kebab-case, fault + model + town, e.g. "macbook-pro-battery-replacement-new-malden".
 - \`locationSlug\`: the town, from the allowed list. If the note names a town not on the list, choose the nearest listed one and raise a gap saying so.
@@ -99,7 +99,7 @@ const DRAFT_SCHEMA = {
   properties: {
     slug: { type: 'string', description: 'kebab-case: fault + model + town' },
     title: { type: 'string' },
-    metaTitle: { type: 'string', description: '44 characters or fewer' },
+    metaTitle: { type: 'string', description: '60 characters or fewer' },
     excerpt: { type: 'string' },
     metaDescription: {
       type: 'string',

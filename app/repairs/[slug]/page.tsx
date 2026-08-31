@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const url = `https://www.werepairmac.co.uk/repairs/${caseStudy.slug}`;
 
   return {
-    title: caseStudy.metaTitle ?? caseStudy.title,
+    // No " | We Repair Mac" suffix — see the blog route. A repair
+    // write-up is read for the fault, not the brand.
+    title: { absolute: caseStudy.metaTitle ?? caseStudy.title },
     description: caseStudyDescription(caseStudy),
     alternates: { canonical: url },
     openGraph: {

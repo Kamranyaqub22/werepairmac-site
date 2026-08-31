@@ -439,7 +439,7 @@ export default function AdminRepairsPage() {
             <div className="card p-6 space-y-5">
               <Field label="Headline" value={draft.title} onChange={(v) => patch({ title: v })} />
               <Field
-                label="Short title (SERP, ≤44 characters)"
+                label="Short title (SERP, ≤60 characters)"
                 value={draft.metaTitle}
                 onChange={(v) => patch({ metaTitle: v })}
                 hint={`${draft.metaTitle.length} characters`}

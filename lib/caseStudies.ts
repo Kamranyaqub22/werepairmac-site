@@ -51,7 +51,7 @@ export interface CaseStudy {
   slug: string;
   /** On-page H1. The full, natural headline. */
   title: string;
-  /** Short <title> — aim <= 44 chars, since the layout appends " | We Repair Mac". */
+  /** Short <title> for headlines past ~60 chars. No brand suffix is appended. */
   metaTitle?: string;
   /** One or two sentences shown on the page and on the index card. */
   excerpt: string;

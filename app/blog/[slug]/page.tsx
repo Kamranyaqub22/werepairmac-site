@@ -25,11 +25,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    // The <title> uses the short `metaTitle` so it survives the layout's
-    // " | We Repair Mac" suffix inside ~60 chars. The H1 below keeps the full
-    // conversational headline. Open Graph has no such limit, so it keeps the
-    // full title.
-    title: post.metaTitle ?? post.title,
+    // `absolute` opts out of the layout's " | We Repair Mac" suffix. On an
+    // informational query the brand is unknown to the searcher and earns no
+    // click, but it was eating 16 of the 60 usable characters and forcing the
+    // headline down to a fragment ("MacBook Trackpad Not Clicking: Why").
+    // Spending that budget on the hook instead is what gets the click.
+    title: { absolute: post.metaTitle ?? post.title },
     description: post.excerpt,
     alternates: { canonical: `https://www.werepairmac.co.uk/blog/${post.slug}` },
     openGraph: {
