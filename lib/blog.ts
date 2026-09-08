@@ -1,5 +1,6 @@
 import { NINTENDO_SWITCH_IMAGE, XBOX_CONSOLE_IMAGE } from '@/lib/consoleImages';
 import { hashSlug } from '@/lib/hash';
+import { getService } from '@/lib/services';
 
 export interface BlogSection {
   heading: string;
@@ -34,6 +35,35 @@ interface BlogBlueprint {
   title: string;
   /** See BlogPost.metaTitle — short SERP title, <= 60 chars, no brand suffix. */
   metaTitle?: string;
+  /**
+   * Explicit publication date, ISO. Set this on every new post.
+   *
+   * Without it the date is derived from the post's index in the array below —
+   * BLOG_START_DATE + index × BLOG_CADENCE_DAYS — which was fine while the
+   * array was written in one sitting but backdates anything appended later. The
+   * four posts added in August 2026 were stamped 15 July to 5 August and all
+   * went live the moment they were committed, and index 22 onwards would land
+   * further into the past with every post added. The first 22 entries keep the
+   * derived dates because those URLs are indexed and their dates are public;
+   * re-dating them now would be a change Google can see and nothing gains by it.
+   *
+   * Two things to know before setting a date in the FUTURE:
+   *
+   * 1. A future post does not publish itself. `/blog` and `/blog/[slug]` carry
+   *    revalidate = 86400 and will pick it up within a day, but the sitemap, the
+   *    homepage and every service, town and combo page are fully static — they
+   *    only gain the post on the next deploy. Since the point of a post is
+   *    usually the link from its service page, a scheduled post that nobody
+   *    deploys for is close to unpublished. Schedule only if you will deploy on
+   *    the date; otherwise date it today and push.
+   * 2. Growing the live pool re-rolls getRotatedBlogPosts on all 202 town and
+   *    combo pages, which moves their uniqueness scores. Publishing a batch in
+   *    one deploy costs one re-roll; dripping six posts costs six.
+   *
+   * Appended posts only. Inserting a blueprint above the 22 dateless ones
+   * shifts their indices and silently re-dates already-indexed URLs.
+   */
+  publishedAt?: string;
   /** ISO date of the last substantive edit; falls back to publishedAt. */
   updatedAt?: string;
   excerpt: string;
@@ -922,6 +952,238 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
     preventionIntro:
       'A keyboard cover and a drink kept away from the machine prevent nearly all of these jobs.',
   },
+  // Posts from here carry an explicit publishedAt. The six below were written to
+  // cover six service pages that had no repair-advice post pointing at them at
+  // all — iMac, networking, printers, Windows support, hardware upgrades and
+  // Xbox — rather than adding a fifth MacBook post to the five already here.
+  {
+    slug: 'imac-running-slow-hard-drive-upgrade',
+    title: 'iMac Taking Minutes To Start Up? The Drive Is Usually Why',
+    publishedAt: '2026-09-08T09:00:00.000Z',
+    excerpt: 'An iMac that takes minutes to boot and beachballs on every click is rarely short of power. It is usually still running on its original spinning drive.',
+    category: 'iMac Repair',
+    serviceSlug: 'imac-repair-london',
+    image: '/images/blog/imac-running-slow-hard-drive-upgrade.jpg',
+    readingTime: 5,
+    firstResponse: 'Intel iMacs were sold for years with a 5400rpm laptop hard drive inside them, or a Fusion Drive that pairs a small SSD with the same slow disk. That was tolerable when the machine was new. It is not tolerable now: modern macOS writes to the disk constantly, and on a spinning drive that turns into a machine which takes two or three minutes to reach the desktop and beachballs every time you open Mail. The processor in a 2015 or 2017 iMac is still perfectly capable. The drive is what is holding it up.',
+    whySpeedMatters: 'A drive that is slowing down is often a drive that is failing, and the two feel identical from the outside. Bad sectors make macOS retry reads over and over, which reads as sluggishness long before anything says the word "error". If it is a Fusion Drive, the SSD half can fail on its own and leave the whole volume limping. Either way, the window where your data can be copied off cleanly is while the machine is slow — not after it stops booting.',
+    quickChecks: [
+      'Open Activity Monitor and watch the Disk tab while it is being slow. High disk activity with low CPU points at the drive, not the processor.',
+      'Check About This Mac → Storage. Under about 10% free will slow any Mac down on its own, regardless of the drive.',
+      'Notice when the beachball appears. On opening apps and switching windows means storage; only inside one heavy app means something else.',
+      'Put your ear near the machine in a quiet room. Constant chattering is a hard disk working hard; rhythmic clicking means stop and back up now.',
+    ],
+    engineerChecks: [
+      'Read the drive’s SMART data for reallocated and pending sectors — the difference between "slow" and "dying" is written there.',
+      'Establish whether it is a plain hard disk or a Fusion Drive, and if so which half has gone, because that changes the repair entirely.',
+      'Confirm storage really is the bottleneck before quoting an upgrade, so you are not paying for an SSD that fixes nothing.',
+      'Clone the existing system onto the new SSD rather than reinstalling, so your apps, files and settings come across exactly as they were.',
+    ],
+    preventionTips: [
+      'Keep at least 15% of the drive free. macOS needs room to work and gets slow long before it gets full.',
+      'Get a Time Machine backup running now rather than once the machine is misbehaving.',
+      'Treat the first unexplained beachballs as information. They are usually the earliest warning a drive gives.',
+    ],
+    sectionHeadings: [
+      'Why a spinning drive makes a good iMac feel broken',
+      'Telling a dying drive from a full one',
+      'Keeping a new SSD quick',
+    ],
+    diagnosisIntro:
+      'Slow and failing look the same to the person using the machine, so the first job is to separate them. Most of this we can do at your desk; the SSD fit itself usually means taking the iMac away, because opening the display without damaging it is bench work.',
+    preventionIntro:
+      'An SSD will not slow down the way the old disk did, but a few habits keep it quick and keep your data safe.',
+  },
+  {
+    slug: 'wifi-keeps-dropping-out-home-office',
+    title: 'Wi-Fi Dropping Out On Calls? It Is Rarely The Broadband',
+    publishedAt: '2026-09-08T09:01:00.000Z',
+    excerpt: 'Wi-Fi that fails mid-call but tests fine afterwards is usually a fault between your device and the router, not on the broadband line itself.',
+    category: 'Networking Support',
+    serviceSlug: 'home-office-networking-london',
+    image: '/images/blog/wifi-keeps-dropping-out-home-office.jpg',
+    readingTime: 5,
+    firstResponse: 'The classic home-office complaint is that video calls freeze or drop while everything else seems fine, and a speed test five minutes later comes back perfect. That pattern points away from the broadband line and towards the Wi-Fi hop at the end of it. In a London flat or a terraced house you are usually sharing the airwaves with dozens of neighbouring networks, and a device that is clinging to a congested channel, or to a weak 5GHz signal it should have handed back, will stutter exactly when the connection is under load.',
+    whySpeedMatters: 'Intermittent faults are the ones that go unfixed for months, because every test run after the event passes. In the meantime the calls that matter are the ones that break. It is also the fault most often misdiagnosed as a slow line, which leads to paying for a faster package that changes nothing, because the bottleneck was never the line.',
+    quickChecks: [
+      'Work out whether it drops on one device or on all of them at once. One device is that device or its position; all of them points at the router.',
+      'Notice whether it fails under load — calls, video, large uploads — or at random moments with nothing running.',
+      'Plug a laptop into the router with an ethernet cable for a day. If that connection never drops, the line is fine and the Wi-Fi is not.',
+      'Look at where the router actually is. In a cupboard, behind a television, on the floor or next to a microwave are all common and all bad.',
+    ],
+    engineerChecks: [
+      'Survey the 2.4GHz and 5GHz channels in your rooms to see what your neighbours are sitting on and where there is clear air.',
+      'Check whether devices are being steered between bands properly, or holding onto a weak signal instead of switching.',
+      'Test at the master socket to separate a genuine line fault from a Wi-Fi one before anything is replaced.',
+      'Judge whether the layout needs a mesh node or wired backhaul rather than a plug-in repeater, which often halves throughput.',
+    ],
+    preventionTips: [
+      'Give the router open air, roughly central to where you work, and off the floor.',
+      'If devices keep picking the wrong band, give the two bands separate names so you can choose deliberately.',
+      'Treat an ISP router more than about five years old as a suspect in its own right.',
+    ],
+    sectionHeadings: [
+      'Why the line tests fine and the call still drops',
+      'How we find where the connection is actually breaking',
+      'Keeping a home network stable',
+    ],
+    diagnosisIntro:
+      'The point of the visit is to catch the fault happening rather than to test the network once it has settled down, which is why we measure in the rooms you actually work in.',
+    preventionIntro:
+      'Most home networks are one or two placement decisions away from being reliable, and none of these cost anything.',
+  },
+  {
+    slug: 'printer-not-connecting-to-wifi',
+    title: 'Printer Will Not Connect To Wi-Fi? Start With The Network',
+    publishedAt: '2026-09-08T09:02:00.000Z',
+    excerpt: 'Reinstalling the driver a fourth time will not help if the printer never joined the network. Most wireless printer faults are really network faults.',
+    category: 'Printer Support',
+    serviceSlug: 'printer-setup-repair-london',
+    image: '/images/blog/printer-not-connecting-to-wifi.jpg',
+    readingTime: 4,
+    firstResponse: 'Almost every home and small-office printer connects on 2.4GHz only. Plenty of modern routers broadcast both bands under a single network name, so when the printer looks for that name and gets steered to a 5GHz radio it cannot use, it simply never joins — and the error you see on the computer is a vague "printer offline". The other common version is a printer that worked for two years and stopped the week the router was replaced, because it is still holding an address from a network that no longer exists.',
+    whySpeedMatters: 'This one is rarely urgent, but it is the fault people waste the most time on. The driver gets removed and reinstalled, the printer gets factory reset, and none of it touches the actual problem, which is one layer down in the network. Knowing which layer has failed turns an afternoon into ten minutes.',
+    quickChecks: [
+      'Print the network configuration page from the printer’s own menu. If it has no IP address, it never joined — nothing on the computer will fix that.',
+      'Check whether your Wi-Fi uses one name for both bands, or is 5GHz only. Either will stop most printers connecting.',
+      'Think back to whether it stopped after a new router, a new provider or a network name change. That is almost always the cause.',
+      'Make sure the computer is on the same network, not a guest network or a VPN, which hide the printer completely.',
+    ],
+    engineerChecks: [
+      'Give the printer a fixed address by DHCP reservation so it stops moving every time the router restarts.',
+      'Check whether band steering is blocking the join, and connect it to the 2.4GHz radio explicitly if so.',
+      'Print once over USB to separate a driver problem from a connection problem, which are fixed in completely different places.',
+      'Confirm AirPrint or IPP discovery is enabled and that firewall or security software is not blocking it on the computer.',
+    ],
+    preventionTips: [
+      'Reserve the printer’s address on the router so it keeps the same one for good.',
+      'Keep the network name and password when you change routers, and most devices will simply carry on.',
+      'Apply printer firmware updates while it is working, not while you are trying to fix it.',
+    ],
+    sectionHeadings: [
+      'Why the printer cannot see a network that is clearly there',
+      'Separating a driver fault from a network fault',
+      'Setting it up so it stays connected',
+    ],
+    diagnosisIntro:
+      'The quickest way through this is to prove which half is broken — the connection or the driver — before changing anything on either side.',
+    preventionIntro:
+      'A wireless printer that is set up properly should not need touching again for years.',
+  },
+  {
+    slug: 'windows-laptop-blue-screen-what-it-means',
+    title: 'Windows Laptop Blue Screen? Read The Stop Code First',
+    publishedAt: '2026-09-08T09:03:00.000Z',
+    excerpt: 'A blue screen is Windows stopping deliberately to avoid damage. The stop code it shows is the most useful clue you get, and most people scroll past it.',
+    category: 'Windows Support',
+    serviceSlug: 'windows-support-london',
+    image: '/images/blog/windows-laptop-blue-screen-what-it-means.jpg',
+    readingTime: 5,
+    firstResponse: 'A blue screen is not the fault itself. It is Windows detecting that something at a low level has gone wrong — a driver, the memory, the storage — and halting rather than carrying on and corrupting things. The sad face is decoration. The line underneath it that reads something like MEMORY_MANAGEMENT, CRITICAL_PROCESS_DIED or INACCESSIBLE_BOOT_DEVICE is the part worth photographing, because those codes point at genuinely different faults with genuinely different fixes.',
+    whySpeedMatters: 'Every crash is an unclean shutdown. If the underlying cause is a failing drive or bad memory, continuing to use the machine through repeated blue screens is actively damaging the file system, and turns a straightforward recovery into an expensive one. Storage-related stop codes in particular are a reason to back up first and diagnose second.',
+    quickChecks: [
+      'Photograph the screen. The stop code, and any file name shown with it, narrows the cause more than any description of the symptoms can.',
+      'Notice the pattern — on waking from sleep, during games, at boot, or entirely at random. Each suggests a different subsystem.',
+      'Think about what changed just before it started: a driver, a Windows update, new memory, a new external device.',
+      'Try Safe Mode. If the machine is stable there, the fault is far more likely to be software or a driver than the hardware itself.',
+    ],
+    engineerChecks: [
+      'Read the minidump the crash leaves behind, which usually names the exact driver or module that faulted.',
+      'Run a full extended memory test rather than a single quick pass, because marginal RAM often survives a short one.',
+      'Check the drive’s SMART and NVMe health — INACCESSIBLE_BOOT_DEVICE and similar codes are frequently storage, not Windows.',
+      'Log temperatures and power delivery under load, which is where WHEA_UNCORRECTABLE_ERROR usually turns out to live.',
+    ],
+    preventionTips: [
+      'Get a backup off the machine before troubleshooting anything, not after.',
+      'Avoid stacked third-party "driver updater" tools; they are a common source of the crashes they claim to prevent.',
+      'Act on the first blue screen. The tenth is the same fault with more collateral damage.',
+    ],
+    sectionHeadings: [
+      'What the stop code is actually telling you',
+      'Narrowing it to memory, storage or a driver',
+      'Keeping a Windows machine stable',
+    ],
+    diagnosisIntro:
+      'Blue screens are one of the few faults that leave a written record behind, so the diagnosis is mostly a matter of reading it properly rather than guessing.',
+    preventionIntro:
+      'Once the cause is fixed, most machines stay stable for years — provided the basics are in place.',
+  },
+  {
+    slug: 'upgrade-ram-or-ssd-which-comes-first',
+    title: 'Upgrade The RAM Or The SSD? Which One Actually Helps',
+    publishedAt: '2026-09-08T09:04:00.000Z',
+    excerpt: 'The two upgrades fix completely different problems, and buying the wrong one is the most common way to spend money on a slow computer and notice nothing.',
+    category: 'Hardware Upgrades',
+    serviceSlug: 'hardware-upgrades-london',
+    image: '/images/blog/upgrade-ram-or-ssd-which-comes-first.jpg',
+    readingTime: 5,
+    firstResponse: 'There is a simple rule that covers most machines: if it still has a mechanical hard drive, fit an SSD, and do it before you consider anything else. Nothing else you can buy changes the feel of an older computer as much. RAM is a different fix for a different symptom — it helps when you genuinely run out of memory, which shows up as slowdown with many applications or browser tabs open, and does very little on a machine that is merely waiting on its disk.',
+    whySpeedMatters: 'This is a decision about where your money goes rather than an emergency. It is worth getting right, because the wrong choice is usually not reversible in any useful sense, and because a growing number of machines have memory soldered to the board — on those, whatever was specified at purchase is what you have for good, and the SSD is the only upgrade left.',
+    quickChecks: [
+      'Watch Task Manager on Windows or Activity Monitor on a Mac while it is slow. Disk pinned at 100% and memory pressure in the red mean different things.',
+      'Confirm what the machine actually has. Plenty of laptops sold as recently as 2019 still shipped with a mechanical drive.',
+      'Count how you really work. Thirty browser tabs and a design app open at once is a memory problem; slow boots and slow app launches are not.',
+      'Check whether your model’s memory is soldered, because on many thin laptops and Apple Silicon Macs the question answers itself.',
+    ],
+    engineerChecks: [
+      'Measure the bottleneck under your actual workload rather than assuming, so the upgrade is aimed at the right component.',
+      'Check the maximum supported memory and whether the slots are already occupied, which decides whether it is an addition or a replacement.',
+      'Identify the drive interface — SATA against NVMe — because it changes both what fits and how much difference it makes.',
+      'Clone the existing installation onto the new drive where possible, so nothing has to be reinstalled or set up again.',
+    ],
+    preventionTips: [
+      'On a machine with soldered memory, buy the specification you will need in three years at the point of purchase.',
+      'Leave around 15% of an SSD free; they slow down noticeably when packed to the last gigabyte.',
+      'Do not upgrade a machine that is slow for another reason — a failing drive or a thermal fault needs fixing, not more RAM.',
+    ],
+    sectionHeadings: [
+      'What each upgrade actually changes',
+      'How we work out which one your machine needs',
+      'Getting the most out of an upgraded machine',
+    ],
+    diagnosisIntro:
+      'The honest answer depends entirely on where your particular machine is being held up, and that takes about ten minutes to establish properly.',
+    preventionIntro:
+      'A well-chosen upgrade buys a machine several more useful years; these habits protect that.',
+  },
+  {
+    slug: 'xbox-controller-stick-drift-causes',
+    title: 'Xbox Controller Drifting On Its Own? Why It Happens',
+    publishedAt: '2026-09-08T09:05:00.000Z',
+    excerpt: 'A controller that walks your character across the room while your thumbs are nowhere near it has a worn part inside the thumbstick, not a settings problem.',
+    category: 'Xbox Repair',
+    serviceSlug: 'xbox-repair-london',
+    image: '/images/blog/xbox-controller-stick-drift-causes.jpg',
+    readingTime: 4,
+    firstResponse: 'Underneath each thumbstick sit two small potentiometers that report its position on each axis. They are mechanical, they are in constant contact, and they wear. As the contact surface degrades — helped along by the dust and skin oil that inevitably work their way in — the resting position stops reading as centre, and the console does exactly what it is told and moves. That is drift. It is a worn component, which is why recalibrating helps for a day and then stops helping.',
+    whySpeedMatters: 'Drift only ever gets worse, and the part that fixes it is inexpensive. Left long enough, the failing module can also wear the surrounding pad, which turns a straightforward stick replacement into a more involved board repair. There is rarely a reason to replace a whole controller over one worn stick.',
+    quickChecks: [
+      'Test it in the Xbox Accessories app or any gamepad tester so you know which stick and which axis is drifting.',
+      'Update the controller firmware first. It is quick, it is free, and it rules out the one cause that is not mechanical.',
+      'Try a different battery pack or a known-good USB cable, since low or unstable power can imitate drift convincingly.',
+      'Blow compressed air around the base of the stick. If the drift eases at all, contamination is part of the story.',
+    ],
+    engineerChecks: [
+      'Confirm the fault on a live position readout at rest, rather than by feel, so we know exactly what is being replaced.',
+      'Replace the thumbstick potentiometer module itself — swapping the rubber cap does nothing, as the wear is underneath it.',
+      'Inspect the bumper and trigger membranes while the controller is open, since those are the next parts to go.',
+      'Reseat the ribbon connections and re-test every axis before it goes back, so one fixed stick does not hide another fault.',
+    ],
+    preventionTips: [
+      'Do not store or transport the controller with anything pressing on the sticks.',
+      'Keep it out of dust, and away from food and drink — most contamination arrives on hands.',
+      'Deal with drift when it starts, while it is still only the stick module that needs replacing.',
+    ],
+    sectionHeadings: [
+      'What is actually wearing out inside the stick',
+      'Confirming drift before anything is replaced',
+      'Making the next controller last longer',
+    ],
+    diagnosisIntro:
+      'Drift is easy to confirm and easy to misattribute, so it is worth proving which stick and which axis has gone before opening anything.',
+    preventionIntro:
+      'Thumbsticks are consumable parts, but how a controller is treated makes a real difference to how long they last.',
+  },
 ];
 
 // Image variety: the generated blogs previously reused one image per category, so
@@ -971,6 +1233,12 @@ const POSTS_WITH_DEDICATED_IMAGE = new Set<string>([
   'macbook-trackpad-not-clicking',
   'why-are-my-games-lagging-suddenly-pc',
   'spilled-water-on-keyboard-what-not-to-do',
+  'imac-running-slow-hard-drive-upgrade',
+  'wifi-keeps-dropping-out-home-office',
+  'printer-not-connecting-to-wifi',
+  'windows-laptop-blue-screen-what-it-means',
+  'upgrade-ram-or-ssd-which-comes-first',
+  'xbox-controller-stick-drift-causes',
 ]);
 
 function pickBlogImage(blueprint: BlogBlueprint): string {
@@ -992,7 +1260,12 @@ function pickBlogImage(blueprint: BlogBlueprint): string {
 }
 
 function buildBlogPost(blueprint: BlogBlueprint, index: number): BlogPost {
-  const publishedAt = new Date(BLOG_START_DATE.getTime() + index * BLOG_CADENCE_MS).toISOString();
+  // See BlogBlueprint.publishedAt — an explicit date wins; the index-derived
+  // fallback exists only for the original 22 posts, which must keep the dates
+  // they were published under.
+  const publishedAt =
+    blueprint.publishedAt ??
+    new Date(BLOG_START_DATE.getTime() + index * BLOG_CADENCE_MS).toISOString();
   const headings = blueprint.sectionHeadings ?? FALLBACK_SECTION_HEADINGS;
 
   return {
@@ -1059,10 +1332,18 @@ export function getLatestBlogPosts(limit = 3): BlogPost[] {
 export function getRelatedBlogPosts(current: BlogPost, limit = 3): BlogPost[] {
   const others = getAllBlogPosts().filter((post) => post.slug !== current.slug);
 
+  // Services the current post's service is curated as adjacent to. Without this
+  // tier a post that is the only one covering its service — which every post
+  // opening up a new service is, by definition — scores every other post at 0
+  // and falls through to "newest three", so the iMac post offered a water-spill
+  // guide, a PC framerate guide and a trackpad guide as related reading.
+  const related = new Set(getService(current.serviceSlug)?.relatedServiceSlugs ?? []);
+
   const scored = others.map((post) => {
     let score = 0;
     if (post.serviceSlug === current.serviceSlug) score += 2;
     if (post.category === current.category) score += 1;
+    if (related.has(post.serviceSlug)) score += 1;
     return { post, score };
   });
 

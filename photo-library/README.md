@@ -1,0 +1,55 @@
+# Photo library
+
+Put your own repair photos in this folder. Nothing here is published on its own —
+this is the pool Claude picks from when writing a blog post or a case study, so
+that posts can use real pictures of your work instead of stock photography.
+
+## How to add photos
+
+**From a phone or any browser, no software needed:**
+
+1. Go to https://github.com/Kamranyaqub22/werepairmac-site/tree/main/photo-library
+2. Click **Add file → Upload files**
+3. Drag the photos in, then click **Commit changes**
+
+That is the whole process. You can upload a batch at a time, and you do not need
+to do anything else afterwards — just mention in chat that there are new photos.
+
+## Naming them
+
+The filename is how a photo gets found later, so describe what is in it:
+
+```
+macbook-pro-swollen-battery-removed.jpg
+imac-27-inch-open-on-bench-dust.jpg
+ps5-liquid-metal-reapplied.jpg
+laptop-screen-cracked-before.jpg
+laptop-screen-replaced-after.jpg
+```
+
+Rough device and fault is plenty. `IMG_4821.jpg` still works — the photos get
+looked at, not just read — but a descriptive name makes the right one easier to
+find when there are two hundred in here.
+
+## What makes a photo usable on the site
+
+- **Landscape** where you can manage it. Blog headers are wide, so portrait shots
+  get cropped top and bottom.
+- **Reasonably lit and in focus.** A bench lamp is enough.
+- **Before and after pairs** are the most valuable thing you can take. They are
+  what a customer deciding whether to trust you actually wants to see.
+- **No customer data on screen** — no names, emails, addresses, files or serial
+  numbers visible. Check the screen before you shoot, and check the background
+  for paperwork.
+- Straight off the phone is fine. They get resized and compressed before use.
+
+## What happens to them
+
+When a photo is used, it is resized to 1200px wide, compressed, and copied to
+`public/images/blog/` or `public/images/repairs/` under a name matching the post
+it belongs to. The original stays here untouched, so the same photo can be
+reused later.
+
+Photos that sit here unused cost nothing but a little repository size. If this
+folder grows very large over the years, the oldest unused originals can be
+cleared out without affecting anything already published.

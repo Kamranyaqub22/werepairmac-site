@@ -46,7 +46,6 @@ export default function RelatedAdvice({
                     {post.title}
                   </Link>
                 </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-3">{post.excerpt}</p>
                 <Link
                   href={`/blog/${post.slug}`}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:gap-2.5 transition-all"
