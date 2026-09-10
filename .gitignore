@@ -16,3 +16,8 @@ dist/
 # committed here is world-readable — including outreach plans, competitor notes
 # and draft emails, whose value depends on not being contested.
 drafts/
+
+# Local MCP server config. Gitignored because this repo is PUBLIC and this file
+# is where an API token would end up if one were ever pasted in place of the
+# ${HOSTINGER_API_TOKEN} reference. The token belongs in your shell profile.
+.mcp.json

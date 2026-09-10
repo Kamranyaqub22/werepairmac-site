@@ -1,8 +1,27 @@
 # Photo library
 
-Put your own repair photos in this folder. Nothing here is published on its own —
-this is the pool Claude picks from when writing a blog post or a case study, so
-that posts can use real pictures of your work instead of stock photography.
+Put your own repair photos in this folder. Nothing here is rendered on the site
+on its own — this is the pool Claude picks from when writing a blog post or a
+case study, so that posts can use real pictures of your work instead of stock
+photography.
+
+## Read this first: the repository is public
+
+`github.com/Kamranyaqub22/werepairmac-site` is a **public** repository. Anything
+committed here is world-readable and stays in the git history even if it is
+deleted later. "Not used on the site" is not the same as "not visible".
+
+So treat this folder as if every photo in it were already published:
+
+- Never upload a photo showing a customer's **files, emails, messages, browser
+  tabs, photos or desktop** — check the screen before you shoot.
+- Never upload anything showing a **name, address, phone number, invoice or
+  serial number**, including on paperwork in the background.
+- If a photo is only safe once cropped, crop it **before** uploading. Deleting it
+  afterwards does not remove it from the history.
+
+If you want a photo pool that is genuinely private, that needs a separate private
+repository or a cloud-storage folder — say so and it can be set up instead.
 
 ## How to add photos
 
