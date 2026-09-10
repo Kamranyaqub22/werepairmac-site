@@ -106,19 +106,30 @@ export interface PublishFile {
   encoding: 'base64' | 'utf-8';
 }
 
-/** Reads the current case-studies JSON from the branch tip. */
-export async function fetchCaseStudiesJson(): Promise<unknown[]> {
+/**
+ * Reads a JSON array from the branch tip.
+ *
+ * Always the branch, never the local filesystem: on Vercel the deployed bundle
+ * is a snapshot of whichever commit built it, so a second publish in the same
+ * day would otherwise read a stale list and drop the first one.
+ */
+export async function fetchRepoJsonArray(dataPath: string): Promise<unknown[]> {
   const cfg = config();
   const file = await gh<{ content: string; encoding: string }>(
     cfg,
-    `/contents/${DATA_PATH}?ref=${cfg.branch}`
+    `/contents/${dataPath}?ref=${cfg.branch}`
   );
   const decoded = Buffer.from(file.content, 'base64').toString('utf-8');
   const parsed = JSON.parse(decoded);
   if (!Array.isArray(parsed)) {
-    throw new PublishError(`${DATA_PATH} is not a JSON array.`);
+    throw new PublishError(`${dataPath} is not a JSON array.`);
   }
   return parsed;
+}
+
+/** Reads the current case-studies JSON from the branch tip. */
+export async function fetchCaseStudiesJson(): Promise<unknown[]> {
+  return fetchRepoJsonArray(DATA_PATH);
 }
 
 /**
