@@ -143,8 +143,12 @@ export default function AdminPhotosPage() {
       if (!res.ok) throw new Error(String(data.error ?? 'Upload failed.'));
 
       const added = (data.added as string[]) ?? [];
+      // No rebuild happens here: vercel.json's ignoreCommand skips the build
+      // for commits that only touch photo-library. The library list below still
+      // updates, because it reads the branch through the GitHub API rather than
+      // the deployed bundle.
       setNotice(
-        `Added ${added.length} photo${added.length === 1 ? '' : 's'}. The site rebuilds in a couple of minutes — the library below is already up to date.`
+        `Added ${added.length} photo${added.length === 1 ? '' : 's'} to the library. The site itself is untouched until one is used in a post.`
       );
       setFiles([]);
       setLabels([]);

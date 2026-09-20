@@ -74,6 +74,22 @@ find when there are two hundred in here.
   for paperwork.
 - Straight off the phone is fine. They get resized and compressed before use.
 
+## Uploading does not redeploy the site
+
+A commit that touches only this folder skips the Vercel build. That is the
+`ignoreCommand` in `vercel.json`, which compares the push against everything
+outside `photo-library/` and cancels the build when nothing else changed. Such a
+deployment shows as "Canceled" in Vercel — that is the feature working, not an
+error.
+
+Nothing is lost by skipping it. The upload is a commit written straight through
+the GitHub API, and the console lists the library by reading the branch through
+that same API, so both work regardless of when the site last built. The
+thumbnails come from `raw.githubusercontent.com`, not from the site.
+
+The moment a photo is actually used in a post it is copied into
+`public/images/`, which is outside this folder, so that change deploys normally.
+
 ## What happens to them
 
 When a photo is used, it is resized to 1200px wide, compressed, and copied to
