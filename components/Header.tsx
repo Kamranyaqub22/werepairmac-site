@@ -33,8 +33,9 @@ export default function Header({ showRepairs = false }: HeaderProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2">
           <span className="text-white/80">Based in New Malden · Serving all of Greater London</span>
           <div className="flex items-center gap-4">
-            <a href="tel:07378349222" className="flex items-center gap-1.5 font-semibold text-white hover:text-white/80 transition-colors text-sm">
-              <PhoneIcon className="w-3.5 h-3.5" />
+            {/* nowrap: on a narrow phone this was breaking as "07378 / 349222". */}
+            <a href="tel:07378349222" className="flex items-center gap-1.5 font-semibold text-white hover:text-white/80 transition-colors text-sm whitespace-nowrap">
+              <PhoneIcon className="w-3.5 h-3.5 flex-shrink-0" />
               07378 349222
             </a>
             <a href="mailto:info@werepairmac.co.uk" className="hidden sm:block text-white/70 hover:text-white transition-colors">
@@ -48,7 +49,7 @@ export default function Header({ showRepairs = false }: HeaderProps) {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
             <Image
               src="/logo.jpg"
               alt="We Repair Mac"
@@ -58,13 +59,22 @@ export default function Header({ showRepairs = false }: HeaderProps) {
               priority
             />
             <div className="leading-none">
-              <div className="font-bold text-gray-900 text-[15px]">We Repair Mac</div>
-              <div className="text-[11px] text-gray-400 font-normal">Mac · Laptop · PC · Console · Data Recovery</div>
+              <div className="font-bold text-gray-900 text-[15px] whitespace-nowrap">We Repair Mac</div>
+              {/*
+                Hidden exactly where the desktop links appear. The nav row is
+                capped at max-w-7xl, so widening the window buys no extra space
+                — at every desktop width the row has the same ~1232px to fill,
+                and this strapline is the widest thing in the logo block. Keeping
+                it was what pushed the links into wrapping and let the CTA
+                buttons overlap "Contact". It still shows below xl, where the
+                links collapse into the burger menu and there is room to spare.
+              */}
+              <div className="text-[11px] text-gray-400 font-normal whitespace-nowrap xl:hidden">Mac · Laptop · PC · Console · Data Recovery</div>
             </div>
           </Link>
 
           {/* Desktop navigation */}
-          <div className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-gray-600">
+          <div className="hidden xl:flex items-center gap-6 text-[13px] font-medium text-gray-600 whitespace-nowrap">
             <Link href="/" className="hover:text-brand transition-colors">Home</Link>
 
             <div
@@ -137,7 +147,7 @@ export default function Header({ showRepairs = false }: HeaderProps) {
             <Link href="/contact" className="hover:text-brand transition-colors">Contact</Link>
           </div>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3 flex-shrink-0">
             <Link href="/quote" className="btn-outline px-4 py-2.5">Get a Quote</Link>
             <a href="tel:07378349222" className="btn-accent px-5 py-2.5">
               <PhoneIcon className="w-4 h-4" />
@@ -147,7 +157,7 @@ export default function Header({ showRepairs = false }: HeaderProps) {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 text-gray-600 hover:text-gray-900"
+            className="xl:hidden p-2 text-gray-600 hover:text-gray-900"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation"
           >
@@ -158,7 +168,7 @@ export default function Header({ showRepairs = false }: HeaderProps) {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white">
+        <div className="xl:hidden border-t border-gray-100 bg-white">
           <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 text-[14px] font-medium text-gray-700">
             <Link href="/" onClick={() => setMenuOpen(false)} className="py-2.5 hover:text-brand transition-colors">Home</Link>
 
