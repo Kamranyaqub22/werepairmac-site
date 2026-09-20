@@ -32,6 +32,7 @@ export default function AdminPhotosPage() {
 
   const [files, setFiles] = useState<File[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
+  const [naming, setNaming] = useState(false);
   const [library, setLibrary] = useState<LibraryPhoto[] | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -87,11 +88,43 @@ export default function AdminPhotosPage() {
       for (const file of take) prepared.push(await prepareImage(file));
       setFiles(prepared);
       setLabels(prepared.map(() => ''));
+      void suggestNames(prepared);
     } catch (err) {
       if (fileInput.current) fileInput.current.value = '';
       setError(err instanceof Error ? err.message : 'Could not read those photos.');
     } finally {
       setPreparing(false);
+    }
+  }
+
+  /**
+   * Fill the name boxes from the photos themselves.
+   *
+   * Failure is deliberately silent. Naming is a convenience — if the model is
+   * unavailable the boxes simply stay empty and you type, which is exactly the
+   * behaviour before this existed. Surfacing an error here would make a working
+   * upload look broken.
+   *
+   * Anything already typed is preserved: a suggestion only fills a box that is
+   * still empty, so a slow response cannot overwrite what you wrote while
+   * waiting.
+   */
+  async function suggestNames(prepared: File[]) {
+    setNaming(true);
+    try {
+      const body = new FormData();
+      prepared.forEach((f) => body.append('photos', f));
+      const res = await fetch('/api/admin/photos/label', { method: 'POST', body });
+      if (!res.ok) return;
+      const data = await readJson(res);
+      const suggested = (data.labels as string[]) ?? [];
+      setLabels((current) =>
+        prepared.map((_, i) => (current[i]?.trim() ? current[i] : (suggested[i] ?? '')))
+      );
+    } catch {
+      // Silent by design — see above.
+    } finally {
+      setNaming(false);
     }
   }
 
@@ -133,8 +166,9 @@ export default function AdminPhotosPage() {
           <h1 className="text-3xl font-extrabold text-gray-900">Photo library</h1>
           <p className="text-gray-500 mt-2 leading-relaxed">
             Your own repair photos, kept in one place so blog posts can use real pictures
-            instead of stock. Nothing here goes on the site until a photo is picked for a
-            specific post.
+            instead of stock. Each one is named from what is in the picture — check the name
+            before uploading and correct it if it is wrong. Nothing goes on the site until a
+            photo is picked for a specific post.
           </p>
         </header>
 
@@ -200,6 +234,11 @@ export default function AdminPhotosPage() {
                 {preparing && (
                   <span className="block text-xs text-gray-500 mt-2">Preparing photos…</span>
                 )}
+                {naming && (
+                  <span className="block text-xs text-gray-500 mt-2">
+                    Naming them from what&apos;s in the picture… you can start typing over the top.
+                  </span>
+                )}
               </label>
 
               {files.length > 0 && (
@@ -219,12 +258,14 @@ export default function AdminPhotosPage() {
                           onChange={(e) =>
                             setLabels((l) => l.map((v, j) => (j === i ? e.target.value : v)))
                           }
-                          placeholder="What is it? e.g. macbook pro swollen battery removed"
+                          placeholder={
+                            naming ? 'Naming…' : 'What is it? e.g. macbook pro swollen battery removed'
+                          }
                           className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
                         />
                         <span className="block text-xs text-gray-400 mt-1.5">
-                          {formatBytes(file.size)} · becomes the filename, so describe the
-                          device and the fault
+                          {formatBytes(file.size)} · becomes the filename — check it describes
+                          the device and the fault
                         </span>
                       </div>
                     </div>
@@ -238,7 +279,10 @@ export default function AdminPhotosPage() {
 
               <button
                 type="submit"
-                disabled={busy || preparing || !files.length}
+                // Also blocked while naming: uploading mid-suggestion would
+                // commit filenames from the empty boxes and land the names a
+                // moment too late to matter.
+                disabled={busy || preparing || naming || !files.length}
                 className="btn-primary w-full justify-center"
               >
                 {busy ? 'Uploading…' : `Upload ${files.length || ''} to the library`}
