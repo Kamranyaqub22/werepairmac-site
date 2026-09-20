@@ -132,6 +132,44 @@ export async function fetchCaseStudiesJson(): Promise<unknown[]> {
   return fetchRepoJsonArray(DATA_PATH);
 }
 
+export interface RepoFile {
+  name: string;
+  path: string;
+  size: number;
+  /** Raw githubusercontent URL — usable directly as an <img> src. */
+  downloadUrl: string;
+}
+
+/**
+ * Lists the files in one directory at the branch tip.
+ *
+ * Same reasoning as fetchRepoJsonArray: read the branch, not the bundle. The
+ * photo library is written by commits from this console, so a deployment from
+ * an hour ago has no idea what was added since.
+ *
+ * Errors are deliberately not swallowed into an empty list. gh() turns a 404
+ * into a message about GITHUB_REPO and token access, which is usually the real
+ * cause — reporting that as "no photos yet" would send you looking in the wrong
+ * place. The directories this is called on are kept non-empty by a committed
+ * README, since git cannot store an empty one.
+ */
+export async function fetchRepoDirectory(dirPath: string): Promise<RepoFile[]> {
+  const cfg = config();
+
+  const entries = await gh<
+    Array<{ name: string; path: string; size: number; type: string; download_url: string | null }>
+  >(cfg, `/contents/${dirPath}?ref=${cfg.branch}`);
+
+  // A path that names a file rather than a directory returns an object.
+  if (!Array.isArray(entries)) {
+    throw new PublishError(`${dirPath} is a file, not a directory.`);
+  }
+
+  return entries
+    .filter((e) => e.type === 'file' && e.download_url)
+    .map((e) => ({ name: e.name, path: e.path, size: e.size, downloadUrl: e.download_url as string }));
+}
+
 /**
  * Commits every file in one go and returns the commit URL.
  *

@@ -25,14 +25,26 @@ repository or a cloud-storage folder — say so and it can be set up instead.
 
 ## How to add photos
 
-**From a phone or any browser, no software needed:**
+**The easy way — the admin console:**
+
+Go to **https://www.werepairmac.co.uk/admin/photos**, sign in, pick photos, type a
+few words describing each one, and press upload. Up to 6 at a time.
+
+It handles iPhone HEIC files, fixes sideways photos, resizes them, and strips the
+GPS location out of them in your browser before anything is sent. Your
+description becomes the filename. Uploading commits them here automatically, and
+the page shows you everything already in the library.
+
+**The other way — GitHub directly:**
 
 1. Go to https://github.com/Kamranyaqub22/werepairmac-site/tree/main/photo-library
 2. Click **Add file → Upload files**
 3. Drag the photos in, then click **Commit changes**
 
-That is the whole process. You can upload a batch at a time, and you do not need
-to do anything else afterwards — just mention in chat that there are new photos.
+Better for a big batch, since the console is capped at 6 per upload. Nothing is
+resized on this path, so the files stay as they came off the camera.
+
+Either way, just mention in chat that there are new photos.
 
 ## Naming them
 
