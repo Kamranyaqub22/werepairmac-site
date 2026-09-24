@@ -452,10 +452,10 @@ export const services: Service[] = [
       'MacBook discharging overnight',
       'macOS showing reduced battery capacity',
     ],
-    metaTitle: 'MacBook Battery Replacement London',
-    metaDescription: 'MacBook Pro and Air battery replacement across London. Home visits, genuine-spec parts. Fast turnaround. No fix, no fee. Call 07378 349222.',
+    metaTitle: 'Same-Day MacBook Battery Replacement London',
+    metaDescription: 'Same-day MacBook Pro and Air battery replacement across London, at your home. Genuine-spec cells, cost confirmed upfront. No fix, no fee. 07378 349222.',
     category: 'Apple & Mac',
-    pageUpdatedAt: '2026-08-09',
+    pageUpdatedAt: '2026-09-24',
     updatedAt: '2026-07-28',
     relatedServiceSlugs: ['macbook-repair-london', 'macbook-pro-repair-london', 'hardware-upgrades-london'],
     whatToExpect: [
@@ -470,7 +470,7 @@ export const services: Service[] = [
     faqs: [
       { q: 'How do I know whether my MacBook needs a new battery?', a: 'The clearest signs are a "Service Recommended" or "Replace Now" warning in System Settings, a cycle count well past a thousand, maximum capacity that has dropped a long way below its original figure, and a Mac that shuts down unexpectedly at 20–30% rather than running to zero. Any of those, and a replacement is usually worth it. We check the actual figures before recommending anything.' },
       { q: 'My trackpad has stopped clicking properly — could that be the battery?', a: 'Very likely, and it is worth treating as urgent. A swelling battery presses up against the trackpad from underneath, so a trackpad that has gone stiff or stopped clicking is a classic swollen-cell symptom. Stop charging it and call us the same day — swelling gets worse, and it eventually damages the trackpad and the case.' },
-      { q: 'How much is a MacBook battery replacement, and how long does it take?', a: 'You pay our £120 per hour labour, usually within the hour, plus the cell itself, both quoted upfront. Most replacements are finished on-site in a single visit across Greater London, so you keep your Mac the same day rather than losing it for a week.' },
+      { q: 'How much does a MacBook battery replacement cost, and how long does it take?', a: 'You pay our £120 per hour labour, usually within the hour, plus the cell itself, both quoted upfront. Most replacements are finished on-site in a single visit across Greater London, so you keep your Mac the same day rather than losing it for a week.' },
       { q: 'Do you use genuine Apple batteries?', a: 'We fit genuine-specification cells that match the original capacity and safety characteristics of the one that came out, including the glued-in batteries on newer Retina models. We do not fit the cheapest cells on the market — a battery that fails inside a year is not a saving, and ours carry a 90-day warranty.' },
       { q: 'Will replacing the battery make my MacBook faster?', a: 'Sometimes, genuinely. macOS will throttle performance on a Mac whose battery can no longer deliver peak power, so a machine that felt sluggish as well as short-lived often picks up noticeably with a healthy cell. If the slowness has a different cause we will tell you that instead rather than selling you a battery.' },
       { q: 'Which MacBooks can you replace batteries in?', a: 'All of them — M1, M2 and M3 MacBook Air and MacBook Pro, every Intel-based MacBook Pro and Air, and the 12-inch MacBook, including the models where the cell is glued into the case and has to be removed with proper solvent rather than levered out.' },
