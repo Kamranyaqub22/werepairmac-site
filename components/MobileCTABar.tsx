@@ -6,7 +6,7 @@ import { PhoneIcon, ArrowRightIcon } from '@/components/Icons';
 // one tap away from every page, so the booking form is never buried.
 export default function MobileCTABar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[90] sm:hidden grid grid-cols-2 gap-2 p-2.5 bg-white/95 backdrop-blur border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+    <div className="print:hidden fixed bottom-0 left-0 right-0 z-[90] sm:hidden grid grid-cols-2 gap-2 p-2.5 bg-white/95 backdrop-blur border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
       <a
         href="tel:07378349222"
         data-call-source="mobile-sticky-bar"

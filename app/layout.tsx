@@ -92,7 +92,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         {/* Spacer so the fixed mobile bar never hides the footer's last row */}
-        <div className="h-16 sm:hidden" aria-hidden="true" />
+        <div className="h-16 sm:hidden print:hidden" aria-hidden="true" />
         <WhatsAppButton />
         <MobileCTABar />
 

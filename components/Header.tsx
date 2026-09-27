@@ -27,7 +27,7 @@ export default function Header({ showRepairs = false }: HeaderProps) {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="print:hidden bg-white border-b border-gray-200 sticky top-0 z-50">
       {/* Top bar */}
       <div className="bg-brand text-white text-xs py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2">

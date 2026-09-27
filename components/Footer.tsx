@@ -10,7 +10,7 @@ export default function Footer() {
   const featuredLocations = locations.slice(0, 18);
 
   return (
-    <footer className="bg-gray-950 text-gray-400">
+    <footer className="print:hidden bg-gray-950 text-gray-400">
       {/* CTA band */}
       <div className="bg-brand py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
