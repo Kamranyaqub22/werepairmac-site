@@ -141,6 +141,14 @@ export default function AdminEstimatePage() {
     setEstimateNumber(`WRM-${stamp}-${rand}`);
   }, []);
 
+  // Browsers print this as the page header when "Headers and footers" is on
+  // in the print dialog, so it's worth being something other than "Admin".
+  useEffect(() => {
+    document.title = estimateNumber
+      ? `Repair Estimate ${estimateNumber} - We Repair Mac`
+      : 'Repair Estimate - We Repair Mac';
+  }, [estimateNumber]);
+
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -277,7 +285,7 @@ export default function AdminEstimatePage() {
           </div>
 
           {/* Customer / device */}
-          <div className="grid md:grid-cols-2 gap-x-10 mb-8">
+          <div className="grid md:grid-cols-2 print:grid-cols-2 gap-x-10 mb-8">
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">
                 Prepared for
@@ -350,14 +358,17 @@ export default function AdminEstimatePage() {
                     />
                   </td>
                   <td className="py-2 px-2">
-                    <input
-                      type="text"
-                      inputMode="decimal"
-                      value={item.price}
-                      onChange={(e) => updateLineItem(item.id, 'price', e.target.value)}
-                      placeholder="0.00"
-                      className="w-full bg-transparent outline-none rounded px-1 -mx-1 text-right focus:bg-blue-50 print:focus:bg-transparent print:px-0 print:mx-0"
-                    />
+                    <div className="flex items-center justify-end gap-0.5">
+                      <span className="text-gray-400">&pound;</span>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        value={item.price}
+                        onChange={(e) => updateLineItem(item.id, 'price', e.target.value)}
+                        placeholder="0.00"
+                        className="w-full bg-transparent outline-none rounded px-1 -mx-1 text-right focus:bg-blue-50 print:focus:bg-transparent print:px-0 print:mx-0"
+                      />
+                    </div>
                   </td>
                   <td className="py-2 pl-2 text-right font-medium text-gray-900">
                     {formatGBP(amount(item))}
@@ -398,7 +409,7 @@ export default function AdminEstimatePage() {
           <TextBlock label="Notes & terms" value={notes} onChange={setNotes} rows={4} />
 
           {/* Signature */}
-          <div className="grid md:grid-cols-2 gap-10 mt-10 pt-6 border-t border-gray-200">
+          <div className="grid md:grid-cols-2 print:grid-cols-2 gap-10 mt-10 pt-6 border-t border-gray-200">
             <div>
               <p className="text-sm text-gray-500 mb-8 print:hidden">
                 Signed for We Repair Mac
