@@ -1184,6 +1184,200 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
     preventionIntro:
       'Thumbsticks are consumable parts, but how a controller is treated makes a real difference to how long they last.',
   },
+  {
+    slug: 'ps5-hdmi-port-repair-cost-worth-it',
+    title: 'PS5 HDMI Port Repair: What It Costs And Why It Beats A New Console',
+    metaTitle: 'PS5 HDMI Port Repair Cost: Is It Worth Fixing?',
+    publishedAt: '2026-10-08T09:00:00.000Z',
+    excerpt: 'A damaged HDMI port is the most common reason a PS5 stops showing a picture, and replacing the port costs a fraction of a new console.',
+    category: 'PS5 HDMI Port Repair',
+    serviceSlug: 'ps5-hdmi-port-repair-london',
+    image: '/images/blog/ps5-hdmi-port-repair-cost-worth-it.jpg',
+    readingTime: 5,
+    firstResponse: 'The HDMI port on a PS5 is soldered straight onto the main board, and it carries the full weight of whatever cable is plugged into it. When the console is moved with the cable still attached, pulled off a shelf, or knocked over, the port takes the strain: the pins bend, the solder joints crack, or the port lifts away from the board. The result is no picture, a picture that flickers when the cable is touched, or a cable that no longer sits firmly. A replacement port fitted and tested typically comes to £120–£220 all-in — far less than a new console, and you keep your existing machine, games and saves.',
+    whySpeedMatters: 'A loose or damaged port often still works intermittently, which tempts people to keep wiggling the cable until the picture comes back. Every attempt can short neighbouring pins, and that is how a straightforward port replacement becomes damage to the HDMI controller chip behind it — a slower and more expensive repair. If the picture only appears at a certain cable angle, stop using it and get it looked at.',
+    quickChecks: [
+      'Try a different HDMI cable and a different input on the TV. It takes two minutes and rules out the cheapest causes first.',
+      'Shine a torch into the port. Bent, flattened or missing pins, or a port that sits crooked in the case, point to physical damage.',
+      'Start the console in safe mode by holding the power button until the second beep, then choose Change Video Output. If the picture returns there, the port is likely fine.',
+      'Note whether the console powers up normally, with the light behaving as usual. Power and picture faults are diagnosed differently.',
+    ],
+    engineerChecks: [
+      'Inspect the port under magnification for bent pins, cracked solder joints and lifted pads on the board.',
+      'Test the HDMI controller circuit behind the port, so a damaged chip is found before the port is replaced rather than after.',
+      'Remove the old port and clean the pads, then fit and solder a new port with correct alignment.',
+      'Test the console on a real display at full resolution and with a cable held at angles before it goes back.',
+    ],
+    preventionTips: [
+      'Never move or lift the console with the HDMI cable still plugged in.',
+      'Leave some slack in the cable so a tug on the TV end cannot pull on the port.',
+      'Keep the console out of walkways and away from pets and children who might catch the cable.',
+    ],
+    sectionHeadings: [
+      'Why PS5 HDMI ports fail and what a repair costs',
+      'What a proper HDMI port replacement involves',
+      'Stopping the new port going the same way',
+    ],
+    diagnosisIntro:
+      'An HDMI port replacement is fine soldering work done in our workshop, so we collect the console, carry out the repair and return it, usually within a few days. This is what that work involves.',
+    preventionIntro:
+      'Almost every damaged HDMI port we replace was caused by the cable being pulled while plugged in. These habits prevent most of them.',
+  },
+  {
+    slug: 'macbook-logic-board-repair-vs-replacement',
+    title: 'MacBook Logic Board Failed? Why Repair Usually Beats Replacement',
+    metaTitle: 'MacBook Logic Board: Repair or Replace?',
+    publishedAt: '2026-10-08T09:01:00.000Z',
+    excerpt: 'A logic board fault does not have to mean a new board or a new Mac. Board-level repair fixes the component that failed and keeps your data where it is.',
+    category: 'MacBook Logic Board Repair',
+    serviceSlug: 'macbook-logic-board-repair-london',
+    image: '/images/blog/macbook-logic-board-repair-vs-replacement.jpg',
+    readingTime: 6,
+    firstResponse: 'When a MacBook has a logic board fault, the usual official answer is to swap the entire board, which often costs close to the value of the machine. Board-level repair takes a different approach: it traces the fault to the one component that has failed — very often a power chip, a fuse, a capacitor or a corroded connection — and replaces only that. Most faults are a single failed part on a board that is otherwise healthy, which is why repair is so often the better option.',
+    whySpeedMatters: 'On recent MacBooks the storage is soldered to the logic board and encrypted to it. If the board is swapped, the data on the old board goes with it. Repairing the original board is often the only way to get your files back as well as a working Mac, and with liquid damage the corrosion keeps spreading every day the board sits wet, so the sooner it is inspected the more of it can be saved.',
+    quickChecks: [
+      'Rule out the charger first with a known-good charger and cable. A dead adapter is far more common than a dead board.',
+      'If liquid was involved, disconnect power and do not switch it on again. Running power through a wet board is what turns a recoverable fault into a serious one.',
+      'Note exactly what happens: no lights or fan at all, a fan that spins with a black screen, or a restart loop. Each points to a different part of the board.',
+      'Think about anything recent — a spill, a drop, a new charger, a failed update — because it helps narrow down the cause quickly.',
+    ],
+    engineerChecks: [
+      'Measure the power draw when the machine is switched on to see how far through start-up the board gets.',
+      'Check the main power circuits in sequence to find the one that is missing or shorted.',
+      'Inspect under magnification for corrosion, burnt components and damaged connectors, especially near the keyboard and ports.',
+      'Confirm whether the data is still reachable before any work starts, so you know what is at stake.',
+    ],
+    preventionTips: [
+      'Keep drinks away from the keyboard, since liquid is the single biggest cause of board failure we see.',
+      'Use a reputable charger. Cheap adapters with poor regulation can damage the charging circuit.',
+      'Back up regularly with Time Machine or iCloud, because on a modern Mac the board and the data are effectively one part.',
+    ],
+    sectionHeadings: [
+      'What a logic board fault really means',
+      'How board-level diagnosis finds the failed part',
+      'Protecting the board and the data on it',
+    ],
+    diagnosisIntro:
+      'Board work is done in our workshop after a free inspection, and it is quoted per fault rather than from a price list, because a blown fuse and a corroded power circuit are very different jobs. You get the price before any work starts.',
+    preventionIntro:
+      'Most boards we repair failed for a handful of avoidable reasons. These are the ones worth guarding against.',
+  },
+  {
+    slug: 'is-it-worth-repairing-old-macbook-pro',
+    title: 'Is It Worth Repairing An Old MacBook Pro? How To Decide',
+    publishedAt: '2026-10-08T09:02:00.000Z',
+    excerpt: 'A tired MacBook Pro is often one repair away from several more good years. These are the factors that decide whether that repair is money well spent.',
+    category: 'MacBook Pro Repair',
+    serviceSlug: 'macbook-pro-repair-london',
+    image: '/images/blog/is-it-worth-repairing-old-macbook-pro.jpg',
+    readingTime: 5,
+    firstResponse: 'Most MacBook Pros are worth repairing. The common faults — a worn battery, a cracked screen, a failing keyboard, or a machine slowed down by dust and heat — are fixable, and the repair usually costs a fraction of a replacement. A new battery typically comes to £120–£220 and a screen to £180–£450. The real question is not whether it can be fixed, but whether the machine will still do what you need afterwards, and that comes down to its age, its software support and what else is wearing out.',
+    whySpeedMatters: 'Software support matters more than people expect. Apple has said macOS Tahoe is the last major version for Intel Macs, and only a few 2019 and 2020 Intel models can run it. An Intel MacBook Pro that cannot run a current macOS will gradually lose app and security updates, so a large repair on one deserves more thought. Any MacBook Pro with Apple Silicon (M1 or later) has years of support left and is almost always worth fixing.',
+    quickChecks: [
+      'Open About This Mac and note the chip and year. Apple Silicon or Intel is the first thing that shapes the answer.',
+      'Check the battery condition in System Settings. "Service Recommended" means a battery replacement could transform how it feels.',
+      'List every fault, not just the main one. A machine with one fault is a good repair; one with three needs a frank conversation.',
+      'Check what a replacement with the same memory and storage would cost, because that is the honest comparison.',
+    ],
+    engineerChecks: [
+      'Confirm the main fault and look for any others, so the quote covers everything rather than just the first problem found.',
+      'Check the battery cycle count and health, as an old battery often explains slowness, heat and sudden shutdowns.',
+      'Look inside for dust on the fans and heatsink, which makes a Mac run hot and slow and is quick to clean while it is open.',
+      'Tell you plainly if the repair is not worth it. With No Fix, No Fee, you pay nothing if the machine cannot be repaired.',
+    ],
+    preventionTips: [
+      'Replace the battery once it reports Service Recommended, before it starts to swell.',
+      'Have the fans and heatsink cleaned every couple of years if the machine runs warm or loud.',
+      'Use it on a hard, flat surface so the vents are not blocked by a bed or sofa.',
+    ],
+    sectionHeadings: [
+      'The short answer for most MacBook Pros',
+      'What we look at before recommending a repair',
+      'Getting the most years out of a repaired MacBook Pro',
+    ],
+    diagnosisIntro:
+      'A repair is only good value if the rest of the machine is sound, so we check the whole Mac, not just the fault you called about, and give you the full picture before you decide.',
+    preventionIntro:
+      'A repaired MacBook Pro can comfortably give several more years of everyday use. These habits help it get there.',
+  },
+  {
+    slug: 'macbook-air-screen-cracked-no-impact',
+    title: 'MacBook Air Screen Cracked Without Being Dropped? Here Is Why',
+    metaTitle: 'MacBook Air Screen Cracked Without a Drop? Why',
+    publishedAt: '2026-10-08T09:03:00.000Z',
+    excerpt: 'A MacBook Air screen that cracks with no fall or knock was almost always closed on something small. What causes it and what the repair involves.',
+    category: 'MacBook Air Repair',
+    serviceSlug: 'macbook-air-repair-london',
+    image: '/images/jay-wennington-3xf07twcxsY-unsplash.jpg',
+    readingTime: 4,
+    firstResponse: 'The MacBook Air has a very thin display, and the gap between the screen and the keyboard when the lid is closed is tiny. Closing it on something small — an earbud, a pen, a hair clip, even a grain of grit — presses that object straight into the panel, and it cracks from the inside. It can also happen when the Mac is carried in a packed bag or lifted by one corner of the lid. People are often sure it was never dropped, and they are right: it did not need to be.',
+    whySpeedMatters: 'A cracked panel usually gets worse, not better. The crack spreads as the lid is opened and closed, and glass splinters can work loose. Black patches or lines that grow over a few days are normal for this kind of damage. If you rely on the Mac, back up straight away while you can still see enough of the screen to do it.',
+    quickChecks: [
+      'Connect an external monitor or TV. If the picture is perfect there, the Mac itself is fine and only the display needs replacing.',
+      'Look for the impression of a key on the screen, or something small left on the keyboard, which confirms how it happened.',
+      'Back up your files now, using the external display if the built-in screen is hard to read.',
+      'Avoid pressing on the cracked area or flexing the lid, as both make the damage spread.',
+    ],
+    engineerChecks: [
+      'Confirm the fault is the panel and not the display cable, since lines and flickering can come from either.',
+      'Source the correct display assembly for your exact model, as MacBook Air screens are replaced as a whole unit.',
+      'Fit the new display and check brightness, True Tone, the camera and the hinge before handing it back.',
+      'Check the keyboard and trackpad for anything that could cause the same damage again.',
+    ],
+    preventionTips: [
+      'Glance at the keyboard before closing the lid, especially if you use earbuds or a stylus.',
+      'Carry the Air in a padded sleeve and keep it away from loose items in your bag.',
+      'Open and lift it from the middle of the front edge, never by one corner of the screen.',
+    ],
+    sectionHeadings: [
+      'How a MacBook Air screen cracks on its own',
+      'What a MacBook Air screen replacement involves',
+      'Keeping the new screen in one piece',
+    ],
+    diagnosisIntro:
+      'A cracked MacBook Air display is a straightforward repair once the right part is in hand. A typical MacBook screen replacement comes to £180–£450, and the Air sits towards the lower end of that range.',
+    preventionIntro:
+      'This kind of crack is almost entirely avoidable once you know what causes it.',
+  },
+  {
+    slug: 'macbook-keyboard-replacement-top-case',
+    title: 'MacBook Keyboard Replacement: Why Apple Quotes For The Whole Top Case',
+    metaTitle: 'MacBook Keyboard Replacement Without a New Top Case',
+    publishedAt: '2026-10-08T09:04:00.000Z',
+    excerpt: 'On most modern MacBooks the keyboard is riveted into the top case, so Apple replaces the whole assembly. Replacing only the keyboard costs much less.',
+    category: 'MacBook Keyboard Replacement',
+    serviceSlug: 'macbook-keyboard-replacement-london',
+    image: '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
+    readingTime: 5,
+    firstResponse: 'On most MacBooks from the last decade the keyboard is not screwed in but riveted into the top case — the aluminium shell around the keyboard. That is why an official keyboard repair is usually quoted as a top case replacement, which commonly comes to £450–£600. Replacing only the keyboard — removing the old one, fitting a new one and securing it in place — typically comes to £150–£350, and the rest of your top case stays as it is.',
+    whySpeedMatters: 'Not every keyboard fault needs a whole new keyboard. A single key that has stopped working or feels gritty can often be cleaned or have its key cap and clip replaced on its own. The longer a sticking key is forced, though, the more likely the small clip underneath breaks, and liquid under the keys keeps corroding until it is cleaned. Getting a faulty key looked at early is often the difference between a small fix and a full keyboard.',
+    quickChecks: [
+      'Test the problem keys in a plain text document to see whether they fail to register, repeat, or both.',
+      'Hold the Mac at an angle and use short bursts of compressed air under the affected keys, as Apple itself recommends.',
+      'Plug in a USB or Bluetooth keyboard. If that works normally, the Mac is fine and the fault is in the keyboard alone.',
+      'If liquid was spilled, switch the Mac off and keep it switched off. A keyboard fault after a spill needs cleaning, not testing.',
+    ],
+    engineerChecks: [
+      'Work out whether it is one key, a group of keys or the whole keyboard, because each has a different and differently priced fix.',
+      'Check for liquid residue under the keys and on the board beneath, since a spill can affect more than the keyboard.',
+      'Fit a new keyboard and secure it properly, then test every key and the backlight.',
+      'Check the trackpad, battery and internal cables while the Mac is open, so nothing else is missed.',
+    ],
+    preventionTips: [
+      'Keep food and drink away from the keyboard, as crumbs and spills cause most of the key faults we see.',
+      'Clean around the keys with compressed air now and then, before debris works its way underneath.',
+      'Skip thick silicone keyboard covers. They trap heat and can press against the screen when the lid is closed.',
+    ],
+    sectionHeadings: [
+      'Why a keyboard repair is quoted as a top case',
+      'How we fix the keyboard without replacing the top case',
+      'Keeping the keyboard working for longer',
+    ],
+    diagnosisIntro:
+      'The aim is to fix the fault you actually have at the lowest sensible cost, which means finding out exactly which keys fail and why before anything is replaced.',
+    preventionIntro:
+      'MacBook keyboards are sensitive to dirt and liquid, but a few habits keep most problems away.',
+  },
 ];
 
 // Image variety: the generated blogs previously reused one image per category, so
@@ -1239,6 +1433,9 @@ const POSTS_WITH_DEDICATED_IMAGE = new Set<string>([
   'windows-laptop-blue-screen-what-it-means',
   'upgrade-ram-or-ssd-which-comes-first',
   'xbox-controller-stick-drift-causes',
+  'ps5-hdmi-port-repair-cost-worth-it',
+  'macbook-logic-board-repair-vs-replacement',
+  'is-it-worth-repairing-old-macbook-pro',
 ]);
 
 function pickBlogImage(blueprint: BlogBlueprint): string {
