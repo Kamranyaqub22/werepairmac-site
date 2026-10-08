@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   // NOTE: no `keywords`. Google has ignored meta keywords since 2009 and Bing
   // treats a stuffed list as a spam signal. It was previously emitted identically
   // on all 251 pages, which is pure downside.
-  authors: [{ name: 'We Repair Mac' }],
-  creator: 'We Repair Mac',
-  publisher: 'We Repair Mac',
+  authors: [{ name: 'We Repair Mac Call Out' }],
+  creator: 'We Repair Mac Call Out',
+  publisher: 'We Repair Mac Call Out',
   metadataBase: new URL('https://www.werepairmac.co.uk'),
   alternates: {
     canonical: 'https://www.werepairmac.co.uk',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_GB',
     url: 'https://www.werepairmac.co.uk',
-    siteName: 'We Repair Mac',
+    siteName: 'We Repair Mac Call Out',
     title: 'We Repair Mac | Mac, Laptop, PC & Console Repair London',
     description:
       'Same-day Mac, laptop, PC and console repairs across Greater London. No fix, no fee. Call 07378 349222.',

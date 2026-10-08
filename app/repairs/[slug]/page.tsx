@@ -80,13 +80,13 @@ export default async function CaseStudyPage({ params }: PageProps) {
     author: [
       {
         '@type': 'Organization',
-        name: 'We Repair Mac',
+        name: 'We Repair Mac Call Out',
         url: 'https://www.werepairmac.co.uk',
       },
     ],
     publisher: {
       '@type': 'Organization',
-      name: 'We Repair Mac',
+      name: 'We Repair Mac Call Out',
       logo: {
         '@type': 'ImageObject',
         url: 'https://www.werepairmac.co.uk/logo.png',

@@ -15,12 +15,14 @@ export default async function LocalBusinessSchema({ service, location }: LocalBu
     '@context': 'https://schema.org',
     '@type': ['LocalBusiness', 'ComputerRepairService'],
     '@id': 'https://www.werepairmac.co.uk/#business',
-    name: 'We Repair Mac',
+    name: 'We Repair Mac Call Out',
     // Common ways customers and other sites refer to the business — helps AI
     // search engines resolve this as one entity and not confuse it with the
     // similarly named repair firms (werepairmac.com, wehiremac, irepairmacs).
-    alternateName: ['We Repair Mac London', 'WeRepairMac', 'We Repair Mac UK', 'We Repair Mac Call Out'],
-    legalName: 'We Repair Mac',
+    // The primary name matches the Google Business Profile and Facebook page
+    // exactly; the shorter forms match the domain and how customers say it.
+    alternateName: ['We Repair Mac', 'We Repair Mac London', 'WeRepairMac', 'We Repair Mac UK'],
+    legalName: 'We Repair Mac Call Out',
     slogan: 'We come to you. No fix, no fee.',
     foundingDate: '2015',
     url: 'https://www.werepairmac.co.uk',

@@ -1,6 +1,6 @@
 export const GOOGLE_PLACE_ID = 'ChIJw5ByVHEJdkgRUdKAOadEHgA';
 
-export const GOOGLE_BUSINESS_NAME = 'We Repair Mac';
+export const GOOGLE_BUSINESS_NAME = 'We Repair Mac Call Out';
 
 export const GOOGLE_REVIEW_URL =
   `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`;

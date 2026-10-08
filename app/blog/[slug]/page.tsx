@@ -60,12 +60,12 @@ export default async function BlogPostPage({ params }: PageProps) {
     dateModified: post.publishedAt,
     author: [{
       '@type': 'Organization',
-      name: 'We Repair Mac',
+      name: 'We Repair Mac Call Out',
       url: 'https://www.werepairmac.co.uk'
     }],
     publisher: {
       '@type': 'Organization',
-      name: 'We Repair Mac',
+      name: 'We Repair Mac Call Out',
       logo: {
         '@type': 'ImageObject',
         url: 'https://www.werepairmac.co.uk/logo.png'

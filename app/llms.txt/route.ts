@@ -39,12 +39,14 @@ export function GET() {
   // sitemap already enumerates them for anything that wants the full set.
   const townNames = locations.map((l) => l.name).join(', ');
 
-  const body = `# We Repair Mac
+  const body = `# We Repair Mac Call Out
 
 > Mobile computer repair covering all of Greater London. An engineer travels to the
 > customer's home or office — there is no shop to visit and nothing needs to be posted.
 > We repair Macs, Windows laptops, desktop PCs and games consoles. Around 70% of jobs
 > are completed on-site in a single visit; board-level work goes to our workshop.
+
+Also known as We Repair Mac (werepairmac.co.uk). Not affiliated with werepairmac.com.
 
 ## Key facts
 
