@@ -112,6 +112,11 @@ Also confirm `.next/server/app/blog/<slug>.html` exists and that the service pag
 2. Commit with a clear message and push straight to `main` (the owner has
    approved direct publishing for blog posts only). Do not touch anything
    outside `lib/blog.ts`, `public/images/blog/` and the backlog file.
+   **Author the commit as the owner** — the repository is private and Vercel's
+   Hobby plan refuses to deploy commits from any other author, so a commit by
+   anyone else is pushed but never goes live. Before committing, run:
+   `git config user.name "Kamranyaqub22" && git config user.email "127260114+Kamranyaqub22@users.noreply.github.com"`
+   Keep the Co-Authored-By trailer in the message.
 3. Wait until `https://www.werepairmac.co.uk/blog/<slug>` returns 200 (Vercel
    deploys in about two minutes), then run:
    `node scripts/indexnow.mjs https://www.werepairmac.co.uk/blog/<slug> https://www.werepairmac.co.uk/blog https://www.werepairmac.co.uk/sitemap.xml`
