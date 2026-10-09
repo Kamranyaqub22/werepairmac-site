@@ -8,6 +8,9 @@
 //
 // Facebook resolves to the page titled "We Repair Mac Call Out" — the same name
 // as the Google Business Profile, which is how it was verified.
+// The id in this URL is NOT the Page id the Graph API wants. FACEBOOK_PAGE_ID
+// is 104414389169834 (as shown by the Access Token Debugger); posting to the
+// URL's id with a valid Page token fails with permission error #200.
 export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=100088248782070';
 
 // Trustpilot resolves to a profile claimed by us in April 2026, listing
