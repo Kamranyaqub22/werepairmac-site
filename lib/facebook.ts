@@ -54,7 +54,7 @@ async function graphError(res: Response, what: string): Promise<FacebookError> {
   }
   if (code === 200 || code === 10) {
     return new FacebookError(
-      `Facebook refused the post for lack of permission (${message}). The token needs pages_manage_posts, and the account that issued it must be an admin of the Page.`
+      `Facebook refused the post for lack of permission (${message}). The token needs pages_manage_posts, and the account that issued it must be an admin of the Page. Check it in the Access Token Debugger: Type must be Page and its Page ID must match FACEBOOK_PAGE_ID. In Graph API Explorer, me/accounts?fields=name,tasks must list this Page with CREATE_CONTENT.`
     );
   }
   if (code === 4 || code === 17 || code === 32) {
