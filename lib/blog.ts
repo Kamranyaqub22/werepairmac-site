@@ -1347,7 +1347,7 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
     excerpt: 'On most modern MacBooks the keyboard is riveted into the top case, so Apple replaces the whole assembly. Replacing only the keyboard costs much less.',
     category: 'MacBook Keyboard Replacement',
     serviceSlug: 'macbook-keyboard-replacement-london',
-    image: '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
+    image: '/images/blog/macbook-keyboard-replacement-top-case.jpg',
     readingTime: 5,
     firstResponse: 'On most MacBooks from the last decade the keyboard is not screwed in but riveted into the top case — the aluminium shell around the keyboard. That is why an official keyboard repair is usually quoted as a top case replacement, which commonly comes to £450–£600. Replacing only the keyboard — removing the old one, fitting a new one and securing it in place — typically comes to £150–£350, and the rest of your top case stays as it is.',
     whySpeedMatters: 'Not every keyboard fault needs a whole new keyboard. A single key that has stopped working or feels gritty can often be cleaned or have its key cap and clip replaced on its own. The longer a sticking key is forced, though, the more likely the small clip underneath breaks, and liquid under the keys keeps corroding until it is cleaned. Getting a faulty key looked at early is often the difference between a small fix and a full keyboard.',
@@ -1436,6 +1436,7 @@ const POSTS_WITH_DEDICATED_IMAGE = new Set<string>([
   'ps5-hdmi-port-repair-cost-worth-it',
   'macbook-logic-board-repair-vs-replacement',
   'is-it-worth-repairing-old-macbook-pro',
+  'macbook-keyboard-replacement-top-case',
 ]);
 
 function pickBlogImage(blueprint: BlogBlueprint): string {

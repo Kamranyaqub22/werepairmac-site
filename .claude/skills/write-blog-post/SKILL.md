@@ -80,6 +80,15 @@ Quality bar, all must be true:
   create `public/images/blog/<slug>.jpg`:
   `node -e "require('sharp')('photo-library/X.jpg').rotate().resize({width:1200}).jpeg({quality:72,mozjpeg:true}).toFile('public/images/blog/<slug>.jpg')"`
   then add the slug to `POSTS_WITH_DEDICATED_IMAGE` and set `image` to that path.
+- Never use a photo of a customer's screen showing their desktop, menu bar,
+  account name, files or wallpaper, even if the fault is the subject. These are
+  known to contain customer data and must not be used:
+  `macbook-battery-condition-replace-soon-menu.jpg`,
+  `macbook-pro-battery-menu-twenty-five-percent.jpg`,
+  `macbook-pro-system-report-battery-information.jpg`.
+- Never use shop or shopfront photos: the business has no shop, and showing one
+  contradicts the site.
+- Prefer a photo no other blog post already uses — check `public/images/blog/`.
 - Otherwise leave it out of that set; it falls back to the stock pool. Set `image`
   to what `pickBlogImage` would return.
 
