@@ -171,5 +171,51 @@
     ],
     "outcome": "The MacBook Pro went back to the customer in Richmond holding charge and no longer shutting down mid-work, with the cooling cleaned out so it runs cooler under load. The battery and the work carry our 90-day warranty, and we work no-fix-no-fee.",
     "publishedAt": "2026-08-18"
+  },
+  {
+    "slug": "macbook-12-inch-shattered-trackpad-replaced-new-malden",
+    "title": "MacBook 12-inch with a shattered trackpad: replaced at home in New Malden",
+    "metaTitle": "MacBook 12-inch Shattered Trackpad Replaced",
+    "excerpt": "A customer in New Malden had a 12-inch MacBook with a shattered trackpad. We ordered a replacement and fitted it at their home in about an hour, and the MacBook was back to normal.",
+    "metaDescription": "Shattered trackpad on a 12-inch MacBook in New Malden. We ordered a replacement trackpad and fitted it at the customer's home in about an hour.",
+    "locationSlug": "new-malden",
+    "serviceSlug": "macbook-repair-london",
+    "device": "MacBook 12-inch",
+    "fault": "trackpad glass shattered",
+    "visitType": "on-site",
+    "turnaround": "About 1 hour on site, once the part arrived",
+    "partsUsed": [
+      "Replacement trackpad for MacBook 12-inch"
+    ],
+    "photos": [
+      {
+        "src": "/images/repairs/macbook-12-inch-shattered-trackpad-replaced-new-malden-1.jpg",
+        "alt": "Space grey 12-inch MacBook open at the login screen, with the trackpad glass shattered into a web of cracks spreading from the front edge",
+        "caption": "Before: the trackpad glass had shattered, though the Mac itself still started up.",
+        "width": 1200,
+        "height": 1600
+      },
+      {
+        "src": "/images/repairs/macbook-12-inch-shattered-trackpad-replaced-new-malden-2.jpg",
+        "alt": "The same 12-inch MacBook after the repair, with an intact new trackpad below the keyboard",
+        "caption": "After: new trackpad fitted and the MacBook back to normal.",
+        "width": 1200,
+        "height": 1600
+      }
+    ],
+    "theCall": "A customer in New Malden got in touch about their 12-inch MacBook. The trackpad had shattered, leaving a web of cracks across the glass, and they wanted it fixed without having to take the laptop anywhere.",
+    "diagnosis": [
+      "The trackpad glass was broken across most of its surface, with the worst of the damage near the front edge — physical damage, not a software or settings fault.",
+      "The MacBook still started up and reached the login screen normally, so the damage was confined to the trackpad.",
+      "With the rest of the machine working, replacing the trackpad was the right fix rather than anything more involved."
+    ],
+    "theRepair": [
+      "Ordered a replacement trackpad for the 12-inch MacBook.",
+      "Visited the customer at home in New Malden once the part had arrived.",
+      "Removed the shattered trackpad and fitted the new one.",
+      "Checked the MacBook was working normally with the new trackpad before handing it back."
+    ],
+    "outcome": "The repair took about an hour at the customer's home, and the MacBook was back to normal with a working trackpad — a happy customer. The work is covered by our 90-day warranty, and if we can't fix a fault there's no fee.",
+    "publishedAt": "2026-10-09"
   }
 ]
