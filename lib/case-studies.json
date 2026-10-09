@@ -130,10 +130,10 @@
     "photos": [
       {
         "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-1.jpg",
-        "alt": "System Information Power pane on a MacBook Pro showing battery model, charge and health information with condition Normal",
+        "alt": "System Information Power pane on a MacBook Pro showing battery charge and health information with condition Normal",
         "caption": "Battery reporting after the replacement — condition Normal and charging.",
-        "width": 1350,
-        "height": 1800
+        "width": 1282,
+        "height": 713
       },
       {
         "src": "/images/repairs/macbook-pro-battery-replacement-a1398-richmond-2.jpg",
