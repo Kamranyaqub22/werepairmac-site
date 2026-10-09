@@ -9,7 +9,7 @@
 
 | Field | Value |
 |---|---|
-| **Business name** | We Repair Mac |
+| **Business name** | We Repair Mac Call Out (trading name; matches Google Business Profile and Facebook). "We Repair Mac" is the short form. |
 | **Website** | https://werepairmac.co.uk |
 | **Phone** | 0737 834 9222 (tel:07378349222) |
 | **Email** | info@werepairmac.co.uk |
@@ -43,7 +43,7 @@ Mobile Mac, laptop, PC and console repair service covering all of **Greater Lond
 | **Email / Contact** | Nodemailer via `/api/contact` route, SMTP via Gmail app password |
 | **Reviews** | Google Places API (polled server-side every hour) |
 | **Deployment** | Vercel |
-| **Analytics** | (not yet implemented — candidate for future) |
+| **Analytics** | Google Analytics 4 and optional Microsoft Clarity, loaded only after cookie consent (`components/CookieConsent.tsx`) |
 
 ### Key directories
 ```
