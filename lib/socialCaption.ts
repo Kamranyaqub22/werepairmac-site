@@ -18,7 +18,9 @@ const CAPTION_SCHEMA = {
   type: 'object',
   properties: {
     text: { type: 'string' },
-    hashtags: { type: 'array', items: { type: 'string' }, maxItems: 5 },
+    // No maxItems: structured outputs rejects it for arrays. The cap is applied
+    // after parsing instead.
+    hashtags: { type: 'array', items: { type: 'string' } },
     imagePrompt: { type: 'string' },
     gaps: { type: 'array', items: { type: 'string' } },
   },
@@ -120,7 +122,10 @@ Everything you write must be sourced from the material above. The post links to 
 
   return {
     text: parsed.text.trim(),
-    hashtags: (parsed.hashtags ?? []).map((h) => h.replace(/^#/, '').trim()).filter(Boolean),
+    hashtags: (parsed.hashtags ?? [])
+      .map((h) => h.replace(/^#/, '').trim())
+      .filter(Boolean)
+      .slice(0, 3),
     imagePrompt: parsed.imagePrompt?.trim() ?? '',
     gaps: parsed.gaps ?? [],
   };
