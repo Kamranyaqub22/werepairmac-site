@@ -100,8 +100,13 @@ export default function SocialAdminPage() {
       // Preselect the topic's own photograph — the common case is that the
       // repair's picture is the right picture.
       const own = data.photos.find((p) => p.group === 'This topic');
-      setChosenPhoto(own?.src ?? data.photos[0]?.src ?? '');
+      const preselected = own?.src ?? data.photos[0]?.src ?? '';
+      setChosenPhoto(preselected);
       setImageSource('real');
+      // Attach it straight away. Previously the dropdown showed a photo as
+      // chosen but nothing was attached until "Use this photo" was pressed, so
+      // Publish quietly went out as a text-only post.
+      if (preselected) await prepareImage('real', preselected);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not prepare a post.');
     } finally {
@@ -109,19 +114,22 @@ export default function SocialAdminPage() {
     }
   }
 
-  async function prepareImage(mode: 'real' | 'generated') {
+  /** Prepares and attaches an image; returns it, or null if it failed. */
+  async function prepareImage(mode: 'real' | 'generated', src: string = chosenPhoto): Promise<string | null> {
     setBusy('image');
     setError(null);
     try {
       const data = await call<{ image: string }>('/api/admin/social/image', {
         mode,
-        src: chosenPhoto,
+        src,
         prompt,
       });
       setImage(data.image);
       setImageSource(mode);
+      return data.image;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not prepare the image.');
+      return null;
     } finally {
       setBusy(null);
     }
@@ -129,12 +137,18 @@ export default function SocialAdminPage() {
 
   async function publish() {
     if (!draft) return;
+    // Safety net: never post text-only just because the photo was not attached yet.
+    let attached = image;
+    if (!attached && chosenPhoto) {
+      attached = await prepareImage('real');
+      if (!attached) return; // the error is already on screen
+    }
     setBusy('publish');
     setError(null);
     try {
       const data = await call<{ permalink: string; warning?: string }>(
         '/api/admin/social/publish',
-        { topicId: draft.topic.id, message, image, imageSource }
+        { topicId: draft.topic.id, message, image: attached, imageSource }
       );
       setPublished(data);
     } catch (err) {
@@ -265,7 +279,10 @@ export default function SocialAdminPage() {
             <div className="flex flex-wrap gap-3">
               <select
                 value={chosenPhoto}
-                onChange={(e) => setChosenPhoto(e.target.value)}
+                onChange={(e) => {
+                  setChosenPhoto(e.target.value);
+                  void prepareImage('real', e.target.value);
+                }}
                 className="flex-1 min-w-[220px] rounded-lg border border-gray-200 px-3 py-2 text-sm"
               >
                 {draft.photos.map((p) => (

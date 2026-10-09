@@ -20,6 +20,7 @@ export interface PhotoOption {
 }
 
 const PUBLIC_DIR = path.join(process.cwd(), 'public');
+const SITE_ORIGIN = 'https://www.werepairmac.co.uk';
 
 async function listDir(rel: string): Promise<string[]> {
   try {
@@ -68,7 +69,17 @@ export async function loadRealPhoto(src: string): Promise<string> {
   try {
     raw = await readFile(path.join(PUBLIC_DIR, src));
   } catch {
-    throw new SocialImageError(`Could not read ${src}.`);
+    // On Vercel, public/ is served from the CDN and is not bundled into the
+    // serverless function, so the disk read fails in production. The photo is
+    // public anyway — fetch it from the live site instead. `src` has already
+    // been confined to /images/repairs or /images/blog above.
+    try {
+      const res = await fetch(`${SITE_ORIGIN}${src}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      raw = Buffer.from(await res.arrayBuffer());
+    } catch {
+      throw new SocialImageError(`Could not read ${src}.`);
+    }
   }
 
   return squareUp(raw);
