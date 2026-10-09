@@ -136,6 +136,53 @@ export async function postPhoto(imageBase64: string, message: string): Promise<P
   return { postId, permalink: `https://www.facebook.com/${postId.replace('_', '/posts/')}` };
 }
 
+/** Uploads a photo to the Page without publishing it, for a multi-photo post. */
+async function uploadUnpublishedPhoto(pageId: string, token: string, imageBase64: string): Promise<string> {
+  const form = new FormData();
+  form.append('access_token', token);
+  form.append('published', 'false');
+  form.append('source', new Blob([Buffer.from(imageBase64, 'base64')], { type: 'image/jpeg' }), 'post.jpg');
+
+  const res = await fetch(`${GRAPH}/${pageId}/photos`, { method: 'POST', body: form });
+  if (!res.ok) throw await graphError(res, 'Uploading a photo');
+
+  const body = (await res.json()) as { id?: string };
+  if (!body.id) throw new FacebookError('Facebook accepted a photo but returned no id.');
+  return body.id;
+}
+
+/**
+ * Publishes one post with every image attached, in the order given.
+ *
+ * One image goes up as a plain photo post. Several are uploaded unpublished
+ * first and then attached to a single feed post, which is how Facebook builds a
+ * multi-photo post — posting them one by one would make several posts.
+ */
+export async function postPhotos(imagesBase64: string[], message: string): Promise<PublishResult> {
+  if (imagesBase64.length === 1) return postPhoto(imagesBase64[0], message);
+
+  const { pageId, token } = credentials();
+  // Uploaded in parallel; Promise.all keeps the ids in the original order,
+  // which is the order Facebook shows them in.
+  const ids = await Promise.all(imagesBase64.map((img) => uploadUnpublishedPhoto(pageId, token, img)));
+
+  const res = await fetch(`${GRAPH}/${pageId}/feed`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message,
+      attached_media: ids.map((id) => ({ media_fbid: id })),
+      access_token: token,
+    }),
+  });
+  if (!res.ok) throw await graphError(res, 'Publishing the post');
+
+  const body = (await res.json()) as { id?: string };
+  if (!body.id) throw new FacebookError('Facebook accepted the post but returned no id.');
+
+  return { postId: body.id, permalink: `https://www.facebook.com/${body.id.replace('_', '/posts/')}` };
+}
+
 /** Publishes a text-only post. Used when no image is attached. */
 export async function postText(message: string): Promise<PublishResult> {
   const { pageId, token } = credentials();

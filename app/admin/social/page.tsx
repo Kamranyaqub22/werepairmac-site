@@ -40,6 +40,18 @@ interface Draft {
   lastPostedAt: string | null;
 }
 
+/** Matches MAX_IMAGES in the publish route. */
+const MAX_PHOTOS = 6;
+
+interface AttachedPhoto {
+  /** The photo's web path, or a unique key for a generated image. */
+  key: string;
+  label: string;
+  /** Post-ready JPEG, base64. */
+  data: string;
+  source: 'real' | 'generated';
+}
+
 const KIND_LABEL: Record<Topic['kind'], string> = {
   repair: 'Real repair',
   advice: 'Advice article',
@@ -55,8 +67,7 @@ export default function SocialAdminPage() {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [message, setMessage] = useState('');
   const [prompt, setPrompt] = useState('');
-  const [image, setImage] = useState<string | null>(null);
-  const [imageSource, setImageSource] = useState<'real' | 'generated'>('real');
+  const [attached, setAttached] = useState<AttachedPhoto[]>([]);
   const [chosenPhoto, setChosenPhoto] = useState<string>('');
   const [skipped, setSkipped] = useState<string[]>([]);
   const [published, setPublished] = useState<{ permalink: string; warning?: string } | null>(null);
@@ -91,22 +102,25 @@ export default function SocialAdminPage() {
     setBusy('draft');
     setError(null);
     setPublished(null);
-    setImage(null);
+    setAttached([]);
     try {
       const data = await call<Draft>('/api/admin/social/draft', { skip });
       setDraft(data);
       setMessage(data.composed);
       setPrompt(data.caption.imagePrompt);
-      // Preselect the topic's own photograph — the common case is that the
-      // repair's picture is the right picture.
-      const own = data.photos.find((p) => p.group === 'This topic');
-      const preselected = own?.src ?? data.photos[0]?.src ?? '';
-      setChosenPhoto(preselected);
-      setImageSource('real');
-      // Attach it straight away. Previously the dropdown showed a photo as
-      // chosen but nothing was attached until "Use this photo" was pressed, so
-      // Publish quietly went out as a text-only post.
-      if (preselected) await prepareImage('real', preselected);
+      // Attach all of the topic's own photographs straight away — for a repair
+      // that is usually a before and an after, which is the post worth making.
+      // Previously one photo was merely selected in a dropdown and nothing was
+      // attached until a second button was pressed, so posts went out text-only.
+      const own = data.photos.filter((p) => p.group === 'This topic').map((p) => p.src);
+      const initial = (own.length ? own : data.photos.slice(0, 1).map((p) => p.src)).slice(0, MAX_PHOTOS);
+      setChosenPhoto(data.photos.find((p) => !initial.includes(p.src))?.src ?? data.photos[0]?.src ?? '');
+      const list: AttachedPhoto[] = [];
+      for (const src of initial) {
+        const img = await fetchImage('real', src);
+        if (img) list.push({ key: src, label: fileName(src), data: img, source: 'real' });
+      }
+      setAttached(list);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not prepare a post.');
     } finally {
@@ -114,42 +128,81 @@ export default function SocialAdminPage() {
     }
   }
 
-  /** Prepares and attaches an image; returns it, or null if it failed. */
-  async function prepareImage(mode: 'real' | 'generated', src: string = chosenPhoto): Promise<string | null> {
-    setBusy('image');
-    setError(null);
+  /** Prepares one post-ready image; returns it, or null (with the error shown). */
+  async function fetchImage(mode: 'real' | 'generated', src = ''): Promise<string | null> {
     try {
-      const data = await call<{ image: string }>('/api/admin/social/image', {
-        mode,
-        src,
-        prompt,
-      });
-      setImage(data.image);
-      setImageSource(mode);
+      const data = await call<{ image: string }>('/api/admin/social/image', { mode, src, prompt });
       return data.image;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not prepare the image.');
       return null;
-    } finally {
-      setBusy(null);
     }
+  }
+
+  async function addPhoto() {
+    if (!chosenPhoto) return;
+    if (attached.some((a) => a.key === chosenPhoto)) {
+      setError('That photo is already attached.');
+      return;
+    }
+    if (attached.length >= MAX_PHOTOS) {
+      setError(`A post can carry at most ${MAX_PHOTOS} photos here.`);
+      return;
+    }
+    setBusy('image');
+    setError(null);
+    const img = await fetchImage('real', chosenPhoto);
+    if (img) {
+      const src = chosenPhoto;
+      setAttached((prev) => [...prev, { key: src, label: fileName(src), data: img, source: 'real' }]);
+    }
+    setBusy(null);
+  }
+
+  async function addGenerated() {
+    if (attached.length >= MAX_PHOTOS) {
+      setError(`A post can carry at most ${MAX_PHOTOS} photos here.`);
+      return;
+    }
+    setBusy('generate');
+    setError(null);
+    const img = await fetchImage('generated');
+    if (img) {
+      setAttached((prev) => [
+        ...prev,
+        { key: `generated-${Date.now()}`, label: 'Generated image', data: img, source: 'generated' },
+      ]);
+    }
+    setBusy(null);
+  }
+
+  function removePhoto(key: string) {
+    setAttached((prev) => prev.filter((a) => a.key !== key));
+  }
+
+  /** Moves a photo one place earlier. The first photo is the one Facebook shows largest. */
+  function moveEarlier(key: string) {
+    setAttached((prev) => {
+      const i = prev.findIndex((a) => a.key === key);
+      if (i <= 0) return prev;
+      const next = [...prev];
+      [next[i - 1], next[i]] = [next[i], next[i - 1]];
+      return next;
+    });
   }
 
   async function publish() {
     if (!draft) return;
-    // Safety net: never post text-only just because the photo was not attached yet.
-    let attached = image;
-    if (!attached && chosenPhoto) {
-      attached = await prepareImage('real');
-      if (!attached) return; // the error is already on screen
-    }
+    if (!attached.length && !window.confirm('No photo is attached. Post text only?')) return;
     setBusy('publish');
     setError(null);
     try {
-      const data = await call<{ permalink: string; warning?: string }>(
-        '/api/admin/social/publish',
-        { topicId: draft.topic.id, message, image: attached, imageSource }
-      );
+      const data = await call<{ permalink: string; warning?: string }>('/api/admin/social/publish', {
+        topicId: draft.topic.id,
+        message,
+        images: attached.map((a) => a.data),
+        imageSource: attached.some((a) => a.source === 'generated') ? 'generated' : 'real',
+      });
       setPublished(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Publishing failed.');
@@ -274,29 +327,78 @@ export default function SocialAdminPage() {
           </label>
 
           <div className="card p-5 space-y-4">
-            <p className="text-sm font-semibold text-gray-700">Image</p>
+            <p className="text-sm font-semibold text-gray-700">
+              Photos
+              <span className="font-normal text-gray-500">
+                {' '}
+                — {attached.length} of up to {MAX_PHOTOS}. The first one shows largest on Facebook.
+              </span>
+            </p>
+
+            {attached.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {attached.map((a, i) => (
+                  <div key={a.key} className="space-y-1">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`data:image/jpeg;base64,${a.data}`}
+                      alt={`Photo ${i + 1} that will be attached to the post`}
+                      className="w-full rounded-lg border border-gray-200"
+                    />
+                    <div className="flex items-center justify-between gap-2 text-xs text-gray-600">
+                      <span className="truncate" title={a.label}>
+                        {i + 1}. {a.label}
+                      </span>
+                      <span className="flex gap-1 shrink-0">
+                        {i > 0 && (
+                          <button
+                            onClick={() => moveEarlier(a.key)}
+                            disabled={!!busy}
+                            className="px-2 py-1 rounded border border-gray-200"
+                            aria-label={`Move photo ${i + 1} earlier`}
+                          >
+                            ←
+                          </button>
+                        )}
+                        <button
+                          onClick={() => removePhoto(a.key)}
+                          disabled={!!busy}
+                          className="px-2 py-1 rounded border border-gray-200"
+                          aria-label={`Remove photo ${i + 1}`}
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-gray-500">
+                {busy === 'draft'
+                  ? 'Attaching photos…'
+                  : 'No photo attached. Publishing without one posts text only, which gets noticeably less reach.'}
+              </p>
+            )}
 
             <div className="flex flex-wrap gap-3">
               <select
                 value={chosenPhoto}
-                onChange={(e) => {
-                  setChosenPhoto(e.target.value);
-                  void prepareImage('real', e.target.value);
-                }}
+                onChange={(e) => setChosenPhoto(e.target.value)}
                 className="flex-1 min-w-[220px] rounded-lg border border-gray-200 px-3 py-2 text-sm"
               >
                 {draft.photos.map((p) => (
                   <option key={p.src} value={p.src}>
-                    {p.group} — {p.src.split('/').pop()}
+                    {p.group} — {fileName(p.src)}
                   </option>
                 ))}
               </select>
               <button
-                onClick={() => prepareImage('real')}
-                disabled={!!busy || !chosenPhoto}
+                onClick={addPhoto}
+                disabled={!!busy || !chosenPhoto || attached.length >= MAX_PHOTOS}
                 className="btn-outline text-sm"
               >
-                {busy === 'image' && imageSource === 'real' ? 'Preparing…' : 'Use this photo'}
+                {busy === 'image' ? 'Adding…' : 'Add photo'}
               </button>
             </div>
 
@@ -308,29 +410,18 @@ export default function SocialAdminPage() {
                   rows={3}
                   className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
                 />
-                <button onClick={() => prepareImage('generated')} disabled={!!busy} className="btn-outline text-sm">
-                  {busy === 'image' && imageSource === 'generated' ? 'Generating…' : 'Generate an image instead'}
+                <button
+                  onClick={addGenerated}
+                  disabled={!!busy || attached.length >= MAX_PHOTOS}
+                  className="btn-outline text-sm"
+                >
+                  {busy === 'generate' ? 'Generating…' : 'Add a generated image'}
                 </button>
               </div>
             ) : (
               <p className="text-xs text-gray-500">
                 Image generation is off. Set OPENAI_API_KEY to enable it — real photos of your own
                 work will almost always do better here anyway.
-              </p>
-            )}
-
-            {image && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={`data:image/jpeg;base64,${image}`}
-                alt="The image that will be attached to the post"
-                className="w-full max-w-sm rounded-lg border border-gray-200"
-              />
-            )}
-            {!image && (
-              <p className="text-xs text-gray-500">
-                No image attached yet. Publishing without one posts text only, which gets
-                noticeably less reach.
               </p>
             )}
           </div>
@@ -349,4 +440,8 @@ export default function SocialAdminPage() {
       {!draft && busy === 'draft' && <p className="text-sm text-gray-500">Writing a draft…</p>}
     </div>
   );
+}
+
+function fileName(src: string): string {
+  return src.split('/').pop() ?? src;
 }
