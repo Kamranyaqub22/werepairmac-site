@@ -323,3 +323,23 @@ Stored in `.env.local` (never commit to git):
 **Not suitable for this business:**
 - Online booking system — callout times are flexible/ad-hoc, not fixed slots
 - Fixed pricing page — labour is £120/hr + parts which varies per job; upfront pricing page would be misleading
+
+---
+
+## Facebook publishing setup (/admin/social)
+
+Set in Vercel → Settings → Environment Variables (Production), then redeploy:
+
+- `FACEBOOK_PAGE_ID` = `104414389169834` — the Graph Page id. **Not** the number in the
+  `facebook.com/profile.php?id=…` URL; posting to that id fails with error #200.
+- `FACEBOOK_PAGE_TOKEN` = a never-expiring **Page** token, made like this:
+  1. Graph API Explorer → app **AutoPost** → User Token with `pages_show_list`,
+     `pages_read_engagement`, `pages_manage_posts` and `business_management` → Generate Access Token
+     (opt in to all Pages).
+  2. Access Token Debugger → debug that user token → **Extend Access Token**.
+  3. Explorer with the extended token → `GET me/accounts?fields=name,id,access_token` → copy
+     We Repair Mac Call Out's `access_token`.
+  4. Debug it: **Type: Page**, **Expires: Never**. A User-type token fails with #200.
+
+To test outside the site: Explorer → select the Page under "User or Page" → `POST 104414389169834/feed`
+with `message`. Delete the test post afterwards.
