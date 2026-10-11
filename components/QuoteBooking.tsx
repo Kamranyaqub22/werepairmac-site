@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { HoneypotField, ContactMethodField, PrivacyNote } from '@/components/EnquiryFields';
+import { HONEYPOT_FIELD } from '@/lib/enquiry';
 import Link from 'next/link';
 import {
   deviceCategories, getDevice, formatRange, LABOUR_RATE,
@@ -20,6 +22,11 @@ export default function QuoteBooking() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
   const formRef = useRef<HTMLDivElement>(null);
+  // When the page appeared — a submission seconds later is a script, not a person.
+  const startedAt = useRef(0);
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   const device = deviceId ? getDevice(deviceId) : undefined;
 
@@ -51,6 +58,9 @@ export default function QuoteBooking() {
       timeWindow: (form.elements.namedItem('timeWindow') as HTMLSelectElement).value,
       estimate: fault ? formatRange(fault) : '',
       message: (form.elements.namedItem('body') as HTMLTextAreaElement).value,
+      contactMethod: (form.elements.namedItem('contactMethod') as HTMLSelectElement).value,
+      [HONEYPOT_FIELD]: (form.elements.namedItem(HONEYPOT_FIELD) as HTMLInputElement).value,
+      startedAt: startedAt.current,
     };
 
     try {
@@ -202,20 +212,21 @@ export default function QuoteBooking() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
+          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4 relative">
+            <HoneypotField />
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-                <input type="text" name="name" required placeholder="John Smith" className={inputClass} />
+                <input type="text" name="name" required autoComplete="name" placeholder="John Smith" className={inputClass} />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                <input type="tel" name="phone" required placeholder="07700 900000" className={inputClass} />
+                <input type="tel" name="phone" required autoComplete="tel" inputMode="tel" placeholder="07700 900000" className={inputClass} />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-              <input type="email" name="email" placeholder="you@example.com" className={inputClass} />
+              <input type="email" name="email" autoComplete="email" placeholder="you@example.com" className={inputClass} />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Device &amp; Fault *</label>
@@ -237,7 +248,7 @@ export default function QuoteBooking() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Your Area / Postcode *</label>
-                <input type="text" name="area" required placeholder="e.g. Kingston, KT1" className={inputClass} />
+                <input type="text" name="area" required autoComplete="postal-code" placeholder="e.g. Kingston, KT1" className={inputClass} />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
@@ -253,6 +264,7 @@ export default function QuoteBooking() {
                 ))}
               </select>
             </div>
+            <ContactMethodField className={inputClass} />
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Additional Details</label>
               <textarea name="body" rows={3} placeholder="Anything else we should know about the fault…" className={`${inputClass} resize-none`} />
@@ -265,6 +277,7 @@ export default function QuoteBooking() {
             <button type="submit" disabled={status === 'sending'} className="btn-primary w-full justify-center py-3 disabled:opacity-60 disabled:cursor-not-allowed">
               {status === 'sending' ? 'Sending…' : 'Request My Visit →'}
             </button>
+            <PrivacyNote />
             <p className="text-xs text-gray-400 text-center">
               Prefer to talk? Call{' '}
               <a href="tel:07378349222" className="text-brand font-semibold">07378 349222</a>{' '}

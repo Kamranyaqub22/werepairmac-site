@@ -1,14 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { parseEnquiry, clientIp } from '@/lib/enquiry';
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, phone, email, device, area, message } = body;
-
-    if (!name || !phone || !device || !area) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    const parsed = parseEnquiry(await req.json(), clientIp(req.headers));
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: parsed.status });
     }
+    // Spam gets an ordinary success so bots learn nothing; it is never emailed.
+    if (parsed.spam) return NextResponse.json({ success: true });
+
+    // Escaped values for the HTML bodies; `raw` for subjects and addresses.
+    const { raw } = parsed;
+    const { name, phone, email, device, area, message, contactMethod } = parsed.safe;
 
     const smtpPort = Number(process.env.SMTP_PORT) || 587;
 
@@ -26,8 +31,8 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: `"We Repair Mac Website" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
-      replyTo: email || undefined,
-      subject: `New Repair Request - ${device} (${area})`,
+      replyTo: raw.email || undefined,
+      subject: `New Repair Request - ${raw.device} (${raw.area})`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: #0f2b5b; color: white; padding: 24px; border-radius: 8px 8px 0 0;">
@@ -41,6 +46,7 @@ export async function POST(req: NextRequest) {
               <tr><td style="padding: 8px 0; font-weight: bold; color: #374151;">Email</td><td style="padding: 8px 0;">${email ? `<a href="mailto:${email}" style="color: #0f2b5b;">${email}</a>` : '-'}</td></tr>
               <tr><td style="padding: 8px 0; font-weight: bold; color: #374151;">Device / Fault</td><td style="padding: 8px 0; color: #111827;">${device}</td></tr>
               <tr><td style="padding: 8px 0; font-weight: bold; color: #374151;">Area / Postcode</td><td style="padding: 8px 0; color: #111827;">${area}</td></tr>
+              ${contactMethod ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #374151;">Prefers</td><td style="padding: 8px 0; color: #111827;">${contactMethod}</td></tr>` : ''}
               ${message ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #374151; vertical-align: top;">Details</td><td style="padding: 8px 0; color: #111827;">${message}</td></tr>` : ''}
             </table>
             <div style="margin-top: 20px; padding: 12px; background: #dbeafe; border-radius: 6px; font-size: 13px; color: #1e3a8a;">
@@ -56,10 +62,10 @@ export async function POST(req: NextRequest) {
     });
 
     // Send confirmation email to the customer if they provided an email address
-    if (email) {
+    if (raw.email) {
       await transporter.sendMail({
         from: `"We Repair Mac" <${process.env.SMTP_USER}>`,
-        to: email,
+        to: raw.email,
         replyTo: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
         subject: `We've received your repair request — We Repair Mac`,
         html: `

@@ -1,12 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { HoneypotField, ContactMethodField, PrivacyNote } from '@/components/EnquiryFields';
+import { HONEYPOT_FIELD } from '@/lib/enquiry';
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
+  // When the form appeared — a submission seconds later is a script, not a person.
+  const startedAt = useRef(0);
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,6 +28,9 @@ export default function ContactForm() {
       device: (form.elements.namedItem('device') as HTMLInputElement).value,
       area: (form.elements.namedItem('area') as HTMLInputElement).value,
       message: (form.elements.namedItem('body') as HTMLTextAreaElement).value,
+      contactMethod: (form.elements.namedItem('contactMethod') as HTMLSelectElement).value,
+      [HONEYPOT_FIELD]: (form.elements.namedItem(HONEYPOT_FIELD) as HTMLInputElement).value,
+      startedAt: startedAt.current,
     };
 
     try {
@@ -64,7 +74,8 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 relative">
+      <HoneypotField />
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -74,6 +85,7 @@ export default function ContactForm() {
             type="text"
             name="name"
             required
+            autoComplete="name"
             placeholder="John Smith"
             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
           />
@@ -86,6 +98,8 @@ export default function ContactForm() {
             type="tel"
             name="phone"
             required
+            autoComplete="tel"
+            inputMode="tel"
             placeholder="07700 900000"
             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
           />
@@ -98,6 +112,7 @@ export default function ContactForm() {
         <input
           type="email"
           name="email"
+          autoComplete="email"
           placeholder="you@example.com"
           className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
         />
@@ -122,10 +137,12 @@ export default function ContactForm() {
           type="text"
           name="area"
           required
+          autoComplete="postal-code"
           placeholder="e.g. Kingston, KT1"
           className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
         />
       </div>
+      <ContactMethodField className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand" />
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Additional Details
@@ -151,6 +168,7 @@ export default function ContactForm() {
       >
         {status === 'sending' ? 'Sending…' : 'Send Request →'}
       </button>
+      <PrivacyNote />
       <p className="text-xs text-gray-400 text-center">
         Or call directly:{' '}
         <a href="tel:07378349222" className="text-brand font-semibold">

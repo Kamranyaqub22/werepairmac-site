@@ -5,6 +5,11 @@ import { localLog, postedIndex } from '@/lib/socialLog';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
+// Without this, Next treats a GET handler that does not touch the request as
+// static and runs it once at BUILD time to cache the response. That sent the
+// reminder email on every deploy, and the real cron then got the cached body
+// instead of running. It must run on each request and never be prerendered.
+export const dynamic = 'force-dynamic';
 
 /**
  * The every-two-days nudge.
@@ -24,6 +29,10 @@ export async function GET(req: NextRequest) {
     if (auth !== `Bearer ${secret}`) {
       return NextResponse.json({ error: 'Not authorised.' }, { status: 401 });
     }
+  } else if (!req.headers.get('user-agent')?.startsWith('vercel-cron/')) {
+    // No secret configured: accept only Vercel's scheduler rather than anyone
+    // who finds the URL. Setting CRON_SECRET in Vercel is the stronger check.
+    return NextResponse.json({ error: 'Not authorised.' }, { status: 401 });
   }
 
   const log = localLog();

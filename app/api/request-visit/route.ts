@@ -1,14 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { parseEnquiry, clientIp } from '@/lib/enquiry';
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, phone, email, device, area, preferredDay, timeWindow, estimate, message } = body;
-
-    if (!name || !phone || !device || !area || !timeWindow) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    const parsed = parseEnquiry(await req.json(), clientIp(req.headers), { requireTimeWindow: true });
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: parsed.status });
     }
+    // Spam gets an ordinary success so bots learn nothing; it is never emailed.
+    if (parsed.spam) return NextResponse.json({ success: true });
+
+    // Escaped values for the HTML bodies; `raw` for subjects and addresses.
+    const { raw } = parsed;
+    const { name, phone, email, device, area, preferredDay, timeWindow, estimate, message, contactMethod } = parsed.safe;
 
     const smtpPort = Number(process.env.SMTP_PORT) || 587;
 
@@ -31,8 +36,8 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: `"We Repair Mac Website" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
-      replyTo: email || undefined,
-      subject: `New Visit Request - ${device} (${area})`,
+      replyTo: raw.email || undefined,
+      subject: `New Visit Request - ${raw.device} (${raw.area})`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: #0f2b5b; color: white; padding: 24px; border-radius: 8px 8px 0 0;">
@@ -49,6 +54,7 @@ export async function POST(req: NextRequest) {
               ${row('Area / Postcode', area)}
               ${row('Preferred date', preferredDay)}
               ${row('Preferred time', timeWindow)}
+              ${row('Prefers', contactMethod)}
               ${row('Details', message)}
             </table>
             <div style="margin-top: 20px; padding: 12px; background: #fef3c7; border-radius: 6px; font-size: 13px; color: #92400e;">
@@ -62,10 +68,10 @@ export async function POST(req: NextRequest) {
       `,
     });
 
-    if (email) {
+    if (raw.email) {
       await transporter.sendMail({
         from: `"We Repair Mac" <${process.env.SMTP_USER}>`,
-        to: email,
+        to: raw.email,
         replyTo: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
         subject: `We've received your visit request — We Repair Mac`,
         html: `
