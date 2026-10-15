@@ -763,8 +763,11 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'pc-making-loud-grinding-noise',
     title: 'PC Making a Loud Grinding Noise? Here Are The Prime Suspects',
+    // Shown for "computer making grinding noise" / "pc fan grinding noise"
+    // (Search Console, Jul–Oct 2026): 4.7k impressions at position ~7, 0.3% CTR.
+    metaTitle: 'Computer Making a Grinding Noise? Fan or Hard Drive?',
     updatedAt: '2026-08-31',
-    excerpt: 'Is your computer suddenly sounding like a lawnmower? It is usually a mechanical failure involving a fan or a dying hard drive.',
+    excerpt: 'A grinding noise from a computer almost always means a failing fan or a dying hard drive. How to tell which, and why to back up your files first.',
     category: 'Gaming PC Repair',
     serviceSlug: 'gaming-pc-repair-london',
     image: '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',
@@ -879,8 +882,11 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
   {
     slug: 'why-are-my-games-lagging-suddenly-pc',
     title: 'PC Games Suddenly Lagging? Quick Solutions for Frame Drops',
+    // Shown for "games suddenly lagging on pc" and close variants (Search
+    // Console, Jul–Oct 2026): 14k impressions at position ~7 but 0.4% CTR.
+    metaTitle: 'Games Suddenly Lagging on PC? Causes and Quick Fixes',
     updatedAt: '2026-08-31',
-    excerpt: 'Game stuttering that came out of nowhere is incredibly frustrating, but usually reversible by diagnosing background interference, drivers, or thermals.',
+    excerpt: 'Games that lag all of a sudden usually come down to a bad update, a driver conflict or a PC running too hot. Here is how to tell which one it is.',
     category: 'Gaming PC Repair',
     serviceSlug: 'gaming-pc-repair-london',
     image: '/images/nathan-anderson-KHSPGJ3zP0M-unsplash.jpg',

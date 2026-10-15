@@ -331,8 +331,8 @@ export const services: Service[] = [
       'Windows game optimisation',
       'Custom PC build and upgrades',
     ],
-    metaTitle: 'Gaming PC Repair London | Desktop & Laptop',
-    metaDescription: 'Gaming PC and laptop repair across London. GPU, PSU, overheating fixes. Alienware, ASUS ROG, MSI, custom builds. Call 07378 349222.',
+    metaTitle: 'Gaming Laptop, PC & GPU Repair London',
+    metaDescription: 'Gaming laptop, PC and graphics card (GPU) repair at your home across London. Overheating, crashes, no display, PSU faults. Alienware, ROG, MSI.',
     category: 'Windows Laptop & PC',
     pageUpdatedAt: '2026-08-09',
     relatedServiceSlugs: ['hardware-upgrades-london', 'windows-support-london', 'laptop-repair-london'],
@@ -581,8 +581,8 @@ export const services: Service[] = [
     // the generic terms ("console repair london" — the single biggest query
     // reaching this site) plus the topics with no page of their own: Nintendo
     // Switch, controllers, servicing and retro machines.
-    metaTitle: 'Console Repair London | PS5, Xbox & Switch',
-    metaDescription: 'Console repair at your home across London. PlayStation, Xbox, Nintendo Switch and retro machines. HDMI, overheating, disc drives, drift. No fix, no fee.',
+    metaTitle: 'Console Repair & Cleaning London | PS5, Xbox',
+    metaDescription: 'Console repair and cleaning at your home across London: PS5, Xbox and Switch. HDMI ports, overheating, disc drives and drift. No fix, no fee.',
     category: 'Consoles & Gaming',
     updatedAt: '2026-08-04',
     relatedServiceSlugs: ['playstation-repair-london', 'xbox-repair-london', 'ps5-hdmi-port-repair-london'],

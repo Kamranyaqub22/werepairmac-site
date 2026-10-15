@@ -5,6 +5,7 @@
  *   node scripts/gsc.mjs queries        [--days 28] [--limit 50]
  *   node scripts/gsc.mjs pages          [--days 28] [--limit 50]
  *   node scripts/gsc.mjs opportunities  [--days 90] [--min-impressions 20]
+ *   node scripts/gsc.mjs page-queries <url> [--days 90] [--limit 25]
  *   node scripts/gsc.mjs inspect <url>
  *   node scripts/gsc.mjs sitemaps
  *   node scripts/gsc.mjs sitemap-submit <sitemap url>   (needs Full permission)
@@ -219,6 +220,33 @@ switch (command) {
     print('Near-miss queries (position 4–20)', near, { site, range, minImpressions: min });
     break;
   }
+  case 'page-queries': {
+    // Which searches one page is shown for — the input for rewriting its title.
+    const url = positional[0];
+    if (!url) fail('Usage: node scripts/gsc.mjs page-queries <full page URL>');
+    const site = await resolveSite();
+    const range = dateRange(Number(flags.days) || 90);
+    const data = await call(`${sitePath(site)}/searchAnalytics/query`, {
+      method: 'POST',
+      body: {
+        ...range,
+        dimensions: ['query'],
+        dimensionFilterGroups: [{ filters: [{ dimension: 'page', operator: 'equals', expression: url }] }],
+        rowLimit: limit === 50 ? 25 : limit,
+      },
+    });
+    const rows = (data.rows ?? [])
+      .map((r) => ({
+        query: r.keys[0],
+        clicks: r.clicks,
+        impressions: r.impressions,
+        ctr: Number((r.ctr * 100).toFixed(1)),
+        position: Number(r.position.toFixed(1)),
+      }))
+      .sort((a, b) => b.impressions - a.impressions);
+    print('Searches this page is shown for', rows, { url, site, range });
+    break;
+  }
   case 'inspect': {
     const url = positional[0];
     if (!url) fail('Usage: node scripts/gsc.mjs inspect <full page URL>');
@@ -268,5 +296,5 @@ switch (command) {
     break;
   }
   default:
-    fail('Commands: sites | queries | pages | opportunities | inspect <url> | sitemaps | sitemap-submit <url> | sitemap-delete <url>   (options: --days --limit --site --json)');
+    fail('Commands: sites | queries | pages | opportunities | page-queries <url> | inspect <url> | sitemaps | sitemap-submit <url> | sitemap-delete <url>   (options: --days --limit --site --json)');
 }
