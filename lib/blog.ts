@@ -1422,6 +1422,44 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'The card is the most expensive part in a gaming PC and the one most often blamed unfairly, so the first job is proving whether it has actually failed. Diagnosing a PC with no display typically comes to £120–£300, and replacement cards are quoted as a part before anything is ordered.',
     preventionIntro:
       'Most graphics cards we see in trouble were killed slowly by heat and dust. These habits make a real difference to how long one lasts.',
+  },  {
+    slug: 'windows-10-end-of-support-upgrade-or-replace',
+    title: 'Windows 10 Support Has Ended: Upgrade, Replace Or Keep Going?',
+    metaTitle: 'Windows 10 Support Ended: Upgrade, Replace or Keep Going?',
+    publishedAt: '2026-10-15T16:12:00.000Z',
+    excerpt: 'Windows 10 left support in October 2025. How to tell if your PC can move to Windows 11, when an upgrade is worth it, and how long you can safely wait.',
+    category: 'Windows Support',
+    serviceSlug: 'windows-support-london',
+    image: '/images/nikolai-chernichenko-s6uS36SF91Y-unsplash.jpg',
+    readingTime: 5,
+    firstResponse: 'Windows 10 reached end of support on 14 October 2025, but your PC has not stopped working and you do not have to replace it this week. Home users can still enrol in Microsoft’s consumer Extended Security Updates, which Microsoft has extended to 12 October 2027, and that buys time to decide properly. The decision itself comes down to one question: does your processor appear on Microsoft’s supported list for Windows 11? If it does, the upgrade is free and usually worth doing now. If it does not, no amount of extra memory or a faster drive will change that, and the honest plan is to use the ESU window to choose a replacement.',
+    whySpeedMatters: 'A Windows 10 PC that is not enrolled in ESU has received no security fixes since October 2025, and every month adds known, published holes that nobody is patching. That matters most on the machine you bank, shop and do email on. Enrolling takes minutes and closes that gap, but it is security fixes only: no new features and no help from Microsoft when something else goes wrong, so it is a bridge to Windows 11 or a new machine, not a place to stay.',
+    quickChecks: [
+      'Run Microsoft’s free PC Health Check app. It tells you whether the PC can take Windows 11 and, if not, names the reason: processor, TPM, Secure Boot, memory or storage.',
+      'If the only blocker is TPM 2.0 or Secure Boot, do not write the PC off. Many machines have both built in but switched off in the firmware settings, which is a settings change rather than a hardware fault.',
+      'Open Settings, then Update & Security, then Windows Update. Eligible PCs are offered the Windows 11 upgrade there, and PCs that are not are usually offered ESU enrolment on the same page.',
+      'Before changing anything, check your files are backed up somewhere other than the PC itself, such as OneDrive or an external drive.',
+    ],
+    engineerChecks: [
+      'Confirm exactly why PC Health Check says no, because a disabled TPM or a disk set up the old way (legacy BIOS rather than UEFI) can usually be fixed, while an unsupported processor cannot.',
+      'Check the drive’s health and free space before any upgrade starts. A Windows 11 install on a failing hard drive is the most common way an upgrade goes wrong.',
+      'On an eligible PC that is slow, look at whether a solid-state drive or more memory would make Windows 11 pleasant to use; on a Windows laptop that work typically costs £120–£300, and £120–£400 on a desktop.',
+      'Where the PC is not eligible, enrol it in ESU so it is protected while you decide, and if you replace it, move your files, email and programs across to the new machine.',
+    ],
+    preventionTips: [
+      'Put the ESU end date, 12 October 2027, in your diary now, and plan to have moved to Windows 11 or a new PC a few months before it.',
+      'Ignore anything promising to force Windows 11 onto unsupported hardware. Microsoft does not guarantee updates on those machines, so you can end up back where you started.',
+      'When buying a replacement, check it ships with Windows 11 and a solid-state drive, and buy enough memory for the next five years rather than the next one.',
+    ],
+    sectionHeadings: [
+      'What the end of Windows 10 support means for your PC',
+      'Can your PC run Windows 11, or is it time to replace it?',
+      'Planning the move before the extended updates run out',
+    ],
+    diagnosisIntro:
+      'Most of the confusion about Windows 11 comes from mixing up two different kinds of “no”: a setting that is switched off, and a processor that is simply too old. Working out which one you have usually fits inside the one-hour minimum, at £120 an hour, with no callout charge on top.',
+    preventionIntro:
+      'The extension to 2027 removes the panic, not the deadline. A little planning now means the change happens when it suits you.',
   },
 ];
 
