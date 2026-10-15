@@ -87,3 +87,4 @@ makes the angle distinct and which existing post it must not echo.
 - 2026-10-08 — is-it-worth-repairing-old-macbook-pro
 - 2026-10-08 — macbook-air-screen-cracked-no-impact
 - 2026-10-08 — macbook-keyboard-replacement-top-case
+- 2026-10-15 — can-a-graphics-card-be-repaired (written by hand from Search Console data: "graphics card repair", 2.3k impressions)

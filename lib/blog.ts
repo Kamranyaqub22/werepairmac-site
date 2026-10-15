@@ -1384,6 +1384,45 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
     preventionIntro:
       'MacBook keyboards are sensitive to dirt and liquid, but a few habits keep most problems away.',
   },
+  {
+    slug: 'can-a-graphics-card-be-repaired',
+    title: 'Can A Graphics Card Be Repaired? What Is Fixable And What It Costs',
+    metaTitle: 'Can a Graphics Card Be Repaired? What It Costs',
+    publishedAt: '2026-10-15T14:00:00.000Z',
+    excerpt: 'Many graphics card faults are fans, heat or power rather than a dead chip. What can be fixed, what usually cannot, and what each typically costs.',
+    category: 'Gaming PC Repair',
+    serviceSlug: 'gaming-pc-repair-london',
+    image: '/images/blog/can-a-graphics-card-be-repaired.jpg',
+    readingTime: 5,
+    firstResponse: 'Often, yes. A large share of graphics card problems come from the parts around the chip rather than the chip itself: a worn fan, dried-out thermal paste and pads, a heatsink packed with dust, or a power supply that cannot keep up once a game starts. Those are fixable, and a cleaning, re-paste and cooling job on a gaming PC typically comes to £120–£180. What usually is not worth repairing is a failed graphics chip or video memory, because that repair rarely costs less than a replacement card.',
+    whySpeedMatters: 'A card that is overheating does not just run slower. It throttles, crashes and spends its life at temperatures that shorten it, and a fan that has started rattling will eventually stop altogether, at which point the card heats up within minutes of starting a game. Catching a cooling problem while it is still only a cooling problem is the difference between a clean and re-paste and a new card.',
+    quickChecks: [
+      'Check where the monitor is plugged in. On a desktop with a graphics card, the cable belongs in the card, not the motherboard ports above it.',
+      'Watch whether the problem appears on the start-up or BIOS screen. Lines or coloured blocks there point to hardware; problems that only appear in Windows or in games may be a driver.',
+      'Check the card\'s temperature with a free monitoring tool while you play. Steady readings in the high 80s °C and above, or sudden crashes as it climbs, suggest a cooling problem.',
+      'Listen to the card under load. Grinding, rattling or a fan that never spins up are signs of a worn fan rather than a failed chip.',
+    ],
+    engineerChecks: [
+      'Run the card under a real gaming load and log its temperatures, clock speeds and fan speeds, so the fault shows itself rather than being guessed at.',
+      'Rule the power supply in or out, because a supply that sags under load causes the same crashes and black screens as a failing card.',
+      'Inspect the power connectors on the card for scorching or melting, which needs dealing with before anything else.',
+      'Where it is needed, clean the heatsink, replace the thermal paste and pads, or fit a new fan, then re-test under load to confirm temperatures have come down.',
+    ],
+    preventionTips: [
+      'Clean dust filters and the inside of the case every few months, especially with pets or carpet.',
+      'Give the PC room to breathe: not boxed into a desk cupboard, and not on carpet.',
+      'Use a power supply with headroom for your card, and replace it rather than the card if it is the one struggling.',
+    ],
+    sectionHeadings: [
+      'What usually goes wrong with a graphics card',
+      'How we tell a failing card from a power or heat problem',
+      'Keeping a graphics card healthy',
+    ],
+    diagnosisIntro:
+      'The card is the most expensive part in a gaming PC and the one most often blamed unfairly, so the first job is proving whether it has actually failed. Diagnosing a PC with no display typically comes to £120–£300, and replacement cards are quoted as a part before anything is ordered.',
+    preventionIntro:
+      'Most graphics cards we see in trouble were killed slowly by heat and dust. These habits make a real difference to how long one lasts.',
+  },
 ];
 
 // Image variety: the generated blogs previously reused one image per category, so
@@ -1443,6 +1482,7 @@ const POSTS_WITH_DEDICATED_IMAGE = new Set<string>([
   'macbook-logic-board-repair-vs-replacement',
   'is-it-worth-repairing-old-macbook-pro',
   'macbook-keyboard-replacement-top-case',
+  'can-a-graphics-card-be-repaired',
 ]);
 
 function pickBlogImage(blueprint: BlogBlueprint): string {
