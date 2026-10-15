@@ -7,6 +7,8 @@
  *   node scripts/gsc.mjs opportunities  [--days 90] [--min-impressions 20]
  *   node scripts/gsc.mjs inspect <url>
  *   node scripts/gsc.mjs sitemaps
+ *   node scripts/gsc.mjs sitemap-submit <sitemap url>   (needs Full permission)
+ *   node scripts/gsc.mjs sitemap-delete <sitemap url>   (needs Full permission)
  *   Any command also takes --site <property> and --json.
  *
  * Credentials: a Google Cloud service account that has been added as a user
@@ -16,12 +18,15 @@
  *
  * No dependencies: the service-account JWT is signed with node:crypto and the
  * REST endpoints are called with fetch. The scope is read-only, so this cannot
- * change anything in Search Console.
+ * change anything in Search Console — except the two sitemap commands above.
  */
 import { createSign } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
-const SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly';
+// Read-only unless the command changes something (sitemap submit/delete),
+// which also needs the service account to hold Full permission on the property.
+const READ_SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly';
+const WRITE_SCOPE = 'https://www.googleapis.com/auth/webmasters';
 const API = 'https://searchconsole.googleapis.com';
 const DOMAIN = 'werepairmac.co.uk';
 // Performance data lags by about two days; ending the range earlier avoids
@@ -31,6 +36,7 @@ const LAG_DAYS = 2;
 /* ------------------------------------------------------------ args --- */
 
 const [command, ...rest] = process.argv.slice(2);
+const SCOPE = ['sitemap-submit', 'sitemap-delete'].includes(command) ? WRITE_SCOPE : READ_SCOPE;
 const flags = {};
 const positional = [];
 for (let i = 0; i < rest.length; i++) {
@@ -96,7 +102,13 @@ async function call(path, { method = 'GET', body } = {}) {
     headers: { Authorization: `Bearer ${auth.token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
     body: body ? JSON.stringify(body) : undefined,
   });
-  const data = await res.json().catch(() => ({}));
+  const text = await res.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    /* empty or non-JSON body, e.g. a successful DELETE */
+  }
   if (!res.ok) {
     const msg = data.error?.message || `HTTP ${res.status}`;
     if (res.status === 403) {
@@ -244,6 +256,17 @@ switch (command) {
     );
     break;
   }
+  case 'sitemap-submit':
+  case 'sitemap-delete': {
+    const feed = positional[0];
+    if (!feed) fail(`Usage: node scripts/gsc.mjs ${command} <full sitemap URL>`);
+    const site = await resolveSite();
+    await call(`${sitePath(site)}/sitemaps/${encodeURIComponent(feed)}`, {
+      method: command === 'sitemap-submit' ? 'PUT' : 'DELETE',
+    });
+    console.log(`${command === 'sitemap-submit' ? 'Submitted' : 'Removed'} ${feed} on ${site}.`);
+    break;
+  }
   default:
-    fail('Commands: sites | queries | pages | opportunities | inspect <url> | sitemaps   (options: --days --limit --site --json)');
+    fail('Commands: sites | queries | pages | opportunities | inspect <url> | sitemaps | sitemap-submit <url> | sitemap-delete <url>   (options: --days --limit --site --json)');
 }
