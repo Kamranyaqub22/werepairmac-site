@@ -2,6 +2,7 @@
  * Read-only Google Search Console access for werepairmac.co.uk.
  *
  *   node scripts/gsc.mjs sites
+ *   node scripts/gsc.mjs trend          [--days 28]   (daily totals, and vs the previous period)
  *   node scripts/gsc.mjs queries        [--days 28] [--limit 50]
  *   node scripts/gsc.mjs pages          [--days 28] [--limit 50]
  *   node scripts/gsc.mjs opportunities  [--days 90] [--min-impressions 20]
@@ -199,6 +200,32 @@ switch (command) {
     print('Properties this key can read', await listSites());
     break;
   }
+  case 'trend': {
+    // Daily totals for the period, plus the same-length period before it, so a
+    // change shows up as a change rather than as a number with no context.
+    const site = await resolveSite();
+    const cur = dateRange(days);
+    const prevEnd = new Date(new Date(cur.startDate).getTime() - 86_400_000);
+    const prev = {
+      startDate: new Date(prevEnd.getTime() - (days - 1) * 86_400_000).toISOString().slice(0, 10),
+      endDate: prevEnd.toISOString().slice(0, 10),
+    };
+    const total = async (range) => {
+      const d = await call(`${sitePath(site)}/searchAnalytics/query`, { method: 'POST', body: { ...range } });
+      const r = d.rows?.[0] ?? { clicks: 0, impressions: 0, ctr: 0, position: 0 };
+      return { ...range, clicks: r.clicks, impressions: r.impressions, ctr: Number((r.ctr * 100).toFixed(2)), position: Number(r.position.toFixed(1)) };
+    };
+    const daily = await call(`${sitePath(site)}/searchAnalytics/query`, {
+      method: 'POST',
+      body: { ...cur, dimensions: ['date'], rowLimit: 500 },
+    });
+    print('Daily totals', (daily.rows ?? []).map((r) => ({
+      date: r.keys[0], clicks: r.clicks, impressions: r.impressions,
+      ctr: Number((r.ctr * 100).toFixed(1)), position: Number(r.position.toFixed(1)),
+    })), { site });
+    print('This period vs the one before', [await total(prev), await total(cur)]);
+    break;
+  }
   case 'queries':
   case 'pages': {
     const site = await resolveSite();
@@ -296,5 +323,5 @@ switch (command) {
     break;
   }
   default:
-    fail('Commands: sites | queries | pages | opportunities | page-queries <url> | inspect <url> | sitemaps | sitemap-submit <url> | sitemap-delete <url>   (options: --days --limit --site --json)');
+    fail('Commands: sites | trend | queries | pages | opportunities | page-queries <url> | inspect <url> | sitemaps | sitemap-submit <url> | sitemap-delete <url>   (options: --days --limit --site --json)');
 }
