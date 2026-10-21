@@ -1,11 +1,5 @@
 import { StarIcon } from '@/components/Icons';
-import {
-  FALLBACK_RATING,
-  FALLBACK_REVIEWS,
-  FALLBACK_TOTAL,
-  GoogleReview,
-  fetchGoogleReviews,
-} from '@/lib/googleReviews';
+import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { GOOGLE_BUSINESS_LISTING_URL, GOOGLE_REVIEW_URL } from '@/lib/googleBusiness';
 
 function StarRow({ count, size = 'w-4 h-4' }: { count: number; size?: string }) {
@@ -21,10 +15,51 @@ function StarRow({ count, size = 'w-4 h-4' }: { count: number; size?: string }) 
 export default async function GoogleReviews() {
   const data = await fetchGoogleReviews();
 
-  const reviews: GoogleReview[] = data?.reviews?.length ? data.reviews : FALLBACK_REVIEWS;
-  const rating = data?.rating ?? FALLBACK_RATING;
-  const total = data?.total ?? FALLBACK_TOTAL;
-  const isLive = !!data;
+  // Only ever show reviews that came from Google. This used to fall back to a
+  // hardcoded set of named reviews and a "5.0 from 47" headline whenever the
+  // Places API was down (no snapshot is committed) or returned no five-star
+  // review among its five newest — invented testimonials presented under the
+  // Google logo as real ones. That breaches Google's review policy and, since
+  // April 2025, the DMCC Act ban on fake consumer reviews. Without real data,
+  // point visitors at the genuine reviews on Google instead.
+  if (!data?.reviews?.length) {
+    return (
+      <section className="py-14 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="section-heading">What our customers say</h2>
+          {data && (
+            <div className="mt-3 flex items-center justify-center gap-3">
+              <StarRow count={Math.round(data.rating)} size="w-5 h-5" />
+              <p className="text-sm">
+                <span className="font-bold text-gray-900 text-base">{data.rating.toFixed(1)}</span>
+                <span className="text-gray-400"> · {data.total} Google reviews</span>
+              </p>
+            </div>
+          )}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href={GOOGLE_BUSINESS_LISTING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Read our reviews on Google
+            </a>
+            <a
+              href={GOOGLE_REVIEW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-brand font-semibold underline decoration-dotted hover:text-brand/70 transition-colors"
+            >
+              Leave a review
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const { reviews, rating, total } = data;
 
   return (
     <section className="py-14 bg-gray-50 border-t border-gray-100">
@@ -38,7 +73,7 @@ export default async function GoogleReviews() {
             )}
           </div>
           <div className="flex items-center gap-3">
-            <StarRow count={5} size="w-5 h-5" />
+            <StarRow count={Math.round(rating)} size="w-5 h-5" />
             <div className="text-sm">
               <span className="font-bold text-gray-900 text-base">{rating.toFixed(1)}</span>
               <span className="text-gray-400"> · Google Reviews</span>
@@ -102,12 +137,6 @@ export default async function GoogleReviews() {
             </div>
           ))}
         </div>
-
-        {!isLive && (
-          <p className="mt-4 text-center text-xs text-gray-400">
-            Live Google reviews will appear automatically once the Places API credentials are configured.
-          </p>
-        )}
 
         {/* Footer CTA */}
         <div className="mt-8 text-center">

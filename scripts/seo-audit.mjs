@@ -256,6 +256,55 @@ for (const [slug, count] of inbound) {
     fail('spoke-inbound-below-floor', `${slug} — ${count} < ${MIN_SPOKE_INBOUND}`);
 }
 
+// ─── 5b. Internal links that go nowhere ──────────────────────────────────────
+// Section 5 counts links INTO pages that exist, so a link to a page that does
+// not exist was never looked at. lib/commonIssues.ts pointed every Mac service
+// page at /blog/mac-startup-disk-almost-full — a post that was never written —
+// and it shipped as a live 404 on every page carrying that fault card.
+//
+// Resolvable means: a built route serving 200 (noindex pages count — /review is
+// linked deliberately), a file in public/, or the source of a configured
+// redirect. Linking to a redirect works but wastes a hop, so it is a WARN.
+
+const builtRoutes = new Set();
+(function walk(dir, prefix = '') {
+  for (const entry of readdirSync(dir)) {
+    const full = path.join(dir, entry);
+    if (statSync(full).isDirectory()) walk(full, `${prefix}${entry}/`);
+    else if (entry.endsWith('.html') && servesOk(full)) builtRoutes.add(prefix + entry.slice(0, -5));
+    else if (entry.endsWith('.body')) builtRoutes.add(prefix + entry.slice(0, -5));
+  }
+})(APP);
+const publicFiles = new Set();
+(function walk(dir, prefix = '') {
+  if (!existsSync(dir)) return;
+  for (const entry of readdirSync(dir)) {
+    const full = path.join(dir, entry);
+    if (statSync(full).isDirectory()) walk(full, `${prefix}${entry}/`);
+    else publicFiles.add(prefix + entry);
+  }
+})('public');
+const redirectRes = JSON.parse(readFileSync('.next/routes-manifest.json', 'utf8'))
+  .redirects.filter((r) => !r.internal && !r.has)
+  .map((r) => new RegExp(r.regex));
+
+const brokenLinks = new Map();
+const redirectLinks = new Map();
+for (const [slug, html] of pages) {
+  for (const m of html.matchAll(/href="\/([^"#?]*)/g)) {
+    const target = m[1].replace(/\/$/, '');
+    if (target.startsWith('_next/') || target.startsWith('api/')) continue;
+    if (builtRoutes.has(target || 'index') || publicFiles.has(target)) continue;
+    const bucket = redirectRes.some((re) => re.test(`/${target}`)) ? redirectLinks : brokenLinks;
+    if (!bucket.has(target)) bucket.set(target, new Set());
+    bucket.get(target).add(slug);
+  }
+}
+const describe = (target, from) =>
+  `/${target} — linked from ${from.size} page(s), e.g. /${[...from][0].replace(/^index$/, '')}`;
+for (const [target, from] of brokenLinks) fail('broken-internal-link', describe(target, from));
+for (const [target, from] of redirectLinks) warn('internal-link-to-redirect', describe(target, from));
+
 // ─── 6. Thin pages ───────────────────────────────────────────────────────────
 
 for (const [slug, html] of pages) {

@@ -68,38 +68,46 @@ export async function POST(req: NextRequest) {
       `,
     });
 
+    // The enquiry has reached the inbox at this point, so the confirmation is
+    // best-effort. If the customer's address is rejected (a typo, a dead
+    // domain) the form must still report success — an error here made them
+    // think the request failed and either resend it or give up and leave.
     if (raw.email) {
-      await transporter.sendMail({
-        from: `"We Repair Mac" <${process.env.SMTP_USER}>`,
-        to: raw.email,
-        replyTo: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
-        subject: `We've received your visit request — We Repair Mac`,
-        html: `
-          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-            <div style="background: #0f2b5b; color: white; padding: 24px; border-radius: 8px 8px 0 0;">
-              <h2 style="margin: 0; font-size: 20px;">Thanks, ${name}! We've got your request.</h2>
-              <p style="margin: 6px 0 0; opacity: 0.85; font-size: 14px;">We'll call or message you shortly to confirm a visit time that suits you.</p>
-            </div>
-            <div style="background: #f9fafb; padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
-              <p style="margin: 0 0 16px; color: #374151; font-size: 15px;">Here's what you submitted:</p>
-              <table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
-                ${row('Device / Fault', device)}
-                ${row('Estimated price', estimate)}
-                ${row('Area / Postcode', area)}
-                ${row('Preferred date', preferredDay)}
-                ${row('Preferred time', timeWindow)}
-              </table>
-              <div style="margin-top: 20px; padding: 14px 16px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #3b82f6;">
-                <p style="margin: 0; font-size: 14px; color: #1e3a8a; font-weight: 600;">⏱ We'll be in touch shortly to confirm.</p>
-                <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">Any estimate shown is a guide only — the final price is confirmed on site before any work. If it's urgent, call <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">07378 349222</a>.</p>
+      try {
+        await transporter.sendMail({
+          from: `"We Repair Mac" <${process.env.SMTP_USER}>`,
+          to: raw.email,
+          replyTo: process.env.CONTACT_EMAIL || 'info@werepairmac.co.uk',
+          subject: `We've received your visit request — We Repair Mac`,
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+              <div style="background: #0f2b5b; color: white; padding: 24px; border-radius: 8px 8px 0 0;">
+                <h2 style="margin: 0; font-size: 20px;">Thanks, ${name}! We've got your request.</h2>
+                <p style="margin: 6px 0 0; opacity: 0.85; font-size: 14px;">We'll call or message you shortly to confirm a visit time that suits you.</p>
               </div>
-              <p style="margin: 20px 0 0; font-size: 12px; color: #9ca3af; text-align: center;">
-                We Repair Mac &bull; <a href="https://www.werepairmac.co.uk" style="color: #9ca3af;">werepairmac.co.uk</a>
-              </p>
+              <div style="background: #f9fafb; padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
+                <p style="margin: 0 0 16px; color: #374151; font-size: 15px;">Here's what you submitted:</p>
+                <table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+                  ${row('Device / Fault', device)}
+                  ${row('Estimated price', estimate)}
+                  ${row('Area / Postcode', area)}
+                  ${row('Preferred date', preferredDay)}
+                  ${row('Preferred time', timeWindow)}
+                </table>
+                <div style="margin-top: 20px; padding: 14px 16px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                  <p style="margin: 0; font-size: 14px; color: #1e3a8a; font-weight: 600;">⏱ We'll be in touch shortly to confirm.</p>
+                  <p style="margin: 6px 0 0; font-size: 13px; color: #1e40af;">Any estimate shown is a guide only — the final price is confirmed on site before any work. If it's urgent, call <a href="tel:07378349222" style="color: #1e40af; font-weight: bold;">07378 349222</a>.</p>
+                </div>
+                <p style="margin: 20px 0 0; font-size: 12px; color: #9ca3af; text-align: center;">
+                  We Repair Mac &bull; <a href="https://www.werepairmac.co.uk" style="color: #9ca3af;">werepairmac.co.uk</a>
+                </p>
+              </div>
             </div>
-          </div>
-        `,
-      });
+          `,
+        });
+      } catch (err) {
+        console.error('Visit request confirmation email failed (enquiry was delivered):', err);
+      }
     }
 
     return NextResponse.json({ success: true });
