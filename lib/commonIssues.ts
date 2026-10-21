@@ -199,7 +199,7 @@ export const ISSUE_AREAS: IssueArea[] = [
         where: 'remote',
         serviceSlug: 'macbook-repair-london',
         price: ['macbook', 'slow'],
-        blogSlug: 'mac-startup-disk-almost-full',
+        blogSlug: 'imac-running-slow-hard-drive-upgrade',
       },
       {
         id: 'mac-liquid',
