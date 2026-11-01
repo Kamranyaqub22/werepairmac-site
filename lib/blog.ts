@@ -1460,6 +1460,44 @@ const BLOG_BLUEPRINTS: BlogBlueprint[] = [
       'Most of the confusion about Windows 11 comes from mixing up two different kinds of “no”: a setting that is switched off, and a processor that is simply too old. Working out which one you have usually fits inside the one-hour minimum, at £120 an hour, with no callout charge on top.',
     preventionIntro:
       'The extension to 2027 removes the panic, not the deadline. A little planning now means the change happens when it suits you.',
+  },  {
+    slug: 'fake-tech-support-call-remote-access-what-to-do',
+    title: 'Let A Fake Tech Support Caller Onto Your Computer? What To Do Now',
+    metaTitle: 'Let a Fake Support Caller On Your Computer? What To Do Now',
+    publishedAt: '2026-11-01T08:54:00.000Z',
+    excerpt: 'Gave a fake support caller remote access? Disconnect, ring your bank on 159, change passwords from another device, then get the remote software removed.',
+    category: 'Virus Removal',
+    serviceSlug: 'virus-removal-london',
+    image: '/images/albert-vinas-F3t-AzyTbyU-unsplash.jpg',
+    readingTime: 5,
+    firstResponse: 'Disconnect the computer from the internet, then ring your bank’s fraud team from a different phone: dialling 159 reaches most major UK banks. After that, the job is to remove the remote-access program the caller had you install, make sure nothing was left behind to let them back in, and change your important passwords from a device they never touched. Microsoft and Apple do not ring people out of the blue about problems with their computer, so if the call came to you, it was a scam whatever was shown on the screen.',
+    whySpeedMatters: 'These callers rarely stop at one session. A common move is to offer a “refund” and ask you to log into online banking while they watch, or to leave the remote program set up so it accepts connections without anyone at the desk approving them. Every hour the machine stays online with that program on it, and every hour your email password stays the same, is a chance for them to come back. A bank can sometimes stop a payment that is reported quickly; once it has cleared, that gets much harder.',
+    quickChecks: [
+      'Turn off Wi-Fi on the computer or unplug its network cable. Closing the window is not enough, because remote programs keep running in the background.',
+      'Ring your bank on 159 or the number on the back of your card, from a different phone. Tell them you gave someone remote access and whether you logged into banking during the call.',
+      'From your phone or another computer, change your email password first, then online banking and any account with a saved card, and turn on two-step verification for your email.',
+      'Note down the program they had you download, the number that called and any payments made, then report it to Report Fraud on 0300 123 2040 or at reportfraud.police.uk.',
+    ],
+    engineerChecks: [
+      'Find and remove every remote-access program installed during the call, including any set to start automatically or accept unattended connections, and check the built-in remote tools in Windows and macOS were not left switched on.',
+      'Look for anything planted to get back in: new user accounts, scheduled tasks, unfamiliar browser extensions, and on a Mac, login items and configuration profiles.',
+      'Check your email account for forwarding rules or filters added during the session, and sign out any devices you do not recognise. A hidden forwarding rule keeps sending copies of your mail even after every password has changed.',
+      'Go through browser history and recently opened files from the time of the call, so you know which accounts and documents were actually seen, and confirm the machine is clean before it goes back online.',
+    ],
+    preventionTips: [
+      'Treat any unexpected call, text or pop-up about your computer as a scam, however official it sounds. Hang up and ring the company on a number you looked up yourself.',
+      'Never install software or read out a code because someone on the phone asked you to. Genuine remote support starts with you contacting the company, never the other way round.',
+      'Keep a backup and two-step verification on your email, so that if the worst happens again the damage stops at the computer.',
+    ],
+    sectionHeadings: [
+      'The first hour after a scam call',
+      'Making sure the caller cannot get back in',
+      'Recognising the next call',
+    ],
+    diagnosisIntro:
+      'Ending the call does not end the access: the program usually stays installed, and some callers set it up to reconnect without asking. A proper clean-up removes that access, looks for anything planted alongside it and tells you what was actually exposed. If the computer still starts, it can often be done remotely the same day, typically £120–£150 on a Mac or Windows laptop and £120–£180 on a desktop. If you would rather nobody connected remotely again, an engineer can come to you instead, with no callout charge.',
+    preventionIntro:
+      'People who have been caught once are often contacted again, sometimes by someone claiming they can recover the money lost the first time. Knowing the pattern is the best defence.',
   },
 ];
 
