@@ -128,7 +128,7 @@ export default function HomePage() {
                 {[
                   { Icon: TruckIcon, title: 'No shop visit - ever', desc: 'Other repair services make you drop off your device. We come to your home or office. No courier, no waiting, no risk of damage in transit.' },
                   { Icon: ClockIcon, title: 'Available 24/7', desc: 'We are available 24 hours a day, 7 days a week. Call or book any time — we work around your schedule.' },
-                  { Icon: WrenchIcon, title: 'Fixed in front of you', desc: 'We diagnose and repair on-site while you watch. You can see exactly what we are doing and ask questions throughout.' },
+                  { Icon: WrenchIcon, title: 'Fixed in front of you', desc: 'Most repairs are diagnosed and fixed on-site while you watch. You can see exactly what we are doing and ask questions throughout.' },
                   { Icon: ShieldCheckIcon, title: '90-day warranty included', desc: 'Every repair is backed by a 90-day parts and labour warranty. If the same fault returns, we fix it free.' },
                 ].map(({ Icon, title, desc }) => (
                   <div key={title} className="flex items-start gap-4">
