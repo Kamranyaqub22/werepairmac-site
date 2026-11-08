@@ -217,5 +217,42 @@
     ],
     "outcome": "The repair took about an hour at the customer's home, and the MacBook was back to normal with a working trackpad — a happy customer. The work is covered by our 90-day warranty, and if we can't fix a fault there's no fee.",
     "publishedAt": "2026-10-09"
+  },
+  {
+    "slug": "macbook-air-a1466-battery-shutdown-new-malden",
+    "title": "MacBook Air A1466 shutting down at 50% battery",
+    "metaTitle": "MacBook Air A1466 shutting off at 50% battery",
+    "excerpt": "A MacBook Air (A1466) was switching off with around half its charge showing. System Information reported 1,243 cycles and a battery condition of Service Recommended.",
+    "metaDescription": "MacBook Air A1466 turning off at 50% charge. System Information showed 1,243 cycles and Service Recommended — battery identified for replacement.",
+    "locationSlug": "orpington",
+    "serviceSlug": "macbook-battery-replacement-london",
+    "device": "MacBook Air (A1466)",
+    "fault": "turning off at 50 percent battery",
+    "visitType": "on-site",
+    "turnaround": "Same Day",
+    "partsUsed": [
+      "Replacement MacBook Air A1466 battery"
+    ],
+    "photos": [
+      {
+        "src": "/images/repairs/macbook-air-a1466-battery-shutdown-new-malden-1.jpg",
+        "alt": "macOS System Information Power page showing battery cycle count 1,243 and condition Service Recommended on a MacBook Air",
+        "caption": "System Information reported 1,243 cycles and a condition of Service Recommended.",
+        "width": 1350,
+        "height": 1800
+      }
+    ],
+    "theCall": "The customer got in touch about a MacBook Air that kept switching itself off while the battery indicator still showed around 50 percent. It ran without trouble on mains power. We arranged to look at it and check the battery health.",
+    "diagnosis": [
+      "System Information reported the battery condition as Service Recommended, with a cycle count of 1,243.",
+      "Full charge capacity was logged at 3,270 mAh with the state of charge at 100 percent, while the machine was neither charging nor registering as fully charged.",
+      "Readings and symptoms together pointed to a worn battery that could no longer hold its reported charge under load, so the Mac cut out part way through a discharge.",
+      "The machine was identified as an A1466 MacBook Air, which takes a model-specific battery."
+    ],
+    "theRepair": [
+      "We confirmed the battery as the faulty part and specified a replacement for the A1466 chassis."
+    ],
+    "outcome": "The battery was identified as the cause of the shutdowns and a replacement A1466 battery was specified. All our work carries a 90-day warranty and we operate no fix, no fee.",
+    "publishedAt": "2026-11-07"
   }
 ]
