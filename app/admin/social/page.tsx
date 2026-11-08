@@ -90,7 +90,9 @@ export default function SocialAdminPage() {
     try {
       await call('/api/admin/session', { password });
       setSignedIn(true);
-      await loadDraft([]);
+      // Arriving from "Post this repair to Facebook" carries ?topic=repair:<slug>.
+      const topic = new URLSearchParams(window.location.search).get('topic') ?? undefined;
+      await loadDraft([], topic);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign in failed.');
     } finally {
@@ -98,13 +100,13 @@ export default function SocialAdminPage() {
     }
   }
 
-  async function loadDraft(skip: string[]) {
+  async function loadDraft(skip: string[], topicId?: string) {
     setBusy('draft');
     setError(null);
     setPublished(null);
     setAttached([]);
     try {
-      const data = await call<Draft>('/api/admin/social/draft', { skip });
+      const data = await call<Draft>('/api/admin/social/draft', topicId ? { topicId } : { skip });
       setDraft(data);
       setMessage(data.composed);
       setPrompt(data.caption.imagePrompt);
@@ -122,7 +124,14 @@ export default function SocialAdminPage() {
       }
       setAttached(list);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not prepare a post.');
+      const msg = err instanceof Error ? err.message : 'Could not prepare a post.';
+      // A repair published moments ago is not in the live site until Vercel
+      // finishes rebuilding, so the console cannot find it yet.
+      setError(
+        topicId && msg.startsWith('No topic')
+          ? 'That repair is not live yet — the site takes about two minutes to update after publishing. Reload this page in a minute or two.'
+          : msg
+      );
     } finally {
       setBusy(null);
     }

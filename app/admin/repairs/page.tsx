@@ -433,11 +433,18 @@ export default function AdminRepairsPage() {
           <div className="card p-6 space-y-4">
             <h2 className="text-2xl font-bold text-gray-900">Committed</h2>
             <p className="text-gray-600 leading-relaxed">
-              Vercel is rebuilding now — the page is usually live in about two minutes.
+              Vercel is rebuilding now — the page is usually live in about two minutes. Give it that
+              long before posting it to Facebook, so the post can link to the live page.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={result.url} target="_blank" rel="noreferrer" className="btn-primary">
                 View the page
+              </a>
+              <a
+                href={`/admin/social?topic=${encodeURIComponent(`repair:${result.url.split('/').filter(Boolean).pop()}`)}`}
+                className="btn-primary"
+              >
+                Post this repair to Facebook
               </a>
               <a href={result.commitUrl} target="_blank" rel="noreferrer" className="btn-outline">
                 See the commit
