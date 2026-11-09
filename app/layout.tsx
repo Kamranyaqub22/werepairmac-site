@@ -10,7 +10,10 @@ import CookieConsent from '@/components/CookieConsent';
 import CallTracking from '@/components/CallTracking';
 import { hasCaseStudies } from '@/lib/caseStudies';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+// `variable` exposes the font as --font-inter, which resolves to
+// "'Inter', 'Inter Fallback'". The fallback face carries size-adjusted metrics
+// so text does not jump when the webfont swaps in (no layout shift).
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: {
@@ -79,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={inter.className}>
+    <html lang="en-GB" className={`${inter.variable} ${inter.className}`}>
       <head>
         <LocalBusinessSchema />
         <meta name="geo.region" content="GB-LND" />

@@ -20,6 +20,15 @@ const retiredComboRedirects = retired.map((slug) => {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    // Next 16 only serves qualities listed here (default [75]) and would
+    // silently raise every quality={45} image to 75 — heavier pages, slower
+    // LCP. 45 is used deliberately on large photos across the site.
+    qualities: [45, 75],
+    // Next 16 dropped 16 from the default list; keep the Next 14 set so the
+    // generated srcsets, and the image URLs already cached, stay the same.
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
   // Response headers were absent on 99.7% of URLs in the site crawl. None of
   // these affect ranking, but they are cheap and clear three standing warnings.
   //
